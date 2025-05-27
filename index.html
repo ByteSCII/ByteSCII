@@ -132,8 +132,8 @@
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
 
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <a href="#" class="flex items-center">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
                 <span id="byte-logo-text" class="text-4xl font-extrabold text-byte-accent-cyan block">Byte</span>
             </a>
 
@@ -181,16 +181,15 @@
                             <li><a href="contacto-subpagina2.html" class="block px-4 py-2 hover:bg-gray-700 rounded-md">Subpágina 2 de Contacto</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                                    shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 ml-8 hover:-translate-y-1">
-                                ¡Empecemos tu Proyecto!
-                        </a>
-                    </li>
                 </ul>
             </nav>
 
-            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+            <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                        shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 hover:-translate-y-1 ml-auto">
+                    ¡Empecemos tu Proyecto!
+            </a>
+
+            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -198,61 +197,8 @@
         </div>
     </header>
 
-    <nav id="mobile-menu" class="sm:hidden bg-byte-secondary-dark shadow-lg py-4 px-4 hidden fixed top-20 w-full z-40">
-        <ul class="flex flex-col space-y-4">
-            <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-inicio-mobile">Inicio</a>
-                <ul id="dropdown-inicio-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
-                    <li><a href="inicio-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Inicio</a></li>
-                    <li><a href="inicio-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Inicio</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">Servicios</a>
-                <ul id="dropdown-servicios-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
-                    <li><a href="servicios-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Servicios</a></li>
-                    <li><a href="servicios-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Servicios</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">Portafolio</a>
-                <ul id="dropdown-portafolio-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
-                    <li><a href="portafolio-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Portafolio</a></li>
-                    <li><a href="portafolio-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Portafolio</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-proceso-mobile">Proceso</a>
-                <ul id="dropdown-proceso-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
-                    <li><a href="proceso-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Proceso</a></li>
-                    <li><a href="proceso-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Proceso</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">Reseñas</a>
-                <ul id="dropdown-reseñas-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
-                    <li><a href="reseñas-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Reseñas</a></li>
-                    <li><a href="reseñas-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Reseñas</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">Contacto</a>
-                <ul id="dropdown-contacto-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
-                    <li><a href="contacto-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Contacto</a></li>
-                    <li><a href="contacto-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Contacto</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                            shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 hover:-translate-y-1 text-center mt-4">
-                        ¡Empecemos tu Proyecto!
-                </a>
-            </li>
-        </ul>
-    </nav>
-
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Background+Image" alt="Imagen de fondo de la sección de inicio"
+        <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
@@ -272,6 +218,63 @@
             </a>
         </div>
     </section>
+
+    <div id="mobile-modern-menu" class="sm:hidden bg-byte-secondary-dark py-4 px-4 shadow-lg z-30
+                                         max-h-0 overflow-hidden opacity-0 pointer-events-none
+                                         transition-all duration-500 ease-in-out">
+        <div class="container mx-auto">
+            <ul class="flex flex-col space-y-4 text-center">
+                <li>
+                    <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-inicio-mobile">Inicio</a>
+                    <ul id="dropdown-inicio-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
+                        <li><a href="inicio-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Inicio</a></li>
+                        <li><a href="inicio-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Inicio</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">Servicios</a>
+                    <ul id="dropdown-servicios-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
+                        <li><a href="servicios-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Servicios</a></li>
+                        <li><a href="servicios-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Servicios</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">Portafolio</a>
+                    <ul id="dropdown-portafolio-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
+                        <li><a href="portafolio-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Portafolio</a></li>
+                        <li><a href="portafolio-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Portafolio</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-proceso-mobile">Proceso</a>
+                    <ul id="dropdown-proceso-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
+                        <li><a href="proceso-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Proceso</a></li>
+                        <li><a href="proceso-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Proceso</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">Reseñas</a>
+                    <ul id="dropdown-reseñas-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
+                        <li><a href="reseñas-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Reseñas</a></li>
+                        <li><a href="reseñas-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Reseñas</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">Contacto</a>
+                    <ul id="dropdown-contacto-mobile" class="hidden pl-4 mt-2 space-y-2 js-dropdown-menu-mobile">
+                        <li><a href="contacto-subpagina1.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 1 de Contacto</a></li>
+                        <li><a href="contacto-subpagina2.html" class="block text-byte-text-light text-base hover:text-byte-accent-cyan transition duration-300">Subpágina 2 de Contacto</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                                shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 hover:-translate-y-1 text-center mt-4">
+                            ¡Empecemos tu Proyecto!
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
     <section id="servicios" class="py-20 bg-byte-light-bg text-byte-text-dark">
         <div class="container mx-auto px-4">
@@ -409,8 +412,9 @@
                     Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
             </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
-                                            shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
-                    ¡Solicita tu Presupuesto Gratuito!
+                                            shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
+                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
+                    ¡Hablemos de tu Proyecto!
             </a>
         </div>
     </section>
@@ -519,31 +523,25 @@
             easing: 'ease-in-out', /* Función de temporización para la animación */
         });
 
-        /* Script para el menú móvil (mostrar/ocultar al hacer clic en el botón de hamburguesa) */
+        /* Script para el menú móvil (mostrar/ocultar con efecto de caja) */
         const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileModernMenu = document.getElementById('mobile-modern-menu');
 
-        if (mobileMenuButton && mobileMenu) {
+        if (mobileMenuButton && mobileModernMenu) {
             mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden'); /* Alterna la clase 'hidden' */
+                mobileModernMenu.classList.toggle('max-h-0');
+                mobileModernMenu.classList.toggle('opacity-0');
+                mobileModernMenu.classList.toggle('pointer-events-none'); // Deshabilita clics cuando está oculto
             });
 
-            /* Cierra el menú móvil si se hace clic fuera o en un enlace */
-            const closeMobileMenu = () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
+            // Función para cerrar el menú móvil principal (la "caja")
+            const closeMobileModernMenu = () => {
+                mobileModernMenu.classList.add('max-h-0', 'opacity-0', 'pointer-events-none');
             };
 
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-
-            // Cierra el menú móvil si se hace clic fuera de él
-            document.addEventListener('click', (event) => {
-                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-                    closeMobileMenu();
-                }
+            // Cierra el menú móvil si se hace clic en cualquier enlace dentro de él
+            mobileModernMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', closeMobileModernMenu);
             });
         }
 
@@ -552,7 +550,7 @@
             const dropdownToggles = document.querySelectorAll('.js-dropdown-toggle');
             const dropdownTogglesMobile = document.querySelectorAll('.js-dropdown-toggle-mobile');
 
-            // Función para cerrar todos los dropdowns abiertos
+            // Función para cerrar todos los dropdowns abiertos (escritorio y móvil)
             const closeAllDropdowns = () => {
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     menu.classList.add('hidden');
@@ -572,12 +570,7 @@
                     const dropdownMenu = document.getElementById(dropdownId);
 
                     if (dropdownMenu) {
-                        // Cierra otros dropdowns antes de abrir el actual
-                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            if (menu.id !== dropdownId) {
-                                menu.classList.add('hidden');
-                            }
-                        });
+                        closeAllDropdowns(); // Cierra otros dropdowns (escritorio y móvil)
                         dropdownMenu.classList.toggle('hidden');
                     }
                 });
@@ -593,7 +586,7 @@
                     const dropdownMenu = document.getElementById(dropdownId);
 
                     if (dropdownMenu) {
-                        // Cierra otros dropdowns móviles antes de abrir el actual
+                        // Cierra otros dropdowns móviles pero mantiene el menú móvil principal abierto
                         document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                             if (menu.id !== dropdownId) {
                                 menu.classList.add('hidden');
@@ -604,15 +597,21 @@
                 });
             });
 
-            // Cierra los dropdowns si se hace clic fuera de ellos
+            // Cierra los dropdowns y el menú móvil principal si se hace clic fuera de ellos
             document.addEventListener('click', (event) => {
-                // Para los menús de escritorio
+                // Cierra los dropdowns de escritorio si se hace clic fuera
                 if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
-                    closeAllDropdowns();
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        menu.classList.add('hidden');
+                    });
                 }
-                // Para los menús móviles (ya manejado parcialmente por closeMobileMenu, pero este asegura más)
-                if (!event.target.closest('.js-dropdown-toggle-mobile') && !event.target.closest('.js-dropdown-menu-mobile')) {
-                    closeAllDropdowns(); // Esto cerrará ambos si están abiertos
+
+                // Cierra el menú móvil "box" si se hace clic fuera del botón o del menú mismo
+                if (mobileMenuButton && mobileModernMenu) { // Asegurarse de que los elementos existen
+                    if (!mobileMenuButton.contains(event.target) && !mobileModernMenu.contains(event.target)) {
+                        mobileModernMenu.classList.add('max-h-0', 'opacity-0', 'pointer-events-none');
+                        closeAllDropdowns(); // También cierra cualquier submenú abierto dentro del menú móvil
+                    }
                 }
             });
         });
