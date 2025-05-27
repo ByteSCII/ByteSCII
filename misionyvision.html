@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte - Nuestra Visión y Misión</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    // Fuentes personalizadas
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    // Colores personalizados
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A',
+                        'byte-accent-cyan': '#00FFFF', // Cian eléctrico
+                        'byte-light-bg': '#F8FAFC',
+                        'byte-text-dark': '#374151',
+                        'byte-text-light': '#F9FAFB',
+                        'byte-secondary-dark': '#1A202C',
+                        'whatsapp-green': '#25D366', /* Color oficial de WhatsApp */
+                        'whatsapp-dark-green': '#128C7E', /* Tono más oscuro para hover */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Importación de fuentes de Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Animación de brillo para los enlaces del menú (más suave) */
+        @keyframes menu-glow {
+            0% {
+                color: #00FFFF;
+                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
+            }
+            50% {
+                color: #80FFFF;
+                text-shadow: 0 0 5px #00FFFF, 0 0 8px #00FFFF;
+            }
+            100% {
+                color: #00FFFF;
+                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
+            }
+        }
+
+        .menu-link-glow {
+            animation: menu-glow 2s infinite alternate ease-in-out;
+        }
+
+        /* Estilo para el borde de texto (text-stroke) */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF; /* Para navegadores basados en WebKit */
+            text-stroke: 1.5px #00FFFF; /* Estándar */
+            color: #FFFFFF; /* Color de relleno del texto */
+            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran */
+        }
+
+        /* Animación de "caída" al hacer scroll para AOS */
+        @keyframes fall-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Clase aplicada por AOS.js para animar los elementos */
+        .aos-animate {
+            animation-name: fall-in;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Estilos para el contenedor del mapa de Google Maps (responsive) */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 (altura / ancho) */
+            height: 0;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Animación de sacudida y pulso para el botón de WhatsApp (no se usa en esta página, pero se mantiene el estilo) */
+        @keyframes shake-pulse {
+            0%, 100% {
+                transform: translateX(0) scale(1);
+                box-shadow: 0 0 0 rgba(37, 211, 102, 0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-5px) scale(1.05);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(5px) scale(1.05);
+            }
+            0%, 100% {
+                box-shadow: 0 0 0 rgba(37, 211, 102, 0);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
+            }
+        }
+
+        .shake-pulse-animation {
+            animation: shake-pulse 0.8s ease-in-out;
+        }
+
+        /* Clase para rotar el icono de flecha (no se usa en esta página, pero se mantiene el estilo) */
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Estilos para el texto del logo "Byte" */
+        #byte-logo-text {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
+
+    <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center sm:flex-grow sm:justify-start">
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2">
+                <div class="flex flex-col items-start">
+                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span>
+                    <p class="text-sm text-byte-text-light opacity-80 mt-0.5">
+                        <span class="block">Tu visión,</span>
+                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span>
+                    </p>
+                </div>
+            </a>
+
+            <div class="hidden sm:flex items-center">
+                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+                    Volver al Inicio
+                </a>
+            </div>
+
+            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <nav id="mobile-menu" class="sm:hidden bg-transparent py-4 px-4 hidden fixed top-20 w-full z-40">
+        <ul class="flex flex-col space-y-4 text-center">
+            <li>
+                <a href="index.html" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
+                    Volver al Inicio
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="vision-mision" class="py-20 bg-byte-dark-bg text-byte-text-light flex-grow">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
+                data-aos="fade-up" data-aos-duration="800">Nuestra Visión y Misión</h2>
+
+            <div class="space-y-12">
+                <div class="bg-byte-secondary-dark p-8 rounded-xl shadow-lg border border-byte-accent-cyan"
+                     data-aos="fade-right" data-aos-delay="200">
+                    <h3 class="text-3xl font-bold mb-4 text-stroke-cyan">Nuestra Visión</h3>
+                    <p class="text-lg text-byte-text-light leading-relaxed">
+                        Ser la agencia líder en la creación de soluciones digitales innovadoras que transformen la presencia en línea de nuestros clientes, impulsando su crecimiento y éxito en el mundo digital.
+                    </p>
+                </div>
+
+                <div class="bg-byte-secondary-dark p-8 rounded-xl shadow-lg border border-byte-accent-cyan"
+                     data-aos="fade-left" data-aos-delay="400">
+                    <h3 class="text-3xl font-bold mb-4 text-stroke-cyan">Nuestra Misión</h3>
+                    <p class="text-lg text-byte-text-light leading-relaxed">
+                        Proporcionar servicios de diseño web y marketing digital de alta calidad, personalizados y accesibles, que ayuden a las empresas a alcanzar sus objetivos comerciales.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
+        <p>© 2024 Byte. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white">Términos de Servicio</a>.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Instagram
+            </a>
+            <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="inline-block align-middle mr-1">
+                    <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                </svg>
+                WhatsApp
+            </a>
+        </div>
+    </footer>
+
+    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            mirror: false,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Funcionalidad del menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuButton.querySelector('svg path');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+            } else {
+                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+            }
+        });
+
+        // Cerrar el menú móvil al hacer clic en un enlace
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
+        });
+
+        // No hay menús desplegables de escritorio en esta página, así que se elimina la lógica correspondiente.
+        // No hay menús desplegables móviles adicionales en esta página, así que se elimina la lógica correspondiente.
+    </script>
+</body>
+</html>
