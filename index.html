@@ -632,12 +632,34 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
+        // Se ha movido aquí para asegurar que AOS esté definido antes de ser llamado.
         AOS.init({
             once: true, // Las animaciones solo se ejecutan una vez al hacer scroll hacia abajo
             mirror: false, // No animar al hacer scroll hacia arriba
             offset: 100, // Desplazamiento (en px) desde el punto de activación original
             duration: 800, // Duración de la animación (en ms)
             easing: 'ease-out-cubic', // Función de temporización para la animación
+        });
+
+        let synth; // Variable para el sintetizador Tone.js
+
+        // Inicializar Tone.js y reproducir sonido al cargar la página
+        window.addEventListener('load', () => {
+            // Iniciar el contexto de audio de Tone.js.
+            // Esto puede requerir una interacción del usuario en algunos navegadores para desbloquear el audio.
+            Tone.start().then(() => {
+                console.log("Tone.js context started.");
+                // Crear un sintetizador simple
+                synth = new Tone.Synth().toDestination();
+                // Ajustar el volumen maestro (medio, no tan fuerte)
+                Tone.Master.volume.value = -15; // -15dB es un buen punto de partida para un volumen moderado
+
+                // Reproducir un sonido al cargar la página
+                synth.triggerAttackRelease("C4", "8n"); // Nota C4 (Do central), duración de una corchea
+            }).catch(e => {
+                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
+                // Si el audio no se puede iniciar automáticamente, se puede intentar iniciarlo con la primera interacción del usuario.
+            });
         });
 
         // Lógica para el menú móvil
@@ -653,14 +675,25 @@
                 icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
             } else {
                 icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+                // Reproducir sonido cuando el menú móvil se abre
+                if (synth) {
+                    synth.triggerAttackRelease("E5", "16n"); // Nota E5, duración más corta para un "clic"
+                }
             }
         });
 
-        // Cierra el menú móvil al hacer clic en cualquier enlace dentro de él
+        // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
         document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden'); // Oculta el menú
-                mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono de hamburguesa
+            link.addEventListener('click', (event) => {
+                // Si el enlace es un toggle de subcategoría, no cerrar el menú principal
+                if (link.classList.contains('js-dropdown-toggle-mobile')) {
+                    // Prevenir que el clic en el toggle del dropdown propague y cierre el menú principal
+                    event.stopPropagation(); 
+                } else {
+                    // Para enlaces normales, cierra el menú principal
+                    mobileMenu.classList.add('hidden'); // Oculta el menú
+                    mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono de hamburguesa
+                }
             });
         });
 
@@ -707,6 +740,7 @@
         document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
+                event.stopPropagation(); // Evita que el clic en el toggle del dropdown cierre el menú principal
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
