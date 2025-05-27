@@ -10,7 +10,7 @@
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" as="style">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./output.css">
 
     <script>
         tailwind.config = {
@@ -24,7 +24,7 @@
                     colors: {
                         'byte-dark-bg': '#0A0A1A',        // Fondo oscuro principal (azul oscuro casi negro)
                         'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario (para tarjetas/menú)
-                        'byte-light-bg': '#F8FAFC',       // Fondo claro para secciones
+                        'byte-light-bg': '#F8FAFC',       // Fondo claro para secciones (BLANCO CASI)
                         'byte-text-light': '#F9FAFB',     // Color de texto claro (blanco)
                         'byte-text-dark': '#374151',      // Color de texto oscuro
                         'byte-accent-cyan': '#00FFFF',    // Color de acento (cian brillante)
@@ -36,7 +36,7 @@
         }
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" xintegrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -163,46 +163,29 @@
             transform: rotate(180deg);
         }
 
-        /* --- Estilos del Menú Móvil (Overlay/Sidebar) --- */
+        /* --- NUEVO ESTILO DE MENÚ MÓVIL (Overlay de Pantalla Completa) --- */
         #mobile-menu {
             position: fixed;
-            top: 0; /* Empieza desde la parte superior de la ventana */
-            right: 0;
-            bottom: 0;
-            width: 80%; /* Ancho del menú móvil, puedes ajustar */
-            max-width: 320px; /* Ancho máximo para pantallas más grandes */
-            background-color: var(--byte-secondary-dark); /* Fondo del menú */
-            transform: translateX(100%); /* Oculto fuera de pantalla (desde la derecha) */
-            transition: transform 0.4s ease-in-out; /* Animación de deslizamiento */
-            display: flex; /* Para organizar el contenido en columna */
-            flex-direction: column;
-            padding: 2rem 1.5rem; /* Padding interno */
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); /* Sombra para el efecto sidebar */
+            inset: 0; /* Ocupa toda la pantalla */
+            background-color: rgba(10, 10, 26, 0.95); /* Fondo oscuro semitransparente (byte-dark-bg con opacidad) */
             z-index: 40; /* Asegura que esté por encima del contenido principal */
-            -webkit-overflow-scrolling: touch; /* Mejora el scroll en iOS */
+            display: none; /* OCULTO POR DEFECTO EN CSS */
+            flex-direction: column;
+            align-items: center; /* Centra los elementos horizontalmente */
+            justify-content: center; /* Centra los elementos verticalmente */
+            padding: 2rem 1.5rem; /* Padding interno */
             overflow-y: auto; /* Permite scroll si el contenido es largo */
+
+            /* Oculto inicialmente con opacidad y sin interacción */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease-in-out; /* Transición de fundido */
         }
 
         #mobile-menu.open {
-            transform: translateX(0); /* Muestra el menú deslizándolo */
-        }
-
-        /* Overlay oscuro para el fondo cuando el menú móvil está abierto */
-        #mobile-overlay {
-            position: fixed;
-            inset: 0; /* Ocupa toda la pantalla */
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente oscuro */
-            z-index: 39; /* Justo debajo del menú */
-            opacity: 0;
-            pointer-events: none; /* No interactuable cuando está oculto */
-            transition: opacity 0.4s ease-in-out;
-            display: none; /* Inicialmente oculto */
-        }
-
-        #mobile-overlay.open {
-            opacity: 1;
-            pointer-events: auto; /* Interactuable cuando está abierto */
-            display: block; /* Muestra el overlay */
+            display: flex; /* MUESTRA EL MENÚ CUANDO ESTÁ ABIERTO */
+            opacity: 1; /* Muestra el menú */
+            pointer-events: auto; /* Permite interacciones */
         }
 
         /* Estilos para subcategorías en el menú móvil (desplegable dentro del overlay) */
@@ -210,14 +193,27 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            background-color: var(--byte-dark-bg); /* Fondo para submenú */
+            background-color: var(--byte-secondary-dark); /* Fondo para submenú */
             border-radius: 0.375rem; /* rounded-md */
             margin-top: 0.5rem; /* mt-2 */
             padding-left: 1rem; /* pl-4 */
+            width: 100%; /* Ocupa el ancho completo */
         }
 
         .mobile-menu-toggle.active + ul {
             max-height: 200px; /* Ajusta según la altura máxima esperada del submenú */
+        }
+        /* Alineación de los elementos del menú dentro del overlay */
+        #mobile-menu ul {
+            width: 100%; /* Asegura que la lista ocupe todo el ancho disponible */
+            text-align: center; /* Centra el texto de los enlaces */
+        }
+        #mobile-menu ul li {
+            width: 100%;
+        }
+        #mobile-menu ul li a {
+            padding-left: 0; /* Remover padding left si lo hubiera heredado */
+            padding-right: 0;
         }
 
         /* Estilo para el mapa de Google Maps */
@@ -228,65 +224,70 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-md */
         }
 
-        /* --- Estilos del Modal de Términos y Condiciones --- */
+        /* --- Estilos del Modal de Términos y Condiciones (OPTIMIZADO) --- */
         .terms-modal-overlay {
             position: fixed;
-            inset: 0; /* Ocupa toda la pantalla */
-            display: flex; /* Usar flex para centrar contenido */
+            inset: 0;
+            display: flex;
             align-items: center;
             justify-content: center;
-            background-color: rgba(0, 0, 0, 0.75); /* Fondo semitransparente oscuro */
-            z-index: 9999; /* Asegura que esté por encima de todo */
-            opacity: 0; /* Inicialmente oculto */
-            transition: opacity 0.3s ease-out; /* Transición suave para la aparición */
-            pointer-events: none; /* No permite interacciones cuando está oculto */
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+            pointer-events: none;
         }
 
         .terms-modal-overlay.show-modal {
-            opacity: 1; /* Hace visible el modal */
-            pointer-events: auto; /* Permite interacciones cuando está activo */
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .terms-modal-content {
-            background-color: var(--byte-dark-bg); /* Fondo oscuro para el modal */
-            color: var(--byte-text-light); /* Texto claro para el modal */
+            background-color: var(--byte-light-bg); /* FONDO BLANCO APLICADO */
+            color: var(--byte-text-dark); /* TEXTO OSCURO PARA CONTRASTE */
             padding: 2rem;
-            border-radius: 0.75rem; /* rounded-lg */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* shadow-xl */
-            max-width: 90%; /* Ancho máximo para el modal */
-            max-height: 90vh; /* Altura máxima para el modal */
-            overflow-y: auto; /* Permite scroll si el contenido es largo */
-            transform: scale(0.9); /* Ligeramente más pequeño al inicio para la transición */
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Transición suave para el contenido del modal */
-            border: 1px solid var(--byte-accent-cyan); /* Borde cian para el modal */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            /* Tamaño más pequeño para móviles y escritorio */
+            width: 95%; /* Ocupa el 95% del ancho en móviles */
+            max-width: 600px; /* Ancho máximo en escritorio */
+            max-height: 80vh; /* Altura máxima ligeramente reducida */
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            border: 1px solid var(--byte-accent-cyan);
         }
 
         .terms-modal-overlay.show-modal .terms-modal-content {
-            transform: scale(1); /* Escala normal al mostrarse */
+            transform: scale(1);
             opacity: 1;
         }
 
-        .terms-modal-content h2, .terms-modal-content h3 {
-            color: var(--byte-accent-cyan); /* Títulos en cian */
+        .terms-modal-content h2 {
+            color: var(--byte-dark-bg); /* Título principal en azul oscuro */
+        }
+        .terms-modal-content h3 {
+            color: var(--byte-accent-cyan); /* Subtítulos en cian */
         }
 
-        /* Scrollbar personalizado para el texto de los términos y condiciones */
+        /* Scrollbar personalizado para el texto de los términos y condiciones (ajustado para fondo blanco) */
         .custom-scrollbar::-webkit-scrollbar {
-            width: 8px; /* Ancho del scrollbar */
+            width: 8px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: var(--byte-secondary-dark); /* Color del fondo del track */
-            border-radius: 10px; /* Bordes redondeados del track */
+            background: #E0E0E0; /* Color de track más claro para fondo blanco */
+            border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: var(--byte-accent-cyan); /* Color del "pulgar" del scrollbar */
-            border-radius: 10px; /* Bordes redondeados del pulgar */
+            background: var(--byte-accent-cyan); /* Mantiene el color del "pulgar" */
+            border-radius: 10px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #00BFFF; /* Color del pulgar al pasar el ratón (un cian más claro) */
+            background: #00BFFF;
         }
 
         /* Animación para el texto "Tu visión, nuestra misión" */
@@ -304,32 +305,32 @@
 
     <div id="terms-modal" class="terms-modal-overlay">
         <div class="terms-modal-content">
-            <h2 class="text-3xl font-bold text-center text-byte-accent-cyan mb-6">Términos y Condiciones de Uso</h2>
+            <h2 class="text-3xl font-bold text-center mb-6">Términos y Condiciones de Uso</h2>
             <div class="text-sm leading-relaxed mb-6 custom-scrollbar">
                 <p class="mb-3">Bienvenido a Byte. Al acceder y utilizar nuestro sitio web y servicios, aceptas los siguientes términos y condiciones en su totalidad. Por favor, léelos cuidadosamente.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">1. Aceptación de los Términos</h3>
+                <h3 class="text-xl font-semibold mb-2">1. Aceptación de los Términos</h3>
                 <p class="mb-3">Este acuerdo ("Términos") establece los términos y condiciones legalmente vinculantes para el uso de los servicios de Byte (el "Servicio"). Al acceder o utilizar el Servicio, confirmas tu aceptación de estos Términos y tu consentimiento para ser regido por ellos. Si no estás de acuerdo con alguna parte de los términos, no podrás acceder al Servicio.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">2. Uso de la Información</h3>
+                <h3 class="text-xl font-semibold mb-2">2. Uso de la Información</h3>
                 <p class="mb-3">Toda la información proporcionada en este sitio web es solo para fines informativos y de cotización. Byte no garantiza la exactitud, exhaustividad o actualidad de la información. El uso de cualquier información de este sitio es bajo tu propio riesgo.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">3. Propiedad Intelectual</h3>
+                <h3 class="text-xl font-semibold mb-2">3. Propiedad Intelectual</h3>
                 <p class="mb-3">El contenido, diseño y funcionalidad de este sitio web, incluyendo textos, gráficos, logotipos, iconos, imágenes y software, son propiedad de Byte o de sus licenciantes y están protegidos por leyes de derechos de autor y propiedad intelectual.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">4. Privacidad</h3>
+                <h3 class="text-xl font-semibold mb-2">4. Privacidad</h3>
                 <p class="mb-3">Tu uso de nuestro Servicio también se rige por nuestra Política de Privacidad, que describe cómo recopilamos, usamos y protegemos tu información personal. Al usar el Servicio, aceptas la recopilación y el uso de información de acuerdo con dicha política.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">5. Enlaces a Otros Sitios Web</h3>
+                <h3 class="text-xl font-semibold mb-2">5. Enlaces a Otros Sitios Web</h3>
                 <p class="mb-3">Nuestro Servicio puede contener enlaces a sitios web o servicios de terceros que no son propiedad ni están controlados por Byte. No tenemos control ni asumimos responsabilidad por el contenido, políticas de privacidad o prácticas de sitios web o servicios de terceros.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">6. Limitación de Responsabilidad</h3>
+                <h3 class="text-xl font-semibold mb-2">6. Limitación de Responsabilidad</h3>
                 <p class="mb-3">En ningún caso Byte, ni sus directores, empleados, socios, agentes, proveedores o afiliados, serán responsables de daños indirectos, incidentales, especiales, consecuentes o punitivos, incluyendo, entre otros, la pérdida de beneficios, datos, uso, fondo de comercio u otras pérdidas intangibles, resultantes de (i) tu acceso o uso o imposibilidad de acceder o usar el Servicio; (ii) cualquier conducta o contenido de un tercero en el Servicio; (iii) cualquier contenido obtenido del Servicio; y (iv) el acceso, uso o alteración no autorizados de tus transmisiones o contenido, ya sea basado en garantía, contrato, agravio (incluyendo negligencia) o cualquier otra teoría legal, hayamos sido o no informados de la posibilidad de tales daños, e incluso si se encuentra que un recurso aquí establecido ha fallado en su propósito esencial.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">7. Modificaciones</h3>
+                <h3 class="text-xl font-semibold mb-2">7. Modificaciones</h3>
                 <p class="mb-3">Nos reservamos el derecho de modificar o reemplazar estos Términos en cualquier momento. Si una revisión es material, intentaremos proporcionar un aviso de al menos 30 días antes de que los nuevos términos entren en vigor. Lo que constituye un cambio material se determinará a nuestra entera discreción.</p>
 
-                <h3 class="text-xl font-semibold text-byte-text-light mb-2">8. Contacto</h3>
+                <h3 class="text-xl font-semibold mb-2">8. Contacto</h3>
                 <p class="mb-3">Si tienes alguna pregunta sobre estos Términos, por favor contáctanos.</p>
             </div>
             <button id="accept-terms-button" class="w-full bg-byte-accent-cyan text-byte-dark-bg font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105">
@@ -401,43 +402,46 @@
         </div>
     </header>
 
-    <div id="mobile-overlay" class="hidden sm:hidden"></div>
-
-    <nav id="mobile-menu" class="sm:hidden bg-byte-secondary-dark shadow-lg py-4 px-4">
-        <ul class="flex flex-col space-y-4">
+    <nav id="mobile-menu">
+        <button id="close-mobile-menu-button" class="absolute top-4 right-4 p-2 rounded-md text-byte-text-light hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" aria-label="Cerrar menú móvil">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <ul class="flex flex-col space-y-6 text-2xl">
             <li class="relative">
-                <a href="#inicio" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Inicio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#inicio" class="block py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Inicio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <ul class="mt-2 bg-byte-secondary-dark rounded-md shadow-inner py-2 pl-4">
+                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
+                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
+                </ul>
+            </li>
+            <li class="relative">
+                <a href="#servicios" class="block py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Servicios <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <ul class="mt-2 bg-byte-secondary-dark rounded-md shadow-inner py-2 pl-4">
+                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
+                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
+                </ul>
+            </li>
+            <li class="relative">
+                <a href="#portafolio" class="block py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Portafolio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li class="relative">
-                <a href="#servicios" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Servicios <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
-                <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
-                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
-                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
-                </ul>
-            </li>
-            <li class="relative">
-                <a href="#portafolio" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Portafolio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
-                <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
-                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
-                    <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
-                </ul>
-            </li>
-            <li class="relative">
-                <a href="#proceso" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Proceso <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#proceso" class="block py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Proceso <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li>
-                <a href="reseñas.html" class="block text-lg py-2 menu-link-glow mobile-menu-toggle">Reseñas</a>
+                <a href="reseñas.html" class="block py-2 menu-link-glow mobile-menu-toggle">Reseñas</a>
             </li>
             <li class="relative">
-                <a href="#contacto" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Contacto <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#contacto" class="block py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Contacto <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
@@ -453,8 +457,26 @@
     </nav>
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio que representa un concepto digital"
-             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75" loading="eager">
+        <picture>
+            <source srcset="./images/609-small.webp 480w,
+                            ./images/609-medium.webp 800w,
+                            ./images/609-large.webp 1200w,
+                            ./images/609.webp 2000w"
+                    sizes="(max-width: 640px) 100vw,
+                           (max-width: 1024px) 100vw,
+                           100vw"
+                    type="image/webp">
+            <source srcset="./images/609-small.jpg 480w,
+                            ./images/609-medium.jpg 800w,
+                            ./images/609-large.jpg 1200w,
+                            ./images/609.jpg 2000w"
+                    sizes="(max-width: 640px) 100vw,
+                           (max-width: 1024px) 100vw,
+                           100vw"
+                    type="image/jpeg">
+            <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio que representa un concepto digital"
+                 class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75" loading="eager">
+        </picture>
         <div class="container mx-auto px-4 relative z-10 text-center"
              data-aos="fade-up" data-aos-duration="1000">
             <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-byte-accent-cyan drop-shadow-lg"
@@ -699,7 +721,7 @@
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script>
         // Inicialización de AOS
         AOS.init({
@@ -709,33 +731,31 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            /* Script para el menú móvil (Overlay/Sidebar) */
+            /* Script para el menú móvil (Overlay de pantalla completa) */
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const mobileOverlay = document.getElementById('mobile-overlay'); // Obtener el nuevo overlay
-            const body = document.body; // Para controlar el scroll del body
+            const closeMobileMenuButton = document.getElementById('close-mobile-menu-button'); // Nuevo botón de cierre
+            const body = document.body;
 
-            if (mobileMenuButton && mobileMenu && mobileOverlay) {
-                mobileMenuButton.addEventListener('click', function(event) {
-                    event.stopPropagation(); // Evita que el clic en el botón se propague al documento
-                    const isOpen = mobileMenu.classList.contains('open');
+            function openMobileMenu() {
+                mobileMenu.classList.add('open');
+                body.classList.add('overflow-hidden'); // Deshabilita scroll en el body
+                mobileMenuButton.setAttribute('aria-expanded', 'true');
+            }
 
-                    if (isOpen) {
-                        mobileMenu.classList.remove('open');
-                        mobileOverlay.classList.remove('open');
-                        body.classList.remove('overflow-hidden'); // Habilita scroll
-                        mobileMenuButton.setAttribute('aria-expanded', 'false');
-                        // Cerrar cualquier submenú móvil abierto
-                        mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
-                            activeLink.classList.remove('active');
-                        });
-                    } else {
-                        mobileMenu.classList.add('open');
-                        mobileOverlay.classList.add('open');
-                        body.classList.add('overflow-hidden'); // Deshabilita scroll
-                        mobileMenuButton.setAttribute('aria-expanded', 'true');
-                    }
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('open');
+                body.classList.remove('overflow-hidden'); // Habilita scroll en el body
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                // Cerrar cualquier submenú móvil abierto
+                mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
+                    activeLink.classList.remove('active');
                 });
+            }
+
+            if (mobileMenuButton && mobileMenu && closeMobileMenuButton) {
+                mobileMenuButton.addEventListener('click', openMobileMenu);
+                closeMobileMenuButton.addEventListener('click', closeMobileMenu); // Evento para el nuevo botón de cierre
 
                 // Cierre del menú móvil cuando se hace clic en un enlace (dentro o fuera del submenú)
                 mobileMenu.querySelectorAll('a').forEach(link => {
@@ -747,41 +767,15 @@
                             // El CSS manejará la animación de max-height
                         } else {
                             // Para enlaces que no son toggles o son sub-enlaces, cierra el menú principal
-                            mobileMenu.classList.remove('open');
-                            mobileOverlay.classList.remove('open');
-                            body.classList.remove('overflow-hidden');
-                            mobileMenuButton.setAttribute('aria-expanded', 'false');
-                            // Cerrar cualquier submenú abierto
-                            mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
-                                activeLink.classList.remove('active');
-                            });
+                            closeMobileMenu();
                         }
-                    });
-                });
-
-                // Cerrar el menú móvil y el overlay si se hace clic en el overlay o fuera del menú
-                mobileOverlay.addEventListener('click', () => {
-                    mobileMenu.classList.remove('open');
-                    mobileOverlay.classList.remove('open');
-                    body.classList.remove('overflow-hidden');
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-                    // Cerrar cualquier submenú abierto
-                    mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
-                        activeLink.classList.remove('active');
                     });
                 });
 
                 // También cerrar el menú móvil si se redimensiona la ventana a un tamaño de escritorio
                 window.addEventListener('resize', () => {
                     if (window.innerWidth >= 640) { // sm:breakpoint de Tailwind
-                        mobileMenu.classList.remove('open');
-                        mobileOverlay.classList.remove('open');
-                        body.classList.remove('overflow-hidden');
-                        mobileMenuButton.setAttribute('aria-expanded', 'false');
-                        // Cerrar cualquier submenú abierto
-                        mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
-                            activeLink.classList.remove('active');
-                        });
+                        closeMobileMenu();
                     }
                 });
             }
@@ -870,7 +864,7 @@
         });
     </script>
 
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         window.onload = function(){
             (function(d, script) {
                 script = d.createElement('script');
@@ -880,8 +874,9 @@
                 d.getElementsByTagName('head')[0].appendChild(script);
             }(document));
         };
-    </script>
+    </script> -->
 
     <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot><script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 </body>
 </html>
+```
