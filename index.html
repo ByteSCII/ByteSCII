@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Diseño Web que Impulsa tu Negocio</title>
 
+    <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -13,6 +15,8 @@
 
     <script>
         // Configuración personalizada de Tailwind CSS
+        // Se ha movido este bloque después de la carga del script de Tailwind CSS
+        // para asegurar que 'tailwind' esté definido.
         tailwind.config = {
             theme: {
                 extend: {
@@ -56,24 +60,34 @@
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Animación de brillo para el logo "Byte" */
-        @keyframes glow {
-            0% {
-                color: #00FFFF;
-                text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
-            }
-            50% {
-                color: #A0FFFF;
-                text-shadow: 0 0 15px #00FFFF, 0 0 25px #00FFFF, 0 0 40px #00FFFF;
-            }
-            100% {
-                color: #00FFFF;
-                text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF;
-            }
+        /* Estilos para el logo "Byte" con imagen de fondo */
+        #byte-logo-container {
+            position: relative;
+            display: inline-block; /* Para que solo ocupe el ancho del texto */
         }
 
         #byte-logo-text {
-            animation: glow 1.5s infinite alternate ease-in-out;
+            font-size: 4xl; /* Ajusta el tamaño según sea necesario */
+            font-weight: bold;
+            color: #00FFFF; /* Color del texto "Byte" */
+            position: relative;
+            z-index: 1; /* Asegura que el texto esté encima de la imagen */
+            text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF; /* Efecto de brillo */
+        }
+
+        #byte-logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; /* Ajusta el tamaño de la imagen de fondo */
+            height: 80%; /* Ajusta el tamaño de la imagen de fondo */
+            background-image: url('https://i.imgur.com/WLFbcrE.png'); /* URL de tu logo */
+            background-size: contain; /* Para que la imagen se ajuste dentro del contenedor */
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.3; /* Ajusta la transparencia de la imagen de fondo */
+            z-index: 0; /* Asegura que la imagen esté detrás del texto */
         }
 
         /* Animación de brillo para los enlaces del menú (más suave) */
@@ -155,6 +169,120 @@
         .shake-pulse-animation {
             animation: shake-pulse 0.8s ease-in-out; /* Animation duration for one shake */
         }
+
+        /* Clase para rotar el icono de flecha */
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Estilos para las tarjetas de servicio */
+        .service-card {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Degradado sutil */
+            border-radius: 1rem; /* Bordes más redondeados */
+            padding: 2.5rem; /* Más padding */
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color del acento */
+            transition: all 0.3s ease-in-out;
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada */
+            border-color: #00FFFF; /* Borde más visible al hover */
+        }
+
+        .service-card .icon {
+            font-size: 4.5rem; /* Iconos más grandes */
+            margin-bottom: 1.5rem;
+            color: #00FFFF; /* Color del acento */
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Brillo en los iconos */
+        }
+
+        .service-card h3 {
+            color: #F9FAFB; /* Texto del título más claro */
+            font-size: 1.75rem; /* Título más grande */
+            margin-bottom: 1rem;
+            font-weight: 700; /* Más negrita */
+        }
+
+        .service-card p {
+            color: #CBD5E0; /* Texto de párrafo más suave */
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Estilos para la sección de Contacto */
+        .contact-section {
+            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Degradado de fondo */
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate-gradient 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate-gradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 26, 0.85); /* Fondo semitransparente para el contenido */
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
+        }
+
+        .contact-form-card, .contact-info-card {
+            background: #1A202C; /* Fondo oscuro para las tarjetas internas */
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .contact-form-card:hover, .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .contact-form-card input, .contact-form-card textarea {
+            background-color: #0A0A1A;
+            border-color: rgba(0, 255, 255, 0.3);
+            color: #F9FAFB;
+        }
+
+        .contact-form-card input:focus, .contact-form-card textarea:focus {
+            border-color: #00FFFF;
+            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
+        }
+
+        .social-icon-link {
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .social-icon-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #00FFFF; /* Color de acento al pasar el ratón */
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -162,36 +290,91 @@
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                <span id="byte-logo-text" class="text-4xl font-extrabold text-byte-accent-cyan block">Byte</span>
+                <div id="byte-logo-container" class="relative">
+                    <span id="byte-logo-text" class="text-4xl font-extrabold text-byte-accent-cyan block">Byte</span>
+                    <div id="byte-logo-background"></div>
+                </div>
             </a>
 
             <nav class="hidden sm:flex flex-grow justify-center">
                 <ul class="flex space-x-8 items-center">
                     <li class="relative group">
-                        <a href="#" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow" data-dropdown-id="dropdown-inicio">Inicio</a>
-                        </li>
+                        <a href="#inicio" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow">Inicio</a>
+                    </li>
                     <li class="relative group">
-                        <a href="#" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow" data-dropdown-id="dropdown-servicios">Servicios</a>
-                        </li>
+                        <a href="#servicios" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                            Servicios
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="servicios-diseno-web.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Web Personalizado</a>
+                            <a href="servicios-ecommerce.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Desarrollo E-commerce</a>
+                            <a href="servicios-seo-marketing.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO & Marketing Digital</a>
+                            <a href="#servicio-dominios-subdominios" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Administración de Dominios y Subdominios</a>
+                        </div>
+                    </li>
                     <li class="relative group">
-                        <a href="#" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow" data-dropdown-id="dropdown-portafolio">Portafolio</a>
-                        </li>
+                        <a href="#portafolio" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                            Portafolio
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#portafolio-web" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Sitios Web</a>
+                            <a href="#portafolio-ecommerce" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">E-commerce</a>
+                            <a href="#portafolio-apps" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Aplicaciones Web</a>
+                            <a href="#portafolio-casos" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Casos de Estudio</a>
+                            <a href="#portafolio-diseno" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Gráfico</a>
+                        </div>
+                    </li>
                     <li class="relative group">
-                        <a href="#" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow" data-dropdown-id="dropdown-proceso">Proceso</a>
-                        </li>
+                        <a href="#proceso" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                            Quiénes Somos
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#nuestra-historia" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
+                            <a href="#nuestro-equipo" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestro Equipo</a>
+                            <a href="#nuestra-mision-vision" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                        </div>
+                    </li>
                     <li class="relative group">
-                        <a href="#" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow" data-dropdown-id="dropdown-reseñas">Reseñas</a>
-                        </li>
+                        <a href="#reseñas" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                            Reseñas
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#deja-tu-resena" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                        </div>
+                    </li>
                     <li class="relative group">
-                        <a href="#" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow" data-dropdown-id="dropdown-contacto">Contacto</a>
-                        </li>
+                        <a href="#contacto" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                            Contacto
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#ubicacion" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
+                            <a href="#formulario-contacto" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
+                            <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Preguntas Frecuentes</a>
+                            <a href="#redes-sociales" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
+                        </div>
+                    </li>
                 </ul>
             </nav>
 
             <div class="flex items-center">
                 <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                            shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
-                        ¡Empecemos tu Proyecto!
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+                    ¡Empecemos tu Proyecto!
                 </a>
 
                 <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
@@ -218,7 +401,7 @@
                     Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
             </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
-                                            shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
+                                         shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                 data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                     ¡Hablemos de tu Proyecto!
             </a>
@@ -228,85 +411,109 @@
     <nav id="mobile-menu" class="sm:hidden bg-transparent py-4 px-4 hidden fixed top-20 w-full z-40">
         <ul class="flex flex-col space-y-4 text-center">
             <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow" data-dropdown-id-mobile="dropdown-inicio-mobile">Inicio</a>
-                </li>
+                <a href="#inicio" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow">Inicio</a>
+            </li>
             <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow" data-dropdown-id-mobile="dropdown-servicios-mobile">Servicios</a>
-                </li>
+                <a href="#servicios" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
+                    Servicios
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="servicios-diseno-web.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Web Personalizado</a>
+                    <a href="servicios-ecommerce.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Desarrollo E-commerce</a>
+                    <a href="servicios-seo-marketing.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO & Marketing Digital</a>
+                    <a href="#servicio-dominios-subdominios" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Administración de Dominios y Subdominios</a>
+                </div>
+            </li>
             <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow" data-dropdown-id-mobile="dropdown-portafolio-mobile">Portafolio</a>
-                </li>
+                <a href="#portafolio" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
+                    Portafolio
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#portafolio-web" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Sitios Web</a>
+                    <a href="#portafolio-ecommerce" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">E-commerce</a>
+                    <a href="#portafolio-apps" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Aplicaciones Web</a>
+                    <a href="#portafolio-casos" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Casos de Estudio</a>
+                    <a href="#portafolio-diseno" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Gráfico</a>
+                </div>
+            </li>
             <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow" data-dropdown-id-mobile="dropdown-proceso-mobile">Proceso</a>
-                </li>
+                <a href="#proceso" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                    Quiénes Somos
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#nuestra-historia" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
+                    <a href="#nuestro-equipo" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestro Equipo</a>
+                    <a href="#nuestra-mision-vision" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                </div>
+            </li>
             <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow" data-dropdown-id-mobile="dropdown-reseñas-mobile">Reseñas</a>
-                </li>
+                <a href="#reseñas" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                    Reseñas
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#deja-tu-resena" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                </div>
+            </li>
             <li>
-                <a href="#" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow" data-dropdown-id-mobile="dropdown-contacto-mobile">Contacto</a>
-                </li>
+                <a href="#contacto" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
+                    Contacto
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#ubicacion" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
+                    <a href="#formulario-contacto" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
+                    <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Preguntas Frecuentes</a>
+                    <a href="#redes-sociales" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
+                </div>
+            </li>
             <li>
                 <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                            shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
-                        ¡Empecemos tu Proyecto!
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
+                    ¡Empecemos tu Proyecto!
                 </a>
             </li>
         </ul>
     </nav>
 
-    <section id="servicios" class="py-20 bg-byte-light-bg text-byte-text-dark">
+    <section id="servicios" class="py-20 bg-byte-dark-bg text-byte-text-light">
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-byte-dark-bg mb-16"
-                data-aos="fade-up" data-aos-duration="800">Lo que Hacemos</h2>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-byte-accent-cyan mb-16"
+                data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <a href="servicios-diseno-web.html" class="block bg-white p-8 rounded-xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-2 border-t-4 border-byte-accent-cyan"
-                    data-aos="fall-down" data-aos-delay="100" data-aos-duration="1000">
-                    <div class="text-6xl text-byte-accent-cyan mb-6 text-center">✨</div>
-                    <h3 class="text-2xl font-bold text-center text-byte-dark-bg mb-4">Diseño Web Personalizado</h3>
-                    <p class="text-center text-byte-text-dark leading-relaxed">
-                        Creamos sitios web únicos y visualmente impresionantes que capturan la esencia de tu marca y atraen a tu audiencia.
-                    </p>
-                </a>
-                <a href="servicios-ecommerce.html" class="block bg-white p-8 rounded-xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-2 border-t-4 border-byte-accent-cyan"
-                    data-aos="fall-down" data-aos-delay="200" data-aos-duration="1000">
-                    <div class="text-6xl text-byte-accent-cyan mb-6 text-center">🛍️</div>
-                    <h3 class="text-2xl font-bold text-center text-byte-dark-bg mb-4">Desarrollo E-commerce</h3>
-                    <p class="text-center text-byte-text-dark leading-relaxed">
-                        Construimos tiendas online seguras, rápidas y optimizadas para la conversión, para que vendas más.
-                    </p>
-                </a>
-                <a href="servicios-seo-marketing.html" class="block bg-white p-8 rounded-xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-2 border-t-4 border-byte-accent-cyan"
-                    data-aos="fall-down" data-aos-delay="300" data-aos-duration="1000">
-                    <div class="text-6xl text-byte-accent-cyan mb-6 text-center">🚀</div>
-                    <h3 class="text-2xl font-bold text-center text-byte-dark-bg mb-4">SEO & Marketing Digital</h3>
-                    <p class="text-center text-byte-text-dark leading-relaxed">
-                        Aumentamos tu visibilidad en buscadores y desarrollamos estrategias de marketing que generan resultados.
-                    </p>
-                </a>
-                <a href="servicios-apps-web.html" class="block bg-white p-8 rounded-xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-2 border-t-4 border-byte-accent-cyan"
-                    data-aos="fall-down" data-aos-delay="400" data-aos-duration="1000">
-                    <div class="text-6xl text-byte-accent-cyan mb-6 text-center">📱</div>
-                    <h3 class="text-2xl font-bold text-center text-byte-dark-bg mb-4">Aplicaciones Web</h3>
-                    <p class="text-center text-byte-text-dark leading-relaxed">
-                        Diseñamos y desarrollamos aplicaciones web personalizadas para optimizar tus procesos y ofrecer nuevas experiencias.
-                    </p>
-                </a>
-                <a href="servicios-mantenimiento.html" class="block bg-white p-8 rounded-xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-2 border-t-4 border-byte-accent-cyan"
-                    data-aos="fall-down" data-aos-delay="500" data-aos-duration="1000">
-                    <div class="text-6xl text-byte-accent-cyan mb-6 text-center">🛠️</div>
-                    <h3 class="text-2xl font-bold text-center text-byte-dark-bg mb-4">Mantenimiento y Soporte</h3>
-                    <p class="text-center text-byte-text-dark leading-relaxed">
-                        Garantizamos que tu sitio web esté siempre actualizado, seguro y funcionando a la perfección.
-                    </p>
-                </a>
-                <a href="servicios-consultoria.html" class="block bg-white p-8 rounded-xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-2 border-t-4 border-byte-accent-cyan"
-                    data-aos="fall-down" data-aos-delay="600" data-aos-duration="1000">
-                    <div class="text-6xl text-byte-accent-cyan mb-6 text-center">💡</div>
-                    <h3 class="text-2xl font-bold text-center text-byte-dark-bg mb-4">Consultoría Digital</h3>
-                    <p class="text-center text-byte-text-dark leading-relaxed">
-                        Te asesoramos para definir la mejor estrategia digital y alcanzar tus objetivos de negocio.
-                    </p>
-                </a>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon">✨</div>
+                    <h3 class="text-2xl font-bold mb-4">Diseño Web Personalizado</h3>
+                    <p>Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="icon">🛍️</div>
+                    <h3 class="text-2xl font-bold mb-4">Desarrollo E-commerce</h3>
+                    <p>Construimos tiendas online robustas, seguras y optimizadas para la conversión, transformando visitantes en clientes leales y maximizando tus ventas.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="icon">🚀</div>
+                    <h3 class="text-2xl font-bold mb-4">SEO & Marketing Digital</h3>
+                    <p>Impulsamos tu visibilidad en los motores de búsqueda y desarrollamos estrategias de marketing digital integrales que atraen tráfico cualificado y generan resultados medibles.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="icon">🌐</div>
+                    <h3 class="text-2xl font-bold mb-4">Administración de Dominios y Subdominios</h3>
+                    <p>Gestionamos eficientemente tus activos digitales, desde el registro y configuración de dominios hasta la administración de subdominios, garantizando una presencia online impecable.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -321,93 +528,63 @@
                     Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
             </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
-                                            shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
+                                         shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                 data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                     ¡Hablemos de tu Proyecto!
             </a>
         </div>
     </section>
 
-    <section id="reseñas" class="py-20 bg-byte-light-bg text-byte-text-dark">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-byte-dark-bg mb-16"
-                data-aos="fade-up" data-aos-duration="800">Lo que Dicen Nuestros Clientes</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-byte-accent-cyan"
-                    data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
-                    <p class="text-lg italic mb-6 text-gray-700">"El equipo de Byte superó nuestras expectativas. Nuestro nuevo sitio web es moderno, funcional y ha impulsado significativamente nuestras ventas. ¡Totalmente recomendados!"</p>
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full mr-4" src="https://placehold.co/50x50/cccccc/333333?text=Cliente1" alt="Foto de Cliente 1">
-                        <div>
-                            <p class="font-bold text-byte-dark-bg">Ana G. - CEO de InnovaTech</p>
-                            <p class="text-sm text-gray-500">Desarrollo E-commerce</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-byte-accent-cyan"
-                    data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
-                    <p class="text-lg italic mb-6 text-gray-700">"La consultoría digital de Byte nos abrió los ojos a nuevas oportunidades. Su estrategia SEO fue clave para aumentar nuestra visibilidad y tráfico orgánico."</p>
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full mr-4" src="https://placehold.co/50x50/cccccc/333333?text=Cliente2" alt="Foto de Cliente 2">
-                        <div>
-                            <p class="font-bold text-byte-dark-bg">Carlos R. - Director de Marketing</p>
-                            <p class="text-sm text-gray-500">Consultoría Digital</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg border-b-4 border-byte-accent-cyan"
-                    data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
-                    <p class="text-lg italic mb-6 text-gray-700">"Necesitábamos una aplicación web a medida y Byte la entregó con una calidad excepcional. El proceso fue fluido y el resultado superó nuestras expectativas."</p>
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full mr-4" src="https://placehold.co/50x50/cccccc/333333?text=Cliente3" alt="Foto de Cliente 3">
-                        <div>
-                            <p class="font-bold text-byte-dark-bg">María S. - Gerente de Proyectos</p>
-                            <p class="text-sm text-gray-500">Aplicaciones Web</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="py-20 bg-byte-light-bg text-byte-text-dark">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-byte-dark-bg mb-16"
-                data-aos="fade-up" data-aos-duration="800">Contáctanos</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                <div class="bg-white p-8 rounded-xl shadow-2xl border-t-4 border-byte-accent-cyan"
-                    data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
-                    <h3 class="text-3xl font-bold text-center text-byte-dark-bg mb-8">Envíanos un Mensaje</h3>
+    <section id="contacto" class="contact-section text-byte-text-light">
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-byte-accent-cyan mb-16"
+                data-aos="fade-up" data-aos-duration="800">Conéctate con Byte</h2>
+            <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <div class="contact-form-card"
+                    data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
+                    <h3 class="text-3xl font-bold text-center text-byte-accent-cyan mb-8">Envíanos un Mensaje</h3>
                     <form action="#" method="POST" class="space-y-6">
                         <div>
-                            <label for="contact-name" class="block text-lg font-semibold text-byte-dark-bg mb-2">Nombre Completo</label>
-                            <input type="text" id="contact-name" name="name" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan focus:border-transparent text-lg" placeholder="Tu nombre" required>
+                            <label for="contact-name" class="block text-lg font-semibold text-byte-text-light mb-2">Nombre Completo</label>
+                            <input type="text" id="contact-name" name="name" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 text-lg" placeholder="Tu nombre" required>
                         </div>
                         <div>
-                            <label for="contact-email" class="block text-lg font-semibold text-byte-dark-bg mb-2">Correo Electrónico</label>
-                            <input type="email" id="contact-email" name="email" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan focus:border-transparent text-lg" placeholder="tu.correo@ejemplo.com" required>
+                            <label for="contact-email" class="block text-lg font-semibold text-byte-text-light mb-2">Correo Electrónico</label>
+                            <input type="email" id="contact-email" name="email" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 text-lg" placeholder="tu.correo@ejemplo.com" required>
                         </div>
                         <div>
-                            <label for="contact-message" class="block text-lg font-semibold text-byte-dark-bg mb-2">Tu Mensaje</label>
-                            <textarea id="contact-message" name="message" rows="6" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan focus:border-transparent text-lg" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                            <label for="contact-message" class="block text-lg font-semibold text-byte-text-light mb-2">Tu Mensaje</label>
+                            <textarea id="contact-message" name="message" rows="6" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 text-lg" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-4 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-xl">
+                        <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-4 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-xl">
                             Enviar Mensaje
                         </button>
                     </form>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow-2xl border-t-4 border-byte-accent-cyan"
-                    data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
-                    <h3 class="text-3xl font-bold text-center text-byte-dark-bg mb-8">Dónde Encontrarnos</h3>
+                <div class="contact-info-card"
+                    data-aos="fade-left" data-aos-delay="400" data-aos-duration="800">
+                    <h3 class="text-3xl font-bold text-center text-byte-accent-cyan mb-8">Información de Contacto</h3>
                     <div class="space-y-6 text-center text-lg">
-                        <p class="flex items-center justify-center text-byte-dark-bg"><span class="text-byte-accent-cyan mr-3">📍</span> 123 Calle Ficticia, Ciudad, País</p>
-                        <p class="flex items-center justify-center text-byte-dark-bg"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
-                        <p class="flex items-center justify-center text-byte-accent-cyan mr-3">📞 +123 456 7890</p>
+                        <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
+                        <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan">📞 +123 456 7890</p>
                     </div>
 
+                    <h3 class="text-3xl font-bold text-center text-byte-accent-cyan mt-12 mb-8">Redes Sociales</h3>
+                    <div class="flex justify-center space-x-6 text-byte-text-light">
+                        <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                            </svg>
+                        </a>
+                        </div>
+
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15779.643328014524!2d-66.91585863261291!3d10.490710677464041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59a72b8c56c7%3A0xf0c7d413340f1a9a!2sCaracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1ses!2sve!4v1716834958197!5m2!1ses!2sve" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://maps.google.com/maps?q=Venezuela,Caracas,Plaza%20Sucre,Calle%20Bolivia&t=&z=15&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -424,7 +601,7 @@
             </a>
             <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="WhatsApp">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="inline-block align-middle mr-1">
-                    <path d="M12.04 2.04c-5.47 0-9.91 4.44-9.91 9.91 0 1.75.46 3.44 1.32 4.95l-1.37 5.02 5.1-.31c1.47.8 3.12 1.25 4.86 1.25 5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5c4.61 0 8.36 3.75 8.36 8.36s-3.75 8.36-8.36 8.36c-1.47 0-2.88-.38-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29c-.69-1.24-1.07-2.65-1.07-4.12 0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                    <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
                 </svg>
                 WhatsApp
             </a>
@@ -441,9 +618,9 @@
     </div>
 
     <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" id="whatsapp-float-button"
-       class="fixed bottom-6 right-6 bg-whatsapp-green text-white p-4 rounded-full shadow-lg
-              flex items-center justify-center z-[10000] text-2xl transition duration-300 transform hover:scale-110">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+       class="fixed bottom-6 right-6 bg-whatsapp-green text-white w-14 h-14 rounded-full shadow-lg
+              flex items-center justify-center z-[10000] transition-all duration-500 ease-out">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
         </svg>
     </a>
@@ -452,7 +629,7 @@
     <script>
         // Inicialización de AOS
         AOS.init({
-            once: true,     /* Las animaciones ocurren solo una vez al hacer scroll */
+            once: true,      /* Las animaciones ocurren solo una vez al hacer scroll */
             duration: 1000, /* Duración de la animación en milisegundos */
             easing: 'ease-in-out', /* Función de temporización para la animación */
         });
@@ -490,8 +667,12 @@
                 synth.triggerAttackRelease("G5", "32n"); // Un sonido más tierno y corto (G5, 32ava de nota)
             });
 
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
+            // Cierra el menú móvil si se hace clic en un enlace de sección principal
+            mobileMenu.querySelectorAll('a[href^="#"]').forEach(link => {
+                // Solo cierra si el enlace no es un toggle de dropdown
+                if (!link.classList.contains('js-dropdown-toggle-mobile')) {
+                    link.addEventListener('click', closeMobileMenu);
+                }
             });
 
             // Cierra el menú móvil si se hace clic fuera de él
@@ -511,9 +692,25 @@
             const closeAllDropdowns = () => {
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     menu.classList.add('hidden');
+                    // Rotar el icono de flecha de vuelta
+                    const toggle = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                    if (toggle) {
+                        const arrowIcon = toggle.querySelector('.js-arrow-icon');
+                        if (arrowIcon && arrowIcon.classList.contains('rotate-180')) {
+                            arrowIcon.classList.remove('rotate-180');
+                        }
+                    }
                 });
                 document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                     menu.classList.add('hidden');
+                    // Rotar el icono de flecha de vuelta
+                    const toggle = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                    if (toggle) {
+                        const arrowIcon = toggle.querySelector('.js-arrow-icon-mobile');
+                        if (arrowIcon && arrowIcon.classList.contains('rotate-180')) {
+                            arrowIcon.classList.remove('rotate-180');
+                        }
+                    }
                 });
             };
 
@@ -525,10 +722,27 @@
 
                     const dropdownId = toggle.dataset.dropdownId;
                     const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = toggle.querySelector('.js-arrow-icon');
 
                     if (dropdownMenu) {
-                        closeAllDropdowns(); // Cierra otros dropdowns (escritorio y móvil)
+                        // Cierra otros dropdowns de escritorio, pero no el que se está abriendo
+                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                            if (menu.id !== dropdownId) {
+                                menu.classList.add('hidden');
+                                const otherToggle = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                                if (otherToggle) {
+                                    const otherArrowIcon = otherToggle.querySelector('.js-arrow-icon');
+                                    if (otherArrowIcon) {
+                                        otherArrowIcon.classList.remove('rotate-180');
+                                    }
+                                }
+                            }
+                        });
+
                         dropdownMenu.classList.toggle('hidden');
+                        if (arrowIcon) {
+                            arrowIcon.classList.toggle('rotate-180');
+                        }
                     }
                 });
             });
@@ -541,15 +755,26 @@
 
                     const dropdownId = toggle.dataset.dropdownIdMobile;
                     const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = toggle.querySelector('.js-arrow-icon-mobile');
 
                     if (dropdownMenu) {
                         // Cierra otros dropdowns móviles pero mantiene el menú móvil principal abierto
                         document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                             if (menu.id !== dropdownId) {
                                 menu.classList.add('hidden');
+                                const otherToggle = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                                if (otherToggle) {
+                                    const otherArrowIcon = otherToggle.querySelector('.js-arrow-icon-mobile');
+                                    if (otherArrowIcon) {
+                                        otherArrowIcon.classList.remove('rotate-180');
+                                    }
+                                }
                             }
                         });
                         dropdownMenu.classList.toggle('hidden');
+                        if (arrowIcon) {
+                            arrowIcon.classList.toggle('rotate-180');
+                        }
                     }
                 });
             });
@@ -560,11 +785,19 @@
                 if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                     document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                         menu.classList.add('hidden');
+                        const toggle = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (toggle) {
+                            const arrowIcon = toggle.querySelector('.js-arrow-icon');
+                            if (arrowIcon) {
+                                arrowIcon.classList.remove('rotate-180');
+                            }
+                        }
                     });
                 }
 
-                // Para el menú móvil principal
+                // Para el menú móvil principal y sus submenús
                 if (mobileMenuButton && mobileMenu) {
+                    // Si el clic no fue en el botón de menú móvil ni dentro del menú móvil
                     if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
                         closeMobileMenu(); // Cierra el menú móvil principal
                         closeAllDropdowns(); // Y también cualquier submenú que pudiera estar abierto
@@ -573,10 +806,26 @@
             });
         });
 
-        /* Script para el banner de consentimiento de cookies */
+        /* Script para el banner de consentimiento de cookies y el botón de WhatsApp flotante */
         document.addEventListener('DOMContentLoaded', () => {
             const cookieConsentBanner = document.getElementById('cookie-consent-banner');
             const acceptCookiesButton = document.getElementById('accept-cookies');
+            const whatsappFloatButton = document.getElementById('whatsapp-float-button');
+            const initialWhatsappBottom = 24; // Corresponds to Tailwind's bottom-6 (6 * 4px = 24px)
+
+            // Función para ajustar la posición del botón de WhatsApp
+            const adjustWhatsappButtonPosition = () => {
+                if (cookieConsentBanner && whatsappFloatButton) {
+                    // Si el banner es visible (no tiene 'translate-y-full')
+                    if (!cookieConsentBanner.classList.contains('translate-y-full')) {
+                        const bannerHeight = cookieConsentBanner.offsetHeight;
+                        whatsappFloatButton.style.bottom = `${bannerHeight + initialWhatsappBottom}px`;
+                    } else {
+                        // Si el banner está oculto, vuelve a la posición inicial
+                        whatsappFloatButton.style.bottom = `${initialWhatsappBottom}px`;
+                    }
+                }
+            };
 
             // Comprobar si las cookies ya han sido aceptadas
             const cookiesAccepted = localStorage.getItem('cookiesAccepted');
@@ -587,8 +836,17 @@
                     if (cookieConsentBanner) {
                         cookieConsentBanner.classList.remove('translate-y-full');
                         cookieConsentBanner.classList.add('translate-y-0');
+                        adjustWhatsappButtonPosition(); // Ajustar la posición del botón al mostrar el banner
                     }
                 }, 1000); // Retraso de 1 segundo para que la página cargue primero
+            } else {
+                // Si las cookies ya fueron aceptadas, asegurar que el banner esté oculto y el botón en posición normal
+                if (cookieConsentBanner) {
+                    cookieConsentBanner.style.display = 'none';
+                }
+                if (whatsappFloatButton) {
+                    whatsappFloatButton.style.bottom = `${initialWhatsappBottom}px`;
+                }
             }
 
             // Manejar el clic en el botón de aceptar
@@ -597,11 +855,15 @@
                     localStorage.setItem('cookiesAccepted', 'true'); // Guardar el estado de aceptación
                     cookieConsentBanner.classList.remove('translate-y-0');
                     cookieConsentBanner.classList.add('translate-y-full'); // Ocultar el banner
+                    adjustWhatsappButtonPosition(); // Ajustar la posición del botón al ocultar el banner
                     setTimeout(() => {
                         cookieConsentBanner.style.display = 'none'; // Eliminar del flujo una vez oculto
                     }, 500); // Esperar a que termine la transición
                 });
             }
+
+            // También ajustar la posición si la ventana cambia de tamaño (en caso de que el banner cambie de altura)
+            window.addEventListener('resize', adjustWhatsappButtonPosition);
         });
 
         /* Script para la animación del botón de WhatsApp */
