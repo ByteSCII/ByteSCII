@@ -3,20 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Diseño Web que Impulsa tu Negocio</title>
-
-    <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
-
+    <title>Byte - Soluciones Web Innovadoras</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
-
     <script>
-        // Configuración personalizada de Tailwind CSS
-        // Se ha movido este bloque después de la carga del script de Tailwind CSS
-        // para asegurar que 'tailwind' esté definido.
         tailwind.config = {
             theme: {
                 extend: {
@@ -40,6 +32,10 @@
             }
         }
     </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         /* Importación de fuentes de Google Fonts */
@@ -58,36 +54,6 @@
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Estilos para el logo "Byte" con imagen de fondo */
-        #byte-logo-container {
-            position: relative;
-            display: inline-block; /* Para que solo ocupe el ancho del texto */
-        }
-
-        #byte-logo-text {
-            font-size: 4xl; /* Ajusta el tamaño según sea necesario */
-            font-weight: bold;
-            color: #00FFFF; /* Color del texto "Byte" */
-            position: relative;
-            z-index: 1; /* Asegura que el texto esté encima de la imagen */
-            text-shadow: 0 0 5px #00FFFF, 0 0 10px #00FFFF; /* Efecto de brillo */
-        }
-
-        #byte-logo-background {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%; /* Ajusta el tamaño de la imagen de fondo */
-            height: 80%; /* Ajusta el tamaño de la imagen de fondo */
-            background-image: url('https://i.imgur.com/WLFbcrE.png'); /* URL de tu logo */
-            background-size: contain; /* Para que la imagen se ajuste dentro del contenedor */
-            background-repeat: no-repeat;
-            background-position: center;
-            opacity: 0.3; /* Ajusta la transparencia de la imagen de fondo */
-            z-index: 0; /* Asegura que la imagen esté detrás del texto */
         }
 
         /* Animación de brillo para los enlaces del menú (más suave) */
@@ -283,6 +249,13 @@
             transform: translateY(-3px) scale(1.1);
             color: #00FFFF; /* Color de acento al pasar el ratón */
         }
+
+        /* Estilos para el texto del logo "Byte" */
+        #byte-logo-text {
+            /* Los estilos de color y text-shadow son animados por menu-glow */
+            position: relative;
+            z-index: 1; /* Asegura que el texto esté encima de la imagen si hay un fondo */
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -290,11 +263,9 @@
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                <div id="byte-logo-container" class="relative">
-                    <span id="byte-logo-text" class="text-4xl font-extrabold text-byte-accent-cyan block">Byte</span>
-                    <div id="byte-logo-background"></div>
-                </div>
-            </a>
+                <div class="flex flex-col items-start">
+                    <span id="byte-logo-text" class="text-3xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> <p class="text-sm text-byte-text-light opacity-80 mt-1">Tu visión, nuestra misión</p> </div>
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 ml-2"> </a>
 
             <nav class="hidden sm:flex flex-grow justify-center">
                 <ul class="flex space-x-8 items-center">
@@ -364,8 +335,7 @@
                         <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
                             <a href="#ubicacion" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
                             <a href="#formulario-contacto" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
-                            <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Preguntas Frecuentes</a>
-                            <a href="#redes-sociales" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
+                            <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
                         </div>
                     </li>
                 </ul>
@@ -373,7 +343,7 @@
 
             <div class="flex items-center">
                 <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
                     ¡Empecemos tu Proyecto!
                 </a>
 
@@ -394,16 +364,16 @@
              data-aos="fade-up" data-aos-duration="1000">
             <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-byte-accent-cyan drop-shadow-lg"
                 data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
-                    Nosotros convertimos sueños en realidades digitales
+                Nosotros convertimos sueños en realidades digitales
             </h1>
             <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-byte-text-light opacity-90"
                 data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
-                    Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
+                Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
             </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                 data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
-                    ¡Hablemos de tu Proyecto!
+                ¡Hablemos de tu Proyecto!
             </a>
         </div>
     </section>
@@ -476,13 +446,12 @@
                 <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
                     <a href="#ubicacion" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
                     <a href="#formulario-contacto" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
-                    <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Preguntas Frecuentes</a>
-                    <a href="#redes-sociales" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
+                    <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
                 </div>
             </li>
             <li>
                 <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
                     ¡Empecemos tu Proyecto!
                 </a>
             </li>
@@ -522,15 +491,15 @@
         <div class="container mx-auto px-4 text-center max-w-4xl"
              data-aos="fade-up" data-aos-duration="800">
             <h2 class="text-4xl md:text-5xl font-extrabold text-center text-byte-accent-cyan mb-10">
-                    ¿Listo para despegar?
+                ¿Listo para despegar?
             </h2>
             <p class="text-lg md:text-xl mb-12 text-gray-300">
-                    Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
+                Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
             </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
-                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
-                    ¡Hablemos de tu Proyecto!
+               data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
+                ¡Hablemos de tu Proyecto!
             </a>
         </div>
     </section>
@@ -581,10 +550,9 @@
                                 <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
                             </svg>
                         </a>
-                        </div>
-
+                    </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://maps.google.com/maps?q=Venezuela,Caracas,Plaza%20Sucre,Calle%20Bolivia&t=&z=15&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.332356598586!2d-66.92484432573216!3d10.50529598958988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a591e6d4c0c0f%3A0x7d2b2c1b2c1b2c1b!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1716844800000!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -634,7 +602,7 @@
             easing: 'ease-in-out', /* Función de temporización para la animación */
         });
 
-        // Inicializar el sintetizador para el sonido
+        // Inicializar el sintetizador para el sonido (usando Tone.js)
         const synth = new Tone.Synth({
             oscillator: {
                 type: "sine" // Usar una onda sinusoidal para un sonido más suave
