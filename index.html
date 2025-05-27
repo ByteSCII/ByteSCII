@@ -12,30 +12,6 @@
 
     <link rel="stylesheet" href="./output.css">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'], // Fuente principal para texto
-                        heading: ['Montserrat', 'sans-serif'], // Fuente para títulos
-                        vision: ['Montserrat', 'sans-serif'], // Usando Montserrat para "Tu visión, nuestra misión"
-                    },
-                    colors: {
-                        'byte-dark-bg': '#0A0A1A',        // Fondo oscuro principal (azul oscuro casi negro)
-                        'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario (para tarjetas/menú)
-                        'byte-light-bg': '#F8FAFC',       // Fondo claro para secciones (BLANCO CASI)
-                        'byte-text-light': '#F9FAFB',     // Color de texto claro (blanco)
-                        'byte-text-dark': '#374151',      // Color de texto oscuro
-                        'byte-accent-cyan': '#00FFFF',    // Color de acento (cian brillante)
-                        'byte-button-yellow': '#FFC107',  // Amarillo para botones
-                        'byte-button-yellow-hover': '#FFD54F', // Amarillo más claro al hover
-                    }
-                }
-            }
-        }
-    </script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -76,11 +52,11 @@
 
         /* Estilos para el botón principal (¡Empecemos tu Proyecto!) */
         .btn-primary-action {
-            background-color: var(--byte-button-yellow);
-            color: var(--byte-dark-bg); /* Texto oscuro para contraste */
+            background-color: #FFC107; /* Usando valor directo ya que las variables se definen en tailwind.config.js */
+            color: #0A0A1A; /* Usando valor directo */
         }
         .btn-primary-action:hover {
-            background-color: var(--byte-button-yellow-hover);
+            background-color: #FFD54F; /* Usando valor directo */
             transform: translateY(-2px); /* Efecto de elevación */
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
@@ -94,7 +70,7 @@
             position: relative;
             display: inline-block;
             padding-bottom: 4px; /* Espacio para el borde inferior */
-            color: var(--byte-text-light); /* Color base del texto del enlace */
+            color: #F9FAFB; /* Usando valor directo */
             font-weight: 600; /* Semibold */
         }
 
@@ -105,7 +81,7 @@
             bottom: 0;
             width: 0;
             height: 2px;
-            background-color: var(--byte-accent-cyan);
+            background-color: #00FFFF; /* Usando valor directo */
             transition: width 0.3s ease-in-out;
             border-radius: 2px;
         }
@@ -117,9 +93,9 @@
 
         /* Animación de resplandor más sutil para los enlaces del menú */
         @keyframes menu-link-glow-subtle {
-            0% { text-shadow: 0 0 1px var(--byte-accent-cyan), 0 0 2px var(--byte-accent-cyan); }
-            50% { text-shadow: 0 0 3px var(--byte-accent-cyan), 0 0 6px var(--byte-accent-cyan); }
-            100% { text-shadow: 0 0 1px var(--byte-accent-cyan), 0 0 2px var(--byte-accent-cyan); }
+            0% { text-shadow: 0 0 1px #00FFFF, 0 0 2px #00FFFF; }
+            50% { text-shadow: 0 0 3px #00FFFF, 0 0 6px #00FFFF; }
+            100% { text-shadow: 0 0 1px #00FFFF, 0 0 2px #00FFFF; }
         }
 
         .menu-link-glow {
@@ -128,7 +104,7 @@
         }
         .menu-link-glow:hover {
             transform: scale(1.05); /* Ligeramente más grande en hover */
-            text-shadow: 0 0 10px var(--byte-accent-cyan), 0 0 20px var(--byte-accent-cyan); /* Brillo más intenso en hover */
+            text-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; /* Brillo más intenso en hover */
         }
 
 
@@ -193,7 +169,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            background-color: var(--byte-secondary-dark); /* Fondo para submenú */
+            background-color: #1A202C; /* Usando valor directo */
             border-radius: 0.375rem; /* rounded-md */
             margin-top: 0.5rem; /* mt-2 */
             padding-left: 1rem; /* pl-4 */
@@ -244,8 +220,8 @@
         }
 
         .terms-modal-content {
-            background-color: var(--byte-light-bg); /* FONDO BLANCO APLICADO */
-            color: var(--byte-text-dark); /* TEXTO OSCURO PARA CONTRASTE */
+            background-color: #F8FAFC; /* FONDO BLANCO APLICADO */
+            color: #374151; /* TEXTO OSCURO PARA CONTRASTE */
             padding: 2rem;
             border-radius: 0.75rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
@@ -256,7 +232,7 @@
             overflow-y: auto;
             transform: scale(0.9);
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-            border: 1px solid var(--byte-accent-cyan);
+            border: 1px solid #00FFFF;
         }
 
         .terms-modal-overlay.show-modal .terms-modal-content {
@@ -265,10 +241,10 @@
         }
 
         .terms-modal-content h2 {
-            color: var(--byte-dark-bg); /* Título principal en azul oscuro */
+            color: #0A0A1A; /* Título principal en azul oscuro */
         }
         .terms-modal-content h3 {
-            color: var(--byte-accent-cyan); /* Subtítulos en cian */
+            color: #00FFFF; /* Subtítulos en cian */
         }
 
         /* Scrollbar personalizado para el texto de los términos y condiciones (ajustado para fondo blanco) */
@@ -282,7 +258,7 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: var(--byte-accent-cyan); /* Mantiene el color del "pulgar" */
+            background: #00FFFF; /* Mantiene el color del "pulgar" */
             border-radius: 10px;
         }
 
@@ -403,7 +379,7 @@
     </header>
 
     <nav id="mobile-menu">
-        <button id="close-mobile-menu-button" class="absolute top-4 right-4 p-2 rounded-md text-byte-text-light hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" aria-label="Cerrar menú móvil">
+        <button id="close-mobile-menu-button" class="absolute top-4 right-4 p-2 rounded-md text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" aria-label="Cerrar menú móvil">
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -879,4 +855,3 @@
     <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot><script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 </body>
 </html>
-```
