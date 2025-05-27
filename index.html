@@ -1,51 +1,118 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Diseño Web que Impulsa tu Negocio</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta name="description" content="Transformamos tus ideas en experiencias digitales cautivadoras y funcionales. Expertos en diseño web personalizado, e-commerce, SEO y marketing digital.">
+    <link rel="canonical" href="https://www.tudominio.com/"> <link rel="icon" type="image/png" href="./images/favicon.png"> <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'], // Fuente principal para texto
+                        heading: ['Montserrat', 'sans-serif'], // Fuente para títulos
+                        vision: ['Montserrat', 'sans-serif'], // Usando Montserrat para "Tu visión, nuestra misión"
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A',        // Fondo oscuro principal (azul oscuro casi negro)
+                        'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario (para tarjetas/menú)
+                        'byte-light-bg': '#F8FAFC',       // Fondo claro para secciones
+                        'byte-text-light': '#F9FAFB',     // Color de texto claro (blanco)
+                        'byte-text-dark': '#374151',      // Color de texto oscuro
+                        'byte-accent-cyan': '#00FFFF',    // Color de acento (cian brillante)
+                        'byte-button-yellow': '#FFC107',  // Amarillo para botones
+                        'byte-button-yellow-hover': '#FFD54F', // Amarillo más claro al hover
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" xintegrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        :root {
-            --byte-dark-bg: #0A0A1A;
-            --byte-light-bg: #F8FAFC;
-            --byte-accent-cyan: #00FFFF;
-            --byte-text-light: #F9FAFB;
-            --byte-text-dark: #374151;
-            --byte-secondary-dark: #1A202C;
+        /* Estilos personalizados para animaciones */
+        @keyframes pulse-logo {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--byte-dark-bg);
-            color: var(--byte-text-light);
+        .logo-byte-text-animated {
+            animation: pulse-logo 2s infinite alternate ease-in-out;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .review-item {
+            animation: fade-in-up 0.5s ease-out forwards;
         }
 
-        .bg-byte-dark-bg { background-color: var(--byte-dark-bg); }
-        .bg-byte-light-bg { background-color: var(--byte-light-bg); }
-        .bg-byte-secondary-dark { background-color: var(--byte-secondary-dark); }
-        .text-byte-accent-cyan { color: var(--byte-accent-cyan); }
-        .text-byte-text-light { color: var(--byte-text-light); }
-        .text-byte-text-dark { color: var(--byte-text-dark); }
-        .border-byte-accent-cyan { border-color: var(--byte-accent-cyan); }
-
-        /* Animación de resplandor para el logo "Byte" */
-        @keyframes text-glow {
-            0% { text-shadow: 0 0 5px var(--byte-accent-cyan), 0 0 10px var(--byte-accent-cyan); }
-            50% { text-shadow: 0 0 10px var(--byte-accent-cyan), 0 0 20px var(--byte-accent-cyan); }
-            100% { text-shadow: 0 0 5px var(--byte-accent-cyan), 0 0 10px var(--byte-accent-cyan); }
+        /* Estilos base para todos los botones con transiciones */
+        .btn-base {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out; /* Transición para todas las propiedades */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        #byte-logo-text {
-            animation: text-glow 2s infinite alternate ease-in-out;
+
+        /* Estilos para el botón principal (¡Empecemos tu Proyecto!) */
+        .btn-primary-action {
+            background-color: var(--byte-button-yellow);
+            color: var(--byte-dark-bg); /* Texto oscuro para contraste */
+        }
+        .btn-primary-action:hover {
+            background-color: var(--byte-button-yellow-hover);
+            transform: translateY(-2px); /* Efecto de elevación */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-primary-action:active {
+            transform: translateY(0); /* Vuelve a la posición original al hacer clic */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos para los enlaces del menú con efecto glow */
+        .menu-link-glow {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 4px; /* Espacio para el borde inferior */
+            color: var(--byte-text-light); /* Color base del texto del enlace */
+            font-weight: 600; /* Semibold */
+        }
+
+        .menu-link-glow::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--byte-accent-cyan);
+            transition: width 0.3s ease-in-out;
+            border-radius: 2px;
+        }
+
+        .menu-link-glow:hover::after,
+        .menu-link-glow.active::after {
+            width: 100%;
         }
 
         /* Animación de resplandor más sutil para los enlaces del menú */
@@ -55,15 +122,102 @@
             100% { text-shadow: 0 0 1px var(--byte-accent-cyan), 0 0 2px var(--byte-accent-cyan); }
         }
 
-        /* Aplicar animación de brillo sutil y transformación en hover a los enlaces del menú principal */
         .menu-link-glow {
             animation: menu-link-glow-subtle 2s infinite alternate ease-in-out;
             transition: all 0.3s ease-in-out; /* Transición para transformaciones */
         }
         .menu-link-glow:hover {
-            /* Efecto de "salto hacia adelante" más pronunciado */
-            transform: scale(1.1) translateY(-10px);
+            transform: scale(1.05); /* Ligeramente más grande en hover */
             text-shadow: 0 0 10px var(--byte-accent-cyan), 0 0 20px var(--byte-accent-cyan); /* Brillo más intenso en hover */
+        }
+
+
+        /* Estilos para subcategorías en el menú de escritorio */
+        .desktop-submenu-content {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
+            pointer-events: none; /* Permite clics a través cuando está oculto */
+        }
+
+        .desktop-submenu-content.hidden {
+            display: none; /* Para asegurar que no ocupe espacio cuando no debe */
+        }
+
+        .group:hover .desktop-submenu-content,
+        .desktop-menu-toggle.active + .desktop-submenu-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            pointer-events: auto; /* Habilita clics cuando está visible */
+            display: block; /* Asegura que se muestre como un bloque cuando está activo */
+        }
+
+        /* Rotación del icono de flecha cuando el submenú está activo/abierto (escritorio y móvil) */
+        .menu-link-toggle .fa-chevron-down {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease-in-out;
+        }
+        .menu-link-toggle.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        /* --- Estilos del Menú Móvil (Overlay/Sidebar) --- */
+        #mobile-menu {
+            position: fixed;
+            top: 0; /* Empieza desde la parte superior de la ventana */
+            right: 0;
+            bottom: 0;
+            width: 80%; /* Ancho del menú móvil, puedes ajustar */
+            max-width: 320px; /* Ancho máximo para pantallas más grandes */
+            background-color: var(--byte-secondary-dark); /* Fondo del menú */
+            transform: translateX(100%); /* Oculto fuera de pantalla (desde la derecha) */
+            transition: transform 0.4s ease-in-out; /* Animación de deslizamiento */
+            display: flex; /* Para organizar el contenido en columna */
+            flex-direction: column;
+            padding: 2rem 1.5rem; /* Padding interno */
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); /* Sombra para el efecto sidebar */
+            z-index: 40; /* Asegura que esté por encima del contenido principal */
+            -webkit-overflow-scrolling: touch; /* Mejora el scroll en iOS */
+            overflow-y: auto; /* Permite scroll si el contenido es largo */
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0); /* Muestra el menú deslizándolo */
+        }
+
+        /* Overlay oscuro para el fondo cuando el menú móvil está abierto */
+        #mobile-overlay {
+            position: fixed;
+            inset: 0; /* Ocupa toda la pantalla */
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente oscuro */
+            z-index: 39; /* Justo debajo del menú */
+            opacity: 0;
+            pointer-events: none; /* No interactuable cuando está oculto */
+            transition: opacity 0.4s ease-in-out;
+            display: none; /* Inicialmente oculto */
+        }
+
+        #mobile-overlay.open {
+            opacity: 1;
+            pointer-events: auto; /* Interactuable cuando está abierto */
+            display: block; /* Muestra el overlay */
+        }
+
+        /* Estilos para subcategorías en el menú móvil (desplegable dentro del overlay) */
+        .mobile-menu-toggle + ul {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: var(--byte-dark-bg); /* Fondo para submenú */
+            border-radius: 0.375rem; /* rounded-md */
+            margin-top: 0.5rem; /* mt-2 */
+            padding-left: 1rem; /* pl-4 */
+        }
+
+        .mobile-menu-toggle.active + ul {
+            max-height: 200px; /* Ajusta según la altura máxima esperada del submenú */
         }
 
         /* Estilo para el mapa de Google Maps */
@@ -75,42 +229,45 @@
         }
 
         /* --- Estilos del Modal de Términos y Condiciones --- */
-        #terms-modal {
+        .terms-modal-overlay {
+            position: fixed;
+            inset: 0; /* Ocupa toda la pantalla */
+            display: flex; /* Usar flex para centrar contenido */
+            align-items: center;
+            justify-content: center;
             background-color: rgba(0, 0, 0, 0.75); /* Fondo semitransparente oscuro */
             z-index: 9999; /* Asegura que esté por encima de todo */
-            display: none; /* Inicialmente oculto por defecto */
             opacity: 0; /* Inicialmente oculto */
             transition: opacity 0.3s ease-out; /* Transición suave para la aparición */
             pointer-events: none; /* No permite interacciones cuando está oculto */
         }
 
-        #terms-modal.show-modal {
+        .terms-modal-overlay.show-modal {
             opacity: 1; /* Hace visible el modal */
-        }
-
-        #terms-modal.show-modal-active {
-            display: flex; /* Muestra el modal */
             pointer-events: auto; /* Permite interacciones cuando está activo */
         }
 
-        #terms-modal > div {
+        .terms-modal-content {
             background-color: var(--byte-dark-bg); /* Fondo oscuro para el modal */
             color: var(--byte-text-light); /* Texto claro para el modal */
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* shadow-xl */
+            max-width: 90%; /* Ancho máximo para el modal */
+            max-height: 90vh; /* Altura máxima para el modal */
+            overflow-y: auto; /* Permite scroll si el contenido es largo */
             transform: scale(0.9); /* Ligeramente más pequeño al inicio para la transición */
-            transition: transform 0.3s ease-out; /* Transición suave para el contenido del modal */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Transición suave para el contenido del modal */
             border: 1px solid var(--byte-accent-cyan); /* Borde cian para el modal */
         }
 
-        #terms-modal.show-modal > div {
+        .terms-modal-overlay.show-modal .terms-modal-content {
             transform: scale(1); /* Escala normal al mostrarse */
+            opacity: 1;
         }
 
-        #terms-modal h2, #terms-modal h3 {
+        .terms-modal-content h2, .terms-modal-content h3 {
             color: var(--byte-accent-cyan); /* Títulos en cian */
-        }
-
-        #terms-modal p {
-            color: var(--byte-text-light); /* Párrafos en texto claro */
         }
 
         /* Scrollbar personalizado para el texto de los términos y condiciones */
@@ -141,110 +298,88 @@
         .animate-subtle-fade {
             animation: subtle-fade 3s infinite alternate ease-in-out;
         }
-
-        /* Estilos para subcategorías en el menú de escritorio */
-        .desktop-submenu-content { /* Nueva clase para los submenús de escritorio */
-            transform-origin: top;
-            transform: scaleY(0);
-            opacity: 0;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
-
-        .desktop-submenu-content:not(.hidden) { /* Cuando no tiene la clase hidden, se muestra */
-            transform: scaleY(1);
-            opacity: 1;
-        }
-
-        /* Estilos para subcategorías en el menú móvil (desplegable) */
-        .mobile-menu-toggle + ul {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .mobile-menu-toggle.active + ul {
-            max-height: 200px; /* Ajusta según la altura máxima esperada del submenú */
-        }
-
-        /* Rotación del icono de flecha cuando el submenú está activo/abierto */
-        .menu-link-toggle .fa-chevron-down {
-            transform: rotate(0deg);
-            transition: transform 0.3s ease-in-out;
-        }
-        .menu-link-toggle.active .fa-chevron-down {
-            transform: rotate(180deg);
-        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
 
-    <div id="terms-modal" class="fixed inset-0 flex items-center justify-center">
-        <div class="p-8 rounded-lg shadow-xl max-w-2xl mx-4 my-8 relative transform transition-all sm:w-full sm:mx-auto">
-            <h2 class="text-3xl font-bold mb-6 text-center">Términos y Condiciones</h2>
-            <div class="max-h-96 overflow-y-auto mb-6 pr-4 custom-scrollbar">
-                <p class="mb-4">Bienvenido a Byte. Al acceder y utilizar nuestro sitio web, usted acepta cumplir y estar sujeto a los siguientes términos y condiciones de uso. Si no está de acuerdo con alguna parte de estos términos, por favor, no utilice nuestro sitio web.</p>
-                <h3 class="font-semibold text-xl mb-2">1. Uso del Sitio Web</h3>
-                <p class="mb-4">El contenido de las páginas de este sitio web es para su información general y uso exclusivo. Está sujeto a cambios sin previo aviso.</p>
-                <h3 class="font-semibold text-xl mb-2">2. Propiedad Intelectual</h3>
-                <p class="mb-4">Este sitio web contiene material que es propiedad nuestra o está licenciado para nosotros. Este material incluye, pero no se limita a, el diseño, la disposición, el aspecto, los gráficos y el texto. La reproducción está prohibida salvo de conformidad con el aviso de derechos de autor, que forma parte de estos términos y condiciones.</p>
-                <h3 class="font-semibold text-xl mb-2">3. Enlaces a Otros Sitios Web</h3>
-                <p class="mb-4">Nuestro sitio web puede contener enlaces a otros sitios web de interés. Sin embargo, una vez que haya utilizado estos enlaces para salir de nuestro sitio, debe tener en cuenta que no tenemos ningún control sobre ese otro sitio web. Por lo tanto, no podemos ser responsables de la protección y privacidad de cualquier información que proporcione mientras visita dichos sitios y dichos sitios no se rige por esta declaración de privacidad. Debe tener precaución y consultar la declaración de privacidad aplicable al sitio web en cuestión.</p>
-                <h3 class="font-semibold text-xl mb-2">4. Limitación de Responsabilidad</h3>
-                <p class="mb-4">Ni nosotros ni ningún tercero ofrecemos garantía alguna en cuanto a la exactitud, puntualidad, rendimiento, integridad o idoneidad de la información y los materiales encontrados u ofrecidos en este sitio web para cualquier propósito particular. Usted reconoce que dicha información y materiales pueden contener inexactitudes o errores y excluimos expresamente la responsabilidad por tales inexactitudes o errores en la máxima medida permitida por la ley.</p>
-                <h3 class="font-semibold text-xl mb-2">5. Modificaciones de los Términos</h3>
-                <p class="mb-4">Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Cualquier cambio será efectivo inmediatamente después de su publicación en el sitio web. Su uso continuado del sitio web después de la publicación de los cambios constituirá su aceptación de dichos cambios.</p>
-                <p class="mb-4 text-center font-bold">Al hacer clic en "Aceptar", usted confirma que ha leído, entendido y aceptado nuestros Términos y Condiciones y nuestra <a href="#politica-privacidad" class="text-byte-accent-cyan hover:underline">Política de Privacidad</a>.</p>
+    <div id="terms-modal" class="terms-modal-overlay">
+        <div class="terms-modal-content">
+            <h2 class="text-3xl font-bold text-center text-byte-accent-cyan mb-6">Términos y Condiciones de Uso</h2>
+            <div class="text-sm leading-relaxed mb-6 custom-scrollbar">
+                <p class="mb-3">Bienvenido a Byte. Al acceder y utilizar nuestro sitio web y servicios, aceptas los siguientes términos y condiciones en su totalidad. Por favor, léelos cuidadosamente.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">1. Aceptación de los Términos</h3>
+                <p class="mb-3">Este acuerdo ("Términos") establece los términos y condiciones legalmente vinculantes para el uso de los servicios de Byte (el "Servicio"). Al acceder o utilizar el Servicio, confirmas tu aceptación de estos Términos y tu consentimiento para ser regido por ellos. Si no estás de acuerdo con alguna parte de los términos, no podrás acceder al Servicio.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">2. Uso de la Información</h3>
+                <p class="mb-3">Toda la información proporcionada en este sitio web es solo para fines informativos y de cotización. Byte no garantiza la exactitud, exhaustividad o actualidad de la información. El uso de cualquier información de este sitio es bajo tu propio riesgo.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">3. Propiedad Intelectual</h3>
+                <p class="mb-3">El contenido, diseño y funcionalidad de este sitio web, incluyendo textos, gráficos, logotipos, iconos, imágenes y software, son propiedad de Byte o de sus licenciantes y están protegidos por leyes de derechos de autor y propiedad intelectual.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">4. Privacidad</h3>
+                <p class="mb-3">Tu uso de nuestro Servicio también se rige por nuestra Política de Privacidad, que describe cómo recopilamos, usamos y protegemos tu información personal. Al usar el Servicio, aceptas la recopilación y el uso de información de acuerdo con dicha política.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">5. Enlaces a Otros Sitios Web</h3>
+                <p class="mb-3">Nuestro Servicio puede contener enlaces a sitios web o servicios de terceros que no son propiedad ni están controlados por Byte. No tenemos control ni asumimos responsabilidad por el contenido, políticas de privacidad o prácticas de sitios web o servicios de terceros.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">6. Limitación de Responsabilidad</h3>
+                <p class="mb-3">En ningún caso Byte, ni sus directores, empleados, socios, agentes, proveedores o afiliados, serán responsables de daños indirectos, incidentales, especiales, consecuentes o punitivos, incluyendo, entre otros, la pérdida de beneficios, datos, uso, fondo de comercio u otras pérdidas intangibles, resultantes de (i) tu acceso o uso o imposibilidad de acceder o usar el Servicio; (ii) cualquier conducta o contenido de un tercero en el Servicio; (iii) cualquier contenido obtenido del Servicio; y (iv) el acceso, uso o alteración no autorizados de tus transmisiones o contenido, ya sea basado en garantía, contrato, agravio (incluyendo negligencia) o cualquier otra teoría legal, hayamos sido o no informados de la posibilidad de tales daños, e incluso si se encuentra que un recurso aquí establecido ha fallado en su propósito esencial.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">7. Modificaciones</h3>
+                <p class="mb-3">Nos reservamos el derecho de modificar o reemplazar estos Términos en cualquier momento. Si una revisión es material, intentaremos proporcionar un aviso de al menos 30 días antes de que los nuevos términos entren en vigor. Lo que constituye un cambio material se determinará a nuestra entera discreción.</p>
+
+                <h3 class="text-xl font-semibold text-byte-text-light mb-2">8. Contacto</h3>
+                <p class="mb-3">Si tienes alguna pregunta sobre estos Términos, por favor contáctanos.</p>
             </div>
-            <button id="accept-terms-button" class="w-full bg-byte-accent-cyan text-byte-dark-bg font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105 text-lg">
+            <button id="accept-terms-button" class="w-full bg-byte-accent-cyan text-byte-dark-bg font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-400 transition duration-300 transform hover:scale-105">
                 Aceptar Términos y Condiciones
             </button>
         </div>
     </div>
 
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
-        <div class="container mx-auto px-4 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <a href="#inicio" class="flex items-center" aria-label="Ir a inicio de la página">
-                    <span id="byte-logo-text" class="text-4xl font-extrabold text-byte-accent-cyan block">Byte</span>
-                </a>
-                <span class="font-vision text-gray-100 text-sm md:text-lg font-light animate-subtle-fade">Tu visión, nuestra misión</span>
-            </div>
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="#inicio" class="text-3xl md:text-4xl font-extrabold text-byte-accent-cyan logo-byte-text-animated" aria-label="Ir a inicio de la página">
+                Byte
+            </a>
+            <div class="font-vision text-gray-100 text-sm md:text-lg font-light animate-subtle-fade">Tu visión, nuestra misión</div>
 
             <nav class="hidden sm:block flex-grow">
                 <ul class="flex justify-center space-x-8 items-center">
                     <li class="relative group">
-                        <a href="#inicio" class="text-white text-lg font-semibold menu-link-glow desktop-menu-toggle menu-link-toggle">Inicio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                        <a href="#inicio" class="text-lg menu-link-glow desktop-menu-toggle menu-link-toggle">Inicio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                         <ul class="absolute top-full left-0 mt-2 bg-byte-secondary-dark rounded-md shadow-lg min-w-[160px] py-2 z-20 desktop-submenu-content hidden">
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                         </ul>
                     </li>
                     <li class="relative group">
-                        <a href="#servicios" class="text-white text-lg font-semibold menu-link-glow desktop-menu-toggle menu-link-toggle">Servicios <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                        <a href="#servicios" class="text-lg menu-link-glow desktop-menu-toggle menu-link-toggle">Servicios <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                         <ul class="absolute top-full left-0 mt-2 bg-byte-secondary-dark rounded-md shadow-lg min-w-[160px] py-2 z-20 desktop-submenu-content hidden">
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                         </ul>
                     </li>
                     <li class="relative group">
-                        <a href="#portafolio" class="text-white text-lg font-semibold menu-link-glow desktop-menu-toggle menu-link-toggle">Portafolio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                        <a href="#portafolio" class="text-lg menu-link-glow desktop-menu-toggle menu-link-toggle">Portafolio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                         <ul class="absolute top-full left-0 mt-2 bg-byte-secondary-dark rounded-md shadow-lg min-w-[160px] py-2 z-20 desktop-submenu-content hidden">
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                         </ul>
                     </li>
                     <li class="relative group">
-                        <a href="#proceso" class="text-white text-lg font-semibold menu-link-glow desktop-menu-toggle menu-link-toggle">Proceso <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                        <a href="#proceso" class="text-lg menu-link-glow desktop-menu-toggle menu-link-toggle">Proceso <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                         <ul class="absolute top-full left-0 mt-2 bg-byte-secondary-dark rounded-md shadow-lg min-w-[160px] py-2 z-20 desktop-submenu-content hidden">
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="reseñas.html" class="text-white text-lg font-semibold menu-link-glow">Reseñas</a>
+                        <a href="reseñas.html" class="text-lg menu-link-glow">Reseñas</a>
                     </li>
                     <li class="relative group">
-                        <a href="#contacto" class="text-white text-lg font-semibold menu-link-glow desktop-menu-toggle menu-link-toggle">Contacto <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                        <a href="#contacto" class="text-lg menu-link-glow desktop-menu-toggle menu-link-toggle">Contacto <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                         <ul class="absolute top-full left-0 mt-2 bg-byte-secondary-dark rounded-md shadow-lg min-w-[160px] py-2 z-20 desktop-submenu-content hidden">
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                             <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
@@ -253,7 +388,7 @@
                 </ul>
             </nav>
 
-            <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+            <a href="#contacto" class="hidden sm:inline-block btn-primary-action py-2 px-6 rounded-full
                                        shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 hover:-translate-y-1">
                 ¡Empecemos tu Proyecto!
             </a>
@@ -266,49 +401,51 @@
         </div>
     </header>
 
-    <nav id="mobile-menu" class="sm:hidden bg-byte-secondary-dark shadow-lg py-4 px-4 hidden fixed top-20 w-full z-40">
+    <div id="mobile-overlay" class="hidden sm:hidden"></div>
+
+    <nav id="mobile-menu" class="sm:hidden bg-byte-secondary-dark shadow-lg py-4 px-4">
         <ul class="flex flex-col space-y-4">
             <li class="relative">
-                <a href="#inicio" class="block text-white text-lg font-semibold py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Inicio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#inicio" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Inicio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li class="relative">
-                <a href="#servicios" class="block text-white text-lg font-semibold py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Servicios <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#servicios" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Servicios <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li class="relative">
-                <a href="#portafolio" class="block text-white text-lg font-semibold py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Portafolio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#portafolio" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Portafolio <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li class="relative">
-                <a href="#proceso" class="block text-white text-lg font-semibold py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Proceso <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#proceso" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Proceso <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li>
-                <a href="reseñas.html" class="block text-white text-lg font-semibold py-2 menu-link-glow mobile-menu-toggle">Reseñas</a>
+                <a href="reseñas.html" class="block text-lg py-2 menu-link-glow mobile-menu-toggle">Reseñas</a>
             </li>
             <li class="relative">
-                <a href="#contacto" class="block text-white text-lg font-semibold py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Contacto <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
+                <a href="#contacto" class="block text-lg py-2 menu-link-glow mobile-menu-toggle menu-link-toggle">Contacto <i class="fas fa-chevron-down ml-2 transform transition-transform duration-300"></i></a>
                 <ul class="mt-2 bg-byte-dark-bg rounded-md shadow-inner py-2 pl-4">
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 1</a></li>
                     <li><a href="#" class="block px-4 py-2 text-white hover:bg-gray-700 hover:text-byte-accent-cyan transition duration-200 transform hover:scale-105">Sub 2</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 hover:-translate-y-1 text-center mt-4">
+                <a href="#contacto" class="block btn-primary-action text-center py-2 px-6 rounded-full
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 hover:-translate-y-1 mt-4">
                     ¡Empecemos tu Proyecto!
                 </a>
             </li>
@@ -328,7 +465,7 @@
                data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
                 Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
             </p>
-            <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+            <a href="#contacto" class="inline-block btn-primary-action py-3 px-8 rounded-full
                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                 ¡Hablemos de tu Proyecto!
@@ -471,7 +608,7 @@
             <p class="text-lg md:text-xl mb-12 text-gray-300">
                 Descubre las experiencias de quienes ya han confiado en Byte para sus proyectos digitales.
             </p>
-            <a href="reseñas.html" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+            <a href="reseñas.html" class="inline-block btn-primary-action py-3 px-8 rounded-full
                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                 Ver Todas las Reseñas
@@ -488,7 +625,7 @@
             <p class="text-lg md:text-xl mb-12 text-gray-300">
                 Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
             </p>
-            <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+            <a href="#contacto" class="inline-block btn-primary-action py-3 px-8 rounded-full
                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                 ¡Solicita tu Presupuesto Gratuito!
@@ -529,7 +666,7 @@
                     <div class="space-y-6 text-center text-lg">
                         <p class="flex items-center justify-center text-byte-dark-bg"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
                         <p class="flex items-center justify-center text-byte-dark-bg"><span class="text-byte-accent-cyan mr-3">📧</span> Bytewebdesign1@gmail.com</p>
-                        <p class="flex items-center justify-center text-byte-accent-cyan mr-3">📞 +584125646508</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan">📞 +584125646508</p>
                         <div class="mt-6 flex justify-center space-x-6 text-2xl">
                             <a href="https://facebook.com/tupagina" target="_blank" aria-label="Visitar Facebook" class="text-byte-text-dark hover:text-byte-accent-cyan transition duration-300"><i class="fab fa-facebook-f"></i></a>
                             <a href="https://twitter.com/tucuenta" target="_blank" aria-label="Visitar X (Twitter)" class="text-byte-text-dark hover:text-byte-accent-cyan transition duration-300"><i class="fab fa-x-twitter"></i></a>
@@ -540,7 +677,7 @@
 
                     <div class="mt-8 map-container rounded-lg shadow-md">
                         <iframe src="https://maps.google.com/maps?q=Venezuela,Caracas,Plaza%20Sucre,Calle%20Bolivia&t=&z=15&ie=UTF8&iwloc=&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-                                title="Ubicación de Byte en Venezuela, Caracas, Plaza Sucre, Calle Bolivia"></iframe>
+                                 title="Ubicación de Byte en Venezuela, Caracas, Plaza Sucre, Calle Bolivia"></iframe>
                     </div>
                 </div>
             </div>
@@ -572,35 +709,47 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            /* Script para el menú móvil */
+            /* Script para el menú móvil (Overlay/Sidebar) */
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay'); // Obtener el nuevo overlay
+            const body = document.body; // Para controlar el scroll del body
 
-            if (mobileMenuButton && mobileMenu) {
+            if (mobileMenuButton && mobileMenu && mobileOverlay) {
                 mobileMenuButton.addEventListener('click', function(event) {
                     event.stopPropagation(); // Evita que el clic en el botón se propague al documento
-                    const isHidden = mobileMenu.classList.contains('hidden');
-                    mobileMenu.classList.toggle('hidden');
-                    // Actualizar aria-expanded para accesibilidad
-                    mobileMenuButton.setAttribute('aria-expanded', !isHidden);
-                    // Cerrar todos los submenús móviles cuando el menú principal se cierra/abre
-                    mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
-                        activeLink.classList.remove('active');
-                    });
+                    const isOpen = mobileMenu.classList.contains('open');
+
+                    if (isOpen) {
+                        mobileMenu.classList.remove('open');
+                        mobileOverlay.classList.remove('open');
+                        body.classList.remove('overflow-hidden'); // Habilita scroll
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                        // Cerrar cualquier submenú móvil abierto
+                        mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
+                            activeLink.classList.remove('active');
+                        });
+                    } else {
+                        mobileMenu.classList.add('open');
+                        mobileOverlay.classList.add('open');
+                        body.classList.add('overflow-hidden'); // Deshabilita scroll
+                        mobileMenuButton.setAttribute('aria-expanded', 'true');
+                    }
                 });
 
-                mobileMenu.querySelectorAll('.mobile-menu-toggle').forEach(link => {
+                // Cierre del menú móvil cuando se hace clic en un enlace (dentro o fuera del submenú)
+                mobileMenu.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', function(event) {
-                        const subMenu = this.nextElementSibling; // Obtener el UL hermano (el submenú)
-
-                        // Si el enlace tiene un submenú (es un UL y no un enlace directo a sección)
-                        if (subMenu && subMenu.tagName === 'UL') {
-                            event.preventDefault(); // Prevenir el salto a la sección
+                        // Si el enlace tiene submenú y es un toggle, solo alternar el submenú
+                        if (this.classList.contains('mobile-menu-toggle') && this.nextElementSibling && this.nextElementSibling.tagName === 'UL') {
+                            event.preventDefault(); // Prevenir el salto a la sección si es un toggle
                             this.classList.toggle('active'); // Alternar la clase 'active' en el enlace
                             // El CSS manejará la animación de max-height
                         } else {
-                            // Si es un enlace directo a una sección (sin submenú), cerrar el menú principal móvil
-                            mobileMenu.classList.add('hidden');
+                            // Para enlaces que no son toggles o son sub-enlaces, cierra el menú principal
+                            mobileMenu.classList.remove('open');
+                            mobileOverlay.classList.remove('open');
+                            body.classList.remove('overflow-hidden');
                             mobileMenuButton.setAttribute('aria-expanded', 'false');
                             // Cerrar cualquier submenú abierto
                             mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
@@ -610,34 +759,29 @@
                     });
                 });
 
-                // Cerrar el menú móvil si se hace clic en una subcategoría
-                mobileMenu.querySelectorAll('ul li a:not(.mobile-menu-toggle)').forEach(subLink => {
-                    subLink.addEventListener('click', function() {
-                        mobileMenu.classList.add('hidden');
+                // Cerrar el menú móvil y el overlay si se hace clic en el overlay o fuera del menú
+                mobileOverlay.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    mobileOverlay.classList.remove('open');
+                    body.classList.remove('overflow-hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    // Cerrar cualquier submenú abierto
+                    mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
+                        activeLink.classList.remove('active');
+                    });
+                });
+
+                // También cerrar el menú móvil si se redimensiona la ventana a un tamaño de escritorio
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 640) { // sm:breakpoint de Tailwind
+                        mobileMenu.classList.remove('open');
+                        mobileOverlay.classList.remove('open');
+                        body.classList.remove('overflow-hidden');
                         mobileMenuButton.setAttribute('aria-expanded', 'false');
                         // Cerrar cualquier submenú abierto
                         mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
                             activeLink.classList.remove('active');
                         });
-                    });
-                });
-
-                // Nueva función para cerrar el menú móvil al hacer clic fuera
-                document.addEventListener('click', (event) => {
-                    // Si el menú móvil está abierto
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        // Comprobar si el clic fue fuera del menú móvil y fuera del botón del menú
-                        const isClickInsideMenu = mobileMenu.contains(event.target);
-                        const isClickOnButton = mobileMenuButton.contains(event.target);
-
-                        if (!isClickInsideMenu && !isClickOnButton) {
-                            mobileMenu.classList.add('hidden');
-                            mobileMenuButton.setAttribute('aria-expanded', 'false');
-                            // Cerrar también cualquier submenú abierto
-                            mobileMenu.querySelectorAll('.mobile-menu-toggle.active').forEach(activeLink => {
-                                activeLink.classList.remove('active');
-                            });
-                        }
                     }
                 });
             }
@@ -690,39 +834,35 @@
             const termsAccepted = localStorage.getItem('termsAccepted');
 
             if (!termsAccepted) {
-                termsModal.classList.add('show-modal-active'); // Muestra el modal (display: flex, pointer-events: auto)
+                // Pequeño retardo para que la transición CSS funcione correctamente al cargar la página
                 setTimeout(() => {
                     termsModal.classList.add('show-modal'); // Activa la transición de opacidad
                     document.body.classList.add('overflow-hidden'); // Evita el scroll del body principal
-                }, 10); // Pequeño retardo para que la transición CSS funcione
+                }, 100); // Retraso de 100ms
             }
 
             if (acceptTermsButton) {
                 acceptTermsButton.addEventListener('click', () => {
                     localStorage.setItem('termsAccepted', 'true'); // Marca los términos como aceptados
-                    termsModal.classList.remove('show-modal'); // Desactiva la transición de opacidad
-                    document.body.classList.remove('overflow-hidden'); // Permite el scroll del body
-                    setTimeout(() => {
-                        termsModal.classList.remove('show-modal-active'); // Oculta el modal (display: none, pointer-events: none)
-                    }, 300); // Debe coincidir con la duración de la transición CSS
+                    hideTermsModal(); // Llama a la función para ocultar el modal
                 });
             }
 
             // Cierra el modal si el usuario hace clic fuera de su contenido
             termsModal.addEventListener('click', (event) => {
                 if (event.target === termsModal) {
-                    // Llama a la función para ocultar el modal (se define a continuación)
                     hideTermsModal();
                 }
             });
 
             // Función auxiliar para ocultar el modal (usada también por el click fuera)
             function hideTermsModal() {
-                termsModal.classList.remove('show-modal');
-                document.body.classList.remove('overflow-hidden');
+                termsModal.classList.remove('show-modal'); // Desactiva la transición de opacidad
+                document.body.classList.remove('overflow-hidden'); // Permite el scroll del body
                 setTimeout(() => {
+                    // Solo ocultar completamente (display: none) después de que la transición haya terminado
                     termsModal.classList.remove('show-modal-active');
-                }, 300);
+                }, 300); // Debe coincidir con la duración de la transición CSS
             }
 
             // Actualizar el año en el footer automáticamente
