@@ -263,9 +263,9 @@
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                <div class="flex flex-col items-start">
-                    <span id="byte-logo-text" class="text-3xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> <p class="text-sm text-byte-text-light opacity-80 mt-1">Tu visión, nuestra misión</p> </div>
-                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 ml-2"> </a>
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2"> <div class="flex flex-col items-start">
+                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> <p class="text-sm text-byte-text-light opacity-80 mt-0.5 whitespace-nowrap">Tu visión, nuestra misión</p> </div>
+            </a>
 
             <nav class="hidden sm:flex flex-grow justify-center">
                 <ul class="flex space-x-8 items-center">
@@ -357,7 +357,7 @@
     </header>
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
+        <img src="https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Fondo+Hero" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
@@ -590,273 +590,120 @@
               flex items-center justify-center z-[10000] transition-all duration-500 ease-out">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
-        </svg>
+            </svg>
     </a>
+
+    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Inicialización de AOS
         AOS.init({
-            once: true,      /* Las animaciones ocurren solo una vez al hacer scroll */
-            duration: 1000, /* Duración de la animación en milisegundos */
-            easing: 'ease-in-out', /* Función de temporización para la animación */
+            once: true, // Animaciones solo una vez al hacer scroll hacia abajo
+            mirror: false, // No animar al hacer scroll hacia arriba
+            offset: 100, // Desplazamiento (en px) del punto de activación original
+            duration: 800, // Duración de la animación (en ms)
+            easing: 'ease-out-cubic', // Función de temporización
         });
 
-        // Inicializar el sintetizador para el sonido (usando Tone.js)
-        const synth = new Tone.Synth({
-            oscillator: {
-                type: "sine" // Usar una onda sinusoidal para un sonido más suave
-            },
-            envelope: {
-                attack: 0.01,
-                decay: 0.2,
-                sustain: 0.1,
-                release: 0.5
-            }
-        }).toDestination();
-        synth.volume.value = -25; // Reducir el volumen aún más (de -15dB a -25dB)
-
-        /* Función para cerrar el menú móvil principal (definida globalmente) */
-        const closeMobileMenu = () => {
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
-        };
-
-        /* Script para el menú móvil (mostrar/ocultar al hacer clic en el botón de hamburguesa) */
+        // Funcionalidad del menú móvil
         const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu'); // Referencia al menú móvil original
+        const mobileMenu = document.getElementById('mobile-menu');
 
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden'); /* Alterna la clase 'hidden' */
-                // Toca un sonido al abrir/cerrar el menú
-                synth.triggerAttackRelease("G5", "32n"); // Un sonido más tierno y corto (G5, 32ava de nota)
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // Opcional: Cambiar el icono de la hamburguesa a una 'X'
+            const icon = mobileMenuButton.querySelector('svg path');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+            } else {
+                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+            }
+        });
+
+        // Cerrar el menú móvil al hacer clic en un enlace
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
             });
+        });
 
-            // Cierra el menú móvil si se hace clic en un enlace de sección principal
-            mobileMenu.querySelectorAll('a[href^="#"]').forEach(link => {
-                // Solo cierra si el enlace no es un toggle de dropdown
-                if (!link.classList.contains('js-dropdown-toggle-mobile')) {
-                    link.addEventListener('click', closeMobileMenu);
-                }
+        // Funcionalidad de los menús desplegables de escritorio
+        document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const dropdownId = this.dataset.dropdownId;
+                const dropdownMenu = document.getElementById(dropdownId);
+                const arrowIcon = this.querySelector('.js-arrow-icon');
+
+                // Cerrar otros menús abiertos
+                document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                        const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (otherButton) {
+                            otherButton.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                        }
+                    }
+                });
+
+                dropdownMenu.classList.toggle('hidden');
+                arrowIcon.classList.toggle('rotate-180');
             });
+        });
 
-            // Cierra el menú móvil si se hace clic fuera de él
-            document.addEventListener('click', (event) => {
-                if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target) && !mobileMenu.classList.contains('hidden')) {
-                    closeMobileMenu();
-                }
-            });
-        }
-
-        /* Script para los menús desplegables (subcategorías) */
-        document.addEventListener('DOMContentLoaded', () => {
-            const dropdownToggles = document.querySelectorAll('.js-dropdown-toggle');
-            const dropdownTogglesMobile = document.querySelectorAll('.js-dropdown-toggle-mobile');
-
-            // Función para cerrar todos los dropdowns abiertos (escritorio y móvil)
-            const closeAllDropdowns = () => {
+        // Cerrar menús desplegables al hacer clic fuera de ellos
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     menu.classList.add('hidden');
-                    // Rotar el icono de flecha de vuelta
-                    const toggle = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                    if (toggle) {
-                        const arrowIcon = toggle.querySelector('.js-arrow-icon');
-                        if (arrowIcon && arrowIcon.classList.contains('rotate-180')) {
-                            arrowIcon.classList.remove('rotate-180');
-                        }
+                    const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                    if (button) {
+                        button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
                     }
                 });
+            }
+        });
+
+        // Funcionalidad de los menús desplegables móviles
+        document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const dropdownId = this.dataset.dropdownIdMobile;
+                const dropdownMenu = document.getElementById(dropdownId);
+                const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
+
+                // Cerrar otros menús móviles abiertos
                 document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
-                    menu.classList.add('hidden');
-                    // Rotar el icono de flecha de vuelta
-                    const toggle = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
-                    if (toggle) {
-                        const arrowIcon = toggle.querySelector('.js-arrow-icon-mobile');
-                        if (arrowIcon && arrowIcon.classList.contains('rotate-180')) {
-                            arrowIcon.classList.remove('rotate-180');
-                        }
-                    }
-                });
-            };
-
-            // Manejo de clics para dropdowns de escritorio
-            dropdownToggles.forEach(toggle => {
-                toggle.addEventListener('click', (event) => {
-                    event.preventDefault(); // Evita que el enlace salte a un #
-                    event.stopPropagation(); // Evita que el clic se propague al documento
-
-                    const dropdownId = toggle.dataset.dropdownId;
-                    const dropdownMenu = document.getElementById(dropdownId);
-                    const arrowIcon = toggle.querySelector('.js-arrow-icon');
-
-                    if (dropdownMenu) {
-                        // Cierra otros dropdowns de escritorio, pero no el que se está abriendo
-                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            if (menu.id !== dropdownId) {
-                                menu.classList.add('hidden');
-                                const otherToggle = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                                if (otherToggle) {
-                                    const otherArrowIcon = otherToggle.querySelector('.js-arrow-icon');
-                                    if (otherArrowIcon) {
-                                        otherArrowIcon.classList.remove('rotate-180');
-                                    }
-                                }
-                            }
-                        });
-
-                        dropdownMenu.classList.toggle('hidden');
-                        if (arrowIcon) {
-                            arrowIcon.classList.toggle('rotate-180');
-                        }
-                    }
-                });
-            });
-
-            // Manejo de clics para dropdowns móviles
-            dropdownTogglesMobile.forEach(toggle => {
-                toggle.addEventListener('click', (event) => {
-                    event.preventDefault(); // Evita que el enlace salte a un #
-                    event.stopPropagation(); // Evita que el clic se propague al documento
-
-                    const dropdownId = toggle.dataset.dropdownIdMobile;
-                    const dropdownMenu = document.getElementById(dropdownId);
-                    const arrowIcon = toggle.querySelector('.js-arrow-icon-mobile');
-
-                    if (dropdownMenu) {
-                        // Cierra otros dropdowns móviles pero mantiene el menú móvil principal abierto
-                        document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
-                            if (menu.id !== dropdownId) {
-                                menu.classList.add('hidden');
-                                const otherToggle = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
-                                if (otherToggle) {
-                                    const otherArrowIcon = otherToggle.querySelector('.js-arrow-icon-mobile');
-                                    if (otherArrowIcon) {
-                                        otherArrowIcon.classList.remove('rotate-180');
-                                    }
-                                }
-                            }
-                        });
-                        dropdownMenu.classList.toggle('hidden');
-                        if (arrowIcon) {
-                            arrowIcon.classList.toggle('rotate-180');
-                        }
-                    }
-                });
-            });
-
-            // Cierra los dropdowns si se hace clic fuera de ellos (para escritorio y móvil)
-            document.addEventListener('click', (event) => {
-                // Para los menús de escritorio
-                if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
-                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
-                        const toggle = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                        if (toggle) {
-                            const arrowIcon = toggle.querySelector('.js-arrow-icon');
-                            if (arrowIcon) {
-                                arrowIcon.classList.remove('rotate-180');
-                            }
+                        const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                        if (otherButton) {
+                            otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
                         }
-                    });
-                }
-
-                // Para el menú móvil principal y sus submenús
-                if (mobileMenuButton && mobileMenu) {
-                    // Si el clic no fue en el botón de menú móvil ni dentro del menú móvil
-                    if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
-                        closeMobileMenu(); // Cierra el menú móvil principal
-                        closeAllDropdowns(); // Y también cualquier submenú que pudiera estar abierto
                     }
-                }
+                });
+
+                dropdownMenu.classList.toggle('hidden');
+                arrowIcon.classList.toggle('rotate-180');
             });
         });
 
-        /* Script para el banner de consentimiento de cookies y el botón de WhatsApp flotante */
-        document.addEventListener('DOMContentLoaded', () => {
-            const cookieConsentBanner = document.getElementById('cookie-consent-banner');
-            const acceptCookiesButton = document.getElementById('accept-cookies');
-            const whatsappFloatButton = document.getElementById('whatsapp-float-button');
-            const initialWhatsappBottom = 24; // Corresponds to Tailwind's bottom-6 (6 * 4px = 24px)
+        // Funcionalidad para la banner de cookies
+        const cookieConsentBanner = document.getElementById('cookie-consent-banner');
+        const acceptCookiesButton = document.getElementById('accept-cookies');
 
-            // Función para ajustar la posición del botón de WhatsApp
-            const adjustWhatsappButtonPosition = () => {
-                if (cookieConsentBanner && whatsappFloatButton) {
-                    // Si el banner es visible (no tiene 'translate-y-full')
-                    if (!cookieConsentBanner.classList.contains('translate-y-full')) {
-                        const bannerHeight = cookieConsentBanner.offsetHeight;
-                        whatsappFloatButton.style.bottom = `${bannerHeight + initialWhatsappBottom}px`;
-                    } else {
-                        // Si el banner está oculto, vuelve a la posición inicial
-                        whatsappFloatButton.style.bottom = `${initialWhatsappBottom}px`;
-                    }
-                }
-            };
+        // Mostrar el banner si no se ha aceptado previamente
+        if (!localStorage.getItem('cookieConsent')) {
+            cookieConsentBanner.classList.remove('translate-y-full');
+        }
 
-            // Comprobar si las cookies ya han sido aceptadas
-            const cookiesAccepted = localStorage.getItem('cookiesAccepted');
-
-            if (cookiesAccepted !== 'true') {
-                // Si no han sido aceptadas, mostrar el banner después de un pequeño retraso
-                setTimeout(() => {
-                    if (cookieConsentBanner) {
-                        cookieConsentBanner.classList.remove('translate-y-full');
-                        cookieConsentBanner.classList.add('translate-y-0');
-                        adjustWhatsappButtonPosition(); // Ajustar la posición del botón al mostrar el banner
-                    }
-                }, 1000); // Retraso de 1 segundo para que la página cargue primero
-            } else {
-                // Si las cookies ya fueron aceptadas, asegurar que el banner esté oculto y el botón en posición normal
-                if (cookieConsentBanner) {
-                    cookieConsentBanner.style.display = 'none';
-                }
-                if (whatsappFloatButton) {
-                    whatsappFloatButton.style.bottom = `${initialWhatsappBottom}px`;
-                }
-            }
-
-            // Manejar el clic en el botón de aceptar
-            if (acceptCookiesButton && cookieConsentBanner) {
-                acceptCookiesButton.addEventListener('click', () => {
-                    localStorage.setItem('cookiesAccepted', 'true'); // Guardar el estado de aceptación
-                    cookieConsentBanner.classList.remove('translate-y-0');
-                    cookieConsentBanner.classList.add('translate-y-full'); // Ocultar el banner
-                    adjustWhatsappButtonPosition(); // Ajustar la posición del botón al ocultar el banner
-                    setTimeout(() => {
-                        cookieConsentBanner.style.display = 'none'; // Eliminar del flujo una vez oculto
-                    }, 500); // Esperar a que termine la transición
-                });
-            }
-
-            // También ajustar la posición si la ventana cambia de tamaño (en caso de que el banner cambie de altura)
-            window.addEventListener('resize', adjustWhatsappButtonPosition);
-        });
-
-        /* Script para la animación del botón de WhatsApp */
-        document.addEventListener('DOMContentLoaded', () => {
-            const whatsappButton = document.getElementById('whatsapp-float-button');
-
-            if (whatsappButton) {
-                // Función para aplicar y remover la animación
-                const triggerShakeAnimation = () => {
-                    whatsappButton.classList.add('shake-pulse-animation');
-                    // Remover la clase después de que termine la animación para poder repetirla
-                    whatsappButton.addEventListener('animationend', () => {
-                        whatsappButton.classList.remove('shake-pulse-animation');
-                    }, { once: true }); // Asegura que el evento solo se dispare una vez
-                };
-
-                // Iniciar la animación inmediatamente al cargar la página
-                triggerShakeAnimation();
-
-                // Repetir la animación cada 20 segundos
-                setInterval(triggerShakeAnimation, 20000); // 20000 ms = 20 segundos
-            }
+        // Al hacer clic en 'Aceptar', ocultar el banner y guardar la preferencia
+        acceptCookiesButton.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsentBanner.classList.add('translate-y-full');
         });
     </script>
-
-    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot><script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 </body>
 </html>
