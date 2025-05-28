@@ -21,11 +21,26 @@
             --whatsapp-dark-green: #128C7E;
         }
 
+        html, body {
+            height: 100%; /* Asegura que html y body ocupen toda la altura del viewport */
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--byte-dark-bg);
+            color: var(--byte-text-light); /* Color de texto por defecto */
+            display: flex; /* Para que el flex-col funcione correctamente */
+            flex-direction: column; /* Para que el footer se quede abajo */
+            min-height: 100vh; /* Asegura que el cuerpo ocupe al menos toda la altura de la ventana */
+        }
+
         .bg-byte-dark-bg { background-color: var(--byte-dark-bg); }
         .text-byte-accent-cyan { color: var(--byte-accent-cyan); }
         .border-byte-accent-cyan { border-color: var(--byte-accent-cyan); }
         .text-byte-text-light { color: var(--byte-text-light); }
         .bg-byte-secondary-dark { background-color: var(--byte-secondary-dark); }
+
 
         /* Estilos personalizados para el efecto de contorno en el texto del logo */
         .text-stroke-cyan {
@@ -34,109 +49,126 @@
             color: var(--byte-text-light); /* Relleno blanco */
         }
 
-        /* Estilos base para los enlaces del menú (PC y Móvil) */
-        /* LA CLASE CLAVE PARA LA ANIMACIÓN DE LA LÍNEA ROJA */
+        /* ------------------------------------- */
+        /* ANIMACIÓN DE FONDO CONSTANTE PARA EL HEADER */
+        /* ------------------------------------- */
+        @keyframes header-wave-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-header-bg {
+            background: linear-gradient(90deg, var(--byte-dark-bg), var(--byte-secondary-dark), var(--byte-dark-bg));
+            background-size: 200% 200%; /* Duplicar el tamaño para el movimiento */
+            animation: header-wave-animation 15s ease infinite; /* 15s de duración, suave, infinito */
+        }
+
+        /* ------------------------------------- */
+        /* ANIMACIÓN DE LÍNEA ROJA AL HOVER (PARA ENLACES NAV) */
+        /* ------------------------------------- */
         .nav-link {
-            position: relative; /* Necesario para posicionar el ::after */
-            display: inline-block; /* Para que el ::after se posicione correctamente */
+            position: relative;
+            display: inline-block;
             padding-bottom: 5px; /* Espacio para la línea */
             text-decoration: none;
             transition: color 0.3s ease-in-out;
+            white-space: nowrap; /* Evita que el texto se rompa */
         }
 
-        /* La línea que aparece debajo de los enlaces */
         .nav-link::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%; /* Centra la línea */
             width: 0; /* Ancho inicial 0 */
-            height: 2px; /* Grosor de la línea */
-            background-color: red; /* Color rojo de la línea */
-            transition: all 0.3s ease-out; /* Animación suave */
-            transform: translateX(-50%); /* Ajusta la posición para que se expanda desde el centro */
+            height: 2px;
+            background-color: red;
+            transition: all 0.3s ease-out;
+            transform: translateX(-50%);
         }
 
-        /* Animación de la línea al pasar el ratón o al estar activa */
         .nav-link:hover::after,
-        .nav-link.active::after { /* Puedes usar .active si tienes un estado activo para la página actual */
-            width: 100%; /* La línea se expande al 100% del ancho del enlace */
-            transform: translateX(-50%); /* Mantiene el centrado */
+        .nav-link.active::after {
+            width: 100%;
+            transform: translateX(-50%);
         }
 
-        /* Estilos para el menú desplegable de PC */
+        /* ------------------------------------- */
+        /* ESTILOS Y ANIMACIONES PARA DROPDOWNS DE ESCRITORIO */
+        /* ------------------------------------- */
         .desktop-nav .dropdown-menu {
-            display: none;
+            display: none; /* Controlado por JS ahora con clases y opacidad */
             position: absolute;
-            background-color: var(--byte-secondary-dark); /* Fondo oscuro */
+            background-color: var(--byte-secondary-dark);
             min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 10; /* Asegura que esté por encima de otros elementos */
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4); /* Sombra más oscura */
+            z-index: 10;
             padding: 0.5rem 0;
             border-radius: 0.5rem;
             opacity: 0;
             transform: translateY(10px);
             transition: opacity 0.3s ease-out, transform 0.3s ease-out;
             pointer-events: none; /* Deshabilita interacciones hasta que sea visible */
+            border: 1px solid var(--byte-accent-cyan); /* Borde cian */
         }
 
-        /* Mostrar el dropdown al pasar el mouse por el padre */
-        .desktop-nav .dropdown:hover .dropdown-menu {
+        /* La clase 'is-open' es añadida/removida por JavaScript */
+        .desktop-nav .dropdown.is-open .dropdown-menu {
             display: block;
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto; /* Habilita interacciones */
+            pointer-events: auto;
         }
 
-        .desktop-nav .dropdown-menu .nav-link { /* Los enlaces del dropdown también tienen la animación */
+        .desktop-nav .dropdown-menu .nav-link {
             display: block;
             padding: 0.75rem 1.25rem;
             color: var(--byte-text-light);
-            /* Resetear la posición relativa para que el ::after se posicione al 100% del subenlace */
-            position: relative;
-            padding-bottom: 5px; /* Mantener espacio para la línea */
-            /* Añadir padding lateral para que la línea roja tenga espacio */
-            padding-left: 1.25rem;
-            padding-right: 1.25rem;
+            position: relative; /* Para la línea roja interna */
+            padding-bottom: 5px;
         }
         
         .desktop-nav .dropdown-menu .nav-link:hover {
-            background-color: var(--byte-accent-cyan); /* Fondo cian al hover */
-            color: var(--byte-dark-bg); /* Texto oscuro al hover */
+            background-color: var(--byte-accent-cyan);
+            color: var(--byte-dark-bg);
         }
 
-        /* Asegurar que la línea roja funcione en los sub-enlaces */
         .desktop-nav .dropdown-menu .nav-link::after {
-            background-color: red; /* La línea también es roja aquí */
-            left: 0; /* Para que la línea se expanda desde la izquierda en los sub-enlaces */
-            transform: translateX(0); /* Sin transformación inicial para expandir desde la izquierda */
+            background-color: red;
+            left: 0;
+            transform: translateX(0); /* Expande desde la izquierda */
         }
-
-        /* Asegurar que la línea roja cubra todo el sub-enlace al hover */
-        .desktop-nav .dropdown-menu .nav-link:hover::after,
-        .desktop-nav .dropdown-menu .nav-link.active::after {
+        .desktop-nav .dropdown-menu .nav-link:hover::after {
             width: 100%;
         }
 
 
-        /* Estilos para el menú de hamburguesa (móvil) */
+        /* ------------------------------------- */
+        /* ESTILOS Y ANIMACIONES PARA MENÚ MÓVIL */
+        /* ------------------------------------- */
         #mobile-menu {
-            /* Esto ya está en el HTML, pero lo repito para claridad */
             /* fixed inset-0 bg-black z-40 transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col pt-20 pb-8 px-4 overflow-y-auto md:hidden */
         }
 
-        /* Estilos para los enlaces del menú móvil */
         #mobile-menu a {
             color: var(--byte-text-light);
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             text-decoration: none;
             padding: 1rem 0;
-            width: 100%; /* Para que la línea ocupe todo el ancho al expandirse */
-            display: block; /* Para que cada enlace ocupe su propia línea */
+            width: 100%;
+            display: block;
             position: relative;
-            padding-bottom: 10px; /* Más espacio para la línea en móvil */
+            padding-bottom: 10px;
             transition: color 0.3s ease-in-out;
+            text-align: center; /* Centrar el texto en móvil */
         }
 
         #mobile-menu a::after {
@@ -145,7 +177,7 @@
             bottom: 0;
             left: 50%;
             width: 0;
-            height: 3px; /* Línea más gruesa en móvil */
+            height: 3px;
             background-color: red;
             transition: all 0.3s ease-out;
             transform: translateX(-50%);
@@ -161,47 +193,45 @@
             color: var(--byte-accent-cyan);
         }
 
-        /* Estilos para los dropdowns del menú móvil */
         .mobile-dropdown-menu {
-            display: none; /* Oculto por defecto */
+            display: none;
             background-color: var(--byte-secondary-dark);
             border-radius: 0.5rem;
             padding: 0.5rem 0;
             margin-top: 0.5rem;
-            width: 80%; /* Para que el submenú sea un poco más estrecho */
+            width: 80%;
             margin-left: auto;
             margin-right: auto;
             box-shadow: 0 4px 10px rgba(0,255,255,0.1);
+            border: 1px solid var(--byte-accent-cyan);
         }
 
         .mobile-dropdown-menu a {
-            padding: 0.75rem 1.5rem; /* Más padding para los sub-enlaces */
-            font-size: 1.125rem; /* Tamaño de texto adecuado para sub-enlaces */
+            padding: 0.75rem 1.5rem;
+            font-size: 1.125rem;
             color: var(--byte-text-light);
-            font-weight: normal; /* No tan negrita como el principal */
+            font-weight: normal;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .mobile-dropdown-menu a:hover {
-            background-color: var(--byte-accent-cyan); /* Fondo cian al hover */
-            color: var(--byte-dark-bg); /* Texto oscuro al hover */
+            background-color: var(--byte-accent-cyan);
+            color: var(--byte-dark-bg);
         }
-        /* La línea roja en los enlaces de los dropdowns móviles */
         .mobile-dropdown-menu a::after {
             background-color: red;
-            height: 2px; /* Línea un poco más delgada en sub-enlaces móviles */
-            left: 0; /* Se expande desde la izquierda */
+            height: 2px;
+            left: 0;
             transform: translateX(0);
         }
         .mobile-dropdown-menu a:hover::after {
-            width: 100%; /* Ocupa todo el ancho del sub-enlace */
+            width: 100%;
         }
-
     </style>
 </head>
-<body class="bg-byte-dark-bg text-gray-300 min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
-    <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
+    <header class="animated-header-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             
             <div class="flex items-center">
@@ -220,7 +250,7 @@
                             Proyectos
                             <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </a>
-                        <div class="dropdown-menu absolute hidden top-full left-1/2 -translate-x-1/2 mt-2">
+                        <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2">
                             <a href="#proyectos1" class="nav-link">Proyecto 1</a>
                             <a href="#proyectos2" class="nav-link">Proyecto 2</a>
                             <a href="#proyectos3" class="nav-link">Proyecto 3</a>
@@ -231,7 +261,7 @@
                             Acerca De
                             <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </a>
-                         <div class="dropdown-menu absolute hidden top-full left-1/2 -translate-x-1/2 mt-2">
+                         <div class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2">
                             <a href="#nosotros" class="nav-link">Nosotros</a>
                             <a href="#equipo" class="nav-link">Equipo</a>
                             <a href="#testimonios" class="nav-link">Testimonios</a>
@@ -295,49 +325,49 @@
     <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black opacity-0 z-30 pointer-events-none transition-opacity duration-500 ease-in-out md:hidden"></div>
 
     <main class="container mx-auto px-4 py-8 flex-grow">
-        <section id="inicio" class="py-16">
+        <section id="inicio" class="py-16 bg-blue-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Inicio</h2>
-            <p class="text-gray-400">Contenido de la sección de inicio.</p>
+            <p class="text-gray-200">Contenido de la sección de inicio.</p>
         </section>
 
-        <section id="servicios" class="py-16">
+        <section id="servicios" class="py-16 bg-purple-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Servicios</h2>
-            <p class="text-gray-400">Contenido de la sección de servicios.</p>
+            <p class="text-gray-200">Contenido de la sección de servicios.</p>
         </section>
 
-         <section id="proyectos1" class="py-16">
+         <section id="proyectos1" class="py-16 bg-red-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Proyecto 1</h2>
-            <p class="text-gray-400">Contenido del proyecto 1.</p>
+            <p class="text-gray-200">Contenido del proyecto 1.</p>
         </section>
 
-        <section id="proyectos2" class="py-16">
+        <section id="proyectos2" class="py-16 bg-yellow-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Proyecto 2</h2>
-            <p class="text-gray-400">Contenido del proyecto 2.</p>
+            <p class="text-gray-200">Contenido del proyecto 2.</p>
         </section>
 
-        <section id="proyectos3" class="py-16">
+        <section id="proyectos3" class="py-16 bg-indigo-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Proyecto 3</h2>
-            <p class="text-gray-400">Contenido del proyecto 3.</p>
+            <p class="text-gray-200">Contenido del proyecto 3.</p>
         </section>
 
-        <section id="nosotros" class="py-16">
+        <section id="nosotros" class="py-16 bg-pink-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Nosotros</h2>
-            <p class="text-gray-400">Contenido sobre nosotros.</p>
+            <p class="text-gray-200">Contenido sobre nosotros.</p>
         </section>
 
-        <section id="equipo" class="py-16">
+        <section id="equipo" class="py-16 bg-teal-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Equipo</h2>
-            <p class="text-gray-400">Contenido sobre el equipo.</p>
+            <p class="text-gray-200">Contenido sobre el equipo.</p>
         </section>
 
-         <section id="testimonios" class="py-16">
+         <section id="testimonios" class="py-16 bg-orange-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Testimonios</h2>
-            <p class="text-gray-400">Contenido de los testimonios.</p>
+            <p class="text-gray-200">Contenido de los testimonios.</p>
         </section>
 
-        <section id="contacto" class="py-16">
+        <section id="contacto" class="py-16 bg-gray-700 my-4 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-byte-text-light">Contacto</h2>
-            <p class="text-gray-400">Contenido de la sección de contacto.</p>
+            <p class="text-gray-200">Contenido de la sección de contacto.</p>
         </section>
     </main>
 
@@ -370,8 +400,8 @@
             mobileMenu.classList.add('translate-y-0');
             mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
             mobileMenuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
-            document.body.classList.add('overflow-hidden'); 
-            document.documentElement.classList.add('overflow-hidden');
+            document.body.style.overflow = 'hidden'; /* Controlado directamente en JS */
+            document.documentElement.style.overflow = 'hidden'; /* Controlado directamente en JS */
             // Cambiar el icono de hamburguesa a cruz
             mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); 
         }
@@ -381,8 +411,8 @@
             mobileMenu.classList.add('translate-y-full');
             mobileMenuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
             mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
-            document.body.classList.remove('overflow-hidden'); 
-            document.documentElement.classList.remove('overflow-hidden');
+            document.body.style.overflow = ''; /* Restablecer overflow */
+            document.documentElement.style.overflow = ''; /* Restablecer overflow */
             // Cambiar el icono de cruz a hamburguesa
             mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); 
             // Cerrar todos los dropdowns internos cuando el menú principal se cierra
@@ -414,20 +444,23 @@
             dropdown.addEventListener('mouseenter', () => { // Escucha el mouseenter en el contenedor del dropdown
                 clearTimeout(timeoutId);
                 // Ocultar otros dropdowns abiertos
-                document.querySelectorAll('.desktop-nav .dropdown-menu').forEach(menu => {
-                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                        menu.style.opacity = '0';
-                        menu.style.transform = 'translateY(10px)';
-                        menu.style.pointerEvents = 'none';
-                        // Retrasar la adición de 'hidden' para permitir la transición de salida
-                        setTimeout(() => menu.classList.add('hidden'), 300); 
+                document.querySelectorAll('.desktop-nav .dropdown.is-open').forEach(openDropdown => {
+                    if (openDropdown !== dropdown) {
+                        const openMenu = openDropdown.querySelector('.dropdown-menu');
+                        openMenu.style.opacity = '0';
+                        openMenu.style.transform = 'translateY(10px)';
+                        openMenu.style.pointerEvents = 'none';
+                        openDropdown.classList.remove('is-open'); // Remover la clase 'is-open'
+                        setTimeout(() => openMenu.classList.add('hidden'), 300); 
                     }
                 });
+
+                dropdown.classList.add('is-open'); // Añadir clase 'is-open' al padre
                 dropdownMenu.classList.remove('hidden');
                 setTimeout(() => { // Pequeño retraso para que la transición de CSS se aplique
                     dropdownMenu.style.opacity = '1';
                     dropdownMenu.style.transform = 'translateY(0)';
-                    dropdownMenu.style.pointer-events = 'auto';
+                    dropdownMenu.style.pointerEvents = 'auto';
                 }, 10);
             });
 
@@ -435,8 +468,8 @@
                 timeoutId = setTimeout(() => {
                     dropdownMenu.style.opacity = '0';
                     dropdownMenu.style.transform = 'translateY(10px)';
-                    dropdownMenu.style.pointer-events = 'none';
-                    // Retrasar la adición de 'hidden' para permitir la transición de salida
+                    dropdownMenu.style.pointerEvents = 'none';
+                    dropdown.classList.remove('is-open'); // Remover la clase 'is-open'
                     setTimeout(() => dropdownMenu.classList.add('hidden'), 300);
                 }, 200); // Pequeño retraso antes de cerrar
             });
@@ -446,7 +479,8 @@
                 link.addEventListener('click', () => {
                     dropdownMenu.style.opacity = '0';
                     dropdownMenu.style.transform = 'translateY(10px)';
-                    dropdownMenu.style.pointer-events = 'none';
+                    dropdownMenu.style.pointerEvents = 'none';
+                    dropdown.classList.remove('is-open'); // Remover la clase 'is-open'
                     dropdownMenu.classList.add('hidden');
                 });
             });
