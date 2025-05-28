@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Tu visión, nuestra misión</title>
     <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
-
+    
     <meta property="og:title" content="Byte - Tu visión, nuestra misión">
     <meta property="og:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
-    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales">
-    <meta property="og:url" content="https://www.tudominio.com">
-    <meta property="og:type" content="website">
-
+    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
+    <meta property="og:url" content="[URL_DE_TU_SITIO_WEB]"> <meta property="og:type" content="website">
+    
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Byte - Tu visión, nuestra misión">
     <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -43,18 +42,22 @@
             }
         }
     </script>
-
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
 
     <style>
         /* Importación de fuentes desde Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
+        /* Aseguramos que Pacifico esté importado para el slogan */
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 
         /* Estilos base para el cuerpo y los encabezados */
         body {
             font-family: 'Inter', sans-serif;
-            /* Deshabilita la selección de texto para una experiencia más de "aplicación".
-               Considera eliminar esto si tus usuarios necesitan copiar texto. */
+            /* Deshabilita la selección de texto para una experiencia más de "aplicación" */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -64,7 +67,7 @@
             padding: 0;
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Títulos usan Montserrat */
         }
 
         /* Animación de brillo para los enlaces del menú (más suave) */
@@ -89,10 +92,30 @@
 
         /* Estilo para el borde de texto (text-stroke) */
         .text-stroke-cyan {
-            -webkit-text-stroke: 1.5px #00FFFF; /* Para navegadores basados en WebKit */
-            text-stroke: 1.5px #00FFFF; /* Estándar */
-            color: #FFFFFF; /* Color de relleno del texto */
-            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran si no se desean */
+            -webkit-text-stroke: 4.5px var(--byte-accent-cyan); /* Borde cian más grueso */
+            text-stroke: 4.5px var(--byte-accent-cyan); /* Borde cian más grueso */
+            color: var(--byte-text-light); /* Relleno blanco */
+            text-shadow: 0 0 15px rgba(0, 255, 255, 1); /* Sombra cian más intensa */
+            animation: stroke-pulse 3s forwards ease-in-out; /* Animación se reproduce una vez y se mantiene */
+        }
+
+        /* Animación para el borde de texto (stroke-pulse) */
+        @keyframes stroke-pulse {
+            0% {
+                -webkit-text-stroke-color: var(--byte-accent-cyan);
+                text-stroke-color: var(--byte-accent-cyan);
+                text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+            }
+            50% {
+                -webkit-text-stroke-color: #80FFFF; /* Un cian más claro para el pulso */
+                text-stroke-color: #80FFFF;
+                text-shadow: 0 0 25px rgba(0, 255, 255, 1.2); /* Brillo más intenso */
+            }
+            100% {
+                -webkit-text-stroke-color: var(--byte-accent-cyan);
+                text-stroke-color: var(--byte-accent-cyan);
+                text-shadow: 0 0 15px rgba(0, 255, 255, 1);
+            }
         }
 
         /* Animación de "caída" al hacer scroll para AOS */
@@ -131,26 +154,55 @@
             height: 100%;
         }
 
-        /* Animación de sacudida y pulso para el botón de WhatsApp (revertido a 0.8s) */
+        /* Animación de sacudida y pulso para el botón de WhatsApp */
         @keyframes shake-pulse {
-            0%, 100% {
+            0% { /* Inicio del ciclo, inicio de la sacudida */
                 transform: translateX(0) scale(1);
                 box-shadow: 0 0 0 rgba(37, 211, 102, 0);
             }
-            10%, 30%, 50%, 70%, 90% {
+            /* Parte de sacudida (ocurre en los primeros ~0.8 segundos del ciclo) */
+            4% { /* 10% de la duración original de la sacudida (0.08s) en la escala de 10s */
                 transform: translateX(-5px) scale(1.05);
             }
-            20%, 40%, 60%, 80% {
+            8% { /* 20% de la duración original de la sacudida (0.16s) en la escala de 10s */
                 transform: translateX(5px) scale(1.05);
             }
-            45% { /* Punto de brillo en la mitad de la sacudida */
+            12% { /* 30% de la duración original de la sacudida (0.24s) en la escala de 10s */
+                transform: translateX(-5px) scale(1.05);
+            }
+            16% { /* 40% de la duración original de la sacudida (0.32s) en la escala de 10s */
+                transform: translateX(5px) scale(1.05);
+            }
+            20% { /* 50% de la duración original de la sacudida (0.40s) en la escala de 10s - punto medio del brillo */
+                transform: translateX(-5px) scale(1.05);
                 box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
+            }
+            24% { /* 60% de la duración original de la sacudida (0.48s) en la escala de 10s */
+                transform: translateX(5px) scale(1.05);
+            }
+            28% { /* 70% de la duración original de la sacudida (0.56s) en la escala de 10s */
+                transform: translateX(-5px) scale(1.05);
+            }
+            32% { /* 80% de la duración original de la sacudida (0.64s) en la escala de 10s */
+                transform: translateX(5px) scale(1.05);
+            }
+            36% { /* 90% de la duración original de la sacudida (0.72s) en la escala de 10s */
+                transform: translateX(-5px) scale(1.05);
+            }
+            40% { /* 100% de la duración original de la sacudida (0.80s) en la escala de 10s - fin de la sacudida */
+                transform: translateX(0) scale(1);
+                box-shadow: 0 0 0 rgba(37, 211, 102, 0);
+            }
+            /* El resto del ciclo (del 40% al 100%) el botón permanece estático, creando una pausa más larga */
+            100% {
+                transform: translateX(0) scale(1);
+                box-shadow: 0 0 0 rgba(37, 211, 102, 0);
             }
         }
 
         .shake-pulse-animation {
-            /* Animación completa dura 0.8 segundos, como estaba antes */
-            animation: shake-pulse 0.8s ease-in-out infinite;
+            /* La animación completa ahora dura 10 segundos. */
+            animation: shake-pulse 10s ease-in-out infinite; 
         }
 
         /* Animación para el eslogan "Tu visión, nuestra misión" (constante y sutil) */
@@ -171,6 +223,12 @@
 
         .slogan-animation {
             animation: slogan-blink 2.5s infinite alternate ease-in-out; /* Duración, repetición y alternancia */
+        }
+
+        /* Estilo específico para el eslogan cursiva y turquesa */
+        .slogan-cursive {
+            font-family: 'Pacifico', cursive;
+            color: var(--byte-accent-cyan) !important; /* ¡Importante para asegurar la aplicación! */
         }
 
         /* Clase para rotar el icono de flecha (usada en los dropdowns) */
@@ -294,225 +352,224 @@
             z-index: 1; /* Asegura que el texto esté encima de la imagen si hay un fondo */
         }
 
-        /* Estilo para los enlaces deshabilitados */
-        .disabled-link {
-            opacity: 0.6;
-            cursor: not-allowed;
-            /* Puedes añadir más estilos visuales para indicar que está deshabilitado */
-        }
-
-        /* Estilos para el Modal de Aviso (nueva adición) */
-        #development-modal {
+        /* === MODAL & COOKIE BANNER STYLES === */
+        /* Base para ambos modales (centrados y con overlay) */
+        #development-modal, #cookie-banner {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            background-color: rgba(0, 0, 0, 0.7); /* Overlay oscuro */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10000; /* Asegura que esté por encima de todo */
+            z-index: 9999; /* Muy alto para estar sobre todo */
             opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none; /* No interactuable cuando está oculto */
+            transition: opacity 0.3s ease-in-out;
         }
 
-        #development-modal.show {
+        #development-modal.show, #cookie-banner.show {
             opacity: 1;
-            visibility: visible;
+            pointer-events: auto; /* Interactuable cuando está visible */
         }
 
-        .modal-content {
-            background-color: #1A202C; /* Color de fondo del modal */
-            border: 2px solid #00FFFF; /* Borde con color de acento */
+        /* Contenido del modal (tarjeta central) */
+        #development-modal .modal-content, #cookie-banner .modal-content {
+            background-color: var(--byte-dark-bg); /* Fondo oscuro de la tarjeta */
+            padding: 2.5rem;
             border-radius: 1rem;
-            padding: 2rem;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5); /* Sombra con color de acento */
-            max-width: 90%; /* Ancho máximo para móviles */
-            width: 400px; /* Ancho fijo para escritorio */
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            color: var(--byte-text-light);
+            border: 1px solid var(--byte-accent-cyan); /* Borde cian */
+            transform: translateY(-20px); /* Efecto de entrada */
+            opacity: 0;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
 
-        #development-modal.show .modal-content {
-            transform: scale(1);
+        #development-modal.show .modal-content, #cookie-banner.show .modal-content {
+            transform: translateY(0); /* Posición final */
+            opacity: 1;
         }
 
-        .modal-content h3 {
-            color: #00FFFF; /* Título con color de acento */
-            font-size: 1.75rem;
+        #development-modal h3, #cookie-banner h3 {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 800; /* font-extrabold */
             margin-bottom: 1rem;
-            font-weight: 700;
         }
 
-        .modal-content p {
-            color: #F9FAFB; /* Texto del párrafo */
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+        #development-modal p, #cookie-banner p {
+            font-size: 1.125rem; /* text-lg */
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         .modal-buttons {
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            margin-top: 1.5rem; /* Espacio entre texto y botones */
         }
-
-        .modal-buttons button, .modal-buttons a {
-            padding: 0.8rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            text-decoration: none; /* Asegura que el enlace no tenga subrayado por defecto */
-            display: inline-flex; /* Para centrar contenido si es un enlace */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-buttons .btn-whatsapp {
-            background-color: #25D366; /* Verde WhatsApp */
-            color: white;
-        }
-
-        .modal-buttons .btn-whatsapp:hover {
-            background-color: #128C7E; /* Verde WhatsApp oscuro */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4);
-        }
-
-        .modal-buttons .btn-accept {
-            background-color: #00FFFF; /* Cian acento */
-            color: #0A0A1A; /* Texto oscuro */
-        }
-
-        .modal-buttons .btn-accept:hover {
-            background-color: #80FFFF;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
-        }
-
-        /* Estilos para el Aviso de Cookies (Footer) */
-        #cookie-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #1A202C; /* byte-secondary-dark */
-            color: #F9FAFB; /* byte-text-light */
-            padding: 1.5rem 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            z-index: 9999; /* Por debajo del modal de desarrollo, pero alto */
-            transform: translateY(100%);
-            transition: transform 0.5s ease-out;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.4);
-            border-top: 2px solid #00FFFF; /* byte-accent-cyan */
-        }
-
-        #cookie-banner.show {
-            transform: translateY(0);
-        }
-
-        #cookie-banner p {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            text-align: center;
-            max-width: 800px;
-        }
-
-        #cookie-banner .button-group {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        #cookie-banner .cookie-button {
-            padding: 0.8rem 2rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            white-space: nowrap; /* Evita que el texto del botón se rompa */
-        }
-
-        #cookie-banner .cookie-button.accept {
-            background-color: #00FFFF; /* byte-accent-cyan */
-            color: #0A0A1A; /* byte-dark-bg */
-        }
-
-        #cookie-banner .cookie-button.accept:hover {
-            background-color: #80FFFF;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4);
-        }
-
-        #cookie-banner .cookie-button.decline {
-            background-color: #374151; /* byte-text-dark (un gris oscuro) */
-            color: #F9FAFB; /* byte-text-light */
-            border: 1px solid rgba(0, 255, 255, 0.3);
-        }
-
-        #cookie-banner .cookie-button.decline:hover {
-            background-color: #4B5563;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        /* REMOVED: Estilos para el Modal de Requerimiento (Central) - Ya no se usa */
-        /* #required-modal { ... } */
-
-        /* --- Ajuste del botón de WhatsApp para que quede pegado a la esquina inferior derecha --- */
-        #whatsapp-float-button {
-            bottom: 24px; /* Equivalente a Tailwind 'bottom-6' */
-            right: 24px;  /* Equivalente a Tailwind 'right-6' */
-            background-color: #25D366;
-            color: white;
-            width: 56px; /* w-14 */
-            height: 56px; /* h-14 */
-            border-radius: 50%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            transition: all 0.3s ease; /* Transición más suave para hover */
-        }
-
-        #whatsapp-float-button:hover {
-            background-color: #128C7E; /* whatsapp-dark-green */
-            transform: scale(1.1); /* Ligeramente más grande al pasar el ratón */
-            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-        }
-
-        /* Ajuste para pantallas más pequeñas si es necesario */
-        @media (max-width: 640px) {
-            #whatsapp-float-button {
-                bottom: 16px; /* Ajuste si necesitas menos margen en móviles */
-                right: 16px; /* Ajuste si necesitas menos margen en móviles */
-                width: 50px;
-                height: 50px;
+        @media (min-width: 640px) {
+            .modal-buttons {
+                flex-direction: row;
+                justify-content: center;
             }
         }
 
+        .btn-whatsapp, .btn-accept, .cookie-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px; /* rounded-full */
+            font-weight: 700; /* font-bold */
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp-green);
+            color: white;
+        }
+        .btn-whatsapp:hover {
+            background-color: var(--whatsapp-dark-green); /* Tono más oscuro */
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-accept {
+            background-color: var(--byte-accent-cyan);
+            color: var(--byte-dark-bg);
+        }
+        .btn-accept:hover {
+            background-color: #0596b7; /* Tono más oscuro */
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(6, 182, 212, 0.4);
+        }
+
+        .cookie-button.accept {
+            background-color: var(--byte-accent-cyan);
+            color: var(--byte-dark-bg);
+        }
+        .cookie-button.accept:hover {
+            background-color: #0596b7;
+            transform: scale(1.03);
+        }
+
+        .cookie-button.decline {
+            background-color: #4A5568; /* Gris oscuro */
+            color: var(--byte-text-light);
+            border: 1px solid #6B7280;
+        }
+        .cookie-button.decline:hover {
+            background-color: #6B7280;
+            transform: scale(1.03);
+        }
+
+        /* Control de scroll del body cuando hay modales */
+        body.overflow-hidden {
+            overflow: hidden;
+        }
+
+        /* === MOBILE MENU STYLES === */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--byte-dark-bg);
+            z-index: 50; /* Por encima del contenido principal, pero por debajo de los modales (9999) */
+            transform: translateY(100%); /* Inicia fuera de pantalla */
+            transition: transform 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            overflow-y: auto; /* Permite scroll si el contenido es muy largo */
+        }
+
+        #mobile-menu.translate-y-0 {
+            transform: translateY(0); /* Se desliza a la vista */
+        }
+
+        #mobile-menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+            z-index: 40; /* Entre el menú móvil y el contenido principal */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-out;
+        }
+
+        #mobile-menu-backdrop.opacity-50 {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Estilo para enlaces deshabilitados */
+        .disabled-link {
+            cursor: not-allowed;
+            opacity: 0.7;
+            text-decoration: none;
+        }
+        .disabled-link:hover {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Comportamiento de scroll suave para anclas */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Nuevo estilo para la imagen de inicio para que se parezca a los títulos */
+        .hero-image-glow {
+            /* Aplica una sombra de caja que imita el brillo cian */
+            box-shadow: 0 0 25px 12px rgba(0, 255, 255, 0.8); /* Sombra cian más intensa */
+            /* Animación para el brillo de la imagen, similar al stroke-pulse */
+            animation: image-glow-pulse 3s forwards ease-in-out;
+        }
+
+        /* Animación para el brillo de la imagen de inicio */
+        @keyframes image-glow-pulse {
+            0% {
+                box-shadow: 0 0 15px 7px rgba(0, 255, 255, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 40px 20px rgba(0, 255, 255, 1); /* Brillo más intenso */
+            }
+            100% {
+                box-shadow: 0 0 25px 12px rgba(0, 255, 255, 0.8);
+            }
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
 
+    <audio id="bubbleSound" preload="auto" volume="0.4">
+        <source src="https://www.soundjay.com/buttons/sounds/button-click-01.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2">
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-20 mr-2"> 
                 <div class="flex flex-col items-start">
-                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span>
-                    <p class="text-sm text-byte-text-light opacity-80 mt-0.5 slogan-animation">
+                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> 
+                    <p class="text-sm opacity-80 mt-0.5 slogan-animation slogan-cursive">
                         <span class="block">Tu visión,</span>
-                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span>
+                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span> 
                     </p>
                 </div>
             </a>
@@ -530,10 +587,10 @@
                             </span>
                         </a>
                         <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de página web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -572,6 +629,18 @@
                         </a>
                         <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
                             <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#eventos" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                            Eventos
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-eventos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos Eventos</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Eventos Pasados</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -618,10 +687,10 @@
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de página web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                 </div>
             </li>
             <li>
@@ -663,6 +732,18 @@
                 </div>
             </li>
             <li>
+                <a href="#eventos" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-eventos-mobile">
+                    Eventos
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-eventos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos Eventos</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Eventos Pasados</a>
+                </div>
+            </li>
+            <li>
                 <a href="#contacto" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
                     Contacto
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
@@ -692,11 +773,11 @@
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
         <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
-             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75 hero-image-glow">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
              data-aos="fade-up" data-aos-duration="1000">
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg text-stroke-cyan"
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-stroke-cyan"
                 data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
                 Nosotros convertimos sueños en realidades digitales
             </h1>
@@ -719,35 +800,25 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="icon">✨</div>
-                    <h3 class="text-2xl font-bold mb-4">Diseño Web Personalizado</h3>
+                    <h3 class="text-2xl font-bold mb-4">Diseño personalizado de página web</h3>
                     <p>Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon">🛍️</div>
-                    <h3 class="text-2xl font-bold mb-4">Desarrollo E-commerce</h3>
+                    <h3 class="text-2xl font-bold mb-4">Diseño de tiendas virtuales</h3>
                     <p>Construimos tiendas online robustas, seguras y optimizadas para la conversión, transformando visitantes en clientes leales y maximizando tus ventas.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="icon">🚀</div>
-                    <h3 class="text-2xl font-bold mb-4">SEO & Marketing Digital</h3>
+                    <h3 class="text-2xl font-bold mb-4">SEO</h3>
                     <p>Impulsamos tu visibilidad en los motores de búsqueda y desarrollamos estrategias de marketing digital integrales que atraen tráfico cualificado y generan resultados medibles.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="icon">🌐</div>
-                    <h3 class="text-2xl font-bold mb-4">Administración de Dominios y Subdominios</h3>
-                    <p>Gestionamos eficientemente tus activos digitales, desde el registro y configuración de dominios hasta la administración de subdominios, garantizando una presencia online impecable.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
                     <div class="icon">🎨</div>
-                    <h3 class="text-2xl font-bold mb-4">Branding y Diseño Gráfico</h3>
+                    <h3 class="text-2xl font-bold mb-4">Diseño Gráfico</h3>
                     <p>Desarrollamos una identidad visual coherente y memorable para tu marca, desde logotipos hasta guías de estilo, asegurando un impacto visual distintivo en todos tus canales.</p>
                 </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="icon">💡</div>
-                    <h3 class="text-2xl font-bold mb-4">Consultoría Digital Estratégica</h3>
-                    <p>Ofrecemos asesoramiento experto para optimizar tu estrategia digital, identificar oportunidades de crecimiento y maximizar el retorno de tu inversión online.</p>
                 </div>
-            </div>
         </div>
     </section>
 
@@ -775,7 +846,7 @@
             <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
                 <div class="contact-form-card"
                     data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
-                    <h3 class="text-3xl font-bold text-center text-byte-accent-cyan mb-8 text-stroke-cyan">Envíanos un Mensaje</h3>
+                    <h3 class="text-3xl font-bold text-center text-byte-accent-cyan text-stroke-cyan mb-8">Envíanos un Mensaje</h3>
                     <form action="#" method="POST" class="space-y-6">
                         <div>
                             <label for="contact-name" class="block text-lg font-semibold text-byte-text-light mb-2">Nombre Completo</label>
@@ -800,7 +871,7 @@
                     <h3 class="text-3xl font-bold text-center mb-8 text-stroke-cyan">Información de Contacto</h3>
                     <div class="space-y-6 text-center text-lg">
                         <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
-                        <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
                         <p class="flex items-center justify-center text-byte-accent-cyan">📞 +123 456 7890</p>
                     </div>
 
@@ -816,7 +887,7 @@
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://maps.google.com/?cid=15277087145381051465" width="600" height="450" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.364273890288!2d-66.92003712574044!3d10.49887758963248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a591e1d3e2d3d%3A0x6b7d2f9d5e3c7a!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1716834000000!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -841,122 +912,52 @@
     </footer>
 
     <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" id="whatsapp-float-button"
-       class="fixed bg-whatsapp-green text-white w-14 h-14 rounded-full shadow-lg
-              flex items-center justify-center z-[10000] transition-all duration-500 ease-out">
+       class="fixed bottom-6 right-6 bg-whatsapp-green text-white w-14 h-14 rounded-full shadow-lg
+              flex items-center justify-center z-[10000] transition-all duration-500 ease-out shake-pulse-animation">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
         </svg>
     </a>
 
     <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
-    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js"></script>
-
-    <div id="development-modal" class="">
-        <div class="modal-content">
-            <h3 class="text-byte-accent-cyan">¡Aviso Importante!</h3>
-            <p>Este sitio web se encuentra actualmente en **desarrollo**. Nuestro equipo de programadores está trabajando arduamente para ofrecerte la mejor experiencia.</p>
-            <p class="text-xs text-gray-500 mt-4">Byte - Derechos Reservados</p>
-            <div class="modal-buttons mt-6">
-                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
-                    </svg>
-                    Contactar por WhatsApp
-                </a>
-                <button id="modal-accept-button" class="btn-accept">Aceptar y Disfrutar</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="cookie-banner">
-        <p>Esta página web utiliza cookies para mejorar tu experiencia y acepta nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a> para una mejor navegación. Al continuar, asumes la aceptación.</p>
-        <div class="button-group">
-            <button id="accept-cookies" class="cookie-button accept">Aceptar Cookies</button>
-            <button id="decline-cookies" class="cookie-button decline">Rechazar</button>
-        </div>
-    </div>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
         AOS.init({
-            once: true, // Animaciones se ejecutan solo una vez
-            mirror: false, // No se repiten al hacer scroll hacia arriba
-            offset: 100, // Comienza la animación 100px antes de llegar al elemento
-            duration: 800, // Duración de la animación en milisegundos
-            easing: 'ease-out-cubic', // Función de temporización
+            once: true, 
+            mirror: false, 
+            offset: 100, 
+            duration: 800, 
+            easing: 'ease-out-cubic', 
         });
 
-        let audioContext = null; // Contexto de audio global para Web Audio API
+        let bubbleAudio = null;
 
-        /**
-         * Genera y reproduce un sonido de campanita programáticamente usando la Web Audio API.
-         * @param {number} frequency - La frecuencia del tono en Hertz (Hz). Por defecto: 800 Hz.
-         * @param {number} duration - La duración del sonido en segundos. Por defecto: 0.1 segundos.
-         * @param {number} volume - El volumen del sonido (de 0.0 a 1.0). Por defecto: 0.25 (ajustado para ser más audible).
-         */
-        function playBellSoundProgrammatically(frequency = 800, duration = 0.1, volume = 0.25) {
-            // Inicializa el AudioContext si aún no existe. Esto debe hacerse en respuesta a una interacción del usuario
-            // para evitar restricciones de reproducción automática de los navegadores.
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        // Función para reproducir el sonido de burbuja
+        function playBubbleSound() {
+            // Obtiene el elemento de audio si aún no se ha hecho
+            if (!bubbleAudio) {
+                bubbleAudio = document.getElementById('bubbleSound');
+                if (bubbleAudio) {
+                    bubbleAudio.volume = 0.4; // Asegura el volumen
+                } else {
+                    console.warn("Elemento de audio de burbuja no encontrado.");
+                    return; // Sale si no se encuentra el audio
+                }
             }
-
-            // Si el contexto de audio no está en estado 'running' (por ejemplo, después de un autostart bloqueado),
-            // intenta reanudarlo. Esto es clave para la reproducción inicial.
-            if (audioContext.state === 'suspended') {
-                audioContext.resume().then(() => {
-                    console.log('AudioContext resumed successfully after user gesture.');
-                    _createAndPlayBellSound(frequency, duration, volume);
-                }).catch(e => console.error('Error resuming AudioContext:', e));
-            } else {
-                _createAndPlayBellSound(frequency, duration, volume);
-            }
-        }
-
-        // Función interna para crear y reproducir el sonido, separada para manejar la reanudación del AudioContext.
-        function _createAndPlayBellSound(frequency, duration, volume) {
-            // Asegúrate de que el volumen no sea cero para evitar errores en exponentialRampToValueAtTime
-            const safeVolume = Math.max(0.00001, volume);
-
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-            oscillator.type = 'sine';
-
-            gainNode.gain.setValueAtTime(safeVolume, audioContext.currentTime);
-            // Pequeño desvanecimiento al final para evitar clics de audio abruptos
-            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + duration);
-
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + duration);
-        }
-
-        // --- Gestión de la clase `overflow-hidden` en el body ---
-        // Esta función centraliza el control de la clase `overflow-hidden` para evitar conflictos
-        function updateBodyScroll() {
-            const developmentModalVisible = developmentModal.classList.contains('show');
-            // const requiredModalVisible = requiredModal.classList.contains('show'); // REMOVED
-            const cookieBannerVisible = cookieBanner.classList.contains('show');
-            const mobileMenuVisible = mobileMenu.classList.contains('translate-y-0');
-
-            // if (developmentModalVisible || requiredModalVisible || cookieBannerVisible || mobileMenuVisible) { // ORIGINAL
-            if (developmentModalVisible || cookieBannerVisible || mobileMenuVisible) { // MODIFIED
-                document.body.classList.add('overflow-hidden');
-            } else {
-                document.body.classList.remove('overflow-hidden');
-            }
+            
+            // Reinicia el sonido y lo reproduce
+            bubbleAudio.currentTime = 0; 
+            bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
         }
 
         // Lógica para el menú móvil
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
-        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button'); 
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop'); 
 
         // Función para abrir el menú móvil
         function openMobileMenu() {
@@ -964,9 +965,9 @@
             mobileMenu.classList.add('translate-y-0');
             mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
             mobileMenuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
-            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Cambia a icono de X
-            playBellSoundProgrammatically(); // Reproduce el sonido de campanita
-            updateBodyScroll(); // Actualiza el scroll del body
+            document.body.classList.add('overflow-hidden'); 
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); 
+            playBubbleSound(); // Sonido al abrir
         }
 
         // Función para cerrar el menú móvil
@@ -975,21 +976,20 @@
             mobileMenu.classList.add('translate-y-full');
             mobileMenuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
             mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
-            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Vuelve al icono de hamburguesa
-            playBellSoundProgrammatically(); // Reproduce el sonido de campanita
-            updateBodyScroll(); // Actualiza el scroll del body
+            document.body.classList.remove('overflow-hidden'); 
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); 
+            playBubbleSound(); // Sonido al cerrar
         }
 
-        // Event listener para el botón de abrir/cerrar menú móvil
         mobileMenuButton.addEventListener('click', () => {
-            if (mobileMenu.classList.contains('translate-y-full')) {
+            if (mobileMenu.classList.contains('translate-y-full')) { 
                 openMobileMenu();
             } else {
                 closeMobileMenu();
             }
         });
 
-        // Event listener para el botón de cierre dentro del menú móvil
+        // Event listener para el nuevo botón de cierre dentro del menú
         mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
 
         // Cierra el menú móvil al hacer clic fuera de él (en el fondo)
@@ -998,23 +998,25 @@
         // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', (event) => {
-                if (link.classList.contains('js-dropdown-toggle-mobile')) {
-                    event.stopPropagation(); // Evita que se cierre el menú principal si es un toggle de submenú
+                // Si es un toggle de dropdown, evita cerrar el menú principal inmediatamente.
+                // El script del dropdown manejará su propio toggle.
+                if (link.classList.contains('js-dropdown-toggle-mobile') || link.closest('.js-dropdown-menu-mobile')) {
+                    event.stopPropagation();
                 } else {
-                    closeMobileMenu(); // Cierra el menú móvil si se hace clic en un enlace de navegación principal
+                    closeMobileMenu(); // Cierra el menú móvil para enlaces regulares
                 }
             });
         });
 
-        // Lógica para los menús desplegables de escritorio (no necesitan sonido específico)
+
+        // Lógica para los menús desplegables de escritorio (no necesitan sonido)
         document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
             button.addEventListener('click', function(event) {
-                event.preventDefault(); // Evita que el enlace de anclaje se active
+                event.preventDefault();
                 const dropdownId = this.dataset.dropdownId;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon');
 
-                // Cierra otros dropdowns abiertos
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -1025,7 +1027,6 @@
                     }
                 });
 
-                // Abre o cierra el dropdown actual
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
             });
@@ -1044,17 +1045,15 @@
             }
         });
 
-        // Lógica para los menús desplegables móviles
+        // Lógica para los menús desplegables móviles (no necesitan sonido adicional, ya se maneja en open/closeMobileMenu)
         document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
             button.addEventListener('click', function(event) {
-                event.preventDefault(); // Evita que el enlace de anclaje se active
-                event.stopPropagation(); // Evita que el click se propague y cierre el menú móvil
-
+                event.preventDefault();
+                event.stopPropagation();
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
 
-                // Cierra otros dropdowns móviles abiertos
                 document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -1065,7 +1064,6 @@
                     }
                 });
 
-                // Abre o cierra el dropdown móvil actual
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
             });
@@ -1073,135 +1071,13 @@
 
         // Deshabilitar enlaces que no sean "Nuestra Misión y Visión" o "Deja tu Reseña"
         document.querySelectorAll('a').forEach(link => {
-            const href = link.getAttribute('href');
-            if (href && href !== 'misionyvision.html' &&
-                href !== 'reseñas.html' &&
-                !href.startsWith('#') && // Permite enlaces internos de la misma página (áncoras)
-                !link.closest('#whatsapp-float-button') && // No deshabilita el botón flotante de WhatsApp
-                link.classList.contains('disabled-link'))
-            {
+            // Verifica si el enlace tiene la clase específica 'disabled-link'
+            if (link.classList.contains('disabled-link')) {
                 link.addEventListener('click', function(event) {
                     event.preventDefault(); // Previene la acción por defecto del enlace
                 });
             }
         });
-
-        // --- Sonido al cargar la página ---
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                playBellSoundProgrammatically(900, 0.1, 0.2);
-            }, 500);
-
-            // Mostrar el modal de desarrollo o el banner de cookies según el estado
-            if (!localStorage.getItem('cookiesAccepted')) {
-                showCookieBanner();
-            } else if (!localStorage.getItem('developmentModalSeen')) {
-                showDevelopmentModal();
-            }
-        });
-
-        // BONUS: Asegurar que el AudioContext se reanude con la primera interacción del usuario
-        // Esto es crucial para que el sonido funcione incluso si el navegador lo bloqueó inicialmente.
-        document.addEventListener('click', () => {
-            if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume().then(() => {
-                    console.log('AudioContext reanudado después del clic del usuario.');
-                }).catch(e => console.error('Error al reanudar AudioContext con clic:', e));
-            }
-        }, { once: true }); // Solo necesitamos que esto se ejecute una vez
-
-        // --- Lógica del Modal de Aviso de Desarrollo ---
-        const modalAcceptButton = document.getElementById('modal-accept-button');
-        const developmentModal = document.getElementById('development-modal');
-
-        function showDevelopmentModal() {
-            developmentModal.classList.add('show');
-            updateBodyScroll();
-        }
-
-        function hideDevelopmentModal() {
-            developmentModal.classList.remove('show');
-            updateBodyScroll();
-        }
-
-        modalAcceptButton.addEventListener('click', () => {
-            playBellSoundProgrammatically(); // Reproduce el sonido de campana al aceptar
-            hideDevelopmentModal();
-            localStorage.setItem('developmentModalSeen', 'true'); // Marca que el modal de desarrollo ya se vio
-        });
-
-        // --- Nueva funcionalidad: Deshabilitar clic derecho en imágenes ---
-        document.addEventListener('contextmenu', function(e) {
-            // Verifica si el elemento sobre el que se hizo clic es una imagen
-            if (e.target.nodeName === 'IMG') {
-                e.preventDefault(); // Evita que se muestre el menú contextual
-                // Puedes añadir una alerta o un mensaje en la consola si lo deseas
-                console.log('Intento de guardar imagen bloqueado por Byte.');
-                alert('¡Imágenes protegidas por Byte!');
-            }
-        });
-
-        // --- Lógica de Cookies ---
-        const cookieBanner = document.getElementById('cookie-banner');
-        const acceptCookiesButton = document.getElementById('accept-cookies');
-        const declineCookiesButton = document.getElementById('decline-cookies');
-        // REMOVED: const requiredModal = document.getElementById('required-modal');
-        // REMOVED: const acceptRequiredButton = document.getElementById('accept-required');
-
-        function showCookieBanner() {
-            cookieBanner.classList.add('show');
-            updateBodyScroll();
-        }
-
-        function hideCookieBanner() {
-            cookieBanner.classList.remove('show');
-            updateBodyScroll();
-        }
-
-        // REMOVED: showRequiredModal() y hideRequiredModal() - Ya no se usan
-        // function showRequiredModal() { ... }
-        // function hideRequiredModal() { ... }
-
-        // Event Listeners para el banner de cookies
-        acceptCookiesButton.addEventListener('click', () => {
-            localStorage.setItem('cookiesAccepted', 'true');
-            hideCookieBanner();
-            playBellSoundProgrammatically(); // Sonido al aceptar cookies
-            // Si el modal de desarrollo no se ha visto, lo mostramos ahora.
-            if (!localStorage.getItem('developmentModalSeen')) {
-                showDevelopmentModal();
-            }
-        });
-
-        declineCookiesButton.addEventListener('click', () => {
-            hideCookieBanner(); // Simplemente oculta el banner
-            playBellSoundProgrammatically(600); // Sonido diferente para rechazar
-            // NO SE MUESTRA NINGÚN OTRO MODAL AQUÍ, simplemente el banner se oculta.
-        });
-
-        // REMOVED: Event Listener para el modal de requerimiento - Ya no se usa
-        // acceptRequiredButton.addEventListener('click', () => { ... });
-
-        // --- Animación intermitente del botón de WhatsApp ---
-        const whatsappFloatButton = document.getElementById('whatsapp-float-button');
-
-        function startWhatsappAnimation() {
-            whatsappFloatButton.classList.add('shake-pulse-animation');
-            // La animación dura 0.8s, así que la removemos justo después para reiniciar el ciclo en 10s.
-            setTimeout(() => {
-                whatsappFloatButton.classList.remove('shake-pulse-animation');
-            }, 800); // Remover la clase después de que la animación termine (0.8s)
-        }
-
-        // Iniciar la animación al cargar y luego repetirla cada 10 segundos
-        document.addEventListener('DOMContentLoaded', () => {
-            // Empezar la animación después de un pequeño retraso para que no choque con los modales iniciales
-            setTimeout(() => {
-                startWhatsappAnimation(); // Inicia la primera animación
-                setInterval(startWhatsappAnimation, 10000); // Repite cada 10 segundos (10000 ms)
-            }, 2000); // Empieza después de 2 segundos de la carga de la página
-        });
-
     </script>
 </body>
 </html>
