@@ -307,14 +307,20 @@
         .development-modal-content {
             background-color: #2e2e4a; /* Fondo oscuro secundario */
             color: #e0e0e0;
-            padding: 30px;
+            padding: 30px; /* Padding por defecto */
             border-radius: 10px;
             text-align: center;
-            max-width: 400px;
+            width: 90%; /* Ancho para móviles */
+            max-width: 400px; /* Ancho máximo para pantallas más grandes */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             transform: translateY(-20px); /* Efecto de entrada */
             transition: transform 0.3s ease;
             border: 1px solid #00bcd4;
+
+            /* Media query para ajustar el padding en pantallas pequeñas */
+            @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
+                padding: 20px; /* Reducir el padding en móviles */
+            }
         }
 
         .development-modal-overlay.show .development-modal-content {
@@ -335,9 +341,14 @@
 
         .development-modal-buttons {
             display: flex;
+            flex-direction: column; /* Apilar botones en móviles */
             justify-content: center;
             gap: 15px;
             margin-bottom: 20px;
+
+            @media (min-width: 641px) { /* Para pantallas más grandes que móviles */
+                flex-direction: row; /* Volver a fila en escritorio */
+            }
         }
 
         .development-modal-buttons button,
@@ -429,14 +440,22 @@
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal">
 
     <header class="bg-byte-dark-bg text-white shadow-lg fixed w-full z-50">
+        <a href="#contacto" class="absolute top-4 left-4 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                  shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm z-[51] hidden sm:block">
+            ¡Empecemos tu proyecto!
+        </a>
+
         <div class="container mx-auto flex items-center justify-between p-4">
             <nav class="hidden sm:block">
-                <ul class="flex space-x-6 items-center"> <li>
-                        <a href="#inicio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow"> <span class="nav-menu-text-stroke-cyan">Inicio</span>
+                <ul class="flex space-x-6 items-center">
+                    <li>
+                        <a href="#inicio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow">
+                            <span class="nav-menu-text-stroke-cyan">Inicio</span>
                         </a>
                     </li>
                     <li class="relative group">
-                        <a href="#servicios" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-servicios"> <span class="nav-menu-text-stroke-cyan">Servicios</span>
+                        <a href="#servicios" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                            <span class="nav-menu-text-stroke-cyan">Servicios</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -449,7 +468,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#portafolio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-portafolio"> <span class="nav-menu-text-stroke-cyan">Portafolio</span>
+                        <a href="#portafolio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                            <span class="nav-menu-text-stroke-cyan">Portafolio</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -463,7 +483,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#proceso" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos"> <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
+                        <a href="#proceso" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                            <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -474,7 +495,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-eventos"> <span class="nav-menu-text-stroke-cyan">Eventos</span>
+                        <a href="#" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                            <span class="nav-menu-text-stroke-cyan">Eventos</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -485,7 +507,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#reseñas" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas"> <span class="nav-menu-text-stroke-cyan">Reseñas</span>
+                        <a href="#reseñas" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                            <span class="nav-menu-text-stroke-cyan">Reseñas</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -495,7 +518,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#contacto" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto"> <span class="nav-menu-text-stroke-cyan">Contacto</span>
+                        <a href="#contacto" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                            <span class="nav-menu-text-stroke-cyan">Contacto</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -508,11 +532,6 @@
                     </li>
                 </ul>
             </nav>
-
-            <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
-                ¡Empecemos tu proyecto!
-            </a>
 
             <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -722,16 +741,16 @@
                     <h3 class="text-3xl font-bold text-center mt-12 mb-8 text-stroke-cyan">Redes Sociales</h3>
                     <div class="flex justify-center space-x-6 text-byte-text-light">
                         <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                         </a>
                         <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
                             </svg>
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.111979435384!2d-66.92025688520267!3d10.505085466485094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581451f2d2b5%3A0x6b2e3e2b2e2b2e2b!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.111979435384!2d-66.92025688520267!3d10.505085466485094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581451f2d2b5%3A0x6b2e3e2b2e2b2e2b!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
