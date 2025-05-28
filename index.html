@@ -169,11 +169,7 @@
         }
 
         /* Estilo para enlaces deshabilitados */
-        .disabled-link {
-            opacity: 0.6; /* Opacidad reducida para indicar deshabilitado */
-            cursor: not-allowed; /* Cursor de "no permitido" */
-            /* pointer-events: none; // Eliminado del CSS para que el JS pueda manejarlo */
-        }
+        /* Eliminado: .disabled-link { opacity: 0.6; cursor: not-allowed; } */
 
         /* Animación de fondo para toda la página */
         body {
@@ -424,9 +420,9 @@
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal">
 
     <header class="bg-byte-dark-bg text-white shadow-lg fixed w-full z-50">
-        <div class="container mx-auto flex items-center justify-center p-4 relative">
-            <nav class="hidden sm:block flex-grow">
-                <ul class="flex space-x-8 justify-center">
+        <div class="container mx-auto flex items-center justify-between p-4">
+            <nav class="hidden sm:block">
+                <ul class="flex space-x-8 items-center">
                     <li>
                         <a href="#inicio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow">
                             <span class="nav-menu-text-stroke-cyan">Inicio</span>
@@ -440,10 +436,10 @@
                             </span>
                         </a>
                         <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de páginas web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -454,10 +450,10 @@
                             </span>
                         </a>
                         <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de páginas web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -469,7 +465,7 @@
                         </a>
                         <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
                             <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -480,8 +476,8 @@
                             </span>
                         </a>
                         <div id="dropdown-eventos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Próximos</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Realizados</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -492,7 +488,7 @@
                             </span>
                         </a>
                         <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Deja tu Reseña</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -503,20 +499,20 @@
                             </span>
                         </a>
                         <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
                         </div>
                     </li>
                 </ul>
             </nav>
 
-            <a href="#contacto" class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+            <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
                                           shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
                 ¡Empecemos tu proyecto!
             </a>
 
-            <button id="mobile-menu-button" class="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
@@ -539,10 +535,10 @@
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de páginas web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
                 </div>
             </li>
             <li>
@@ -553,10 +549,10 @@
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de páginas web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
                 </div>
             </li>
             <li>
@@ -568,7 +564,7 @@
                 </a>
                 <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
                     <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
                 </div>
             </li>
             <li>
@@ -579,8 +575,8 @@
                     </span>
                 </a>
                 <div id="dropdown-eventos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Próximos</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Realizados</a>
                 </div>
             </li>
             <li>
@@ -591,7 +587,7 @@
                     </span>
                 </a>
                 <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Deja tu Reseña</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                 </div>
             </li>
             <li>
@@ -602,9 +598,9 @@
                     </span>
                 </a>
                 <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
                 </div>
             </li>
             <li>
@@ -741,7 +737,7 @@
 
     <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
         <p>© 2024 Byte. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a>.</p>
+        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white">Términos de Servicio</a>.</p>
         <div class="mt-4 flex justify-center space-x-6">
             <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -787,15 +783,16 @@
         <button id="accept-cookies-btn">Aceptar</button>
     </div>
 
-    <script>
-      if (!window.callbellSettings) {
-        window.callbellSettings = {}
-      }
-      window.callbellSettings["uuid"] = "d798b84f-261d-4c14-9aad-fe82c18a577c";
-      window.callbellSettings["script_token"] = "WezSwtWaJeXn2eajAjGdEpHz";
-    </script>
-    <script>
-      (function(){var w=window;var d=document;var l=function(){var s=d.createElement('script');s.async=true;s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};w.addEventListener('load',l,false);})();
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/68378abd8f89f61910cbc9bd/1iscfbtkt';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -932,16 +929,58 @@
             const acceptCookiesBtn = document.getElementById('accept-cookies-btn');
             const hasAcceptedCookies = localStorage.getItem('byte_cookies_accepted');
             const whatsappFloatButton = document.getElementById('whatsapp-float-button'); // Obtener el botón de WhatsApp
+            const whatsappMessagePopup = document.getElementById('whatsapp-message-popup'); // Obtener el mensaje de WhatsApp
+
+            // Función para mostrar el popup de WhatsApp con temporizador
+            function showWhatsappPopupTimed() {
+                if (whatsappMessagePopup) {
+                    whatsappMessagePopup.classList.remove('hidden', 'hide');
+                    whatsappMessagePopup.classList.add('show');
+                    setTimeout(() => {
+                        whatsappMessagePopup.classList.remove('show');
+                        whatsappMessagePopup.classList.add('hide');
+                        setTimeout(() => {
+                            whatsappMessagePopup.classList.add('hidden');
+                            whatsappMessagePopup.classList.remove('hide');
+                        }, 500); // Coincide con la duración de la transición CSS
+                    }, 5000); // Duración de visualización
+                }
+            }
+
+            // Función para mostrar el popup de WhatsApp al pasar el ratón
+            function showWhatsappPopupHover() {
+                if (whatsappMessagePopup) {
+                    whatsappMessagePopup.classList.remove('hidden', 'hide');
+                    whatsappMessagePopup.classList.add('show');
+                }
+            }
+
+            // Función para ocultar el popup de WhatsApp al quitar el ratón
+            function hideWhatsappPopupHover() {
+                if (whatsappMessagePopup) {
+                    whatsappMessagePopup.classList.remove('show');
+                    whatsappMessagePopup.classList.add('hide');
+                    setTimeout(() => {
+                        whatsappMessagePopup.classList.add('hidden');
+                        whatsappMessagePopup.classList.remove('hide');
+                    }, 500); // Coincide con la duración de la transición CSS
+                }
+            }
+
+            // Añadir listeners de hover al botón flotante de WhatsApp
+            if (whatsappFloatButton) {
+                whatsappFloatButton.addEventListener('mouseenter', showWhatsappPopupHover);
+                whatsappFloatButton.addEventListener('mouseleave', hideWhatsappPopupHover);
+            }
+
 
             if (!hasAcceptedCookies && cookieBanner) {
-                cookieBanner.classList.add('show'); // Muestra el banner con animación
+                cookieBanner.classList.add('show');
 
-                // Mover el botón de WhatsApp hacia arriba
+                // Mover el botón de WhatsApp hacia arriba cuando el banner de cookies está visible
                 if (whatsappFloatButton) {
                     whatsappFloatButton.style.transition = 'bottom 0.5s ease-out'; // Asegurar transición suave
-                    // Ajusta este valor según la altura real de tu banner de cookies + el margen deseado
-                    // Un valor aproximado sería la altura del banner (ej. 100px) + el bottom original del botón (24px)
-                    whatsappFloatButton.style.bottom = '134px'; 
+                    whatsappFloatButton.style.bottom = '134px'; // Mover hacia arriba (altura del banner + margen)
                 }
 
                 acceptCookiesBtn.addEventListener('click', () => {
@@ -949,35 +988,114 @@
                     
                     // Mover el botón de WhatsApp de vuelta a su posición original
                     if (whatsappFloatButton) {
-                        whatsappFloatButton.style.bottom = '24px'; // bottom-6 (24px)
+                        whatsappFloatButton.style.bottom = '24px'; // Volver a bottom-6 (24px)
                     }
 
+                    // Mostrar el popup de WhatsApp después de que el banner de cookies desaparezca
                     setTimeout(() => {
                         cookieBanner.style.display = 'none'; // Oculta completamente después de la animación
                         localStorage.setItem('byte_cookies_accepted', 'true'); // Guarda el consentimiento
+                        showWhatsappPopupTimed(); // Mostrar el mensaje de WhatsApp solo después de aceptar cookies
                     }, 500); // Coincide con la duración de la transición CSS
                 });
             } else if (cookieBanner) {
                 cookieBanner.style.display = 'none'; // Si ya aceptó, no mostrar el banner
+                showWhatsappPopupTimed(); // Si las cookies ya fueron aceptadas, mostrar el popup al cargar la página
             }
 
-            // Lógica para el mensaje flotante de WhatsApp (existente, ajustado para no chocar)
-            const whatsappMessagePopup = document.getElementById('whatsapp-message-popup');
-            if (whatsappMessagePopup) {
-                setTimeout(() => {
-                    whatsappMessagePopup.classList.remove('hidden');
-                    whatsappMessagePopup.classList.add('show');
+            // Lógica para el menú móvil
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-                    setTimeout(() => {
-                        whatsappMessagePopup.classList.remove('show');
-                        whatsappMessagePopup.classList.add('hide');
-                        setTimeout(() => {
-                            whatsappMessagePopup.classList.add('hidden');
-                            whatsappMessagePopup.classList.remove('hide');
-                        }, 500);
-                    }, 5000);
-                }, 1000);
-            }
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuButton.querySelector('svg path');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                    playBubbleSound(); // Sonido al cerrar
+                } else {
+                    icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+                    playBubbleSound(); // Sonido al abrir
+                }
+            });
+
+            // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', (event) => {
+                    if (link.classList.contains('js-dropdown-toggle-mobile')) {
+                        event.stopPropagation(); 
+                    } else {
+                        mobileMenu.classList.add('hidden'); // Oculta el menú
+                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                        playBubbleSound(); // Sonido al cerrar por clic en enlace
+                    }
+                });
+            });
+
+            // Lógica para los menús desplegables de escritorio
+            document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const dropdownId = this.dataset.dropdownId;
+                    const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = this.querySelector('.js-arrow-icon');
+
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                            menu.classList.add('hidden');
+                            const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                            if (otherButton) {
+                                otherButton.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                            }
+                        }
+                    });
+
+                    dropdownMenu.classList.toggle('hidden');
+                    arrowIcon.classList.toggle('rotate-180');
+                });
+            });
+
+            // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        menu.classList.add('hidden');
+                        const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (button) {
+                            button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                        }
+                    });
+                }
+            });
+
+            // Lógica para los menús desplegables móviles (similar a los de escritorio pero con clases específicas para móvil)
+            document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const dropdownId = this.dataset.dropdownIdMobile;
+                    const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
+
+                    document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
+                        if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                            menu.classList.add('hidden');
+                            const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                            if (otherButton) {
+                                otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
+                            }
+                        }
+                    });
+
+                    dropdownMenu.classList.toggle('hidden');
+                    arrowIcon.classList.toggle('rotate-180');
+                });
+            });
+
+            // La lógica para deshabilitar enlaces ha sido eliminada o modificada para permitir la funcionalidad de los dropdowns.
+            // Los enlaces dentro de los dropdowns y el botón de WhatsApp del modal ahora están activos por defecto.
+            // Si necesitas deshabilitar enlaces específicos que no son parte de un menú desplegable,
+            // deberías añadirles la clase 'disabled-link' directamente en el HTML y no aplicar una lógica general.
         });
     </script>
 </body>
