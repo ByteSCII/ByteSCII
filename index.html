@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
     <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" defer></script>
 
     <script>
         tailwind.config = {
@@ -48,7 +48,7 @@
 
     <style>
         /* Importación de fuentes desde Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght=700;800;900&display=swap');
 
         /* Estilos base para el cuerpo y los encabezados */
         body {
@@ -421,6 +421,184 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
         }
+
+        /* Estilos para el Aviso de Cookies (Footer) */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1A202C; /* byte-secondary-dark */
+            color: #F9FAFB; /* byte-text-light */
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            z-index: 9999; /* Por debajo del modal de desarrollo, pero alto */
+            transform: translateY(100%);
+            transition: transform 0.5s ease-out;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.4);
+            border-top: 2px solid #00FFFF; /* byte-accent-cyan */
+        }
+
+        #cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        #cookie-banner p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        #cookie-banner .button-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        #cookie-banner .cookie-button {
+            padding: 0.8rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            white-space: nowrap; /* Evita que el texto del botón se rompa */
+        }
+
+        #cookie-banner .cookie-button.accept {
+            background-color: #00FFFF; /* byte-accent-cyan */
+            color: #0A0A1A; /* byte-dark-bg */
+        }
+
+        #cookie-banner .cookie-button.accept:hover {
+            background-color: #80FFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4);
+        }
+
+        #cookie-banner .cookie-button.decline {
+            background-color: #374151; /* byte-text-dark (un gris oscuro) */
+            color: #F9FAFB; /* byte-text-light */
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        #cookie-banner .cookie-button.decline:hover {
+            background-color: #4B5563;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilos para el Modal de Requerimiento (Central) */
+        #required-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Más oscuro para mayor énfasis */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001; /* Asegura que esté por encima de todo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #required-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #required-modal .modal-content {
+            background-color: #0A0A1A; /* byte-dark-bg para el modal interno */
+            border: 3px solid #00FFFF; /* Borde más pronunciado */
+            border-radius: 1.5rem;
+            padding: 2.5rem 3rem;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.7); /* Sombra más fuerte */
+            max-width: 90%;
+            width: 500px; /* Un poco más ancho */
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce effect */
+        }
+
+        #required-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        #required-modal .modal-content h3 {
+            color: #00FFFF; /* byte-accent-cyan */
+            font-family: 'Montserrat', sans-serif; /* Consistente con encabezados */
+            font-size: 2.2rem; /* Más grande */
+            margin-bottom: 1rem;
+            font-weight: 800; /* Más negrita */
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Brillo en el título */
+        }
+
+        #required-modal .modal-content p {
+            color: #F9FAFB; /* byte-text-light */
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        #required-modal .modal-buttons {
+            display: flex;
+            flex-direction: column; /* Apilados en móviles */
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) { /* Para pantallas más grandes, uno al lado del otro */
+            #required-modal .modal-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        #required-modal .modal-buttons .btn-accept-required,
+        #required-modal .modal-buttons .btn-whatsapp-required {
+            padding: 1rem 2.5rem;
+            border-radius: 0.75rem; /* Más redondeado */
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        #required-modal .modal-buttons .btn-accept-required {
+            background-color: #00FFFF; /* byte-accent-cyan */
+            color: #0A0A1A; /* byte-dark-bg */
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
+        }
+
+        #required-modal .modal-buttons .btn-accept-required:hover {
+            background-color: #80FFFF;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.6);
+        }
+
+        #required-modal .modal-buttons .btn-whatsapp-required {
+            background-color: #25D366; /* whatsapp-green */
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        #required-modal .modal-buttons .btn-whatsapp-required:hover {
+            background-color: #128C7E; /* whatsapp-dark-green */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -613,7 +791,8 @@
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
         <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
-             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75"
+             loading="lazy">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
              data-aos="fade-up" data-aos-duration="1000">
@@ -737,7 +916,7 @@
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.3614275034633!2d-66.93883132560875!3d10.460592965389656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5d7c38c7f999%3A0x6b7a5a8e2b8c9d2f!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1ses!2s!4v1716867372274!5m2!1ses!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://maps.google.com/?cid=15277087145381051465" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -789,8 +968,32 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
+    <div id="cookie-banner">
+        <p>Esta página web utiliza cookies para mejorar tu experiencia y acepta nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a> para una mejor navegación. Al continuar, asumes la aceptación.</p>
+        <div class="button-group">
+            <button id="accept-cookies" class="cookie-button accept">Aceptar Cookies</button>
+            <button id="decline-cookies" class="cookie-button decline">Rechazar</button>
+        </div>
+    </div>
+
+    <div id="required-modal">
+        <div class="modal-content">
+            <h3>¡Importante!</h3>
+            <p>Debes aceptar las condiciones de servicio para navegar y disfrutar de la experiencia completa en Byte.</p>
+            <div class="modal-buttons">
+                <button id="accept-required" class="btn-accept-required">Aceptar y Continuar</button>
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-required">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                    </svg>
+                    Contactar por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script defer>
         // Inicialización de AOS con configuraciones
         AOS.init({
             once: true, // Animaciones se ejecutan solo una vez
@@ -997,8 +1200,11 @@
 
             // Mostrar el modal de desarrollo al cargar la página
             const developmentModal = document.getElementById('development-modal');
-            developmentModal.classList.add('show');
-            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
+            // Solo muestra el modal de desarrollo si no se ha visto antes.
+            if (!localStorage.getItem('developmentModalSeen')) {
+                developmentModal.classList.add('show');
+                document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
+            }
         });
 
         // BONUS: Asegurar que el AudioContext se reanude con la primera interacción del usuario
@@ -1019,7 +1225,101 @@
             playBellSoundProgrammatically(); // Reproduce el sonido de campana al aceptar
             developmentModal.classList.remove('show');
             document.body.classList.remove('overflow-hidden'); // Habilita el scroll del cuerpo
+            localStorage.setItem('developmentModalSeen', 'true'); // Marca que el modal de desarrollo ya se vio
         });
+
+        // --- Nueva funcionalidad: Deshabilitar clic derecho en imágenes ---
+        document.addEventListener('contextmenu', function(e) {
+            // Verifica si el elemento sobre el que se hizo clic es una imagen
+            if (e.target.nodeName === 'IMG') {
+                e.preventDefault(); // Evita que se muestre el menú contextual
+                // Puedes añadir una alerta o un mensaje en la consola si lo deseas
+                console.log('Intento de guardar imagen bloqueado por Byte.');
+                alert('¡Imágenes protegidas por Byte!');
+            }
+        });
+
+        // --- Lógica de Cookies y Modales (NUEVO) ---
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookiesButton = document.getElementById('accept-cookies');
+        const declineCookiesButton = document.getElementById('decline-cookies');
+        const requiredModal = document.getElementById('required-modal');
+        const acceptRequiredButton = document.getElementById('accept-required');
+
+        function showCookieBanner() {
+            cookieBanner.classList.add('show');
+            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll
+        }
+
+        function hideCookieBanner() {
+            cookieBanner.classList.remove('show');
+            document.body.classList.remove('overflow-hidden'); // Habilita el scroll
+        }
+
+        function showRequiredModal() {
+            requiredModal.classList.add('show');
+            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll
+            // También ocultamos el modal de desarrollo si estuviera visible
+            const developmentModal = document.getElementById('development-modal');
+            if (developmentModal.classList.contains('show')) {
+                developmentModal.classList.remove('show');
+            }
+        }
+
+        function hideRequiredModal() {
+            requiredModal.classList.remove('show');
+            document.body.classList.remove('overflow-hidden'); // Habilita el scroll
+        }
+
+        // Event Listeners para el banner de cookies
+        acceptCookiesButton.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            hideCookieBanner();
+            playBellSoundProgrammatically(); // Sonido al aceptar cookies
+            // Si el modal de desarrollo no se ha visto, lo mostramos ahora.
+            const developmentModal = document.getElementById('development-modal');
+            if (developmentModal && !localStorage.getItem('developmentModalSeen')) {
+                developmentModal.classList.add('show');
+                document.body.classList.add('overflow-hidden');
+            }
+        });
+
+        declineCookiesButton.addEventListener('click', () => {
+            hideCookieBanner();
+            playBellSoundProgrammatically(600); // Sonido diferente para rechazar
+            showRequiredModal(); // Muestra el modal de requerimiento
+        });
+
+        // Event Listener para el modal de requerimiento
+        acceptRequiredButton.addEventListener('click', () => {
+            hideRequiredModal();
+            localStorage.setItem('cookiesAccepted', 'true'); // También guardamos la aceptación para futuras visitas
+            playBellSoundProgrammatically(); // Sonido al aceptar en el modal requerido
+            // Si el modal de desarrollo no se ha visto, lo mostramos ahora.
+            const developmentModal = document.getElementById('development-modal');
+            if (developmentModal && !localStorage.getItem('developmentModalSeen')) {
+                developmentModal.classList.add('show');
+                document.body.classList.add('overflow-hidden');
+            }
+        });
+
+        // Lógica de carga: decide qué mostrar al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                playBellSoundProgrammatically(900, 0.1, 0.2); // Sonido de inicio
+
+                if (!localStorage.getItem('cookiesAccepted')) {
+                    showCookieBanner();
+                } else {
+                    const developmentModal = document.getElementById('development-modal');
+                    if (developmentModal && !localStorage.getItem('developmentModalSeen')) {
+                        developmentModal.classList.add('show');
+                        document.body.classList.add('overflow-hidden');
+                    }
+                }
+            }, 500);
+        });
+
     </script>
 </body>
 </html>
