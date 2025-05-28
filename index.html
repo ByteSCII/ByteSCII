@@ -6,7 +6,7 @@
     <title>Byte - Tu visión nuestra misión</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflarae.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
         /* Colores Personalizados */
         .bg-byte-dark-bg { background-color: #1a1a2e; } /* Azul/morado oscuro profundo */
@@ -425,8 +425,8 @@
 
     <header class="bg-byte-dark-bg text-white shadow-lg fixed w-full z-50">
         <div class="container mx-auto flex items-center justify-center p-4 relative">
-            <nav class="hidden sm:block">
-                <ul class="flex space-x-8">
+            <nav class="hidden sm:block flex-grow">
+                <ul class="flex space-x-8 justify-center">
                     <li>
                         <a href="#inicio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow">
                             <span class="nav-menu-text-stroke-cyan">Inicio</span>
@@ -511,8 +511,8 @@
                 </ul>
             </nav>
 
-            <a href="#contacto" class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+            <a href="#contacto" class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
                 ¡Empecemos tu proyecto!
             </a>
 
@@ -608,8 +608,8 @@
                 </div>
             </li>
             <li>
-                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
+                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm">
                     ¡Empecemos tu proyecto!
                 </a>
             </li>
@@ -651,7 +651,7 @@
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="icon">🛒</div>
                     <h3 class="text-2xl font-bold mb-4">Diseño de tiendas virtuales</h3>
-                    <p>Desarrollamos plataformas de e-commerce robustas y seguras, optimizadas para ofrecer una experiencia de compra fluida y aumentar tus conversiones.</p>
+                    <p>Desarrollamos plataformas de e-commerce robustas y seguras, optimizadas para ofrecer una una experiencia de compra fluida y aumentar tus conversiones.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="icon">📈</div>
@@ -787,9 +787,16 @@
         <button id="accept-cookies-btn">Aceptar</button>
     </div>
 
-    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
-    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
-
+    <script>
+      if (!window.callbellSettings) {
+        window.callbellSettings = {}
+      }
+      window.callbellSettings["uuid"] = "d798b84f-261d-4c14-9aad-fe82c18a577c";
+      window.callbellSettings["script_token"] = "WezSwtWaJeXn2eajAjGdEpHz";
+    </script>
+    <script>
+      (function(){var w=window;var d=document;var l=function(){var s=d.createElement('script');s.async=true;s.src='https://dash.callbell.eu/include/livechat/'+window.callbellSettings.script_token+'/'+window.callbellSettings.uuid+'.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};w.addEventListener('load',l,false);})();
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
@@ -806,7 +813,8 @@
 
         // Función para reproducir el sonido de burbuja
         function playBubbleSound() {
-            if (bubbleSynth) {
+            // Se verifica si Tone.js está definido antes de usarlo.
+            if (typeof Tone !== 'undefined' && bubbleSynth) {
                 const now = Tone.context.currentTime;
                 // Generar un sonido de burbuja usando ruido blanco y un envolvente rápido
                 bubbleSynth.envelope.attack = 0.01; // Ataque muy rápido
@@ -828,132 +836,82 @@
 
         // Función para reproducir el sonido de bienvenida
         function playEntranceSound() {
-            if (entranceSynth) {
+            // Se verifica si Tone.js está definido antes de usarlo.
+            if (typeof Tone !== 'undefined' && entranceSynth) {
                 const now = Tone.context.currentTime;
                 // Reproducir un acorde agradable y corto
                 entranceSynth.triggerAttackRelease(["C4", "E4", "G4"], "8n", now); // Acorde de Do mayor, duración de corchea
             }
         }
 
-        // Lógica para el menú móvil
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            const icon = mobileMenuButton.querySelector('svg path');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
-                playBubbleSound(); // Sonido al cerrar
-            } else {
-                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
-                playBubbleSound(); // Sonido al abrir
-            }
-        });
-
-        // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', (event) => {
-                if (!link.classList.contains('js-dropdown-toggle-mobile') && !link.classList.contains('disabled-link')) {
-                    mobileMenu.classList.add('hidden');
-                    const icon = mobileMenuButton.querySelector('svg path');
-                    icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Vuelve al icono de hamburguesa
-                    playBubbleSound(); // Sonido al cerrar
-                }
-            });
-        });
-
-        // Lógica para los menús desplegables de escritorio
-        document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                const dropdownId = this.dataset.dropdownId;
-                const dropdownMenu = document.getElementById(dropdownId);
-                const arrowIcon = this.querySelector('.js-arrow-icon');
-
-                document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                        menu.classList.add('hidden');
-                        const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                        if (otherButton) {
-                            otherButton.querySelector('.js-arrow-icon').classList.remove('rotate-180');
-                        }
-                    }
-                });
-
-                dropdownMenu.classList.toggle('hidden');
-                arrowIcon.classList.toggle('rotate-180');
-                playBubbleSound();
-            });
-        });
-
-        // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
-                document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                    if (!menu.classList.contains('hidden')) {
-                        menu.classList.add('hidden');
-                        const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                        if (button) {
-                            button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
-                        }
-                    }
-                });
-            }
-        });
-
-        // Lógica para los menús desplegables móviles
-        document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                const dropdownId = this.dataset.dropdownIdMobile;
-                const dropdownMenu = document.getElementById(dropdownId);
-                const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
-
-                document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
-                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                        menu.classList.add('hidden');
-                        const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
-                        if (otherButton) {
-                            otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
-                        }
-                    }
-                });
-
-                dropdownMenu.classList.toggle('hidden');
-                arrowIcon.classList.toggle('rotate-180');
-                playBubbleSound();
-            });
-        });
-
-        // Lógica para deshabilitar enlaces que no tienen un href específico (solo #)
-        document.querySelectorAll('a').forEach(link => {
-            if (link.getAttribute('href') === '#' && !link.closest('#whatsapp-float-button')) {
-                link.classList.add('disabled-link');
-                link.addEventListener('click', function(event) {
-                    if (this.classList.contains('disabled-link')) {
-                        event.preventDefault();
-                    }
-                });
-            }
-        });
-
-        // Lógica principal para el manejo de popups y banners al cargar la página
+        // Inicializar Tone.js y los sintetizadores al cargar la página
         window.addEventListener('load', () => {
-            console.log("Página cargada. Iniciando lógica de modales y banners.");
+            // Tone.start() debe ser llamado por una interacción del usuario en muchos navegadores.
+            // Al llamarlo en 'load', si el navegador lo bloquea, el sonido no se reproducirá.
+            // Para asegurar la reproducción, podrías considerar un botón de "Iniciar Audio" o
+            // vincularlo al primer clic del usuario en cualquier parte de la página.
+            if (typeof Tone !== 'undefined') {
+                Tone.start().then(() => {
+                    console.log("Tone.js context started.");
+                    
+                    // 1. Sintetizador para el sonido de bienvenida (PolySynth con timbre de triángulo)
+                    entranceSynth = new Tone.PolySynth(Tone.Synth, {
+                        oscillator: {
+                            type: "triangle" // Brillo suave
+                        },
+                        envelope: {
+                            attack: 0.01,
+                            decay: 0.2,
+                            sustain: 0,
+                            release: 0.1
+                        },
+                        volume: -10 // Volumen para el sonido de entrada
+                    });
 
-            // Inicializar Tone.js (ahora fuera del bloque de visualización de modales)
-            Tone.start().then(() => {
-                console.log("Tone.js context started successfully.");
-                entranceSynth = new Tone.PolySynth(Tone.Synth, { /* ... configs ... */ }).toDestination();
-                bubbleSynth = new Tone.NoiseSynth({ /* ... configs ... */ }).toDestination();
-                Tone.Master.volume.value = -8;
-                playEntranceSound();
-            }).catch(e => {
-                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
-                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
-            });
+                    // Añadir reverberación sutil al sonido de bienvenida
+                    const entranceReverb = new Tone.Reverb({
+                        decay: 1, // Duración de la cola de la reverberación
+                        preDelay: 0.05, // Retraso antes de que comience la reverberación
+                        wet: 0.3 // Cantidad de señal "húmeda" (con efecto)
+                    }).toDestination();
+                    entranceSynth.chain(entranceReverb, Tone.Destination); // Conectar al reverb y luego a la salida maestra
+
+                    // 2. Sintetizador para el sonido de burbuja (NoiseSynth)
+                    bubbleSynth = new Tone.NoiseSynth({
+                        noise: {
+                            type: "white" // Ruido blanco para el efecto de burbuja
+                        },
+                        envelope: {
+                            attack: 0.01,
+                            decay: 0.1,
+                            sustain: 0,
+                            release: 0.05
+                        },
+                        filterEnvelope: {
+                            attack: 0.01,
+                            decay: 0.05,
+                            sustain: 0,
+                            release: 0.05,
+                            baseFrequency: 200,
+                            octaves: 4
+                        },
+                        volume: -15 // Volumen para el sonido de burbuja
+                    }).toDestination();
+
+                    // Ajustar el volumen maestro general (afecta a ambos sintetizadores)
+                    Tone.Master.volume.value = -8; 
+
+                    // Reproducir el sonido de bienvenida inmediatamente al cargar
+                    playEntranceSound(); 
+
+                }).catch(e => {
+                    console.error("Error al iniciar el contexto de audio de Tone.js:", e);
+                    console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
+                });
+            } else {
+                console.warn("Tone.js no está definido. Los sonidos no se reproducirán.");
+            }
+
 
             // 1. Mostrar el Modal de Desarrollo cada vez que se carga la página
             const devModalOverlay = document.getElementById('development-modal-overlay');
@@ -973,11 +931,27 @@
             const cookieBanner = document.getElementById('cookie-banner');
             const acceptCookiesBtn = document.getElementById('accept-cookies-btn');
             const hasAcceptedCookies = localStorage.getItem('byte_cookies_accepted');
+            const whatsappFloatButton = document.getElementById('whatsapp-float-button'); // Obtener el botón de WhatsApp
 
             if (!hasAcceptedCookies && cookieBanner) {
                 cookieBanner.classList.add('show'); // Muestra el banner con animación
+
+                // Mover el botón de WhatsApp hacia arriba
+                if (whatsappFloatButton) {
+                    whatsappFloatButton.style.transition = 'bottom 0.5s ease-out'; // Asegurar transición suave
+                    // Ajusta este valor según la altura real de tu banner de cookies + el margen deseado
+                    // Un valor aproximado sería la altura del banner (ej. 100px) + el bottom original del botón (24px)
+                    whatsappFloatButton.style.bottom = '134px'; 
+                }
+
                 acceptCookiesBtn.addEventListener('click', () => {
                     cookieBanner.style.transform = 'translateY(100%)'; // Inicia la animación de salida
+                    
+                    // Mover el botón de WhatsApp de vuelta a su posición original
+                    if (whatsappFloatButton) {
+                        whatsappFloatButton.style.bottom = '24px'; // bottom-6 (24px)
+                    }
+
                     setTimeout(() => {
                         cookieBanner.style.display = 'none'; // Oculta completamente después de la animación
                         localStorage.setItem('byte_cookies_accepted', 'true'); // Guarda el consentimiento
