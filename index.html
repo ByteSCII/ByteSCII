@@ -323,7 +323,7 @@
                 padding: 20px; /* Reducir el padding en móviles */
             }
             @media (max-width: 480px) { /* Padding aún más pequeño para pantallas muy pequeñas */
-                padding: 15px;
+                padding: 10px; /* Further reduce padding */
             }
         }
 
@@ -340,7 +340,12 @@
 
         .development-modal-content p {
             margin-bottom: 25px;
-            font-size: 1.1rem;
+            font-size: 1.1rem; /* Default font size */
+        }
+        @media (max-width: 480px) {
+            .development-modal-content p {
+                font-size: 1rem; /* Smaller font size for very small screens */
+            }
         }
 
         .development-modal-buttons {
