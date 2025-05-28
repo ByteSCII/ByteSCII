@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Tu visión, nuestra misión</title>
     <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
-    
+
     <meta property="og:title" content="Byte - Tu visión, nuestra misión">
     <meta property="og:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
     <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
-    <meta property="og:url" content="[URL_DE_TU_SITIO_WEB]"> <meta property="og:type" content="website">
-    
+    <meta property="og:url" content="https://www.tudominio.com"> 
+    <meta property="og:type" content="website">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Byte - Tu visión, nuestra misión">
     <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
@@ -42,7 +43,7 @@
             }
         }
     </script>
-    
+
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -52,7 +53,8 @@
         /* Estilos base para el cuerpo y los encabezados */
         body {
             font-family: 'Inter', sans-serif;
-            /* Deshabilita la selección de texto para una experiencia más de "aplicación" */
+            /* Deshabilita la selección de texto para una experiencia más de "aplicación". 
+               Considera eliminar esto si tus usuarios necesitan copiar texto. */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -320,6 +322,13 @@
             position: relative;
             z-index: 1; /* Asegura que el texto esté encima de la imagen si hay un fondo */
         }
+
+        /* Estilo para los enlaces deshabilitados */
+        .disabled-link {
+            opacity: 0.6;
+            cursor: not-allowed;
+            /* Puedes añadir más estilos visuales para indicar que está deshabilitado */
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -564,7 +573,7 @@
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
                     <div class="icon">🎨</div>
-                    <h3 class="2xl font-bold mb-4">Branding y Diseño Gráfico</h3>
+                    <h3 class="text-2xl font-bold mb-4">Branding y Diseño Gráfico</h3>
                     <p>Desarrollamos una identidad visual coherente y memorable para tu marca, desde logotipos hasta guías de estilo, asegurando un impacto visual distintivo en todos tus canales.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
@@ -641,7 +650,7 @@
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.498835848574!2d-66.92004242634365!3d10.499878289569762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a591e1d0c9f1b%3A0x6b4a3c2d4e7f8a7e!2sPlaza%20Sucre%2C%20Calle%20Bolivia%2C%20Catia%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1ses!2sus!4v1716869408612!5m2!1ses!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.100903333333!2d-66.92487448518978!3d10.490799992520633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5e8f4f4f4f4f%3A0x123456789abcdef!2sPlaza%20Sucre%2C%20Calle%20Bolivia%2C%20Caracas%2C%20Capital%20District%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1678901234567!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -650,7 +659,7 @@
 
     <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
         <p>© 2024 Byte. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white">Términos de Servicio</a>.</p>
+        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a>.</p>
         <div class="mt-4 flex justify-center space-x-6">
             <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -680,31 +689,66 @@
     <script>
         // Inicialización de AOS con configuraciones
         AOS.init({
-            once: true, 
-            mirror: false, 
-            offset: 100, 
-            duration: 800, 
-            easing: 'ease-out-cubic', 
+            once: true, // Animaciones se ejecutan solo una vez
+            mirror: false, // No se repiten al hacer scroll hacia arriba
+            offset: 100, // Comienza la animación 100px antes de llegar al elemento
+            duration: 800, // Duración de la animación en milisegundos
+            easing: 'ease-out-cubic', // Función de temporización
         });
 
         let bubbleAudio = null;
+        let audioContext = null; // Contexto de audio global para Web Audio API
 
-        // Función para reproducir el sonido de burbuja
+        // Función para reproducir el sonido de burbuja (si usas un archivo para esto, ej: en hover de botones)
         function playBubbleSound() {
-            // Obtiene el elemento de audio si aún no se ha hecho
             if (!bubbleAudio) {
                 bubbleAudio = document.getElementById('bubbleSound');
                 if (bubbleAudio) {
-                    bubbleAudio.volume = 0.4; // Asegura el volumen
+                    bubbleAudio.volume = 0.4;
                 } else {
-                    console.warn("Elemento de audio de burbuja no encontrado.");
-                    return; // Sale si no se encuentra el audio
+                    console.warn("Elemento de audio de burbuja no encontrado. Asegúrate de tenerlo en el HTML si lo necesitas.");
+                    return;
                 }
             }
-            
-            // Reinicia el sonido y lo reproduce
-            bubbleAudio.currentTime = 0; 
+            bubbleAudio.currentTime = 0;
             bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
+        }
+
+        /**
+         * Genera y reproduce un sonido de campanita programáticamente usando la Web Audio API.
+         * @param {number} frequency - La frecuencia del tono en Hertz (Hz). Por defecto: 800 Hz.
+         * @param {number} duration - La duración del sonido en segundos. Por defecto: 0.1 segundos.
+         * @param {number} volume - El volumen del sonido (de 0.0 a 1.0). Por defecto: 0.08.
+         */
+        function playBellSoundProgrammatically(frequency = 800, duration = 0.1, volume = 0.08) {
+            // Inicializa el AudioContext si aún no existe. Esto debe hacerse en respuesta a una interacción del usuario
+            // para evitar restricciones de reproducción automática de los navegadores.
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            // Conectamos el oscilador al nodo de ganancia y este último al destino del audio (altavoces).
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Configura la frecuencia del tono. Un tono más alto para la campanita.
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime); 
+            // Usamos una onda senoidal para un tono puro y claro.
+            oscillator.type = 'sine'; 
+
+            // Establece el volumen inicial.
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+
+            // Crea un pequeño efecto de "fade out" para un sonido más natural y para evitar clics abruptos.
+            // Reduce el volumen exponencialmente a un valor muy bajo (casi cero) al final de la duración.
+            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + duration);
+
+            // Inicia el oscilador y lo detiene después de la duración especificada.
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + duration); 
         }
 
         // Lógica para el menú móvil
@@ -719,9 +763,9 @@
             mobileMenu.classList.add('translate-y-0');
             mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
             mobileMenuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
-            document.body.classList.add('overflow-hidden'); 
-            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); 
-            playBubbleSound(); // Sonido al abrir
+            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Cambia a icono de X
+            playBellSoundProgrammatically(); // Reproduce el sonido de campanita
         }
 
         // Función para cerrar el menú móvil
@@ -730,11 +774,12 @@
             mobileMenu.classList.add('translate-y-full');
             mobileMenuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
             mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
-            document.body.classList.remove('overflow-hidden'); 
-            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); 
-            playBubbleSound(); // Sonido al cerrar
+            document.body.classList.remove('overflow-hidden'); // Habilita el scroll del cuerpo
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Vuelve al icono de hamburguesa
+            playBellSoundProgrammatically(); // Reproduce el sonido de campanita
         }
 
+        // Event listener para el botón de abrir/cerrar menú móvil
         mobileMenuButton.addEventListener('click', () => {
             if (mobileMenu.classList.contains('translate-y-full')) { 
                 openMobileMenu();
@@ -743,7 +788,7 @@
             }
         });
 
-        // Event listener para el nuevo botón de cierre dentro del menú
+        // Event listener para el botón de cierre dentro del menú móvil
         mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
 
         // Cierra el menú móvil al hacer clic fuera de él (en el fondo)
@@ -753,21 +798,22 @@
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', (event) => {
                 if (link.classList.contains('js-dropdown-toggle-mobile')) {
-                    event.stopPropagation(); 
+                    event.stopPropagation(); // Evita que se cierre el menú principal si es un toggle de submenú
                 } else {
-                    closeMobileMenu(); 
+                    closeMobileMenu(); // Cierra el menú móvil si se hace clic en un enlace de navegación principal
                 }
             });
         });
 
-        // Lógica para los menús desplegables de escritorio (no necesitan sonido)
+        // Lógica para los menús desplegables de escritorio (no necesitan sonido específico)
         document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
             button.addEventListener('click', function(event) {
-                event.preventDefault();
+                event.preventDefault(); // Evita que el enlace de anclaje se active
                 const dropdownId = this.dataset.dropdownId;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon');
 
+                // Cierra otros dropdowns abiertos
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -778,6 +824,7 @@
                     }
                 });
 
+                // Abre o cierra el dropdown actual
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
             });
@@ -796,15 +843,17 @@
             }
         });
 
-        // Lógica para los menús desplegables móviles (no necesitan sonido adicional, ya se maneja en open/closeMobileMenu)
+        // Lógica para los menús desplegables móviles
         document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
             button.addEventListener('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
+                event.preventDefault(); // Evita que el enlace de anclaje se active
+                event.stopPropagation(); // Evita que el click se propague y cierre el menú móvil
+
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
 
+                // Cierra otros dropdowns móviles abiertos
                 document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -815,6 +864,7 @@
                     }
                 });
 
+                // Abre o cierra el dropdown móvil actual
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
             });
@@ -825,12 +875,12 @@
             const href = link.getAttribute('href');
             if (href && href !== 'misionyvision.html' &&
                 href !== 'reseñas.html' && 
-                !href.startsWith('#') &&
-                !link.closest('#whatsapp-float-button') &&
+                !href.startsWith('#') && // Permite enlaces internos de la misma página (áncoras)
+                !link.closest('#whatsapp-float-button') && // No deshabilita el botón flotante de WhatsApp
                 link.classList.contains('disabled-link')) 
             {
                 link.addEventListener('click', function(event) {
-                    event.preventDefault();
+                    event.preventDefault(); // Previene la acción por defecto del enlace
                 });
             }
         });
