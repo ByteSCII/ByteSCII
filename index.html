@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Tu vision nuestra mision</title>
+    <title>Byte - Tu visión, nuestra misión</title>
     <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
     
+    <meta property="og:title" content="Byte - Tu visión, nuestra misión">
+    <meta property="og:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
+    <meta property="og:url" content="[URL_DE_TU_SITIO_WEB]"> <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Byte - Tu visión, nuestra misión">
+    <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
+
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -82,7 +92,7 @@
             -webkit-text-stroke: 1.5px #00FFFF; /* Para navegadores basados en WebKit */
             text-stroke: 1.5px #00FFFF; /* Estándar */
             color: #FFFFFF; /* Color de relleno del texto */
-            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran */
+            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran si no se desean */
         }
 
         /* Animación de "caída" al hacer scroll para AOS */
@@ -122,46 +132,45 @@
         }
 
         /* Animación de sacudida y pulso para el botón de WhatsApp */
-        /* La animación se ha modificado para incluir la pausa dentro de los keyframes */
         @keyframes shake-pulse {
-            0% { /* Inicio del ciclo de 20 segundos, inicio de la sacudida */
+            0% { /* Inicio del ciclo, inicio de la sacudida */
                 transform: translateX(0) scale(1);
                 box-shadow: 0 0 0 rgba(37, 211, 102, 0);
             }
-            /* Parte de sacudida (ocurre en los primeros 0.8 segundos del ciclo de 20 segundos) */
-            0.32% { /* 10% de la duración original de la sacudida (0.08s) en la escala de 20s */
+            /* Parte de sacudida (ocurre en los primeros ~0.8 segundos del ciclo) */
+            4% { /* 10% de la duración original de la sacudida (0.08s) en la escala de 10s */
                 transform: translateX(-5px) scale(1.05);
             }
-            0.64% { /* 20% de la duración original de la sacudida (0.16s) en la escala de 20s */
+            8% { /* 20% de la duración original de la sacudida (0.16s) en la escala de 10s */
                 transform: translateX(5px) scale(1.05);
             }
-            0.96% { /* 30% de la duración original de la sacudida (0.24s) en la escala de 20s */
+            12% { /* 30% de la duración original de la sacudida (0.24s) en la escala de 10s */
                 transform: translateX(-5px) scale(1.05);
             }
-            1.28% { /* 40% de la duración original de la sacudida (0.32s) en la escala de 20s */
+            16% { /* 40% de la duración original de la sacudida (0.32s) en la escala de 10s */
                 transform: translateX(5px) scale(1.05);
             }
-            1.6% { /* 50% de la duración original de la sacudida (0.40s) en la escala de 20s - punto medio del brillo */
+            20% { /* 50% de la duración original de la sacudida (0.40s) en la escala de 10s - punto medio del brillo */
                 transform: translateX(-5px) scale(1.05);
                 box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
             }
-            1.92% { /* 60% de la duración original de la sacudida (0.48s) en la escala de 20s */
+            24% { /* 60% de la duración original de la sacudida (0.48s) en la escala de 10s */
                 transform: translateX(5px) scale(1.05);
             }
-            2.24% { /* 70% de la duración original de la sacudida (0.56s) en la escala de 20s */
+            28% { /* 70% de la duración original de la sacudida (0.56s) en la escala de 10s */
                 transform: translateX(-5px) scale(1.05);
             }
-            2.56% { /* 80% de la duración original de la sacudida (0.64s) en la escala de 20s */
+            32% { /* 80% de la duración original de la sacudida (0.64s) en la escala de 10s */
                 transform: translateX(5px) scale(1.05);
             }
-            2.88% { /* 90% de la duración original de la sacudida (0.72s) en la escala de 20s */
+            36% { /* 90% de la duración original de la sacudida (0.72s) en la escala de 10s */
                 transform: translateX(-5px) scale(1.05);
             }
-            3.2% { /* 100% de la duración original de la sacudida (0.80s) en la escala de 20s - fin de la sacudida */
+            40% { /* 100% de la duración original de la sacudida (0.80s) en la escala de 10s - fin de la sacudida */
                 transform: translateX(0) scale(1);
                 box-shadow: 0 0 0 rgba(37, 211, 102, 0);
             }
-            /* El resto del ciclo (del 3.2% al 100%) el botón permanece estático */
+            /* El resto del ciclo (del 40% al 100%) el botón permanece estático, creando una pausa más larga */
             100% {
                 transform: translateX(0) scale(1);
                 box-shadow: 0 0 0 rgba(37, 211, 102, 0);
@@ -169,9 +178,28 @@
         }
 
         .shake-pulse-animation {
-            /* La animación completa dura 20 segundos, incluyendo la sacudida y la pausa. */
-            /* No se necesita 'animation-delay' aquí, ya que la pausa está integrada en los keyframes. */
-            animation: shake-pulse 20s ease-in-out infinite; 
+            /* La animación completa ahora dura 10 segundos. */
+            animation: shake-pulse 10s ease-in-out infinite; 
+        }
+
+        /* Animación para el eslogan "Tu visión, nuestra misión" (constante y sutil) */
+        @keyframes slogan-blink {
+            0% {
+                opacity: 0.6; /* Opacidad inicial sutil */
+                text-shadow: none;
+            }
+            50% {
+                opacity: 0.9; /* Ligero aumento de opacidad */
+                text-shadow: 0 0 3px rgba(255, 255, 255, 0.2); /* Sombra sutil */
+            }
+            100% {
+                opacity: 0.6; /* Vuelve a la opacidad inicial */
+                text-shadow: none;
+            }
+        }
+
+        .slogan-animation {
+            animation: slogan-blink 2.5s infinite alternate ease-in-out; /* Duración, repetición y alternancia */
         }
 
         /* Clase para rotar el icono de flecha (usada en los dropdowns) */
@@ -304,7 +332,7 @@
                 <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2"> 
                 <div class="flex flex-col items-start">
                     <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> 
-                    <p class="text-sm text-byte-text-light opacity-80 mt-0.5">
+                    <p class="text-sm text-byte-text-light opacity-80 mt-0.5 slogan-animation">
                         <span class="block">Tu visión,</span>
                         <span class="block" style="padding-left: 2.2em;">nuestra misión</span> 
                     </p>
@@ -324,10 +352,10 @@
                             </span>
                         </a>
                         <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="servicios-diseno-web.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Web Personalizado</a>
-                            <a href="servicios-ecommerce.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Desarrollo E-commerce</a>
-                            <a href="servicios-seo-marketing.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO & Marketing Digital</a>
-                            <a href="#servicio-dominios-subdominios" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Administración de Dominios y Subdominios</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -338,11 +366,11 @@
                             </span>
                         </a>
                         <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#portafolio-web" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Sitios Web</a>
-                            <a href="#portafolio-ecommerce" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">E-commerce</a>
-                            <a href="#portafolio-apps" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Aplicaciones Web</a>
-                            <a href="#portafolio-casos" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Casos de Estudio</a>
-                            <a href="#portafolio-diseno" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Gráfico</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -353,7 +381,7 @@
                             </span>
                         </a>
                         <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#nuestra-historia" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
                             <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
                         </div>
                     </li>
@@ -365,7 +393,7 @@
                             </span>
                         </a>
                         <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#deja-tu-resena" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Deja tu Reseña</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -376,9 +404,9 @@
                             </span>
                         </a>
                         <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#ubicacion" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
-                            <a href="#formulario-contacto" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
-                            <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                         </div>
                     </li>
                 </ul>
@@ -387,7 +415,7 @@
             <div class="flex items-center">
                 <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
                                              shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
-                    ¡Empecemos tu Proyecto!
+                    ¡Empecemos tu proyecto!
                 </a>
 
                 <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
@@ -412,10 +440,10 @@
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="servicios-diseno-web.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Web Personalizado</a>
-                    <a href="servicios-ecommerce.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Desarrollo E-commerce</a>
-                    <a href="#servicio-seo-marketing" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO & Marketing Digital</a>
-                    <a href="#servicio-dominios-subdominios" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Administración de Dominios y Subdominios</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
                 </div>
             </li>
             <li>
@@ -426,11 +454,11 @@
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#portafolio-web" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Sitios Web</a>
-                    <a href="#portafolio-ecommerce" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">E-commerce</a>
-                    <a href="#portafolio-apps" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Aplicaciones Web</a>
-                    <a href="#portafolio-casos" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Casos de Estudio</a>
-                    <a href="#portafolio-diseno" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                 </div>
             </li>
             <li>
@@ -441,7 +469,7 @@
                     </span>
                 </a>
                 <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#nuestra-historia" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
                     <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
                 </div>
             </li>
@@ -453,7 +481,7 @@
                     </span>
                 </a>
                 <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#deja-tu-resena" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Deja tu Reseña</a>
                 </div>
             </li>
             <li>
@@ -464,15 +492,15 @@
                     </span>
                 </a>
                 <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#ubicacion" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
-                    <a href="#formulario-contacto" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
-                    <a href="#preguntas-frecuentes" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                 </div>
             </li>
             <li>
                 <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
                                              shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
-                    ¡Empecemos tu Proyecto!
+                    ¡Empecemos tu proyecto!
                 </a>
             </li>
         </ul>
@@ -495,7 +523,7 @@
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                 data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
-                ¡Hablemos de tu Proyecto!
+                ¡Hablemos de tu proyecto!
             </a>
         </div>
     </section>
@@ -541,7 +569,7 @@
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
-                ¡Hablemos de tu Proyecto!
+                ¡Hablemos de tu proyecto!
             </a>
         </div>
     </section>
@@ -589,7 +617,7 @@
                         </a>
                         <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                                <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
                             </svg>
                         </a>
                     </div>
@@ -632,7 +660,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
-        // Se ha movido aquí para asegurar que AOS esté definido antes de ser llamado.
         AOS.init({
             once: true, // Las animaciones solo se ejecutan una vez al hacer scroll hacia abajo
             mirror: false, // No animar al hacer scroll hacia arriba
@@ -641,24 +668,102 @@
             easing: 'ease-out-cubic', // Función de temporización para la animación
         });
 
-        let synth; // Variable para el sintetizador Tone.js
+        let bubbleSynth; // Sintetizador para el sonido de burbuja (abrir/cerrar menú)
+        let entranceSynth; // Sintetizador para el sonido de bienvenida al cargar la página
 
-        // Inicializar Tone.js y reproducir sonido al cargar la página
+        // Función para reproducir el sonido de burbuja
+        function playBubbleSound() {
+            if (bubbleSynth) {
+                const now = Tone.context.currentTime;
+                // Generar un sonido de burbuja usando ruido blanco y un envolvente rápido
+                bubbleSynth.envelope.attack = 0.01; // Ataque muy rápido
+                bubbleSynth.envelope.decay = 0.1;   // Decaimiento rápido
+                bubbleSynth.envelope.sustain = 0;   // Sin sostenido
+                bubbleSynth.envelope.release = 0.05; // Liberación muy rápida
+
+                bubbleSynth.filterEnvelope.attack = 0.01;
+                bubbleSynth.filterEnvelope.decay = 0.05;
+                bubbleSynth.filterEnvelope.sustain = 0;
+                bubbleSynth.filterEnvelope.release = 0.05;
+                bubbleSynth.filterEnvelope.baseFrequency = 200;
+                bubbleSynth.filterEnvelope.octaves = 4;
+
+                // Empezar el ruido y el envolvente
+                bubbleSynth.triggerAttackRelease(0.15, now); // Duración total del sonido de burbuja
+            }
+        }
+
+        // Función para reproducir el sonido de bienvenida
+        function playEntranceSound() {
+            if (entranceSynth) {
+                const now = Tone.context.currentTime;
+                // Reproducir un acorde agradable y corto
+                entranceSynth.triggerAttackRelease(["C4", "E4", "G4"], "8n", now); // Acorde de Do mayor, duración de corchea
+            }
+        }
+
+        // Inicializar Tone.js y los sintetizadores al cargar la página
         window.addEventListener('load', () => {
-            // Iniciar el contexto de audio de Tone.js.
-            // Esto puede requerir una interacción del usuario en algunos navegadores para desbloquear el audio.
+            // Tone.start() debe ser llamado por una interacción del usuario en muchos navegadores.
+            // Al llamarlo en 'load', si el navegador lo bloquea, el sonido no se reproducirá.
+            // Para asegurar la reproducción, podrías considerar un botón de "Iniciar Audio" o
+            // vincularlo al primer clic del usuario en cualquier parte de la página.
             Tone.start().then(() => {
                 console.log("Tone.js context started.");
-                // Crear un sintetizador simple
-                synth = new Tone.Synth().toDestination();
-                // Ajustar el volumen maestro (medio, no tan fuerte)
-                Tone.Master.volume.value = -15; // -15dB es un buen punto de partida para un volumen moderado
+                
+                // 1. Sintetizador para el sonido de bienvenida (PolySynth con timbre de triángulo)
+                entranceSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: {
+                        type: "triangle" // Brillo suave
+                    },
+                    envelope: {
+                        attack: 0.01,
+                        decay: 0.2,
+                        sustain: 0,
+                        release: 0.1
+                    },
+                    volume: -10 // Volumen para el sonido de entrada
+                });
 
-                // Reproducir un sonido al cargar la página
-                synth.triggerAttackRelease("C4", "8n"); // Nota C4 (Do central), duración de una corchea
+                // Añadir reverberación sutil al sonido de bienvenida
+                const entranceReverb = new Tone.Reverb({
+                    decay: 1, // Duración de la cola de la reverberación
+                    preDelay: 0.05, // Retraso antes de que comience la reverberación
+                    wet: 0.3 // Cantidad de señal "húmeda" (con efecto)
+                }).toDestination();
+                entranceSynth.chain(entranceReverb, Tone.Destination); // Conectar al reverb y luego a la salida maestra
+
+                // 2. Sintetizador para el sonido de burbuja (NoiseSynth)
+                bubbleSynth = new Tone.NoiseSynth({
+                    noise: {
+                        type: "white" // Ruido blanco para el efecto de burbuja
+                    },
+                    envelope: {
+                        attack: 0.01,
+                        decay: 0.1,
+                        sustain: 0,
+                        release: 0.05
+                    },
+                    filterEnvelope: {
+                        attack: 0.01,
+                        decay: 0.05,
+                        sustain: 0,
+                        release: 0.05,
+                        baseFrequency: 200,
+                        octaves: 4
+                    },
+                    volume: -15 // Volumen para el sonido de burbuja
+                }).toDestination();
+
+                // Ajustar el volumen maestro general (afecta a ambos sintetizadores)
+                Tone.Master.volume.value = -8; 
+
+                // Reproducir el sonido de bienvenida inmediatamente al cargar
+                playEntranceSound(); 
+
             }).catch(e => {
                 console.error("Error al iniciar el contexto de audio de Tone.js:", e);
-                // Si el audio no se puede iniciar automáticamente, se puede intentar iniciarlo con la primera interacción del usuario.
+                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
             });
         });
 
@@ -667,32 +772,26 @@
         const mobileMenu = document.getElementById('mobile-menu');
 
         mobileMenuButton.addEventListener('click', () => {
-            // Alterna la clase 'hidden' para mostrar/ocultar el menú móvil
             mobileMenu.classList.toggle('hidden');
-            // Cambia el icono de la hamburguesa a una 'X' y viceversa
             const icon = mobileMenuButton.querySelector('svg path');
             if (mobileMenu.classList.contains('hidden')) {
                 icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                playBubbleSound(); // Sonido al cerrar
             } else {
                 icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
-                // Reproducir sonido cuando el menú móvil se abre
-                if (synth) {
-                    synth.triggerAttackRelease("E5", "16n"); // Nota E5, duración más corta para un "clic"
-                }
+                playBubbleSound(); // Sonido al abrir
             }
         });
 
         // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', (event) => {
-                // Si el enlace es un toggle de subcategoría, no cerrar el menú principal
                 if (link.classList.contains('js-dropdown-toggle-mobile')) {
-                    // Prevenir que el clic en el toggle del dropdown propague y cierre el menú principal
                     event.stopPropagation(); 
                 } else {
-                    // Para enlaces normales, cierra el menú principal
                     mobileMenu.classList.add('hidden'); // Oculta el menú
-                    mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono de hamburguesa
+                    mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                    playBubbleSound(); // Sonido al cerrar por clic en enlace
                 }
             });
         });
@@ -700,12 +799,11 @@
         // Lógica para los menús desplegables de escritorio
         document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
             button.addEventListener('click', function(event) {
-                event.preventDefault(); // Previene el comportamiento de enlace por defecto
-                const dropdownId = this.dataset.dropdownId; // Obtiene el ID del dropdown asociado
+                event.preventDefault();
+                const dropdownId = this.dataset.dropdownId;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon');
 
-                // Cierra cualquier otro menú desplegable de escritorio que esté abierto
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -716,7 +814,6 @@
                     }
                 });
 
-                // Alterna la visibilidad del menú desplegable actual y rota la flecha
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
             });
@@ -724,13 +821,12 @@
 
         // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
         document.addEventListener('click', function(event) {
-            // Si el clic no fue en un botón de dropdown ni dentro de un menú desplegable
             if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                    menu.classList.add('hidden'); // Oculta el menú
+                    menu.classList.add('hidden');
                     const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                     if (button) {
-                        button.querySelector('.js-arrow-icon').classList.remove('rotate-180'); // Restaura la flecha
+                        button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
                     }
                 });
             }
@@ -740,12 +836,11 @@
         document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
-                event.stopPropagation(); // Evita que el clic en el toggle del dropdown cierre el menú principal
+                event.stopPropagation();
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
 
-                // Cierra cualquier otro menú desplegable móvil que esté abierto
                 document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -756,10 +851,29 @@
                     }
                 });
 
-                // Alterna la visibilidad del menú desplegable actual y rota la flecha
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
             });
+        });
+
+        // Deshabilitar enlaces que no sean "Nuestra Misión y Visión"
+        document.querySelectorAll('a').forEach(link => {
+            // Verifica si el enlace no es el de "Nuestra Misión y Visión"
+            // y si no es un enlace principal del menú (que solo tiene un #)
+            // y si no es el botón flotante de WhatsApp
+            if (link.getAttribute('href') !== 'misionyvision.html' &&
+                link.getAttribute('href') !== '#' &&
+                !link.closest('#whatsapp-float-button')) {
+                
+                // Añade la clase 'disabled-link' para posibles estilos de deshabilitado
+                link.classList.add('disabled-link');
+                // Cambia el href a '#' para que no navegue
+                link.setAttribute('href', '#');
+                // Previene el comportamiento por defecto del click
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                });
+            }
         });
     </script>
 </body>
