@@ -435,16 +435,24 @@
             background-color: #00a3b3;
             transform: scale(1.05);
         }
+
+        /* Animación de fondo para la sección de servicios */
+        @keyframes services-bg-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .animated-services-bg {
+            background: linear-gradient(270deg, #1a1a2e, #2e2e4a, #1a1a2e); /* Un gradiente que se desplaza */
+            background-size: 200% 200%;
+            animation: services-bg-animation 15s ease infinite;
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal">
 
     <header class="bg-byte-dark-bg text-white shadow-lg fixed w-full z-50">
-        <a href="#contacto" class="absolute top-4 left-4 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                  shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm z-[51] hidden sm:block">
-            ¡Empecemos tu proyecto!
-        </a>
-
         <div class="container mx-auto flex items-center justify-between p-4">
             <nav class="hidden sm:block">
                 <ul class="flex space-x-6 items-center">
@@ -532,6 +540,11 @@
                     </li>
                 </ul>
             </nav>
+
+            <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                      shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm ml-auto">
+                ¡Empecemos tu proyecto!
+            </a>
 
             <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -656,7 +669,7 @@
         </div>
     </section>
 
-    <section id="servicios" class="py-20 bg-byte-dark-bg text-byte-text-light">
+    <section id="servicios" class="py-20 animated-services-bg text-byte-text-light">
         <div class="container mx-auto px-4">
             <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
                 data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
