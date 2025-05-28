@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Tu visión nuestra misión</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
@@ -100,6 +100,7 @@
             left: 0;
             right: 0;
             bottom: 0;
+            /* Restaurado el fondo original */
             background: linear-gradient(to bottom, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7)), url('./images/contact-bg.jpg') center center/cover no-repeat;
             opacity: 0.2; /* Imagen de fondo sutil */
             z-index: 0;
@@ -167,18 +168,38 @@
             animation: shake-pulse 2s infinite ease-in-out;
         }
 
-        /* Estilo para enlaces deshabilitados (mantenido para referencia si lo necesitas de nuevo) */
+        /* Estilo para enlaces deshabilitados */
         .disabled-link {
-            /* opacity: 0.6; */ /* Comentado para deshabilitar la opacidad */
-            /* cursor: not-allowed; */ /* Comentado para deshabilitar el cursor */
+            opacity: 0.6; /* Opacidad reducida para indicar deshabilitado */
+            cursor: not-allowed; /* Cursor de "no permitido" */
+            pointer-events: none; /* Deshabilita clics */
+        }
+
+        /* Animación de fondo para toda la página */
+        body {
+            background: linear-gradient(-45deg, #1a1a2e, #2e2e4a, #00bcd4, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBackground 15s ease infinite;
+        }
+
+        @keyframes gradientBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
     </style>
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal">
 
     <header class="bg-byte-dark-bg text-white shadow-lg fixed w-full z-50">
-        <div class="container mx-auto flex justify-between items-center p-4">
-            <a href="#inicio" class="text-3xl font-extrabold text-byte-accent-cyan hover:text-white transition duration-300"></a>
+        <div class="container mx-auto flex items-center justify-center p-4 relative">
+            <a href="#inicio" class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl font-extrabold text-byte-accent-cyan hover:text-white transition duration-300">Byte</a>
 
             <nav class="hidden sm:block">
                 <ul class="flex space-x-8">
@@ -208,14 +229,11 @@
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
-                        <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Sitios Web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">E-commerce</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Aplicaciones Web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Casos de Estudio</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Gráfico</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Branding</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ilustraciones</a>
+                        <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -257,18 +275,16 @@
                 </ul>
             </nav>
 
-            <div class="flex items-center">
-                <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+            <a href="#contacto" class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
                                           shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
-                    ¡Empecemos tu proyecto!
-                </a>
+                ¡Empecemos tu proyecto!
+            </a>
 
-                <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
+            <button id="mobile-menu-button" class="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
     </header>
 
@@ -301,13 +317,10 @@
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Sitios Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Aplicaciones Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Casos de Estudio</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño Gráfico</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Branding</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ilustraciones</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
                 </div>
             </li>
             <li>
@@ -356,7 +369,7 @@
     </nav>
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
+        <img src="./images/609.jpg" onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
@@ -405,46 +418,6 @@
             </div>
         </div>
     </section>
-
-    <section id="portafolio" class="py-20 bg-byte-dark-bg text-byte-text-light">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
-                data-aos="fade-up" data-aos-duration="800">Nuestro Portafolio</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon">🌐</div>
-                    <h3 class="text-2xl font-bold mb-4">Sitios Web Corporativos</h3>
-                    <p>Diseños personalizados para empresas que buscan una presencia online profesional y efectiva.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon">🛍️</div>
-                    <h3 class="text-2xl font-bold mb-4">Tiendas Online (E-commerce)</h3>
-                    <p>Plataformas de venta en línea con carritos de compra, pasarelas de pago y gestión de productos.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon">📱</div>
-                    <h3 class="text-2xl font-bold mb-4">Aplicaciones Web Interactivas</h3>
-                    <p>Soluciones web a medida para optimizar procesos internos o ofrecer servicios digitales innovadores.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="icon">✨</div>
-                    <h3 class="text-2xl font-bold mb-4">Branding y Logotipos</h3>
-                    <p>Creación de identidades de marca únicas y logotipos memorables que destacan en el mercado.</p>
-                </div>
-                 <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="icon">🖌️</div>
-                    <h3 class="text-2xl font-bold mb-4">Ilustraciones Digitales</h3>
-                    <p>Diseños gráficos creativos y originales para cualquier tipo de necesidad, desde personajes hasta infografías.</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="icon">📑</div>
-                    <h3 class="text-2xl font-bold mb-4">Casos de Estudio Detallados</h3>
-                    <p>Análisis de proyectos pasados que demuestran nuestra metodología y resultados exitosos.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
 
     <section class="py-20 bg-byte-dark-bg text-byte-text-light">
         <div class="container mx-auto px-4 text-center max-w-4xl"
@@ -511,7 +484,7 @@
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.119702223838!2d-66.9208035250486!3d10.50502188960144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a591e3e56c1f9%3A0x1d3a5a7b7a7d4a4d!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1716840000000!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.111979435384!2d-66.92025688520267!3d10.505085466485094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581451f2d2b5%3A0x6b2e3e2b2e2b2e2b!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -754,21 +727,17 @@
             });
         });
 
-        // La lógica para deshabilitar enlaces está comentada y sigue desactivada, por lo que todos los enlaces son funcionales.
-        /*
+        // Lógica para deshabilitar enlaces que no tienen un href específico (solo #)
         document.querySelectorAll('a').forEach(link => {
-            if (link.getAttribute('href') !== 'misionyvision.html' &&
-                link.getAttribute('href') !== '#' &&
-                !link.closest('#whatsapp-float-button')) {
-
+            // Deshabilita enlaces que tienen href="#" y no son el botón flotante de WhatsApp
+            // y no son el enlace a "misionyvision.html"
+            if (link.getAttribute('href') === '#' && !link.closest('#whatsapp-float-button')) {
                 link.classList.add('disabled-link');
-                link.setAttribute('href', '#');
                 link.addEventListener('click', function(event) {
-                    event.preventDefault();
+                    event.preventDefault(); // Previene la acción predeterminada del enlace
                 });
             }
         });
-        */
     </script>
 </body>
 </html>
