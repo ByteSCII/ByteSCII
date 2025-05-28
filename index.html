@@ -44,12 +44,13 @@
     </script>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 
     <style>
         /* Importación de fuentes desde Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&family=Orbitron:wght@400;700&display=swap');
         /* Aseguramos que Pacifico esté importado para el slogan */
         @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
@@ -74,18 +75,21 @@
         @keyframes menu-glow {
             0% {
                 color: var(--byte-text-light); /* Blanco inicial */
+                -webkit-text-stroke-color: var(--byte-accent-cyan); /* Cian inicial del borde */
+                text-stroke-color: var(--byte-accent-cyan);
                 text-shadow: none;
-                border-color: #F59E0B; /* Amarillo inicial */
             }
             50% {
-                color: var(--byte-accent-cyan); /* Cian en el punto medio del brillo */
+                color: var(--byte-accent-cyan); /* Cian en el pico del brillo */
+                -webkit-text-stroke-color: #80FFFF; /* Cian más claro para el pico del brillo del borde */
+                text-stroke-color: #80FFFF;
                 text-shadow: 0 0 8px var(--byte-accent-cyan), 0 0 12px var(--byte-accent-cyan);
-                border-color: #FFD700; /* Amarillo más brillante en el pico */
             }
             100% {
                 color: var(--byte-text-light); /* Vuelve a blanco */
+                -webkit-text-stroke-color: var(--byte-accent-cyan); /* Vuelve al cian inicial del borde */
+                text-stroke-color: var(--byte-accent-cyan);
                 text-shadow: none;
-                border-color: #F59E0B; /* Amarillo final */
             }
         }
 
@@ -374,225 +378,17 @@
             color: #00FFFF; /* Color de acento al pasar el ratón */
         }
 
-        /* Estilos para el texto del logo "Byte" */
-        #byte-logo-text {
-            /* Los estilos de color y text-shadow son animados por menu-glow */
-            position: relative;
-            z-index: 1; /* Asegura que el texto esté encima de la imagen si hay un fondo */
-        }
-
-        /* === MODAL & COOKIE BANNER STYLES === */
-        /* Base para ambos modales (centrados y con overlay) */
-        #development-modal, #cookie-banner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Overlay oscuro */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* Muy alto para estar sobre todo */
-            opacity: 0;
-            pointer-events: none; /* No interactuable cuando está oculto */
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        #development-modal.show, #cookie-banner.show {
-            opacity: 1;
-            pointer-events: auto; /* Interactuable cuando está visible */
-        }
-
-        /* Contenido del modal (tarjeta central) */
-        #development-modal .modal-content, #cookie-banner .modal-content {
-            background-color: var(--byte-dark-bg); /* Fondo oscuro de la tarjeta */
-            padding: 2.5rem;
-            border-radius: 1rem;
-            text-align: center;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            color: var(--byte-text-light);
-            border: 1px solid var(--byte-accent-cyan); /* Borde cian */
-            transform: translateY(-20px); /* Efecto de entrada */
-            opacity: 0;
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        #development-modal.show .modal-content, #cookie-banner.show .modal-content {
-            transform: translateY(0); /* Posición final */
-            opacity: 1;
-        }
-
-        #development-modal h3, #cookie-banner h3 {
-            font-size: 2.25rem; /* text-4xl */
-            font-weight: 800; /* font-extrabold */
-            margin-bottom: 1rem;
-        }
-
-        #development-modal p, #cookie-banner p {
-            font-size: 1.125rem; /* text-lg */
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .modal-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem; /* Espacio entre texto y botones */
-        }
-        @media (min-width: 640px) {
-            .modal-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-        }
-
-        .btn-whatsapp, .btn-accept, .cookie-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px; /* rounded-full */
-            font-weight: 700; /* font-bold */
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .btn-whatsapp {
-            background-color: var(--whatsapp-green);
-            color: white;
-        }
-        .btn-whatsapp:hover {
-            background-color: var(--whatsapp-dark-green); /* Tono más oscuro */
-            transform: scale(1.05);
-            box-shadow: 0 8px 15px rgba(37, 211, 102, 0.4);
-        }
-
-        .btn-accept {
-            background-color: var(--byte-accent-cyan);
-            color: var(--byte-dark-bg);
-        }
-        .btn-accept:hover {
-            background-color: #0596b7; /* Tono más oscuro */
-            transform: scale(1.05);
-            box-shadow: 0 8px 15px rgba(6, 182, 212, 0.4);
-        }
-
-        .cookie-button.accept {
-            background-color: var(--byte-accent-cyan);
-            color: var(--byte-dark-bg);
-        }
-        .cookie-button.accept:hover {
-            background-color: #0596b7;
-            transform: scale(1.03);
-        }
-
-        .cookie-button.decline {
-            background-color: #4A5568; /* Gris oscuro */
-            color: var(--byte-text-light);
-            border: 1px solid #6B7280;
-        }
-        .cookie-button.decline:hover {
-            background-color: #6B7280;
-            transform: scale(1.03);
-        }
-
-        /* Control de scroll del body cuando hay modales */
-        body.overflow-hidden {
-            overflow: hidden;
-        }
-
-        /* === MOBILE MENU STYLES === */
-        #mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black; /* Fondo negro para el menú móvil */
-            z-index: 50; /* Por encima del contenido principal, pero por debajo de los modales (9999) */
-            transform: translateY(100%); /* Inicia fuera de pantalla */
-            transition: transform 0.5s ease-out;
-            display: flex;
-            flex-direction: column;
-            padding: 2rem 1.5rem;
-            overflow-y: auto; /* Permite scroll si el contenido es muy largo */
-        }
-
-        #mobile-menu.translate-y-0 {
-            transform: translateY(0); /* Se desliza a la vista */
-        }
-
-        #mobile-menu-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
-            z-index: 40; /* Entre el menú móvil y el contenido principal */
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease-out;
-        }
-
-        #mobile-menu-backdrop.opacity-50 {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Estilo para enlaces deshabilitados */
-        .disabled-link {
-            cursor: not-allowed;
-            opacity: 0.7;
-            text-decoration: none;
-        }
-        .disabled-link:hover {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* Comportamiento de scroll suave para anclas */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Nuevo estilo para la imagen de inicio para que se parezca a los títulos */
-        .hero-image-glow {
-            /* Aplica una sombra de caja que imita el brillo cian */
-            box-shadow: 0 0 25px 12px rgba(0, 255, 255, 0.8); /* Sombra cian más intensa */
-            /* Animación para el brillo de la imagen, similar al stroke-pulse */
-            animation: image-glow-pulse 3s forwards ease-in-out;
-        }
-
-        /* Animación para el brillo de la imagen de inicio */
-        @keyframes image-glow-pulse {
-            0% {
-                box-shadow: 0 0 15px 7px rgba(0, 255, 255, 0.6);
-            }
-            50% {
-                box-shadow: 0 0 40px 20px rgba(0, 255, 255, 1); /* Brillo más intenso */
-            }
-            100% {
-                box-shadow: 0 0 25px 12px rgba(0, 255, 255, 0.8);
-            }
-        }
-
         /* Estilos para los enlaces del menú de navegación principal */
         header nav ul li a {
-            color: var(--byte-text-light); /* Color de texto inicial blanco */
             text-decoration: none;
             position: relative; /* Para el pseudo-elemento del borde */
             display: inline-block; /* Para que el pseudo-elemento funcione correctamente */
-            padding: 5px 10px; /* Añadido padding para apariencia de botón */
-            border: 1px solid #F59E0B; /* Borde amarillo inicial */
-            border-radius: 0.5rem; /* Bordes ligeramente redondeados para los botones */
-            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Transiciones suaves */
-            animation: menu-glow 2.5s infinite alternate ease-in-out; /* Animación constante de brillo y borde */
+            padding-bottom: 5px; /* Espacio para el borde inferior cian al hover */
+            -webkit-text-stroke: 1px var(--byte-accent-cyan); /* Borde cian para cada letra (default) */
+            text-stroke: 1px var(--byte-accent-cyan);
+            font-family: 'Orbitron', sans-serif; /* Nueva fuente llamativa */
+            transition: transform 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-stroke-color 0.3s ease-in-out; /* Transiciones suaves para el stroke y transform */
+            animation: menu-glow 2.5s infinite alternate ease-in-out; /* Animación constante de brillo del borde */
         }
 
         /* Efecto de borde cian que se expande al pasar el cursor */
@@ -611,6 +407,20 @@
         header nav ul li a:hover::after {
             width: 100%; /* El borde se expande al 100% del ancho del enlace */
         }
+
+        header nav ul li a:hover {
+            color: var(--byte-accent-cyan); /* Texto cian al pasar el cursor */
+            -webkit-text-stroke-color: var(--byte-accent-cyan); /* Borde de texto cian al pasar el cursor */
+            text-stroke-color: var(--byte-accent-cyan);
+            transform: scale(1.05) translateY(-1px); /* Ajuste sutil para el efecto expansivo */
+            animation: none; /* Desactivar la animación constante al pasar el cursor */
+        }
+
+        /* Estilos para los elementos del dropdown al pasar el cursor */
+        .js-dropdown-menu a:hover {
+            background-color: #F59E0B; /* Fondo amarillo */
+            color: white !important; /* Texto blanco, usar !important para anular estilos existentes */
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -622,90 +432,89 @@
 
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
-            <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-20 mr-2"> 
-            </a>
+            <div class="flex items-center sm:flex-grow sm:justify-start">
+                </div>
 
             <nav class="hidden sm:flex flex-grow justify-center">
                 <ul class="flex space-x-8 items-center">
                     <li class="relative group">
-                        <a href="#inicio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1">Inicio</a>
+                        <a href="#inicio" class="text-lg font-semibold transition duration-300 ease-in-out">Inicio</a>
                     </li>
                     <li class="relative group">
-                        <a href="#servicios" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                        <a href="#servicios" class="text-lg font-semibold transition duration-300 ease-in-out js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
                             Servicios
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
                         <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de página web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de página web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#portafolio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                        <a href="#portafolio" class="text-lg font-semibold transition duration-300 ease-in-out js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
                             Portafolio
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
                         <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#proceso" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                        <a href="#proceso" class="text-lg font-semibold transition duration-300 ease-in-out js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
                             Quiénes Somos
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
                         <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
-                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#reseñas" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                        <a href="#reseñas" class="text-lg font-semibold transition duration-300 ease-in-out js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
                             Reseñas
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
                         <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#eventos" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                        <a href="#eventos" class="text-lg font-semibold transition duration-300 ease-in-out js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
                             Eventos
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
                         <div id="dropdown-eventos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos Eventos</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Eventos Pasados</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos Eventos</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Eventos Pasados</a>
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#contacto" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                        <a href="#contacto" class="text-lg font-semibold transition duration-300 ease-in-out js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
                             Contacto
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
                         <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                         </div>
                     </li>
                 </ul>
@@ -739,10 +548,10 @@
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de página web</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de página web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                 </div>
             </li>
             <li>
@@ -753,11 +562,11 @@
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                 </div>
             </li>
             <li>
@@ -768,8 +577,8 @@
                     </span>
                 </a>
                 <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
-                    <a href="misionyvision.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                    <a href="misionyvision.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
                 </div>
             </li>
             <li>
@@ -780,7 +589,7 @@
                     </span>
                 </a>
                 <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="reseñas.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                    <a href="reseñas.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                 </div>
             </li>
             <li>
@@ -791,8 +600,8 @@
                     </span>
                 </a>
                 <div id="dropdown-eventos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos Eventos</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Eventos Pasados</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos Eventos</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Eventos Pasados</a>
                 </div>
             </li>
             <li>
@@ -803,9 +612,9 @@
                     </span>
                 </a>
                 <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-white rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                 </div>
             </li>
             <li>
@@ -823,8 +632,20 @@
     </nav>
     <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black opacity-0 z-30 pointer-events-none transition-opacity duration-500 ease-in-out"></div>
 
+    <div id="development-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[9999] opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out">
+        <div id="development-modal-content" class="bg-byte-dark-bg p-8 rounded-xl shadow-2xl text-center max-w-md w-11/12 border border-byte-accent-cyan transform -translate-y-10 opacity-0 transition-all duration-500 ease-out">
+            <h3 class="text-4xl font-extrabold text-byte-accent-cyan mb-4 text-stroke-cyan">¡Atención!</h3>
+            <p class="text-lg text-byte-text-light mb-6">
+                Este sitio web está actualmente en desarrollo. Algunas secciones o funcionalidades podrían no estar completas o funcionar como se espera.
+            </p>
+            <button id="close-development-modal" class="bg-yellow-500 text-black font-bold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
+                Entendido
+            </button>
+        </div>
+    </div>
+
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
+        <img src="./images/609.jpg" alt="[Image of a futuristic city with glowing lines]"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75 hero-image-glow">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
@@ -1095,8 +916,8 @@
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', (event) => {
                 // Si es un toggle de dropdown, evita cerrar el menú principal inmediatamente.
-                // El script del dropdown manejará su propio toggle.
-                if (link.classList.contains('js-dropdown-toggle-mobile') || link.closest('.js-dropdown-menu-mobile')) {
+                // Si es un enlace deshabilitado, también evita cerrar el menú principal.
+                if (link.classList.contains('js-dropdown-toggle-mobile') || link.closest('.js-dropdown-menu-mobile') || link.classList.contains('disabled-link')) {
                     event.stopPropagation();
                 } else {
                     closeMobileMenu(); // Cierra el menú móvil para enlaces regulares
@@ -1181,6 +1002,45 @@
             document.querySelectorAll('.service-card .icon svg').forEach(svg => {
                 svg.classList.add('animated');
             });
+        });
+
+        // Lógica para el modal de "Sitio en Desarrollo"
+        const developmentModal = document.getElementById('development-modal');
+        const closeDevelopmentModalButton = document.getElementById('close-development-modal');
+        const developmentModalContent = document.getElementById('development-modal-content'); // Use the new ID
+
+        // Función para mostrar el modal
+        function showDevelopmentModal() {
+            developmentModal.classList.add('show');
+            document.body.classList.add('overflow-hidden');
+            // Add animation classes for content
+            setTimeout(() => {
+                developmentModalContent.classList.remove('-translate-y-10', 'opacity-0');
+                developmentModalContent.classList.add('translate-y-0', 'opacity-100');
+            }, 50); // Small delay to ensure 'show' class is applied first
+        }
+
+        // Función para ocultar el modal
+        function hideDevelopmentModal() {
+            developmentModalContent.classList.remove('translate-y-0', 'opacity-100');
+            developmentModalContent.classList.add('-translate-y-10', 'opacity-0');
+            setTimeout(() => {
+                developmentModal.classList.remove('show');
+                document.body.classList.remove('overflow-hidden');
+            }, 300); // Match transition duration
+        }
+
+        // Mostrar el modal al cargar la página
+        document.addEventListener('DOMContentLoaded', showDevelopmentModal);
+
+        // Cerrar el modal al hacer clic en el botón "Entendido"
+        closeDevelopmentModalButton.addEventListener('click', hideDevelopmentModal);
+
+        // Cerrar el modal al hacer clic fuera del contenido del modal
+        developmentModal.addEventListener('click', (event) => {
+            if (event.target === developmentModal) {
+                hideDevelopmentModal();
+            }
         });
     </script>
 </body>
