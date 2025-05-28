@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Tu visión nuestra misión</title> <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Byte - Tu visión nuestra misión</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
@@ -21,9 +22,11 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra sutil para profundidad */
         }
 
-        /* Efecto de Brillo en Enlaces de Menú */
+        /* Efecto de Brillo en Enlaces de Menú (Modificado para animación) */
         .menu-link-glow {
             position: relative;
+            /* Añadido para la transición del color y la transformación */
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out; 
         }
         .menu-link-glow::before {
             content: '';
@@ -41,6 +44,11 @@
         .menu-link-glow:hover::before {
             width: calc(100% - 20px); /* Ajusta el ancho según la longitud deseada del brillo */
             opacity: 1;
+        }
+        /* Nueva regla para el efecto de elevación y cambio de color al pasar el ratón */
+        .menu-link-glow:hover {
+            color: #e0e0e0; /* Cambia a blanco roto al pasar el ratón */
+            transform: translateY(-3px); /* Eleva ligeramente el enlace */
         }
 
         /* Estilos para las Tarjetas de Servicio */
