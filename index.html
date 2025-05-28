@@ -678,101 +678,104 @@
             easing: 'ease-out-cubic', // Función de temporización para la animación
         });
 
-        let bubbleSynth; // Sintetizador para el sonido de burbuja (abrir/cerrar menú)
-        let entranceSynth; // Sintetizador para el sonido de bienvenida al cargar la página
+        let bubbleSynth = null; 
+        let entranceSynth = null;
+        let audioContextInitialized = false; // Flag para controlar si el contexto de audio ya se inicializó
+
+        // Función para inicializar el contexto de audio de Tone.js y los sintetizadores
+        function initAudioContext() {
+            // Si el contexto ya se inicializó, no hagas nada.
+            if (audioContextInitialized) {
+                return;
+            }
+
+            Tone.start().then(() => {
+                console.log("Tone.js context started successfully by user interaction.");
+                
+                // Sintetizador para el sonido de bienvenida (campanita)
+                entranceSynth = new Tone.Synth({
+                    oscillator: { type: "sine" },
+                    envelope: { attack: 0.005, decay: 0.1, sustain: 0, release: 0.05 },
+                    volume: -10 
+                }).toDestination();
+
+                // Sintetizador para el sonido de burbuja (NoiseSynth)
+                bubbleSynth = new Tone.NoiseSynth({
+                    noise: { type: "white" },
+                    envelope: {
+                        attack: 0.01, decay: 0.1, sustain: 0, release: 0.05
+                    },
+                    filterEnvelope: {
+                        attack: 0.01, decay: 0.05, sustain: 0, release: 0.05,
+                        baseFrequency: 200, octaves: 4
+                    },
+                    volume: -15 
+                }).toDestination();
+
+                // Ajustar el volumen maestro general
+                Tone.Master.volume.value = -8; 
+
+                // Reproducir el sonido de bienvenida solo una vez, justo después de que el contexto esté activo
+                playEntranceSound();
+
+                audioContextInitialized = true; // Marca el contexto como inicializado
+                // Elimina este listener una vez que el contexto de audio se ha iniciado
+                document.body.removeEventListener('click', initAudioContextGeneralClick);
+
+            }).catch(e => {
+                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
+                console.warn("La reproducción de audio podría estar bloqueada por el navegador. Asegúrate de que haya habido una interacción de usuario.");
+            });
+        }
+
+        // Esta función se usará como el listener general de clics en el body
+        function initAudioContextGeneralClick() {
+            initAudioContext();
+        }
+
+        // Añade un listener general de clic al body para asegurar que el contexto de audio se inicie con la primera interacción.
+        // El `{ once: true }` asegura que este listener se elimine automáticamente después del primer clic.
+        document.body.addEventListener('click', initAudioContextGeneralClick, { once: true });
 
         // Función para reproducir el sonido de burbuja
         function playBubbleSound() {
-            if (bubbleSynth) {
+            if (bubbleSynth && audioContextInitialized) { // Asegúrate de que el sintetizador exista y el contexto esté activo
                 const now = Tone.context.currentTime;
-                // Generar un sonido de burbuja usando ruido blanco y un envolvente rápido
-                bubbleSynth.envelope.attack = 0.01; // Ataque muy rápido
-                bubbleSynth.envelope.decay = 0.1;   // Decaimiento rápido
-                bubbleSynth.envelope.sustain = 0;   // Sin sostenido
-                bubbleSynth.envelope.release = 0.05; // Liberación muy rápida
-
+                bubbleSynth.envelope.attack = 0.01;
+                bubbleSynth.envelope.decay = 0.1;
+                bubbleSynth.envelope.sustain = 0;
+                bubbleSynth.envelope.release = 0.05;
                 bubbleSynth.filterEnvelope.attack = 0.01;
                 bubbleSynth.filterEnvelope.decay = 0.05;
                 bubbleSynth.filterEnvelope.sustain = 0;
                 bubbleSynth.filterEnvelope.release = 0.05;
                 bubbleSynth.filterEnvelope.baseFrequency = 200;
                 bubbleSynth.filterEnvelope.octaves = 4;
-
-                // Empezar el ruido y el envolvente
-                bubbleSynth.triggerAttackRelease(0.15, now); // Duración total del sonido de burbuja
+                bubbleSynth.triggerAttackRelease(0.15, now);
+            } else {
+                console.warn("Sintetizador de burbuja no inicializado o contexto de audio inactivo.");
             }
         }
 
         // Función para reproducir el sonido de bienvenida (campanita)
         function playEntranceSound() {
-            if (entranceSynth) {
+            if (entranceSynth && audioContextInitialized) { // Asegúrate de que el sintetizador exista y el contexto esté activo
                 const now = Tone.context.currentTime;
-                // Simular una campanita con un tono de onda sinusoidal y un envolvente rápido
-                entranceSynth.triggerAttackRelease("G5", "0.2", now); // Tono G5, duración corta
+                entranceSynth.triggerAttackRelease("G5", "0.2", now);
+            } else {
+                console.warn("Sintetizador de entrada no inicializado o contexto de audio inactivo.");
             }
         }
-
-        // Inicializar Tone.js y los sintetizadores al cargar la página
-        window.addEventListener('load', () => {
-            // Tone.start() debe ser llamado por una interacción del usuario en muchos navegadores.
-            // Para asegurar la reproducción, se puede vincular al primer clic del usuario en cualquier parte de la página.
-            // Por ahora, lo intentamos al cargar, pero puede ser bloqueado por el navegador.
-            Tone.start().then(() => {
-                console.log("Tone.js context started.");
-                
-                // 1. Sintetizador para el sonido de bienvenida (campanita)
-                entranceSynth = new Tone.Synth({
-                    oscillator: {
-                        type: "sine" // Onda sinusoidal para un sonido claro
-                    },
-                    envelope: {
-                        attack: 0.005, // Ataque muy rápido
-                        decay: 0.1,   // Decaimiento rápido
-                        sustain: 0,   // Sin sostenido
-                        release: 0.05 // Liberación rápida
-                    },
-                    volume: -10 // Volumen para el sonido de entrada
-                }).toDestination(); // Conectar directamente a la salida maestra
-
-                // 2. Sintetizador para el sonido de burbuja (NoiseSynth)
-                bubbleSynth = new Tone.NoiseSynth({
-                    noise: {
-                        type: "white" // Ruido blanco para el efecto de burbuja
-                    },
-                    envelope: {
-                        attack: 0.01,
-                        decay: 0.1,
-                        sustain: 0,
-                        release: 0.05
-                    },
-                    filterEnvelope: {
-                        attack: 0.01,
-                        decay: 0.05,
-                        sustain: 0,
-                        release: 0.05,
-                        baseFrequency: 200,
-                        octaves: 4
-                    },
-                    volume: -15 // Volumen para el sonido de burbuja
-                }).toDestination();
-
-                // Ajustar el volumen maestro general (afecta a ambos sintetizadores)
-                Tone.Master.volume.value = -8; 
-
-                // Reproducir el sonido de bienvenida inmediatamente al cargar
-                playEntranceSound(); 
-
-            }).catch(e => {
-                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
-                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
-            });
-        });
 
         // Lógica para el menú móvil
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
         mobileMenuButton.addEventListener('click', () => {
+            // Asegura que el contexto de audio se inicialice al hacer clic en el menú si aún no lo está
+            if (!audioContextInitialized) {
+                initAudioContext();
+            }
             mobileMenu.classList.toggle('hidden');
             const icon = mobileMenuButton.querySelector('svg path');
             if (mobileMenu.classList.contains('hidden')) {
@@ -801,6 +804,10 @@
         document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
+                // Asegura que el contexto de audio se inicialice al hacer clic en un dropdown si aún no lo está
+                if (!audioContextInitialized) {
+                    initAudioContext();
+                }
                 const dropdownId = this.dataset.dropdownId;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon');
@@ -838,6 +845,10 @@
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 event.stopPropagation();
+                // Asegura que el contexto de audio se inicialice al hacer clic en un dropdown móvil si aún no lo está
+                if (!audioContextInitialized) {
+                    initAudioContext();
+                }
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
@@ -861,7 +872,7 @@
         document.querySelectorAll('a').forEach(link => {
             const href = link.getAttribute('href');
             if (href && href !== 'misionyvision.html' &&
-                href !== 'reseñas.html' && // Ahora permitimos reseñas.html
+                href !== 'reseñas.html' && 
                 !href.startsWith('#') &&
                 !link.closest('#whatsapp-float-button') &&
                 link.classList.contains('disabled-link')) 
