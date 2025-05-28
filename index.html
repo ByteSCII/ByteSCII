@@ -399,34 +399,39 @@
             color: #b0b0b0;
         }
 
-        /* Estilos para el banner de cookies */
+        /* Estilos para el banner de cookies (MODIFICADO) */
         .cookie-banner {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centrado perfecto */
             background-color: #1a1a2e; /* Fondo oscuro */
             color: #e0e0e0;
-            padding: 15px 20px;
+            padding: 20px; /* Padding por defecto */
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 15px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 10000; /* Por encima de la mayoría, pero debajo del modal de desarrollo */
-            transform: translateY(100%); /* Inicia fuera de la pantalla */
-            transition: transform 0.5s ease-out;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            max-width: 300px; /* Ancho máximo para que sea pequeño */
+            text-align: center;
+            opacity: 0; /* Inicia oculto */
+            visibility: hidden; /* Oculto para accesibilidad */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            border: 1px solid #00bcd4; /* Borde cian sutil */
         }
 
         .cookie-banner.show {
-            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         .cookie-banner p {
             margin: 0;
-            text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.9rem; /* Tamaño de fuente más pequeño para móvil */
         }
 
         .cookie-banner button {
@@ -1021,29 +1026,29 @@
             if (!hasAcceptedCookies && cookieBanner) {
                 cookieBanner.classList.add('show');
 
-                // Mover el botón de WhatsApp hacia arriba cuando el banner de cookies está visible
-                if (whatsappFloatButton) {
-                    whatsappFloatButton.style.transition = 'bottom 0.5s ease-out'; // Asegurar transición suave
-                    whatsappFloatButton.style.bottom = '134px'; // Mover hacia arriba (altura del banner + margen)
-                }
+                // No es necesario ajustar el botón de WhatsApp ya que el banner no lo empuja desde abajo
+                // if (whatsappFloatButton) {
+                //     whatsappFloatButton.style.transition = 'bottom 0.5s ease-out';
+                //     whatsappFloatButton.style.bottom = '134px';
+                // }
 
                 acceptCookiesBtn.addEventListener('click', () => {
-                    cookieBanner.style.transform = 'translateY(100%)'; // Inicia la animación de salida
+                    cookieBanner.classList.remove('show'); // Inicia la animación de salida (fade out)
                     
-                    // Mover el botón de WhatsApp de vuelta a su posición original
-                    if (whatsappFloatButton) {
-                        whatsappFloatButton.style.bottom = '24px'; // Volver a bottom-6 (24px)
-                    }
+                    // No es necesario ajustar el botón de WhatsApp de vuelta
+                    // if (whatsappFloatButton) {
+                    //     whatsappFloatButton.style.bottom = '24px';
+                    // }
 
-                    // Mostrar el popup de WhatsApp después de que el banner de cookies desaparezca
+                    // Oculta completamente después de la animación y guarda el consentimiento
                     setTimeout(() => {
-                        cookieBanner.style.display = 'none'; // Oculta completamente después de la animación
+                        cookieBanner.classList.add('hidden'); // Oculta completamente
                         localStorage.setItem('byte_cookies_accepted', 'true'); // Guarda el consentimiento
                         showWhatsappPopupTimed(); // Mostrar el mensaje de WhatsApp solo después de aceptar cookies
-                    }, 500); // Coincide con la duración de la transición CSS
+                    }, 300); // Coincide con la duración de la transición CSS del fade out
                 });
             } else if (cookieBanner) {
-                cookieBanner.style.display = 'none'; // Si ya aceptó, no mostrar el banner
+                cookieBanner.classList.add('hidden'); // Si ya aceptó, no mostrar el banner
                 showWhatsappPopupTimed(); // Si las cookies ya fueron aceptadas, mostrar el popup al cargar la página
             }
 
