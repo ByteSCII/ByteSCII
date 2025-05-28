@@ -329,6 +329,98 @@
             cursor: not-allowed;
             /* Puedes añadir más estilos visuales para indicar que está deshabilitado */
         }
+
+        /* Estilos para el Modal de Aviso (nueva adición) */
+        #development-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000; /* Asegura que esté por encima de todo */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #development-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: #1A202C; /* Color de fondo del modal */
+            border: 2px solid #00FFFF; /* Borde con color de acento */
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5); /* Sombra con color de acento */
+            max-width: 90%; /* Ancho máximo para móviles */
+            width: 400px; /* Ancho fijo para escritorio */
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        #development-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content h3 {
+            color: #00FFFF; /* Título con color de acento */
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .modal-content p {
+            color: #F9FAFB; /* Texto del párrafo */
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-buttons button, .modal-buttons a {
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none; /* Asegura que el enlace no tenga subrayado por defecto */
+            display: inline-flex; /* Para centrar contenido si es un enlace */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-buttons .btn-whatsapp {
+            background-color: #25D366; /* Verde WhatsApp */
+            color: white;
+        }
+
+        .modal-buttons .btn-whatsapp:hover {
+            background-color: #128C7E; /* Verde WhatsApp oscuro */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(37, 211, 102, 0.4);
+        }
+
+        .modal-buttons .btn-accept {
+            background-color: #00FFFF; /* Cian acento */
+            color: #0A0A1A; /* Texto oscuro */
+        }
+
+        .modal-buttons .btn-accept:hover {
+            background-color: #80FFFF; /* Cian más claro */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -680,6 +772,23 @@
     <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
     <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 
+    <div id="development-modal" class="">
+        <div class="modal-content">
+            <h3 class="text-byte-accent-cyan">¡Aviso Importante!</h3>
+            <p>Este sitio web se encuentra actualmente en **desarrollo**. Nuestro equipo de programadores está trabajando arduamente para ofrecerte la mejor experiencia.</p>
+            <p class="text-xs text-gray-500 mt-4">Byte - Derechos Reservados</p>
+            <div class="modal-buttons mt-6">
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                    </svg>
+                    Contactar por WhatsApp
+                </a>
+                <button id="modal-accept-button" class="btn-accept">Aceptar y Disfrutar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
@@ -691,26 +800,7 @@
             easing: 'ease-out-cubic', // Función de temporización
         });
 
-        // let bubbleAudio = null; // Comentado, ya que el elemento <audio> fue eliminado si solo se usa para la campanita
         let audioContext = null; // Contexto de audio global para Web Audio API
-
-        // Función para reproducir el sonido de burbuja (si usas un archivo para esto, ej: en hover de botones)
-        // Si no tienes un archivo de burbuja y no lo necesitas, puedes eliminar esta función.
-        /*
-        function playBubbleSound() {
-            if (!bubbleAudio) {
-                bubbleAudio = document.getElementById('bubbleSound');
-                if (bubbleAudio) {
-                    bubbleAudio.volume = 0.4;
-                } else {
-                    console.warn("Elemento de audio de burbuja no encontrado. Asegúrate de tenerlo en el HTML si lo necesitas.");
-                    return;
-                }
-            }
-            bubbleAudio.currentTime = 0;
-            bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
-        }
-        */
 
         /**
          * Genera y reproduce un sonido de campanita programáticamente usando la Web Audio API.
@@ -904,6 +994,11 @@
                 // Frecuencia ligeramente diferente para el inicio para distinguirlo
                 playBellSoundProgrammatically(900, 0.1, 0.2);
             }, 500);
+
+            // Mostrar el modal de desarrollo al cargar la página
+            const developmentModal = document.getElementById('development-modal');
+            developmentModal.classList.add('show');
+            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
         });
 
         // BONUS: Asegurar que el AudioContext se reanude con la primera interacción del usuario
@@ -915,7 +1010,16 @@
                 }).catch(e => console.error('Error al reanudar AudioContext con clic:', e));
             }
         }, { once: true }); // Solo necesitamos que esto se ejecute una vez
+
+        // --- Lógica del Modal de Aviso de Desarrollo (NUEVO) ---
+        const modalAcceptButton = document.getElementById('modal-accept-button');
+        const developmentModal = document.getElementById('development-modal');
+
+        modalAcceptButton.addEventListener('click', () => {
+            playBellSoundProgrammatically(); // Reproduce el sonido de campana al aceptar
+            developmentModal.classList.remove('show');
+            document.body.classList.remove('overflow-hidden'); // Habilita el scroll del cuerpo
+        });
     </script>
 </body>
 </html>
-
