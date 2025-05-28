@@ -175,7 +175,7 @@
         .disabled-link {
             cursor: not-allowed;
             opacity: 0.6;
-            pointer-events: none; /* Asegura que no sea clickable */
+            /* pointer-events: none; Elimina esta propiedad para que el JS pueda interceptar el clic */
         }
 
         /* Estilos para menús desplegables */
@@ -249,8 +249,8 @@
                     </button>
                     <div id="nosotros-dropdown" class="dropdown-menu hidden js-dropdown-menu">
                         <a href="misionyvision.html">Misión y Visión</a>
-                        <a href="#">Valores</a>
-                        <a href="#">Equipo</a>
+                        <a href="#" class="disabled-link">Valores</a>
+                        <a href="#" class="disabled-link">Equipo</a>
                     </div>
                 </div>
 
@@ -262,8 +262,8 @@
                         </svg>
                     </button>
                     <div id="eventos-dropdown" class="dropdown-menu hidden js-dropdown-menu">
-                        <a href="#">Próximos</a>
-                        <a href="#">Realizados</a>
+                        <a href="#" class="disabled-link">Próximos</a>
+                        <a href="#" class="disabled-link">Realizados</a>
                     </div>
                 </div>
 
@@ -293,8 +293,8 @@
                 </button>
                 <div id="nosotros-dropdown-mobile" class="hidden mobile-dropdown-menu js-dropdown-menu-mobile">
                     <a href="misionyvision.html" class="text-lg py-2">Misión y Visión</a>
-                    <a href="#" class="text-lg py-2">Valores</a>
-                    <a href="#" class="text-lg py-2">Equipo</a>
+                    <a href="#" class="text-lg py-2 disabled-link">Valores</a>
+                    <a href="#" class="text-lg py-2 disabled-link">Equipo</a>
                 </div>
             </div>
 
@@ -306,8 +306,8 @@
                     </svg>
                 </button>
                 <div id="eventos-dropdown-mobile" class="hidden mobile-dropdown-menu js-dropdown-menu-mobile">
-                    <a href="#" class="text-lg py-2">Próximos</a>
-                    <a href="#" class="text-lg py-2">Realizados</a>
+                    <a href="#" class="text-lg py-2 disabled-link">Próximos</a>
+                    <a href="#" class="text-lg py-2 disabled-link">Realizados</a>
                 </div>
             </div>
 
@@ -427,7 +427,7 @@
                     <h3 class="text-3xl font-bold text-center mb-8 text-stroke-cyan">Información de Contacto</h3>
                     <div class="space-y-6 text-center text-lg">
                         <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
-                        <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
                         <p class="flex items-center justify-center text-byte-accent-cyan">📞 +123 456 7890</p>
                     </div>
 
@@ -452,7 +452,7 @@
 
     <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
         <p>© 2024 Byte. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white">Términos de Servicio</a>.</p>
+        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a>.</p>
         <div class="mt-4 flex justify-center space-x-6">
             <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -608,7 +608,8 @@
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', (event) => {
                 // Solo cierra el menú si el enlace no es un toggle de dropdown móvil
-                if (!link.classList.contains('js-dropdown-toggle-mobile')) {
+                // y si el enlace no tiene la clase 'disabled-link'
+                if (!link.classList.contains('js-dropdown-toggle-mobile') && !link.classList.contains('disabled-link')) {
                     mobileMenu.classList.add('hidden');
                     const icon = mobileMenuButton.querySelector('svg path');
                     icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Vuelve al icono de hamburguesa
@@ -688,12 +689,13 @@
 
         // Lógica para deshabilitar enlaces que no tienen un href específico (solo #)
         document.querySelectorAll('a').forEach(link => {
-            // Deshabilita enlaces que tienen href="#" y no son el botón flotante de WhatsApp
-            // y no son el enlace a "misionyvision.html"
             if (link.getAttribute('href') === '#' && !link.closest('#whatsapp-float-button')) {
                 link.classList.add('disabled-link');
                 link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Previene la acción predeterminada del enlace
+                    // Previene la acción predeterminada SOLO si el enlace es un 'disabled-link'
+                    if (this.classList.contains('disabled-link')) {
+                        event.preventDefault();
+                    }
                 });
             }
         });
