@@ -43,8 +43,6 @@
         }
     </script>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
-
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
@@ -326,6 +324,11 @@
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
 
+    <audio id="bubbleSound" preload="auto" volume="0.4">
+        <source src="./sounds/bubble_pop.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
@@ -427,84 +430,90 @@
         </div>
     </header>
 
-    <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40">
-        <ul class="flex flex-col space-y-4 text-center">
+    <nav id="mobile-menu" class="fixed inset-0 bg-byte-dark-bg z-40 transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col pt-20 pb-8 px-4 overflow-y-auto">
+        <ul class="flex flex-col space-y-6 text-center flex-grow justify-center">
             <li>
-                <a href="#inicio" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow">Inicio</a>
+                <a href="#inicio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow">Inicio</a>
             </li>
             <li>
-                <a href="#servicios" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
+                <a href="#servicios" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
                     Servicios
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
                 </div>
             </li>
             <li>
-                <a href="#portafolio" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
+                <a href="#portafolio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
                     Portafolio
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                 </div>
             </li>
             <li>
-                <a href="#proceso" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                <a href="#proceso" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
                     Quiénes Somos
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
-                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                    <a href="misionyvision.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
                 </div>
             </li>
             <li>
-                <a href="#reseñas" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                <a href="#reseñas" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
                     Reseñas
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                    <a href="reseñas.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                 </div>
             </li>
             <li>
-                <a href="#contacto" class="block text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
+                <a href="#contacto" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
                     Contacto
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                 </div>
             </li>
             <li>
-                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                           shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
+                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+                                           shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-6 text-xl">
                     ¡Empecemos tu proyecto!
                 </a>
             </li>
         </ul>
+        <button id="mobile-menu-close-button" class="absolute top-4 right-4 p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
     </nav>
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black opacity-0 z-30 pointer-events-none transition-opacity duration-500 ease-in-out"></div>
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
         <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
@@ -555,7 +564,7 @@
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
                     <div class="icon">🎨</div>
-                    <h3 class="text-2xl font-bold mb-4">Branding y Diseño Gráfico</h3>
+                    <h3 class="2xl font-bold mb-4">Branding y Diseño Gráfico</h3>
                     <p>Desarrollamos una identidad visual coherente y memorable para tu marca, desde logotipos hasta guías de estilo, asegurando un impacto visual distintivo en todos tus canales.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
@@ -671,121 +680,74 @@
     <script>
         // Inicialización de AOS con configuraciones
         AOS.init({
-            once: true, // Las animaciones solo se ejecutan una vez al hacer scroll hacia abajo
-            mirror: false, // No animar al hacer scroll hacia arriba
-            offset: 100, // Desplazamiento (en px) desde el punto de activación original
-            duration: 800, // Duración de la animación (en ms)
-            easing: 'ease-out-cubic', // Función de temporización para la animación
+            once: true, 
+            mirror: false, 
+            offset: 100, 
+            duration: 800, 
+            easing: 'ease-out-cubic', 
         });
 
-        let bubbleSynth = null; 
-        let entranceSynth = null;
-        let audioContextInitialized = false; // Flag para controlar si el contexto de audio ya se inicializó
-
-        // Función para inicializar el contexto de audio de Tone.js y los sintetizadores
-        function initAudioContext() {
-            // Si el contexto ya se inicializó, no hagas nada.
-            if (audioContextInitialized) {
-                return;
-            }
-
-            Tone.start().then(() => {
-                console.log("Tone.js context started successfully by user interaction.");
-                
-                // Sintetizador para el sonido de bienvenida (campanita)
-                entranceSynth = new Tone.Synth({
-                    oscillator: { type: "sine" },
-                    envelope: { attack: 0.005, decay: 0.1, sustain: 0, release: 0.05 },
-                    volume: -10 
-                }).toDestination();
-
-                // Sintetizador para el sonido de burbuja (NoiseSynth)
-                bubbleSynth = new Tone.NoiseSynth({
-                    noise: { type: "white" },
-                    envelope: {
-                        attack: 0.01, decay: 0.1, sustain: 0, release: 0.05
-                    },
-                    filterEnvelope: {
-                        attack: 0.01, decay: 0.05, sustain: 0, release: 0.05,
-                        baseFrequency: 200, octaves: 4
-                    },
-                    volume: -15 
-                }).toDestination();
-
-                // Ajustar el volumen maestro general
-                Tone.Master.volume.value = -8; 
-
-                // Reproducir el sonido de bienvenida solo una vez, justo después de que el contexto esté activo
-                playEntranceSound();
-
-                audioContextInitialized = true; // Marca el contexto como inicializado
-                // Elimina este listener una vez que el contexto de audio se ha iniciado
-                document.body.removeEventListener('click', initAudioContextGeneralClick);
-
-            }).catch(e => {
-                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
-                console.warn("La reproducción de audio podría estar bloqueada por el navegador. Asegúrate de que haya habido una interacción de usuario.");
-            });
-        }
-
-        // Esta función se usará como el listener general de clics en el body
-        function initAudioContextGeneralClick() {
-            initAudioContext();
-        }
-
-        // Añade un listener general de clic al body para asegurar que el contexto de audio se inicie con la primera interacción.
-        // El `{ once: true }` asegura que este listener se elimine automáticamente después del primer clic.
-        document.body.addEventListener('click', initAudioContextGeneralClick, { once: true });
+        let bubbleAudio = null;
 
         // Función para reproducir el sonido de burbuja
         function playBubbleSound() {
-            if (bubbleSynth && audioContextInitialized) { // Asegúrate de que el sintetizador exista y el contexto esté activo
-                const now = Tone.context.currentTime;
-                bubbleSynth.envelope.attack = 0.01;
-                bubbleSynth.envelope.decay = 0.1;
-                bubbleSynth.envelope.sustain = 0;
-                bubbleSynth.envelope.release = 0.05;
-                bubbleSynth.filterEnvelope.attack = 0.01;
-                bubbleSynth.filterEnvelope.decay = 0.05;
-                bubbleSynth.filterEnvelope.sustain = 0;
-                bubbleSynth.filterEnvelope.release = 0.05;
-                bubbleSynth.filterEnvelope.baseFrequency = 200;
-                bubbleSynth.filterEnvelope.octaves = 4;
-                bubbleSynth.triggerAttackRelease(0.15, now);
-            } else {
-                console.warn("Sintetizador de burbuja no inicializado o contexto de audio inactivo.");
+            // Obtiene el elemento de audio si aún no se ha hecho
+            if (!bubbleAudio) {
+                bubbleAudio = document.getElementById('bubbleSound');
+                if (bubbleAudio) {
+                    bubbleAudio.volume = 0.4; // Asegura el volumen
+                } else {
+                    console.warn("Elemento de audio de burbuja no encontrado.");
+                    return; // Sale si no se encuentra el audio
+                }
             }
-        }
-
-        // Función para reproducir el sonido de bienvenida (campanita)
-        function playEntranceSound() {
-            if (entranceSynth && audioContextInitialized) { // Asegúrate de que el sintetizador exista y el contexto esté activo
-                const now = Tone.context.currentTime;
-                entranceSynth.triggerAttackRelease("G5", "0.2", now);
-            } else {
-                console.warn("Sintetizador de entrada no inicializado o contexto de audio inactivo.");
-            }
+            
+            // Reinicia el sonido y lo reproduce
+            bubbleAudio.currentTime = 0; 
+            bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
         }
 
         // Lógica para el menú móvil
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button'); 
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop'); 
+
+        // Función para abrir el menú móvil
+        function openMobileMenu() {
+            mobileMenu.classList.remove('translate-y-full');
+            mobileMenu.classList.add('translate-y-0');
+            mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+            document.body.classList.add('overflow-hidden'); 
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); 
+            playBubbleSound(); // Sonido al abrir
+        }
+
+        // Función para cerrar el menú móvil
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('translate-y-0');
+            mobileMenu.classList.add('translate-y-full');
+            mobileMenuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+            mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('overflow-hidden'); 
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); 
+            playBubbleSound(); // Sonido al cerrar
+        }
 
         mobileMenuButton.addEventListener('click', () => {
-            // Asegura que el contexto de audio se inicialice al hacer clic en el menú si aún no lo está
-            if (!audioContextInitialized) {
-                initAudioContext();
-            }
-            mobileMenu.classList.toggle('hidden');
-            const icon = mobileMenuButton.querySelector('svg path');
-            if (mobileMenu.classList.contains('hidden')) {
-                icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
-                playBubbleSound(); // Sonido al cerrar
+            if (mobileMenu.classList.contains('translate-y-full')) { 
+                openMobileMenu();
             } else {
-                icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
-                playBubbleSound(); // Sonido al abrir
+                closeMobileMenu();
             }
         });
+
+        // Event listener para el nuevo botón de cierre dentro del menú
+        mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
+
+        // Cierra el menú móvil al hacer clic fuera de él (en el fondo)
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
 
         // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
         document.querySelectorAll('#mobile-menu a').forEach(link => {
@@ -793,21 +755,15 @@
                 if (link.classList.contains('js-dropdown-toggle-mobile')) {
                     event.stopPropagation(); 
                 } else {
-                    mobileMenu.classList.add('hidden'); // Oculta el menú
-                    mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
-                    playBubbleSound(); // Sonido al cerrar por clic en enlace
+                    closeMobileMenu(); 
                 }
             });
         });
 
-        // Lógica para los menús desplegables de escritorio
+        // Lógica para los menús desplegables de escritorio (no necesitan sonido)
         document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
-                // Asegura que el contexto de audio se inicialice al hacer clic en un dropdown si aún no lo está
-                if (!audioContextInitialized) {
-                    initAudioContext();
-                }
                 const dropdownId = this.dataset.dropdownId;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon');
@@ -840,15 +796,11 @@
             }
         });
 
-        // Lógica para los menús desplegables móviles (similar a los de escritorio pero con clases específicas para móvil)
+        // Lógica para los menús desplegables móviles (no necesitan sonido adicional, ya se maneja en open/closeMobileMenu)
         document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
                 event.stopPropagation();
-                // Asegura que el contexto de audio se inicialice al hacer clic en un dropdown móvil si aún no lo está
-                if (!audioContextInitialized) {
-                    initAudioContext();
-                }
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
