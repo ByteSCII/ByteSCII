@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
     <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales">
 
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
         tailwind.config = {
@@ -48,7 +48,7 @@
 
     <style>
         /* Importación de fuentes desde Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght=700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
 
         /* Estilos base para el cuerpo y los encabezados */
         body {
@@ -131,55 +131,26 @@
             height: 100%;
         }
 
-        /* Animación de sacudida y pulso para el botón de WhatsApp */
+        /* Animación de sacudida y pulso para el botón de WhatsApp (revertido a 0.8s) */
         @keyframes shake-pulse {
-            0% { /* Inicio del ciclo, inicio de la sacudida */
+            0%, 100% {
                 transform: translateX(0) scale(1);
                 box-shadow: 0 0 0 rgba(37, 211, 102, 0);
             }
-            /* Parte de sacudida (ocurre en los primeros ~0.8 segundos del ciclo) */
-            4% { /* 10% de la duración original de la sacudida (0.08s) en la escala de 10s */
+            10%, 30%, 50%, 70%, 90% {
                 transform: translateX(-5px) scale(1.05);
             }
-            8% { /* 20% de la duración original de la sacudida (0.16s) en la escala de 10s */
+            20%, 40%, 60%, 80% {
                 transform: translateX(5px) scale(1.05);
             }
-            12% { /* 30% de la duración original de la sacudida (0.24s) en la escala de 10s */
-                transform: translateX(-5px) scale(1.05);
-            }
-            16% { /* 40% de la duración original de la sacudida (0.32s) en la escala de 10s */
-                transform: translateX(5px) scale(1.05);
-            }
-            20% { /* 50% de la duración original de la sacudida (0.40s) en la escala de 10s - punto medio del brillo */
-                transform: translateX(-5px) scale(1.05);
+            45% { /* Punto de brillo en la mitad de la sacudida */
                 box-shadow: 0 0 20px rgba(37, 211, 102, 0.8);
-            }
-            24% { /* 60% de la duración original de la sacudida (0.48s) en la escala de 10s */
-                transform: translateX(5px) scale(1.05);
-            }
-            28% { /* 70% de la duración original de la sacudida (0.56s) en la escala de 10s */
-                transform: translateX(-5px) scale(1.05);
-            }
-            32% { /* 80% de la duración original de la sacudida (0.64s) en la escala de 10s */
-                transform: translateX(5px) scale(1.05);
-            }
-            36% { /* 90% de la duración original de la sacudida (0.72s) en la escala de 10s */
-                transform: translateX(-5px) scale(1.05);
-            }
-            40% { /* 100% de la duración original de la sacudida (0.80s) en la escala de 10s - fin de la sacudida */
-                transform: translateX(0) scale(1);
-                box-shadow: 0 0 0 rgba(37, 211, 102, 0);
-            }
-            /* El resto del ciclo (del 40% al 100%) el botón permanece estático, creando una pausa más larga */
-            100% {
-                transform: translateX(0) scale(1);
-                box-shadow: 0 0 0 rgba(37, 211, 102, 0);
             }
         }
 
         .shake-pulse-animation {
-            /* La animación completa ahora dura 10 segundos. */
-            animation: shake-pulse 10s ease-in-out infinite;
+            /* Animación completa dura 0.8 segundos, como estaba antes */
+            animation: shake-pulse 0.8s ease-in-out infinite;
         }
 
         /* Animación para el eslogan "Tu visión, nuestra misión" (constante y sutil) */
@@ -417,7 +388,7 @@
         }
 
         .modal-buttons .btn-accept:hover {
-            background-color: #80FFFF; /* Cian más claro */
+            background-color: #80FFFF;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 255, 255, 0.4);
         }
@@ -791,8 +762,7 @@
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
         <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
-             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75"
-             loading="lazy">
+             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
              data-aos="fade-up" data-aos-duration="1000">
@@ -916,7 +886,7 @@
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://maps.google.com/?cid=15277087145381051465" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://maps.google.com/?cid=15277087145381051465" width="600" height="450" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -949,7 +919,7 @@
     </a>
 
     <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
-    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js"></script>
 
     <div id="development-modal" class="">
         <div class="modal-content">
@@ -992,8 +962,8 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-    <script defer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
         // Inicialización de AOS con configuraciones
         AOS.init({
             once: true, // Animaciones se ejecutan solo una vez
