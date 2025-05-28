@@ -1,356 +1,803 @@
 <!DOCTYPE html>
-<html lang="es" class="bg-byte-dark-bg">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Reseñas de Clientes</title>
-    <meta name="description" content="Lee lo que nuestros clientes satisfechos dicen sobre Byte y cómo hemos impulsado sus negocios con diseño web.">
-    <meta name="keywords" content="reseñas, testimonios, clientes, diseño web, desarrollo web, e-commerce, marketing digital, opiniones">
-    <meta name="author" content="Byte">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.tudominio.com/reseñas.html">
+    <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
+    
     <meta property="og:title" content="Byte - Reseñas de Clientes">
-    <meta property="og:description" content="Descubre las experiencias de quienes ya han confiado en Byte para sus proyectos digitales.">
-    <meta property="og:image" content="https://www.tudominio.com/images/social-share-reviews.jpg">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.tudominio.com/reseñas.html">
-    <meta property="twitter:title" content="Byte - Reseñas de Clientes">
-    <meta property="twitter:description" content="Descubre las experiencias de quienes ya han confiado en Byte para sus proyectos digitales.">
-    <meta property="twitter:image" content="https://www.tudominio.com/images/social-share-reviews.jpg">
+    <meta property="og:description" content="Lee y deja reseñas sobre los servicios de desarrollo web de Byte. Tu opinión nos ayuda a crecer.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Reseñas"> 
+    <meta property="og:url" content="[URL_DE_TU_SITIO_WEB]/reseñas.html"> 
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Byte - Reseñas de Clientes">
+    <meta name="twitter:description" content="Lee y deja reseñas sobre los servicios de desarrollo web de Byte. Tu opinión nos ayuda a crecer.">
+    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Reseñas"> 
 
-    <link rel="icon" href="./images/favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&family=Lora:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&family=Lora:wght@400;700&display=swap"></noscript>
-
-    <style>
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    // Fuentes personalizadas (Inter para texto general, Montserrat para encabezados)
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'], // Fuente principal para texto
-                        heading: ['Montserrat', 'sans-serif'], // Fuente para títulos
-                        vision: ['Lora', 'serif'], // Nueva fuente para "Tu visión, nuestra misión"
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
                     },
+                    // Colores personalizados para la marca Byte y WhatsApp
                     colors: {
-                        'byte-dark-bg': '#0A0A1A',        // Fondo oscuro principal (azul oscuro)
-                        'byte-accent-cyan': '#00FFFF',    // Color de acento (cian brillante)
-                        'byte-light-bg': '#F8FAFC',       // Fondo claro para secciones
-                        'byte-text-dark': '#374151',      // Color de texto oscuro
-                        'byte-text-light': '#F9FAFB',     // Color de texto claro (blanco)
-                        'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario
+                        'byte-dark-bg': '#0A0A1A', // Fondo oscuro principal
+                        'byte-accent-cyan': '#00FFFF', // Cian eléctrico para acentos
+                        'byte-light-bg': '#F8FAFC', // Fondo claro (si se usa)
+                        'byte-text-dark': '#374151', // Texto oscuro (si se usa)
+                        'byte-text-light': '#F9FAFB', // Texto claro
+                        'byte-secondary-dark': '#1A202C', // Fondo secundario oscuro (para dropdowns)
+                        'whatsapp-green': '#25D366', // Color oficial de WhatsApp
+                        'whatsapp-dark-green': '#128C7E', // Tono más oscuro para hover de WhatsApp
                     }
                 }
             }
         }
-    </style>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script>
-        const __firebase_config = {
-          apiKey: "AIzaSyB8qwijdw2_3EZlzQPi_q0IXH6-zhghgOo",
-          authDomain: "byte-9ba70.firebaseapp.com",
-          projectId: "byte-9ba70",
-          storageBucket: "byte-9ba70.firebasestorage.app",
-          messagingSenderId: "543252841310",
-          appId: "1:543252841310:web:0f3ec403874d417ab785cf",
-          measurementId: "G-KRBD48V2FW"
-        };
-
-        // Si no usas autenticación personalizada con tokens, déjalo en null
-        const __initial_auth_token = null;
-
-        // Define __app_id con el ID de tu proyecto. Es el mismo que tu 'projectId'.
-        window.__app_id = "byte-9ba70"; // ¡Este debe ser el mismo que tu projectId de arriba!
     </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* Importación de fuentes desde Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
+
+        /* Estilos base para el cuerpo y los encabezados */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Deshabilita la selección de texto para una experiencia más de "aplicación" */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Asegura que el body no tenga margen para el posicionamiento fijo */
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Animación de brillo para los enlaces del menú (más suave) */
+        @keyframes menu-glow {
+            0% {
+                color: #00FFFF;
+                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
+            }
+            50% {
+                color: #80FFFF;
+                text-shadow: 0 0 5px #00FFFF, 0 0 8px #00FFFF;
+            }
+            100% {
+                color: #00FFFF;
+                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
+            }
+        }
+
+        .menu-link-glow {
+            animation: menu-glow 2s infinite alternate ease-in-out;
+        }
+
+        /* Estilo para el borde de texto (text-stroke) */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF; /* Para navegadores basados en WebKit */
+            text-stroke: 1.5px #00FFFF; /* Estándar */
+            color: #FFFFFF; /* Color de relleno del texto */
+            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran si no se desean */
+        }
+
+        /* Animación de "caída" al hacer scroll para AOS */
+        @keyframes fall-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Clase aplicada por AOS.js para animar los elementos */
+        .aos-animate {
+            animation-name: fall-in;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Estilos para el contenedor del mapa de Google Maps (responsive) */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 (altura / ancho) */
+            height: 0;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Animación de sacudida y pulso para el botón de WhatsApp */
+        /* Eliminado ya que el botón de WhatsApp ha sido removido */
+
+        /* Animación para el eslogan "Tu visión, nuestra misión" (constante y sutil) */
+        @keyframes slogan-blink {
+            0% {
+                opacity: 0.6; /* Opacidad inicial sutil */
+                text-shadow: none;
+            }
+            50% {
+                opacity: 0.9; /* Ligero aumento de opacidad */
+                text-shadow: 0 0 3px rgba(255, 255, 255, 0.2); /* Sombra sutil */
+            }
+            100% {
+                opacity: 0.6; /* Vuelve a la opacidad inicial */
+                text-shadow: none;
+            }
+        }
+
+        .slogan-animation {
+            animation: slogan-blink 2.5s infinite alternate ease-in-out; /* Duración, repetición y alternancia */
+        }
+
+        /* Clase para rotar el icono de flecha (usada en los dropdowns) */
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Estilos para las tarjetas de servicio */
+        .service-card {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Degradado sutil */
+            border-radius: 1rem; /* Bordes más redondeados */
+            padding: 2.5rem; /* Más padding */
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color del acento */
+            transition: all 0.3s ease-in-out;
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada */
+            border-color: #00FFFF; /* Borde más visible al hover */
+        }
+
+        .service-card .icon {
+            font-size: 4.5rem; /* Iconos más grandes */
+            margin-bottom: 1.5rem;
+            color: #00FFFF; /* Color del acento */
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Brillo en los iconos */
+        }
+
+        .service-card h3 {
+            color: #F9FAFB; /* Texto del título más claro */
+            font-size: 1.75rem; /* Título más grande */
+            margin-bottom: 1rem;
+            font-weight: 700; /* Más negrita */
+        }
+
+        .service-card p {
+            color: #CBD5E0; /* Texto de párrafo más suave */
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Estilos para la sección de Contacto */
+        .contact-section {
+            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Degradado de fondo */
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate-gradient 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotate-gradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 26, 0.85); /* Fondo semitransparente para el contenido */
+            border-radius: 1.5rem;
+            padding: 3rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
+        }
+
+        .contact-form-card, .contact-info-card {
+            background: #1A202C; /* Fondo oscuro para las tarjetas internas */
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .contact-form-card:hover, .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .contact-form-card input, .contact-form-card textarea {
+            background-color: #0A0A1A;
+            border-color: rgba(0, 255, 255, 0.3);
+            color: #F9FAFB;
+        }
+
+        .contact-form-card input:focus, .contact-form-card textarea:focus {
+            border-color: #00FFFF;
+            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
+        }
+
+        .social-icon-link {
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+        }
+
+        .social-icon-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #00FFFF; /* Color de acento al pasar el ratón */
+        }
+
+        /* Estilos para el texto del logo "Byte" */
+        #byte-logo-text {
+            /* Los estilos de color y text-shadow son animados por menu-glow */
+            position: relative;
+            z-index: 1; /* Asegura que el texto esté encima de la imagen si hay un fondo */
+        }
+
+        /* Estilos específicos para la página de reseñas */
+        .star-icon.filled {
+            color: #FFD700; /* Color dorado para estrellas rellenas */
+        }
+
+        .review-card {
+            background: #1A202C;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+        }
+
+        .review-card .stars {
+            color: #FFD700; /* Color dorado para las estrellas mostradas */
+        }
+
+        .review-card .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-card .review-author {
+            font-weight: 600;
+            color: #00FFFF;
+        }
+
+        .review-card .review-date {
+            font-size: 0.875rem;
+            color: #CBD5E0;
+        }
+
+        .review-card .review-text {
+            color: #F9FAFB;
+            line-height: 1.5;
+        }
+
+        /* Estilos para el modal de mensaje */
+        .message-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .message-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .message-modal-content {
+            background-color: #1A202C;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid #00FFFF;
+        }
+
+        .message-modal-content h3 {
+            color: #00FFFF;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .message-modal-content p {
+            color: #F9FAFB;
+            margin-bottom: 1.5rem;
+        }
+
+        .message-modal-content button {
+            background-color: #00FFFF;
+            color: #0A0A1A;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .message-modal-content button:hover {
+            background-color: #80FFFF;
+        }
+
+        /* Estilos para el spinner de carga */
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #00FFFF;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem auto;
+            display: none; /* Oculto por defecto */
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos para el indicador de estado de Firebase */
+        #firebase-status-indicator {
+            font-size: 0.85rem;
+            color: #CBD5E0;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        #firebase-status-indicator .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: gray; /* Default */
+            transition: background-color 0.3s ease;
+        }
+
+        #firebase-status-indicator .status-dot.active {
+            background-color: #25D366; /* Green for active */
+        }
+
+        #firebase-status-indicator .status-dot.inactive {
+            background-color: #EF4444; /* Red for inactive */
+        }
+    </style>
+</head>
+<body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
+
+    <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
+        <div class="container mx-auto px-4 flex items-center justify-between">
+            <a href="index.html" class="flex items-center sm:flex-grow sm:justify-start">
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2"> 
+                <div class="flex flex-col items-start">
+                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> 
+                    <p class="text-sm text-byte-text-light opacity-80 mt-0.5 slogan-animation">
+                        <span class="block">Tu visión,</span>
+                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span> 
+                    </p>
+                </div>
+            </a>
+
+            <div class="flex items-center">
+                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-16 bg-byte-dark-bg text-byte-text-light">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-12 text-stroke-cyan"
+                data-aos="fade-up" data-aos-duration="800">Deja tu Reseña</h1>
+
+            <section class="bg-byte-secondary-dark rounded-lg p-8 mb-12 shadow-xl border border-byte-accent-cyan"
+                data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+                <h2 class="text-3xl font-bold text-center text-byte-accent-cyan mb-6">Comparte tu Experiencia</h2>
+                <form id="review-form" class="space-y-6">
+                    <div>
+                        <label for="reviewer-name" class="block text-lg font-semibold text-byte-text-light mb-2">Tu Nombre</label>
+                        <input type="text" id="reviewer-name" name="name" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan bg-byte-dark-bg text-byte-text-light" placeholder="Ej: Juan Pérez" required>
+                    </div>
+                    <div>
+                        <label for="reviewer-email" class="block text-lg font-semibold text-byte-text-light mb-2">Tu Correo Electrónico</label>
+                        <input type="email" id="reviewer-email" name="email" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan bg-byte-dark-bg text-byte-text-light" placeholder="ejemplo@dominio.com" required>
+                    </div>
+                    <div>
+                        <label class="block text-lg font-semibold text-byte-text-light mb-2">Calificación</label>
+                        <div class="flex items-center justify-center space-x-1" id="star-rating-input">
+                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="2" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
+                        </div>
+                        <input type="hidden" id="star-rating-value" name="rating" value="0" required>
+                    </div>
+                    <div class="loading-spinner" id="loading-spinner"></div>
+                    <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
+                        Enviar Reseña
+                    </button>
+                </form>
+            </section>
+
+            <section class="mt-16" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-12 text-stroke-cyan">Reseñas de Nuestros Clientes</h2>
+                <div id="reviews-list" class="space-y-6">
+                    <p class="text-center text-gray-400" id="no-reviews-message">No hay reseñas todavía. ¡Sé el primero en dejar una!</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
+        <p>© 2024 Byte. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white">Términos de Servicio</a>.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Instagram
+            </a>
+            </div>
+        <div id="firebase-status-indicator" class="mt-4">
+            <span class="status-dot" id="firebase-status-dot"></span>
+            <span id="firebase-status-text">Firebase: Desactivado</span>
+        </div>
+    </footer>
+
+    <div id="message-modal" class="message-modal">
+        <div class="message-modal-content">
+            <h3 id="modal-title"></h3>
+            <p id="modal-message"></p>
+            <button id="modal-close-button">Cerrar</button>
+        </div>
+    </div>
+
+    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, Timestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global variables for Firebase instances
-        window.firebaseApp = null;
-        window.db = null;
-        window.auth = null;
-        window.currentUserId = null;
-        // window.appId ya está definido arriba en el script normal para que sea accesible
+        // Global variables for Firebase config and app ID
+        // Firebase configuration provided by the user
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNc4xIBik7rOjPXGVmVPO06tPDnycU7MA",
+            authDomain: "byte-8c730.firebaseapp.com",
+            projectId: "byte-8c730",
+            storageBucket: "byte-8c730.firebasestorage.app",
+            messagingSenderId: "198935744200",
+            appId: "1:198935744200:web:f8c76bf77127e9aa00dffd"
+        };
+        const appId = firebaseConfig.appId || 'default-app-id'; // Use appId from config or default
+        // Se ha eliminado initialAuthToken ya que no se utiliza signInWithCustomToken
 
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Inicializar AOS aquí, después de que la librería se haya cargado
-            AOS.init({
-                once: true,
-                duration: 1000,
-                easing: 'ease-in-out',
-            });
+        let app;
+        let db;
+        let auth;
+        let userId = null;
+        let firebaseStatusDot;
+        let firebaseStatusText;
 
-            const submitButton = document.getElementById('submitReviewButton');
-            if (submitButton) {
-                submitButton.disabled = true; // Deshabilitar inicialmente
-                submitButton.textContent = 'Cargando Firebase...';
+        // Function to show custom message modal
+        function showMessageModal(title, message) {
+            const modal = document.getElementById('message-modal');
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            modal.classList.add('show');
+        }
+
+        // Function to hide custom message modal
+        function hideMessageModal() {
+            const modal = document.getElementById('message-modal');
+            modal.classList.remove('show');
+        }
+
+        // Event listener for modal close button
+        document.getElementById('modal-close-button').addEventListener('click', hideMessageModal);
+
+        // Function to update Firebase status indicator
+        function updateFirebaseStatus(isActive) {
+            if (firebaseStatusDot && firebaseStatusText) {
+                if (isActive) {
+                    firebaseStatusDot.classList.remove('inactive');
+                    firebaseStatusDot.classList.add('active');
+                    firebaseStatusText.textContent = "Firebase: Activado";
+                } else {
+                    firebaseStatusDot.classList.remove('active');
+                    firebaseStatusDot.classList.add('inactive');
+                    firebaseStatusText.textContent = "Firebase: Desactivado";
+                }
             }
+        }
+
+        // Initialize Firebase and authenticate
+        async function initializeFirebase() {
+            firebaseStatusDot = document.getElementById('firebase-status-dot');
+            firebaseStatusText = document.getElementById('firebase-status-text');
+            updateFirebaseStatus(false); // Set to inactive initially
 
             try {
-                const firebaseConfig = typeof __firebase_config !== 'undefined' ? __firebase_config : {};
-                if (Object.keys(firebaseConfig).length === 0 || !firebaseConfig.projectId) {
-                    console.error("Firebase config is missing or incomplete. Cannot initialize Firebase.");
-                    const statusMessageElement = document.getElementById('status-message'); // Asegura que el elemento existe
-                    if(statusMessageElement) {
-                        statusMessageElement.textContent = 'Error: Configuración de Firebase faltante.';
-                        statusMessageElement.classList.remove('hidden', 'text-green-500');
-                        statusMessageElement.classList.add('text-red-500');
-                    }
-                    if (submitButton) {
-                        submitButton.textContent = 'Error de Configuración';
-                    }
-                    return;
-                }
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
 
-                window.firebaseApp = initializeApp(firebaseConfig);
-                window.db = getFirestore(window.firebaseApp);
-                window.auth = getAuth(window.firebaseApp);
-
-                const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-                // Sign in anonymously or with custom token
-                if (initialAuthToken) {
-                    await signInWithCustomToken(window.auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(window.auth);
-                }
-
-                // Listen for auth state changes
-                onAuthStateChanged(window.auth, (user) => {
+                // Autenticación anónima por defecto para evitar problemas con custom tokens
+                await signInAnonymously(auth);
+                
+                onAuthStateChanged(auth, (user) => {
                     if (user) {
-                        window.currentUserId = user.uid;
-                        console.log("Firebase initialized and user signed in:", user.uid);
-                        loadReviews(); // Cargar reseñas una vez autenticado
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Enviar Reseña';
-                        }
+                        userId = user.uid;
+                        console.log("Firebase authenticated. User ID:", userId);
+                        updateFirebaseStatus(true); // Set to active on successful authentication
+                        setupRealtimeReviews(); // Start listening for reviews once authenticated
                     } else {
-                        window.currentUserId = null;
-                        console.log("No user signed in.");
-                        if (submitButton) {
-                            submitButton.disabled = true;
-                            submitButton.textContent = 'Inicia sesión para reseñar'; // O un mensaje adecuado
-                        }
+                        console.log("No user is signed in.");
+                        updateFirebaseStatus(false); // Set to inactive if no user
+                        // Handle unauthenticated state if necessary
                     }
                 });
 
             } catch (error) {
-                console.error("Error initializing Firebase or signing in:", error);
-                const statusMessageElement = document.getElementById('status-message'); // Asegura que el elemento existe
-                if(statusMessageElement) {
-                    statusMessageElement.textContent = 'Error al cargar las reseñas. Inténtalo de nuevo más tarde.';
-                    statusMessageElement.classList.remove('hidden', 'text-green-500');
-                    statusMessageElement.classList.add('text-red-500');
-                }
-                if (submitButton) {
-                    submitButton.disabled = true;
-                    submitButton.textContent = 'Error al cargar Firebase';
-                }
+                console.error("Error initializing Firebase:", error);
+                showMessageModal("Error de Inicialización", "No se pudo conectar con el servicio de reseñas. Por favor, inténtalo de nuevo más tarde.");
+                updateFirebaseStatus(false); // Set to inactive on error
             }
-        });
+        }
 
-        async function loadReviews() {
-            if (!window.db || !window.currentUserId) {
-                console.warn("Firestore or User ID not available yet. Cannot load reviews.");
+        // Function to render stars based on a rating
+        function renderStars(rating) {
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += `<svg class="w-5 h-5 inline-block ${i <= rating ? 'text-yellow-400' : 'text-gray-400'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>`;
+            }
+            return starsHtml;
+        }
+
+        // Function to display reviews
+        function displayReviews(reviews) {
+            const reviewsList = document.getElementById('reviews-list');
+            reviewsList.innerHTML = ''; // Clear existing reviews
+
+            if (reviews.length === 0) {
+                reviewsList.innerHTML = '<p class="text-center text-gray-400" id="no-reviews-message">No hay reseñas todavía. ¡Sé el primero en dejar una!</p>';
                 return;
             }
 
-            const reviewsCollectionRef = collection(window.db, `artifacts/${window.appId}/public/data/reviews`);
-            const q = query(reviewsCollectionRef);
+            // Sort reviews by timestamp in descending order (newest first)
+            reviews.sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
 
-            // onSnapshot para actualizaciones en tiempo real
-            onSnapshot(q, (snapshot) => {
-                const reviewsContainer = document.getElementById('reviews-list');
-                const statusMessage = document.getElementById('status-message'); // Ahora está fuera de reviews-list
-
-                reviewsContainer.innerHTML = ''; // Limpiar reseñas existentes
-                // El statusMessage ya no se borra con reviewsContainer.innerHTML = '';
-                statusMessage.classList.remove('hidden', 'text-red-500', 'text-green-500');
-                statusMessage.textContent = 'Cargando reseñas...'; // Mostrar mensaje de carga
-
-                if (snapshot.empty) {
-                    statusMessage.textContent = 'Aún no hay reseñas. ¡Sé el primero en dejar una!';
-                    return;
-                }
-
-                let reviews = [];
-                snapshot.forEach((doc) => {
-                    reviews.push({ id: doc.id, ...doc.data() });
-                });
-
-                // Ordenar reseñas por marca de tiempo (más reciente primero) en el lado del cliente
-                reviews.sort((a, b) => {
-                    const dateA = a.timestamp && typeof a.timestamp.toDate === 'function' ? a.timestamp.toDate() : new Date(0);
-                    const dateB = b.timestamp && typeof b.timestamp.toDate === 'function' ? b.timestamp.toDate() : new Date(0);
-                    return dateB - dateA;
-                });
-
-                reviews.forEach((review) => {
-                    const reviewElement = document.createElement('div');
-                    reviewElement.className = 'bg-white p-8 rounded-xl shadow-2xl border-t-4 border-byte-accent-cyan flex flex-col items-center text-center';
-                    reviewElement.setAttribute('data-aos', 'zoom-in');
-                    reviewElement.setAttribute('data-aos-duration', '800');
-
-                    const starsHtml = Array(5).fill('').map((_, i) => `
-                        <i class="fas fa-star ${i < review.rating ? 'text-yellow-400' : 'text-gray-400'}"></i>
-                    `).join('');
-
-                    const reviewerInitial = review.name ? review.name.charAt(0).toUpperCase() : '?';
-                    const reviewDate = review.timestamp && typeof review.timestamp.toDate === 'function' ? review.timestamp.toDate() : new Date(); // Fallback
-                    const formattedDate = reviewDate.toLocaleString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-
-                    reviewElement.innerHTML = `
-                        <div class="w-24 h-24 rounded-full mb-4 flex items-center justify-center bg-byte-accent-cyan text-byte-dark-bg font-extrabold text-4xl border-2 border-byte-accent-cyan">
-                            ${reviewerInitial}
-                        </div>
-                        <p class="text-lg italic mb-4 text-gray-800">"${review.opinion}"</p>
-                        <div class="flex items-center justify-center mb-2">
-                            <div class="text-yellow-400">
-                                ${starsHtml}
-                            </div>
-                        </div>
-                        <p class="font-bold text-byte-text-dark">- ${review.name}</p>
-                        <p class="text-sm text-gray-500 mt-2">${formattedDate}</p>
-                    `;
-                    reviewsContainer.appendChild(reviewElement);
-                });
-                statusMessage.classList.add('hidden'); // Ocultar el mensaje de estado si hay reseñas
-                AOS.refresh(); // Refrescar AOS para detectar nuevos elementos
-            }, (error) => {
-                console.error("Error fetching reviews:", error);
-                statusMessage.textContent = 'Error al cargar las reseñas. Inténtalo de nuevo.';
-                statusMessage.classList.remove('hidden', 'text-green-500');
-                statusMessage.classList.add('text-red-500');
+            reviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.className = 'review-card';
+                reviewCard.innerHTML = `
+                    <div class="review-header">
+                        <span class="review-author">${review.name}</span>
+                        <span class="review-date">${new Date(review.timestamp.toDate()).toLocaleDateString()}</span>
+                    </div>
+                    <div class="stars mb-2">
+                        ${renderStars(review.rating)}
+                    </div>
+                    <p class="review-text">${review.reviewText}</p>
+                `;
+                reviewsList.appendChild(reviewCard);
             });
         }
 
-        // Función para mostrar un cuadro de mensaje personalizado
-        function showMessageBox(message, type = 'success') {
-            const messageBox = document.getElementById('message-box');
-            const messageText = document.getElementById('message-text');
-            messageText.textContent = message;
-
-            messageBox.classList.remove('hidden', 'bg-green-500', 'bg-red-500', 'bg-blue-500');
-            if (type === 'success') {
-                messageBox.classList.add('bg-green-500');
-            } else if (type === 'error') {
-                messageBox.classList.add('bg-red-500');
-            } else {
-                messageBox.classList.add('bg-blue-500'); // Información u otro
+        // Setup real-time listener for reviews
+        function setupRealtimeReviews() {
+            if (!db) {
+                console.error("Firestore no está inicializado.");
+                return;
             }
+            const reviewsColRef = collection(db, `artifacts/${appId}/public/data/reviews`);
+            const q = query(reviewsColRef); // No orderBy to avoid index issues
 
-            messageBox.classList.add('show-message'); // Activar animación
-            setTimeout(() => {
-                messageBox.classList.remove('show-message');
-                messageBox.classList.add('hide-message'); // Activar animación de ocultar
-                setTimeout(() => {
-                    messageBox.classList.add('hidden');
-                    messageBox.classList.remove('hide-message');
-                }, 500); // Duración de la animación de ocultar
-            }, 3000); // Mensaje visible durante 3 segundos
+            onSnapshot(q, (snapshot) => {
+                const reviews = [];
+                snapshot.forEach(doc => {
+                    reviews.push({ id: doc.id, ...doc.data() });
+                });
+                displayReviews(reviews);
+            }, (error) => {
+                console.error("Error al obtener reseñas en tiempo real:", error);
+                showMessageModal("Error de Carga", "No se pudieron cargar las reseñas. Por favor, inténtalo de nuevo.");
+            });
         }
 
-        // Moderación básica del lado del cliente (solo para demostración)
-        function containsInsult(text) {
-            const insults = [
-                'idiota', 'estúpido', 'tonto', 'mierda', 'puto', 'imbécil', 'cabrón', 'gilipollas',
-                'pendejo', 'coño', 'joder', 'hostia', 'capullo', 'cretino', 'mamón', 'zorra',
-                'puta', 'maricón', 'marica', 'culero', 'baboso', 'desgraciado', 'inútil', 'payaso',
-                'maldito', 'bastardo', 'caca', 'mierdero', 'putada', 'verga', 'carajo', 'chingada',
-                'subnormal', 'retrasado', 'mongol', 'enfermo', 'loco', 'tarado', 'animal', 'bestia',
-                'cerdo', 'perra', 'rata', 'gusano', 'escoria', 'basura', 'mierdoso', 'chapero',
-                'chulo', 'guarro', 'guarra', 'putón', 'putona', 'follador', 'folladora', 'gilipollas',
-                'cabronazo', 'hijoputa', 'malparido', 'malnacido', 'hijo de puta', 'mierda seca',
-                'me cago en', 'puta madre', 'puto asco', 'vete a la mierda', 'gilipollas integral',
-                'imbécil profundo', 'cagón', 'cagona', 'mamarracho', 'mamarracha', 'chupapollas',
-                'chupaculos', 'polla', 'cojones', 'puto amo', 'puta vida', 'puto crack', 'puto genio'
-            ]; // Lista ampliada de ejemplos de insultos
-            const lowerText = text.toLowerCase();
-            for (const insult of insults) {
-                if (lowerText.includes(insult)) {
-                    return true;
+        // Handle star rating input
+        let selectedRating = 0;
+        const starRatingInput = document.getElementById('star-rating-input');
+        const starRatingValueInput = document.getElementById('star-rating-value');
+
+        starRatingInput.addEventListener('click', (event) => {
+            const star = event.target.closest('.star-icon');
+            if (star) {
+                selectedRating = parseInt(star.dataset.value);
+                starRatingValueInput.value = selectedRating;
+                highlightStars(selectedRating);
+            }
+        });
+
+        starRatingInput.addEventListener('mouseover', (event) => {
+            const star = event.target.closest('.star-icon');
+            if (star) {
+                const hoverRating = parseInt(star.dataset.value);
+                highlightStars(hoverRating);
+            }
+        });
+
+        starRatingInput.addEventListener('mouseout', () => {
+            highlightStars(selectedRating); // Revert to selected rating
+        });
+
+        function highlightStars(rating) {
+            const stars = starRatingInput.querySelectorAll('.star-icon');
+            stars.forEach(star => {
+                if (parseInt(star.dataset.value) <= rating) {
+                    star.classList.add('text-yellow-400');
+                    star.classList.remove('text-gray-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-400');
                 }
-            }
-            return false;
+            });
         }
 
-        window.submitReview = async (event) => {
-            event.preventDefault(); // Prevenir el envío predeterminado del formulario
+        // Handle review form submission
+        const reviewForm = document.getElementById('review-form');
+        const loadingSpinner = document.getElementById('loading-spinner');
 
-            // Asegurarse de que Firebase esté inicializado antes de intentar enviar
-            if (!window.db || !window.currentUserId) {
-                showMessageBox('Error: Firebase no está inicializado o el usuario no está autenticado. Por favor, espera un momento e inténtalo de nuevo.', 'error');
-                console.error('Firebase not initialized or user not authenticated.');
+        reviewForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('reviewer-name').value.trim();
+            const email = document.getElementById('reviewer-email').value.trim();
+            const rating = parseInt(document.getElementById('star-rating-value').value);
+            const reviewText = document.getElementById('review-text').value.trim();
+
+            if (!name || !email || rating === 0 || !reviewText) {
+                showMessageModal("Error de Envío", "Por favor, completa todos los campos y selecciona una calificación.");
                 return;
             }
 
-            const form = event.target;
-            const name = form['reviewer-name'].value.trim();
-            const email = form['reviewer-email'].value.trim();
-            const rating = parseInt(form['reviewer-rating'].value, 10);
-            const opinion = form['reviewer-opinion'].value.trim();
-
-            // Validación del lado del cliente
-            if (!name || !email || isNaN(rating) || rating < 1 || rating > 5 || !opinion) {
-                showMessageBox('Por favor, completa todos los campos y selecciona una calificación válida.', 'error');
-                return;
-            }
-
-            if (!/\S+@\S+\.\S+/.test(email)) {
-                showMessageBox('Por favor, introduce un correo electrónico válido.', 'error');
-                return;
-            }
-
-            // Verificación de automoderación básica
-            if (containsInsult(opinion)) {
-                showMessageBox('Tu opinión contiene lenguaje inapropiado. Por favor, sé respetuoso y evita insultos o palabras ofensivas.', 'error');
-                return;
-            }
-
-            const submitButton = document.getElementById('submitReviewButton');
-            const loadingSpinner = document.getElementById('review-loading-spinner');
-            submitButton.disabled = true;
-            submitButton.textContent = 'Enviando...';
-            loadingSpinner.classList.remove('hidden');
+            loadingSpinner.style.display = 'block'; // Show spinner
 
             try {
-                const reviewsCollectionRef = collection(window.db, `artifacts/${window.appId}/public/data/reviews`);
-                await addDoc(reviewsCollectionRef, {
+                const reviewsColRef = collection(db, `artifacts/${appId}/public/data/reviews`);
+                await addDoc(reviewsColRef, {
                     name,
                     email,
                     rating,
-                    opinion,
-                    timestamp: serverTimestamp(), // Marca de tiempo del servidor de Firestore
-                    userId: window.currentUserId,
-                    profilePic: 'https://placehold.co/100x100/00FFFF/0A0A1A?text=Usuario' // Imagen de perfil predeterminada
+                    reviewText,
+                    timestamp: Timestamp.now()
                 });
-                showMessageBox('¡Gracias por tu reseña! Se ha enviado correctamente.', 'success');
-                form.reset(); // Limpiar el formulario
-                // loadReviews() no es necesario aquí porque onSnapshot ya actualizará la UI automáticamente
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                showMessageBox('Error al enviar tu reseña. Por favor, inténtalo de nuevo.', 'error');
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = 'Enviar Reseña';
-                loadingSpinner.classList.add('hidden');
-            }
-        };
 
-        // El pie de página se inicializa aquí
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('current-year').textContent = new Date().getFullYear();
+                showMessageModal("Reseña Enviada", "¡Gracias por tu reseña! Se ha publicado correctamente.");
+                reviewForm.reset(); // Clear the form
+                selectedRating = 0; // Reset star rating
+                highlightStars(0); // Clear star highlight
+            } catch (error) {
+                console.error("Error al añadir reseña:", error);
+                showMessageModal("Error al Enviar", "Hubo un problema al enviar tu reseña. Por favor, inténtalo de nuevo.");
+            } finally {
+                loadingSpinner.style.display = 'none'; // Hide spinner
+            }
+        });
+
+        // Initialize Firebase when the window loads
+        window.addEventListener('load', initializeFirebase);
+    </script>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            mirror: false,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Solo se mantiene el sintetizador de entrada si se desea un sonido al cargar la página
+        let entranceSynth;
+
+        function playEntranceSound() {
+            if (entranceSynth) {
+                const now = Tone.context.currentTime;
+                entranceSynth.triggerAttackRelease(["C4", "E4", "G4"], "8n", now);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            Tone.start().then(() => {
+                console.log("Tone.js context started.");
+                
+                entranceSynth = new Tone.PolySynth(Tone.Synth, {
+                    oscillator: { type: "triangle" },
+                    envelope: { attack: 0.01, decay: 0.2, sustain: 0, release: 0.1 },
+                    volume: -10
+                });
+                const entranceReverb = new Tone.Reverb({ decay: 1, preDelay: 0.05, wet: 0.3 }).toDestination();
+                entranceSynth.chain(entranceReverb, Tone.Destination);
+
+                Tone.Master.volume.value = -8; 
+                playEntranceSound(); 
+
+            }).catch(e => {
+                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
+                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
+            });
+        });
+
+        // Deshabilitar enlaces que no sean el botón de "Volver al inicio"
+        document.querySelectorAll('a').forEach(link => {
+            if (link.getAttribute('href') !== 'index.html') {
+                link.classList.add('disabled-link');
+                link.setAttribute('href', '#');
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                });
+            }
         });
     </script>
-
-    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot><script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 </body>
 </html>
