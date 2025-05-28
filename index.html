@@ -464,111 +464,8 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        /* Estilos para el Modal de Requerimiento (Central) */
-        #required-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Más oscuro para mayor énfasis */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10001; /* Asegura que esté por encima de todo */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-        }
-
-        #required-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #required-modal .modal-content {
-            background-color: #0A0A1A; /* byte-dark-bg para el modal interno */
-            border: 3px solid #00FFFF; /* Borde más pronunciado */
-            border-radius: 1.5rem;
-            padding: 2.5rem 3rem;
-            text-align: center;
-            box-shadow: 0 8px 30px rgba(0, 255, 255, 0.7); /* Sombra más fuerte */
-            max-width: 90%;
-            width: 500px; /* Un poco más ancho */
-            transform: scale(0.8);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bounce effect */
-        }
-
-        #required-modal.show .modal-content {
-            transform: scale(1);
-        }
-
-        #required-modal .modal-content h3 {
-            color: #00FFFF; /* byte-accent-cyan */
-            font-family: 'Montserrat', sans-serif; /* Consistente con encabezados */
-            font-size: 2.2rem; /* Más grande */
-            margin-bottom: 1rem;
-            font-weight: 800; /* Más negrita */
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Brillo en el título */
-        }
-
-        #required-modal .modal-content p {
-            color: #F9FAFB; /* byte-text-light */
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        #required-modal .modal-buttons {
-            display: flex;
-            flex-direction: column; /* Apilados en móviles */
-            gap: 1rem;
-        }
-
-        @media (min-width: 640px) { /* Para pantallas más grandes, uno al lado del otro */
-            #required-modal .modal-buttons {
-                flex-direction: row;
-                justify-content: center;
-            }
-        }
-
-        #required-modal .modal-buttons .btn-accept-required,
-        #required-modal .modal-buttons .btn-whatsapp-required {
-            padding: 1rem 2.5rem;
-            border-radius: 0.75rem; /* Más redondeado */
-            font-weight: 700;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.1rem;
-        }
-
-        #required-modal .modal-buttons .btn-accept-required {
-            background-color: #00FFFF; /* byte-accent-cyan */
-            color: #0A0A1A; /* byte-dark-bg */
-            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
-        }
-
-        #required-modal .modal-buttons .btn-accept-required:hover {
-            background-color: #80FFFF;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.6);
-        }
-
-        #required-modal .modal-buttons .btn-whatsapp-required {
-            background-color: #25D366; /* whatsapp-green */
-            color: white;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-        }
-
-        #required-modal .modal-buttons .btn-whatsapp-required:hover {
-            background-color: #128C7E; /* whatsapp-dark-green */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
-        }
+        /* REMOVED: Estilos para el Modal de Requerimiento (Central) - Ya no se usa */
+        /* #required-modal { ... } */
 
         /* --- Ajuste del botón de WhatsApp para que quede pegado a la esquina inferior derecha --- */
         #whatsapp-float-button {
@@ -979,22 +876,6 @@
         </div>
     </div>
 
-    <div id="required-modal">
-        <div class="modal-content">
-            <h3>¡Importante!</h3>
-            <p>Debes aceptar las condiciones de servicio para navegar y disfrutar de la experiencia completa en Byte.</p>
-            <div class="modal-buttons">
-                <button id="accept-required" class="btn-accept-required">Aceptar y Continuar</button>
-                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp-required">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
-                    </svg>
-                    Contactar por WhatsApp
-                </a>
-            </div>
-        </div>
-    </div>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
@@ -1059,11 +940,12 @@
         // Esta función centraliza el control de la clase `overflow-hidden` para evitar conflictos
         function updateBodyScroll() {
             const developmentModalVisible = developmentModal.classList.contains('show');
-            const requiredModalVisible = requiredModal.classList.contains('show');
+            // const requiredModalVisible = requiredModal.classList.contains('show'); // REMOVED
             const cookieBannerVisible = cookieBanner.classList.contains('show');
             const mobileMenuVisible = mobileMenu.classList.contains('translate-y-0');
 
-            if (developmentModalVisible || requiredModalVisible || cookieBannerVisible || mobileMenuVisible) {
+            // if (developmentModalVisible || requiredModalVisible || cookieBannerVisible || mobileMenuVisible) { // ORIGINAL
+            if (developmentModalVisible || cookieBannerVisible || mobileMenuVisible) { // MODIFIED
                 document.body.classList.add('overflow-hidden');
             } else {
                 document.body.classList.remove('overflow-hidden');
@@ -1259,12 +1141,12 @@
             }
         });
 
-        // --- Lógica de Cookies y Modales ---
+        // --- Lógica de Cookies ---
         const cookieBanner = document.getElementById('cookie-banner');
         const acceptCookiesButton = document.getElementById('accept-cookies');
         const declineCookiesButton = document.getElementById('decline-cookies');
-        const requiredModal = document.getElementById('required-modal');
-        const acceptRequiredButton = document.getElementById('accept-required');
+        // REMOVED: const requiredModal = document.getElementById('required-modal');
+        // REMOVED: const acceptRequiredButton = document.getElementById('accept-required');
 
         function showCookieBanner() {
             cookieBanner.classList.add('show');
@@ -1276,17 +1158,9 @@
             updateBodyScroll();
         }
 
-        function showRequiredModal() {
-            requiredModal.classList.add('show');
-            updateBodyScroll();
-            // También ocultamos el modal de desarrollo si estuviera visible
-            hideDevelopmentModal();
-        }
-
-        function hideRequiredModal() {
-            requiredModal.classList.remove('show');
-            updateBodyScroll();
-        }
+        // REMOVED: showRequiredModal() y hideRequiredModal() - Ya no se usan
+        // function showRequiredModal() { ... }
+        // function hideRequiredModal() { ... }
 
         // Event Listeners para el banner de cookies
         acceptCookiesButton.addEventListener('click', () => {
@@ -1300,21 +1174,13 @@
         });
 
         declineCookiesButton.addEventListener('click', () => {
-            hideCookieBanner();
+            hideCookieBanner(); // Simplemente oculta el banner
             playBellSoundProgrammatically(600); // Sonido diferente para rechazar
-            showRequiredModal(); // Muestra el modal de requerimiento
+            // NO SE MUESTRA NINGÚN OTRO MODAL AQUÍ, simplemente el banner se oculta.
         });
 
-        // Event Listener para el modal de requerimiento
-        acceptRequiredButton.addEventListener('click', () => {
-            hideRequiredModal();
-            localStorage.setItem('cookiesAccepted', 'true'); // También guardamos la aceptación para futuras visitas
-            playBellSoundProgrammatically(); // Sonido al aceptar en el modal requerido
-            // Si el modal de desarrollo no se ha visto, lo mostramos ahora.
-            if (!localStorage.getItem('developmentModalSeen')) {
-                showDevelopmentModal();
-            }
-        });
+        // REMOVED: Event Listener para el modal de requerimiento - Ya no se usa
+        // acceptRequiredButton.addEventListener('click', () => { ... });
 
         // --- Animación intermitente del botón de WhatsApp ---
         const whatsappFloatButton = document.getElementById('whatsapp-float-button');
