@@ -670,6 +670,10 @@
                 data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
                 Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
             </p>
+            <p class="text-base text-red-400 mt-4 mb-4 sm:hidden"
+               data-aos="fade-up" data-aos-delay="500" data-aos-duration="1200">
+                Página en desarrollo, pueden haber errores.
+            </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
                                           shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                 data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
@@ -950,7 +954,8 @@
             const devModalOverlay = document.getElementById('development-modal-overlay');
             const devModalAcceptBtn = document.getElementById('dev-modal-accept-btn');
 
-            if (devModalOverlay) {
+            // Solo mostrar modal en pantallas con un ancho de 640px o más (Tailwind's 'sm' breakpoint)
+            if (devModalOverlay && window.innerWidth >= 640) {
                 devModalOverlay.classList.add('show');
                 devModalAcceptBtn.addEventListener('click', () => {
                     devModalOverlay.classList.remove('show');
@@ -958,6 +963,9 @@
                         devModalOverlay.classList.add('hidden'); // Ocultar completamente después de la transición
                     }, 300); // Coincide con la duración de la transición CSS
                 });
+            } else if (devModalOverlay) {
+                // Asegurarse de que esté oculto si JavaScript intenta mostrarlo en pantallas pequeñas
+                devModalOverlay.classList.add('hidden');
             }
 
             // 2. Mostrar el Banner de Cookies si no ha sido aceptado
