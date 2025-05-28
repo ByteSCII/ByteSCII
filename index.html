@@ -3,399 +3,358 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Tu visión nuestra misión</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Byte - Diseño Web y Soluciones Digitales</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@Tonejs/Tone@14.7.58/build/Tone.min.js"></script>
     <style>
-        /* Colores Personalizados */
-        .bg-byte-dark-bg { background-color: #1a1a2e; } /* Azul/morado oscuro profundo */
-        .text-byte-text-light { color: #e0e0e0; } /* Blanco roto para texto general */
-        .text-byte-accent-cyan { color: #00bcd4; } /* Color cian de acento */
-        .bg-byte-secondary-dark { background-color: #2e2e4a; } /* Oscuro ligeramente más claro para desplegables */
-        .bg-whatsapp-green { background-color: #25D366; } /* Verde de la marca WhatsApp */
+        /* Colores personalizados */
+        :root {
+            --byte-dark-bg: #1a1a2e;
+            --byte-medium-bg: #16213e;
+            --byte-light-bg: #0f3460;
+            --byte-accent-cyan: #00e6e6; /* Un cian brillante */
+            --byte-text-light: #e0e0e0;
+            --byte-text-dark: #333333;
+            --whatsapp-green: #25D366;
+            --button-hover-darken: rgba(0, 0, 0, 0.1);
+        }
 
-        /* Efecto de Borde de Texto (Stroke) para títulos */
+        .bg-byte-dark-bg { background-color: var(--byte-dark-bg); }
+        .bg-byte-medium-bg { background-color: var(--byte-medium-bg); }
+        .bg-byte-light-bg { background-color: var(--byte-light-bg); }
+        .text-byte-accent-cyan { color: var(--byte-accent-cyan); }
+        .text-byte-text-light { color: var(--byte-text-light); }
+        .text-byte-text-dark { color: var(--byte-text-dark); }
+        .border-byte-accent-cyan { border-color: var(--byte-accent-cyan); }
+        .hover\:bg-byte-accent-cyan:hover { background-color: var(--byte-accent-cyan); }
+        .focus\:ring-byte-accent-cyan:focus { --tw-ring-color: var(--byte-accent-cyan); }
+        .shadow-byte-accent-cyan { box-shadow: 0 10px 15px -3px rgba(0, 230, 230, 0.5), 0 4px 6px -2px rgba(0, 230, 230, 0.05); }
+
+        /* Estilo para el texto con "stroke" */
         .text-stroke-cyan {
-            -webkit-text-stroke-width: 1px; /* Para navegadores Webkit */
-            -webkit-text-stroke-color: #00bcd4; /* Color de borde cian */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra sutil para profundidad */
+            -webkit-text-stroke: 1px var(--byte-accent-cyan);
+            color: transparent;
+            text-shadow: 0 0 5px rgba(0, 230, 230, 0.3), 0 0 10px rgba(0, 230, 230, 0.2);
+        }
+        @media (min-width: 768px) { /* Solo para pantallas medianas y grandes */
+            .md\:text-stroke-cyan {
+                -webkit-text-stroke: 1px var(--byte-accent-cyan);
+                color: transparent;
+                text-shadow: 0 0 5px rgba(0, 230, 230, 0.3), 0 0 10px rgba(0, 230, 230, 0.2);
+            }
         }
 
-        /* Estilo para los textos del menú de navegación */
-        .nav-menu-text-stroke-cyan {
-            color: white; /* Color de la letra blanca */
-            -webkit-text-stroke-width: 0.7px; /* Borde cian más fino para texto pequeño */
-            -webkit-text-stroke-color: #00bcd4;
-            transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out;
-        }
-
-        /* Efecto de Brillo en Enlaces de Menú (Modificado para animación y color de hover) */
-        .menu-link-glow {
-            position: relative;
-            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-        }
-        .menu-link-glow::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: #00bcd4; /* Color de brillo cian */
-            border-radius: 2px;
-            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            opacity: 0;
-        }
-        .menu-link-glow:hover::before {
-            width: calc(100% - 20px); /* Ajusta el ancho según la longitud deseada del brillo */
-            opacity: 1;
-        }
-        /* Nueva regla para el efecto de elevación y cambio de color al pasar el ratón */
-        .menu-link-glow:hover .nav-menu-text-stroke-cyan {
-            color: #ffffff; /* Mantiene el blanco puro al pasar el ratón */
-            -webkit-text-stroke-color: #ffd700; /* Borde amarillo al pasar el ratón */
-        }
-        .menu-link-glow:hover {
-             transform: translateY(-5px); /* Eleva el enlace un poco más para un "salto" más notorio */
-        }
-
-
-        /* Estilos para las Tarjetas de Servicio */
-        .service-card {
-            background-color: #2e2e4a; /* Fondo oscuro secundario */
-            padding: 2.5rem;
-            border-radius: 1rem;
-            text-align: center;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 188, 212, 0.2); /* Borde cian sutil */
-        }
-        .service-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            border-color: #00bcd4; /* Cian más brillante al pasar el ratón */
-        }
-        .service-card .icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            transition: transform 0.3s ease-in-out;
-        }
-        .service-card:hover .icon {
-            transform: rotate(10deg) scale(1.1);
-        }
-
-        /* Estilos Específicos de la Sección de Contacto */
-        .contact-section {
-            background-color: #1a1a2e;
-            padding: 5rem 0;
-            position: relative;
-        }
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            /* Restaurado el fondo original */
-            background: linear-gradient(to bottom, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7)), url('./images/contact-bg.jpg') center center/cover no-repeat;
-            opacity: 0.2; /* Imagen de fondo sutil */
-            z-index: 0;
-        }
-        .contact-content {
-            position: relative;
-            z-index: 1;
-        }
-        .contact-form-card,
-        .contact-info-card {
-            background-color: #2e2e4a;
-            padding: 3rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 188, 212, 0.2);
-        }
-        .contact-form-card input,
-        .contact-form-card textarea {
-            background-color: #1a1a2e;
-            border: 1px solid #00bcd4;
-            color: #e0e0e0;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-        .contact-form-card input::placeholder,
-        .contact-form-card textarea::placeholder {
-            color: #b0b0b0; /* Color de placeholder */
-        }
-        .contact-form-card input:focus,
-        .contact-form-card textarea:focus {
-            border-color: #ffd700; /* Amarillo en el foco */
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
-        }
-        .social-icon-link {
-            transition: all 0.3s ease-in-out;
-            color: #e0e0e0; /* Color predeterminado del icono */
-        }
-        .social-icon-link:hover {
-            color: #00bcd4; /* Cian al pasar el ratón */
-            transform: scale(1.1);
-        }
-        .map-container {
-            overflow: hidden;
-            border-radius: 1rem;
-            margin-top: 2.5rem;
-            width: 100%;
-            height: 450px; /* Altura fija para el mapa */
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Animación para el botón flotante de WhatsApp */
+        /* Animación de pulso para el botón de WhatsApp */
         @keyframes shake-pulse {
             0% { transform: scale(1); }
-            10% { transform: scale(1.1) rotate(5deg); }
-            20% { transform: scale(1.1) rotate(-5deg); }
-            30% { transform: scale(1.1) rotate(5deg); }
+            20% { transform: scale(1.1) rotate(5deg); }
             40% { transform: scale(1.1) rotate(-5deg); }
-            50% { transform: scale(1.1); }
+            60% { transform: scale(1.1) rotate(5deg); }
+            80% { transform: scale(1.1) rotate(-5deg); }
             100% { transform: scale(1); }
         }
+
         .shake-pulse-animation {
             animation: shake-pulse 2s infinite ease-in-out;
         }
 
-        /* Estilo para enlaces deshabilitados */
+        /* Estilos para las tarjetas de servicio */
+        .service-card {
+            background-color: var(--byte-medium-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: var(--byte-text-light);
+            border: 1px solid rgba(0, 230, 230, 0.3);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 230, 230, 0.4), 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .service-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--byte-accent-cyan);
+        }
+
+        /* Estilos específicos para la sección de contacto */
+        .contact-section {
+            background: linear-gradient(145deg, var(--byte-medium-bg), var(--byte-dark-bg));
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 230, 230, 0.1) 0%, transparent 70%);
+            animation: rotateBackground 30s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-form-card, .contact-info-card {
+            background-color: var(--byte-light-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 230, 230, 0.3);
+        }
+
+        .contact-form-card input,
+        .contact-form-card textarea {
+            background-color: var(--byte-dark-bg);
+            border-color: rgba(0, 230, 230, 0.4);
+            color: var(--byte-text-light);
+        }
+
+        .contact-form-card input:focus,
+        .contact-form-card textarea:focus {
+            outline: none;
+            border-color: var(--byte-accent-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 230, 230, 0.5);
+        }
+
+        .contact-form-card label {
+            color: var(--byte-text-light);
+        }
+
+        .social-icon-link {
+            transition: transform 0.3s ease, color 0.3s ease;
+            color: var(--byte-text-light);
+        }
+
+        .social-icon-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--byte-accent-cyan);
+        }
+
+        .map-container {
+            overflow: hidden;
+            border-radius: 1rem;
+            border: 1px solid rgba(0, 230, 230, 0.3);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            display: block;
+        }
+
+        /* Estilos para el botón de WhatsApp flotante */
+        #whatsapp-float-button {
+            background-color: var(--whatsapp-green);
+            z-index: 10000;
+        }
+
+        /* Estilos para el hover de los enlaces de navegación */
+        .nav-link-hover:hover {
+            color: var(--byte-accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .nav-link-hover {
+            transition: all 0.3s ease;
+        }
+
+        /* Estilos para enlaces deshabilitados */
         .disabled-link {
-            opacity: 0.6; /* Opacidad reducida para indicar deshabilitado */
-            cursor: not-allowed; /* Cursor de "no permitido" */
-            pointer-events: none; /* Deshabilita clics */
+            cursor: not-allowed;
+            opacity: 0.6;
+            pointer-events: none; /* Asegura que no sea clickable */
         }
 
-        /* Animación de fondo para toda la página */
-        body {
-            background: linear-gradient(-45deg, #1a1a2e, #2e2e4a, #00bcd4, #1a1a2e);
-            background-size: 400% 400%;
-            animation: gradientBackground 15s ease infinite;
+        /* Estilos para menús desplegables */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%; /* Justo debajo del botón */
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 180px; /* Ancho mínimo para los items */
+            background-color: var(--byte-medium-bg);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            overflow: hidden; /* Para que los bordes redondeados funcionen bien con los items */
+            border: 1px solid rgba(0, 230, 230, 0.3);
         }
 
-        @keyframes gradientBackground {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            color: var(--byte-text-light);
+            text-align: center; /* Centrar el texto en el dropdown */
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--byte-light-bg);
+            color: var(--byte-accent-cyan);
+        }
+
+        /* Estilo para el icono de flecha del dropdown */
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Dropdown Specific Styles */
+        .mobile-dropdown-menu {
+            /* No need for absolute positioning here, it will flow with content */
+            background-color: var(--byte-medium-bg); /* Use a slightly different background if desired */
+            border-radius: 0.5rem;
+            margin-top: 0.5rem; /* Space between parent link and sub-menu */
+            padding: 0.5rem 0; /* Padding inside the dropdown */
+        }
+
+        .mobile-dropdown-menu a {
+            padding: 0.75rem 1.5rem; /* Indent sub-items */
+            text-align: left;
+            border-radius: 0; /* Remove rounded corners for individual items if inside rounded parent */
         }
     </style>
 </head>
-<body class="bg-byte-dark-bg font-sans leading-normal tracking-normal">
+<body class="bg-byte-dark-bg font-sans leading-normal tracking-normal text-byte-text-light">
 
-    <header class="bg-byte-dark-bg text-white shadow-lg fixed w-full z-50">
-        <div class="container mx-auto flex items-center justify-center p-4 relative">
-            <a href="#inicio" class="absolute left-4 top-1/2 -translate-y-1/2 text-3xl font-extrabold text-byte-accent-cyan hover:text-white transition duration-300">Byte</a>
+    <nav class="bg-byte-dark-bg p-6 shadow-lg fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-3xl font-extrabold text-byte-accent-cyan tracking-wider">Byte</a>
+            <div class="hidden lg:flex space-x-8 items-center">
+                <a href="#inicio" class="text-lg nav-link-hover">Inicio</a>
+                <a href="#servicios" class="text-lg nav-link-hover">Servicios</a>
 
-            <nav class="hidden sm:block">
-                <ul class="flex space-x-8">
-                    <li>
-                        <a href="#inicio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow">
-                            <span class="nav-menu-text-stroke-cyan">Inicio</span>
-                        </a>
-                    </li>
-                    <li class="relative group">
-                        <a href="#servicios" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
-                            <span class="nav-menu-text-stroke-cyan">Servicios</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
-                        </div>
-                    </li>
-                    <li class="relative group">
-                        <a href="#portafolio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
-                            <span class="nav-menu-text-stroke-cyan">Portafolio</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
-                        </div>
-                    </li>
-                    <li class="relative group">
-                        <a href="#proceso" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
-                            <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
-                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                        </div>
-                    </li>
-                    <li class="relative group">
-                        <a href="#reseñas" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
-                            <span class="nav-menu-text-stroke-cyan">Reseñas</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
-                        </div>
-                    </li>
-                    <li class="relative group">
-                        <a href="#contacto" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
-                            <span class="nav-menu-text-stroke-cyan">Contacto</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
+                <div class="relative group">
+                    <button class="text-lg nav-link-hover flex items-center js-dropdown-toggle" data-dropdown-id="nosotros-dropdown">
+                        Nosotros
+                        <svg class="w-4 h-4 ml-2 mt-1 transition-transform duration-300 transform group-hover:rotate-180 arrow-icon js-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="nosotros-dropdown" class="dropdown-menu hidden js-dropdown-menu">
+                        <a href="misionyvision.html">Misión y Visión</a>
+                        <a href="#">Valores</a>
+                        <a href="#">Equipo</a>
+                    </div>
+                </div>
 
-            <a href="#contacto" class="hidden sm:inline-block absolute right-4 top-1/2 -translate-y-1/2 bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+                <div class="relative group">
+                    <button class="text-lg nav-link-hover flex items-center js-dropdown-toggle" data-dropdown-id="eventos-dropdown">
+                        Eventos
+                        <svg class="w-4 h-4 ml-2 mt-1 transition-transform duration-300 transform group-hover:rotate-180 arrow-icon js-arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div id="eventos-dropdown" class="dropdown-menu hidden js-dropdown-menu">
+                        <a href="#">Próximos</a>
+                        <a href="#">Realizados</a>
+                    </div>
+                </div>
+
+                <a href="#contacto" class="text-lg nav-link-hover">Contacto</a>
+            </div>
+            <div class="lg:hidden">
+                <button id="mobile-menu-button" class="text-byte-accent-cyan focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-menu" class="hidden lg:hidden bg-byte-dark-bg fixed w-full py-6 top-20 z-40 shadow-xl transition-all duration-300">
+        <div class="container mx-auto px-4 flex flex-col space-y-4 text-center">
+            <a href="#inicio" class="text-xl py-2 nav-link-hover">Inicio</a>
+            <a href="#servicios" class="text-xl py-2 nav-link-hover">Servicios</a>
+
+            <div class="relative w-full">
+                <button class="text-xl py-2 nav-link-hover w-full flex justify-center items-center js-dropdown-toggle-mobile" data-dropdown-id-mobile="nosotros-dropdown-mobile">
+                    Nosotros
+                    <svg class="w-5 h-5 ml-2 mt-1 transition-transform duration-300 transform arrow-icon js-arrow-icon-mobile" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="nosotros-dropdown-mobile" class="hidden mobile-dropdown-menu js-dropdown-menu-mobile">
+                    <a href="misionyvision.html" class="text-lg py-2">Misión y Visión</a>
+                    <a href="#" class="text-lg py-2">Valores</a>
+                    <a href="#" class="text-lg py-2">Equipo</a>
+                </div>
+            </div>
+
+            <div class="relative w-full">
+                <button class="text-xl py-2 nav-link-hover w-full flex justify-center items-center js-dropdown-toggle-mobile" data-dropdown-id-mobile="eventos-dropdown-mobile">
+                    Eventos
+                    <svg class="w-5 h-5 ml-2 mt-1 transition-transform duration-300 transform arrow-icon js-arrow-icon-mobile" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="eventos-dropdown-mobile" class="hidden mobile-dropdown-menu js-dropdown-menu-mobile">
+                    <a href="#" class="text-lg py-2">Próximos</a>
+                    <a href="#" class="text-lg py-2">Realizados</a>
+                </div>
+            </div>
+
+            <a href="#contacto" class="text-xl py-2 nav-link-hover">Contacto</a>
+        </div>
+    </div>
+
+    <header class="relative min-h-screen flex items-center justify-center text-center text-white overflow-hidden bg-byte-dark-bg">
+        <div class="absolute inset-0 z-0 opacity-20">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="var(--byte-accent-cyan)" stroke-width="0.1"></path>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)"></rect>
+            </svg>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-br from-byte-dark-bg to-byte-medium-bg opacity-70 z-10"></div>
+        <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+            <div class="w-80 h-80 bg-byte-accent-cyan rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
+            <div class="w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+            <div class="w-80 h-80 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="relative z-30 px-4"
+             data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight text-stroke-cyan md:text-stroke-cyan">
+                Damos vida a tus ideas digitales
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-2xl mx-auto">
+                Transformamos conceptos en experiencias web impactantes y funcionales.
+            </p>
+            <a href="#contacto" class="inline-block bg-byte-accent-cyan text-byte-text-dark font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-byte-accent-cyan
+                                        transition duration-300 transform hover:scale-105 hover:bg-opacity-90"
+               data-aos="zoom-in" data-aos-delay="500" data-aos-duration="1000">
                 ¡Empecemos tu proyecto!
             </a>
-
-            <button id="mobile-menu-button" class="sm:hidden absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
         </div>
     </header>
 
-    <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40">
-        <ul class="flex flex-col space-y-4 text-center">
-            <li>
-                <a href="#inicio" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow">
-                    <span class="nav-menu-text-stroke-cyan">Inicio</span>
-                </a>
-            </li>
-            <li>
-                <a href="#servicios" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Servicios</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
-                </div>
-            </li>
-            <li>
-                <a href="#portafolio" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Portafolio</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de páginas web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">SEO</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
-                </div>
-            </li>
-            <li>
-                <a href="#proceso" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
-                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                </div>
-            </li>
-            <li>
-                <a href="#reseñas" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Reseñas</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
-                </div>
-            </li>
-            <li>
-                <a href="#contacto" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Contacto</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Ubicación</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Formulario de Contacto</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Redes Sociales</a>
-                </div>
-            </li>
-            <li>
-                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4">
-                    ¡Empecemos tu proyecto!
-                </a>
-            </li>
-        </ul>
-    </nav>
-
-    <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
-             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
-
-        <div class="container mx-auto px-4 relative z-10 text-center"
-             data-aos="fade-up" data-aos-duration="1000">
-            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg text-stroke-cyan"
-                data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
-                Nosotros convertimos sueños en realidades digitales
-            </h1>
-            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-byte-text-light opacity-90"
-                data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
-                Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
-            </p>
-            <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
-                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
-                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
-                ¡Hablemos de tu proyecto!
-            </a>
-        </div>
-    </section>
-
-    <section id="servicios" class="py-20 bg-byte-dark-bg text-byte-text-light">
-        <div class="container mx-auto px-4">
+    <section id="servicios" class="py-20 bg-byte-medium-bg text-byte-text-light">
+        <div class="container mx-auto px-4 text-center">
             <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
-                data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                data-aos="fade-up" data-aos-duration="800">Nuestros Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="service-card" data-aos="zoom-in">
                     <div class="icon">💻</div>
                     <h3 class="text-2xl font-bold mb-4">Diseño personalizado de páginas web</h3>
                     <p>Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
@@ -429,7 +388,7 @@
                 Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
             </p>
             <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
-                                          shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
+                                         shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                 ¡Hablemos de tu proyecto!
             </a>
