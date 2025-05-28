@@ -912,7 +912,7 @@
 
     <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" id="whatsapp-float-button"
        class="fixed bottom-6 right-6 bg-whatsapp-green text-white w-14 h-14 rounded-full shadow-lg
-              flex items-center justify-center z-[10000] transition-all duration-500 ease-out shake-pulse-animation">
+              flex items-center justify-center z-[10000] transition-all duration-500 ease-out">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
         </svg>
@@ -1022,6 +1022,20 @@
             oscillator.stop(audioContext.currentTime + duration);
         }
 
+        // --- Gestión de la clase `overflow-hidden` en el body ---
+        // Esta función centraliza el control de la clase `overflow-hidden` para evitar conflictos
+        function updateBodyScroll() {
+            const developmentModalVisible = developmentModal.classList.contains('show');
+            const requiredModalVisible = requiredModal.classList.contains('show');
+            const cookieBannerVisible = cookieBanner.classList.contains('show');
+            const mobileMenuVisible = mobileMenu.classList.contains('translate-y-0');
+
+            if (developmentModalVisible || requiredModalVisible || cookieBannerVisible || mobileMenuVisible) {
+                document.body.classList.add('overflow-hidden');
+            } else {
+                document.body.classList.remove('overflow-hidden');
+            }
+        }
 
         // Lógica para el menú móvil
         const mobileMenuButton = document.getElementById('mobile-menu-button');
@@ -1035,9 +1049,9 @@
             mobileMenu.classList.add('translate-y-0');
             mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
             mobileMenuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
-            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
             mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Cambia a icono de X
             playBellSoundProgrammatically(); // Reproduce el sonido de campanita
+            updateBodyScroll(); // Actualiza el scroll del body
         }
 
         // Función para cerrar el menú móvil
@@ -1046,9 +1060,9 @@
             mobileMenu.classList.add('translate-y-full');
             mobileMenuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
             mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
-            document.body.classList.remove('overflow-hidden'); // Habilita el scroll del cuerpo
             mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Vuelve al icono de hamburguesa
             playBellSoundProgrammatically(); // Reproduce el sonido de campanita
+            updateBodyScroll(); // Actualiza el scroll del body
         }
 
         // Event listener para el botón de abrir/cerrar menú móvil
@@ -1158,22 +1172,16 @@
         });
 
         // --- Sonido al cargar la página ---
-        // La Web Audio API requiere que el AudioContext se inicie después de una interacción del usuario.
-        // Aquí intentamos reproducir el sonido al cargar, pero si el navegador lo bloquea,
-        // se activará una vez que el usuario haga la primera interacción (por ejemplo, abrir el menú).
         document.addEventListener('DOMContentLoaded', () => {
-            // Un pequeño retraso para asegurar que todo el DOM esté cargado.
             setTimeout(() => {
-                // Frecuencia ligeramente diferente para el inicio para distinguirlo
                 playBellSoundProgrammatically(900, 0.1, 0.2);
             }, 500);
 
-            // Mostrar el modal de desarrollo al cargar la página
-            const developmentModal = document.getElementById('development-modal');
-            // Solo muestra el modal de desarrollo si no se ha visto antes.
-            if (!localStorage.getItem('developmentModalSeen')) {
-                developmentModal.classList.add('show');
-                document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
+            // Mostrar el modal de desarrollo o el banner de cookies según el estado
+            if (!localStorage.getItem('cookiesAccepted')) {
+                showCookieBanner();
+            } else if (!localStorage.getItem('developmentModalSeen')) {
+                showDevelopmentModal();
             }
         });
 
@@ -1187,14 +1195,23 @@
             }
         }, { once: true }); // Solo necesitamos que esto se ejecute una vez
 
-        // --- Lógica del Modal de Aviso de Desarrollo (NUEVO) ---
+        // --- Lógica del Modal de Aviso de Desarrollo ---
         const modalAcceptButton = document.getElementById('modal-accept-button');
         const developmentModal = document.getElementById('development-modal');
 
+        function showDevelopmentModal() {
+            developmentModal.classList.add('show');
+            updateBodyScroll();
+        }
+
+        function hideDevelopmentModal() {
+            developmentModal.classList.remove('show');
+            updateBodyScroll();
+        }
+
         modalAcceptButton.addEventListener('click', () => {
             playBellSoundProgrammatically(); // Reproduce el sonido de campana al aceptar
-            developmentModal.classList.remove('show');
-            document.body.classList.remove('overflow-hidden'); // Habilita el scroll del cuerpo
+            hideDevelopmentModal();
             localStorage.setItem('developmentModalSeen', 'true'); // Marca que el modal de desarrollo ya se vio
         });
 
@@ -1209,7 +1226,7 @@
             }
         });
 
-        // --- Lógica de Cookies y Modales (NUEVO) ---
+        // --- Lógica de Cookies y Modales ---
         const cookieBanner = document.getElementById('cookie-banner');
         const acceptCookiesButton = document.getElementById('accept-cookies');
         const declineCookiesButton = document.getElementById('decline-cookies');
@@ -1218,27 +1235,24 @@
 
         function showCookieBanner() {
             cookieBanner.classList.add('show');
-            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll
+            updateBodyScroll();
         }
 
         function hideCookieBanner() {
             cookieBanner.classList.remove('show');
-            document.body.classList.remove('overflow-hidden'); // Habilita el scroll
+            updateBodyScroll();
         }
 
         function showRequiredModal() {
             requiredModal.classList.add('show');
-            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll
+            updateBodyScroll();
             // También ocultamos el modal de desarrollo si estuviera visible
-            const developmentModal = document.getElementById('development-modal');
-            if (developmentModal.classList.contains('show')) {
-                developmentModal.classList.remove('show');
-            }
+            hideDevelopmentModal();
         }
 
         function hideRequiredModal() {
             requiredModal.classList.remove('show');
-            document.body.classList.remove('overflow-hidden'); // Habilita el scroll
+            updateBodyScroll();
         }
 
         // Event Listeners para el banner de cookies
@@ -1247,10 +1261,8 @@
             hideCookieBanner();
             playBellSoundProgrammatically(); // Sonido al aceptar cookies
             // Si el modal de desarrollo no se ha visto, lo mostramos ahora.
-            const developmentModal = document.getElementById('development-modal');
-            if (developmentModal && !localStorage.getItem('developmentModalSeen')) {
-                developmentModal.classList.add('show');
-                document.body.classList.add('overflow-hidden');
+            if (!localStorage.getItem('developmentModalSeen')) {
+                showDevelopmentModal();
             }
         });
 
@@ -1266,28 +1278,29 @@
             localStorage.setItem('cookiesAccepted', 'true'); // También guardamos la aceptación para futuras visitas
             playBellSoundProgrammatically(); // Sonido al aceptar en el modal requerido
             // Si el modal de desarrollo no se ha visto, lo mostramos ahora.
-            const developmentModal = document.getElementById('development-modal');
-            if (developmentModal && !localStorage.getItem('developmentModalSeen')) {
-                developmentModal.classList.add('show');
-                document.body.classList.add('overflow-hidden');
+            if (!localStorage.getItem('developmentModalSeen')) {
+                showDevelopmentModal();
             }
         });
 
-        // Lógica de carga: decide qué mostrar al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                playBellSoundProgrammatically(900, 0.1, 0.2); // Sonido de inicio
+        // --- Animación intermitente del botón de WhatsApp ---
+        const whatsappFloatButton = document.getElementById('whatsapp-float-button');
 
-                if (!localStorage.getItem('cookiesAccepted')) {
-                    showCookieBanner();
-                } else {
-                    const developmentModal = document.getElementById('development-modal');
-                    if (developmentModal && !localStorage.getItem('developmentModalSeen')) {
-                        developmentModal.classList.add('show');
-                        document.body.classList.add('overflow-hidden');
-                    }
-                }
-            }, 500);
+        function startWhatsappAnimation() {
+            whatsappFloatButton.classList.add('shake-pulse-animation');
+            // La animación dura 0.8s, así que la removemos justo después para reiniciar el ciclo en 10s.
+            setTimeout(() => {
+                whatsappFloatButton.classList.remove('shake-pulse-animation');
+            }, 800); // Remover la clase después de que la animación termine (0.8s)
+        }
+
+        // Iniciar la animación al cargar y luego repetirla cada 10 segundos
+        document.addEventListener('DOMContentLoaded', () => {
+            // Empezar la animación después de un pequeño retraso para que no choque con los modales iniciales
+            setTimeout(() => {
+                startWhatsappAnimation(); // Inicia la primera animación
+                setInterval(startWhatsappAnimation, 10000); // Repite cada 10 segundos (10000 ms)
+            }, 2000); // Empieza después de 2 segundos de la carga de la página
         });
 
     </script>
