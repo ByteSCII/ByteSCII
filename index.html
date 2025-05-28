@@ -316,10 +316,14 @@
             transform: translateY(-20px); /* Efecto de entrada */
             transition: transform 0.3s ease;
             border: 1px solid #00bcd4;
+            overflow-wrap: break-word; /* Asegura que el texto largo se rompa y no desborde */
 
             /* Media query para ajustar el padding en pantallas pequeñas */
             @media (max-width: 640px) { /* Tailwind's 'sm' breakpoint is 640px */
                 padding: 20px; /* Reducir el padding en móviles */
+            }
+            @media (max-width: 480px) { /* Padding aún más pequeño para pantallas muy pequeñas */
+                padding: 15px;
             }
         }
 
