@@ -6,7 +6,7 @@
     <title>Byte - Tu visión nuestra misión</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="https://cdnjs.cloudflarae.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
         /* Colores Personalizados */
         .bg-byte-dark-bg { background-color: #1a1a2e; } /* Azul/morado oscuro profundo */
@@ -233,6 +233,191 @@
             padding: 0.75rem 1.5rem; /* Indentar los sub-elementos */
             text-align: left;
             border-radius: 0; /* Quitar bordes redondeados para elementos individuales si están dentro de un padre redondeado */
+        }
+
+        /* Estilos para el mensaje flotante de WhatsApp */
+        .whatsapp-message-popup {
+            position: fixed;
+            bottom: 80px; /* Ajustar según la altura del botón + el espaciado deseado */
+            right: 20px; /* Alinear con el botón */
+            background-color: #fefefe; /* Fondo claro para la burbuja */
+            color: #333; /* Texto oscuro */
+            padding: 10px 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-size: 0.9rem;
+            max-width: 200px;
+            text-align: center;
+            opacity: 0; /* Inicia oculto */
+            transform: translateY(10px); /* Inicia ligeramente abajo */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            z-index: 9999; /* Debajo del botón, pero encima de la mayoría del contenido */
+        }
+
+        .whatsapp-message-popup.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-message-popup.hide {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        /* Flecha para el efecto de burbuja de diálogo */
+        .whatsapp-message-popup::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; /* Posicionar debajo de la burbuja */
+            right: 20px; /* Alinear con el botón */
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #fefefe; /* Color de la burbuja */
+        }
+
+        /* Estilos para el modal de desarrollo */
+        .development-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001; /* Más alto que todo lo demás */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .development-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .development-modal-content {
+            background-color: #2e2e4a; /* Fondo oscuro secundario */
+            color: #e0e0e0;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px); /* Efecto de entrada */
+            transition: transform 0.3s ease;
+            border: 1px solid #00bcd4;
+        }
+
+        .development-modal-overlay.show .development-modal-content {
+            transform: translateY(0);
+        }
+
+        .development-modal-content h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #00bcd4;
+        }
+
+        .development-modal-content p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+
+        .development-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .development-modal-buttons button,
+        .development-modal-buttons a {
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none; /* Para el enlace */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .development-modal-buttons .btn-accept {
+            background-color: #ffd700; /* Amarillo */
+            color: #1a1a2e; /* Texto oscuro */
+            border: none;
+        }
+
+        .development-modal-buttons .btn-accept:hover {
+            background-color: #e6c200;
+            transform: scale(1.05);
+        }
+
+        .development-modal-buttons .btn-whatsapp {
+            background-color: #25D366; /* Verde WhatsApp */
+            color: white;
+            border: none;
+        }
+
+        .development-modal-buttons .btn-whatsapp:hover {
+            background-color: #1da851;
+            transform: scale(1.05);
+        }
+
+        .development-modal-footer {
+            font-size: 0.85rem;
+            color: #b0b0b0;
+        }
+
+        /* Estilos para el banner de cookies */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1a1a2e; /* Fondo oscuro */
+            color: #e0e0e0;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 10000; /* Por encima de la mayoría, pero debajo del modal de desarrollo */
+            transform: translateY(100%); /* Inicia fuera de la pantalla */
+            transition: transform 0.5s ease-out;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-banner p {
+            margin: 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .cookie-banner button {
+            background-color: #00bcd4; /* Cian */
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cookie-banner button:hover {
+            background-color: #00a3b3;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -579,6 +764,29 @@
         </svg>
     </a>
 
+    <div id="whatsapp-message-popup" class="whatsapp-message-popup hidden">
+        ¿Quieres adquirir un producto? ¡Contáctanos!
+    </div>
+
+    <div id="development-modal-overlay" class="development-modal-overlay">
+        <div class="development-modal-content">
+            <h3>¡Importante!</h3>
+            <p>Este sitio web se encuentra en desarrollo por el grupo de programadores del equipo de Byte.</p>
+            <div class="development-modal-buttons">
+                <button id="dev-modal-accept-btn" class="btn-accept">Aceptar</button>
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+                    WhatsApp (Contáctanos)
+                </a>
+            </div>
+            <p class="development-modal-footer">Byte derechos reservados</p>
+        </div>
+    </div>
+
+    <div id="cookie-banner" class="cookie-banner">
+        <p>Al entrar a esta página aceptas los cookies y los términos de condiciones de Byte Web Design.</p>
+        <button id="accept-cookies-btn">Aceptar</button>
+    </div>
+
     <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
     <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 
@@ -627,71 +835,6 @@
             }
         }
 
-        // Inicializar Tone.js y los sintetizadores al cargar la página
-        window.addEventListener('load', () => {
-            // Tone.start() debe ser llamado por una interacción del usuario en muchos navegadores.
-            // Al llamarlo en 'load', si el navegador lo bloquea, el sonido no se reproducirá.
-            // Para asegurar la reproducción, podrías considerar un botón de "Iniciar Audio" o
-            // vincularlo al primer clic del usuario en cualquier parte de la página.
-            Tone.start().then(() => {
-                console.log("Tone.js context started.");
-
-                // 1. Sintetizador para el sonido de bienvenida (PolySynth con timbre de triángulo)
-                entranceSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: {
-                        type: "triangle" // Brillo suave
-                    },
-                    envelope: {
-                        attack: 0.01,
-                        decay: 0.2,
-                        sustain: 0,
-                        release: 0.1
-                    },
-                    volume: -10 // Volumen para el sonido de entrada
-                });
-
-                // Añadir reverberación sutil al sonido de bienvenida
-                const entranceReverb = new Tone.Reverb({
-                    decay: 1, // Duración de la cola de la reverberación
-                    preDelay: 0.05, // Retraso antes de que comience la reverberación
-                    wet: 0.3 // Cantidad de señal "húmeda" (con efecto)
-                }).toDestination();
-                entranceSynth.chain(entranceReverb, Tone.Destination); // Conectar al reverb y luego a la salida maestra
-
-                // 2. Sintetizador para el sonido de burbuja (NoiseSynth)
-                bubbleSynth = new Tone.NoiseSynth({
-                    noise: {
-                        type: "white" // Ruido blanco para el efecto de burbuja
-                    },
-                    envelope: {
-                        attack: 0.01,
-                        decay: 0.1,
-                        sustain: 0,
-                        release: 0.05
-                    },
-                    filterEnvelope: {
-                        attack: 0.01,
-                        decay: 0.05,
-                        sustain: 0,
-                        release: 0.05,
-                        baseFrequency: 200,
-                        octaves: 4
-                    },
-                    volume: -15 // Volumen para el sonido de burbuja
-                }).toDestination();
-
-                // Ajustar el volumen maestro general (afecta a ambos sintetizadores)
-                Tone.Master.volume.value = -8;
-
-                // Reproducir el sonido de bienvenida inmediatamente al cargar
-                playEntranceSound();
-
-            }).catch(e => {
-                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
-                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
-            });
-        });
-
         // Lógica para el menú móvil
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -711,8 +854,6 @@
         // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
         document.querySelectorAll('#mobile-menu a').forEach(link => {
             link.addEventListener('click', (event) => {
-                // Solo cierra el menú si el enlace no es un toggle de dropdown móvil
-                // y si el enlace no tiene la clase 'disabled-link'
                 if (!link.classList.contains('js-dropdown-toggle-mobile') && !link.classList.contains('disabled-link')) {
                     mobileMenu.classList.add('hidden');
                     const icon = mobileMenuButton.querySelector('svg path');
@@ -730,7 +871,6 @@
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon');
 
-                // Cierra cualquier otro menú desplegable de escritorio que esté abierto
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -741,10 +881,9 @@
                     }
                 });
 
-                // Alterna la visibilidad del menú actual y rota el icono de flecha
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
-                playBubbleSound(); // Reproduce sonido al abrir/cerrar un dropdown
+                playBubbleSound();
             });
         });
 
@@ -752,28 +891,26 @@
         document.addEventListener('click', function(event) {
             if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                 document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                    if (!menu.classList.contains('hidden')) { // Solo si el menú está visible
+                    if (!menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
                         const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                         if (button) {
                             button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
                         }
-                        // No se reproduce sonido aquí, ya que el clic es "fuera", no una acción directa de cierre
                     }
                 });
             }
         });
 
-        // Lógica para los menús desplegables móviles (similar a los de escritorio pero con clases específicas para móvil)
+        // Lógica para los menús desplegables móviles
         document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
             button.addEventListener('click', function(event) {
                 event.preventDefault();
-                event.stopPropagation(); // Evita que el evento se propague al listener del documento
+                event.stopPropagation();
                 const dropdownId = this.dataset.dropdownIdMobile;
                 const dropdownMenu = document.getElementById(dropdownId);
                 const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
 
-                // Cierra cualquier otro menú desplegable móvil que esté abierto
                 document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                     if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                         menu.classList.add('hidden');
@@ -784,10 +921,9 @@
                     }
                 });
 
-                // Alterna la visibilidad del menú actual y rota el icono de flecha
                 dropdownMenu.classList.toggle('hidden');
                 arrowIcon.classList.toggle('rotate-180');
-                playBubbleSound(); // Reproduce sonido al abrir/cerrar un dropdown móvil
+                playBubbleSound();
             });
         });
 
@@ -796,11 +932,77 @@
             if (link.getAttribute('href') === '#' && !link.closest('#whatsapp-float-button')) {
                 link.classList.add('disabled-link');
                 link.addEventListener('click', function(event) {
-                    // Previene la acción predeterminada SOLO si el enlace es un 'disabled-link'
                     if (this.classList.contains('disabled-link')) {
                         event.preventDefault();
                     }
                 });
+            }
+        });
+
+        // Lógica principal para el manejo de popups y banners al cargar la página
+        window.addEventListener('load', () => {
+            console.log("Página cargada. Iniciando lógica de modales y banners.");
+
+            // Inicializar Tone.js (ahora fuera del bloque de visualización de modales)
+            Tone.start().then(() => {
+                console.log("Tone.js context started successfully.");
+                entranceSynth = new Tone.PolySynth(Tone.Synth, { /* ... configs ... */ }).toDestination();
+                bubbleSynth = new Tone.NoiseSynth({ /* ... configs ... */ }).toDestination();
+                Tone.Master.volume.value = -8;
+                playEntranceSound();
+            }).catch(e => {
+                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
+                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
+            });
+
+            // 1. Mostrar el Modal de Desarrollo cada vez que se carga la página
+            const devModalOverlay = document.getElementById('development-modal-overlay');
+            const devModalAcceptBtn = document.getElementById('dev-modal-accept-btn');
+
+            if (devModalOverlay) {
+                devModalOverlay.classList.add('show');
+                devModalAcceptBtn.addEventListener('click', () => {
+                    devModalOverlay.classList.remove('show');
+                    setTimeout(() => {
+                        devModalOverlay.classList.add('hidden'); // Ocultar completamente después de la transición
+                    }, 300); // Coincide con la duración de la transición CSS
+                });
+            }
+
+            // 2. Mostrar el Banner de Cookies si no ha sido aceptado
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptCookiesBtn = document.getElementById('accept-cookies-btn');
+            const hasAcceptedCookies = localStorage.getItem('byte_cookies_accepted');
+
+            if (!hasAcceptedCookies && cookieBanner) {
+                cookieBanner.classList.add('show'); // Muestra el banner con animación
+                acceptCookiesBtn.addEventListener('click', () => {
+                    cookieBanner.style.transform = 'translateY(100%)'; // Inicia la animación de salida
+                    setTimeout(() => {
+                        cookieBanner.style.display = 'none'; // Oculta completamente después de la animación
+                        localStorage.setItem('byte_cookies_accepted', 'true'); // Guarda el consentimiento
+                    }, 500); // Coincide con la duración de la transición CSS
+                });
+            } else if (cookieBanner) {
+                cookieBanner.style.display = 'none'; // Si ya aceptó, no mostrar el banner
+            }
+
+            // Lógica para el mensaje flotante de WhatsApp (existente, ajustado para no chocar)
+            const whatsappMessagePopup = document.getElementById('whatsapp-message-popup');
+            if (whatsappMessagePopup) {
+                setTimeout(() => {
+                    whatsappMessagePopup.classList.remove('hidden');
+                    whatsappMessagePopup.classList.add('show');
+
+                    setTimeout(() => {
+                        whatsappMessagePopup.classList.remove('show');
+                        whatsappMessagePopup.classList.add('hide');
+                        setTimeout(() => {
+                            whatsappMessagePopup.classList.add('hidden');
+                            whatsappMessagePopup.classList.remove('hide');
+                        }, 500);
+                    }, 5000);
+                }, 1000);
             }
         });
     </script>
