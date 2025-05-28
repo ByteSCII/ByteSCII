@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Tu visión, nuestra misión</title>
+    <title>Byte - Realidades Digitales</title>
     <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
     
-    <meta property="og:title" content="Byte - Tu visión, nuestra misión">
+    <meta property="og:title" content="Byte - Realidades Digitales">
     <meta property="og:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
     <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
     <meta property="og:url" content="[URL_DE_TU_SITIO_WEB]"> <meta property="og:type" content="website">
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Byte - Tu visión, nuestra misión">
+    <meta name="twitter:title" content="Byte - Realidades Digitales">
     <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
     <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
 
@@ -70,24 +70,23 @@
             font-family: 'Montserrat', sans-serif; /* Títulos usan Montserrat */
         }
 
-        /* Animación de brillo para los enlaces del menú (más suave) */
+        /* Animación de brillo para los enlaces del menú (constante) */
         @keyframes menu-glow {
             0% {
-                color: #00FFFF;
-                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
+                color: var(--byte-text-light); /* Blanco inicial */
+                text-shadow: none;
+                border-color: #F59E0B; /* Amarillo inicial */
             }
             50% {
-                color: #80FFFF;
-                text-shadow: 0 0 5px #00FFFF, 0 0 8px #00FFFF;
+                color: var(--byte-accent-cyan); /* Cian en el punto medio del brillo */
+                text-shadow: 0 0 8px var(--byte-accent-cyan), 0 0 12px var(--byte-accent-cyan);
+                border-color: #FFD700; /* Amarillo más brillante en el pico */
             }
             100% {
-                color: #00FFFF;
-                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
+                color: var(--byte-text-light); /* Vuelve a blanco */
+                text-shadow: none;
+                border-color: #F59E0B; /* Amarillo final */
             }
-        }
-
-        .menu-link-glow {
-            animation: menu-glow 2s infinite alternate ease-in-out;
         }
 
         /* Estilo para el borde de texto (text-stroke) */
@@ -259,9 +258,39 @@
         .service-card .icon {
             font-size: 4.5rem; /* Iconos más grandes */
             margin-bottom: 1.5rem;
-            color: #00FFFF; /* Color del acento */
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Brillo en los iconos */
         }
+
+        .service-card .icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: white; /* Color blanco para los contornos */
+            fill: none; /* Para que sean solo contornos */
+            stroke-width: 1.5; /* Ajusta el grosor de la línea del icono */
+            /* Animación para el efecto de "dibujo" */
+            stroke-dasharray: 1000; /* Longitud inicial del dasharray */
+            stroke-dashoffset: 1000; /* Desplazamiento inicial (oculta la línea) */
+            animation: draw-icon 1.5s ease-out forwards; /* Animación al cargar */
+            filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.7)); /* Sombra cian para el brillo */
+        }
+
+        /* Animación de dibujo para los iconos SVG */
+        @keyframes draw-icon {
+            to {
+                stroke-dashoffset: 0; /* Dibuja la línea */
+            }
+        }
+
+        /* Animación de pulso continuo para los iconos */
+        @keyframes pulse-icon {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .service-card .icon svg.animated {
+            animation: draw-icon 1.5s ease-out forwards, pulse-icon 2s infinite alternate ease-in-out 1.5s; /* Aplica ambas animaciones, pulso después del dibujo */
+        }
+
 
         .service-card h3 {
             color: #F9FAFB; /* Texto del título más claro */
@@ -484,7 +513,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: var(--byte-dark-bg);
+            background-color: black; /* Fondo negro para el menú móvil */
             z-index: 50; /* Por encima del contenido principal, pero por debajo de los modales (9999) */
             transform: translateY(100%); /* Inicia fuera de pantalla */
             transition: transform 0.5s ease-out;
@@ -552,6 +581,36 @@
                 box-shadow: 0 0 25px 12px rgba(0, 255, 255, 0.8);
             }
         }
+
+        /* Estilos para los enlaces del menú de navegación principal */
+        header nav ul li a {
+            color: var(--byte-text-light); /* Color de texto inicial blanco */
+            text-decoration: none;
+            position: relative; /* Para el pseudo-elemento del borde */
+            display: inline-block; /* Para que el pseudo-elemento funcione correctamente */
+            padding: 5px 10px; /* Añadido padding para apariencia de botón */
+            border: 1px solid #F59E0B; /* Borde amarillo inicial */
+            border-radius: 0.5rem; /* Bordes ligeramente redondeados para los botones */
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, border-color 0.3s ease-in-out; /* Transiciones suaves */
+            animation: menu-glow 2.5s infinite alternate ease-in-out; /* Animación constante de brillo y borde */
+        }
+
+        /* Efecto de borde cian que se expande al pasar el cursor */
+        header nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px; /* Grosor del borde */
+            background-color: var(--byte-accent-cyan);
+            transition: all 0.3s ease-out;
+            transform: translateX(-50%);
+        }
+
+        header nav ul li a:hover::after {
+            width: 100%; /* El borde se expande al 100% del ancho del enlace */
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
@@ -563,19 +622,17 @@
 
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
-            <a href="#" class="flex flex-col items-start sm:flex-grow sm:justify-start">
-                <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow mb-1">Byte</span> 
-                <div class="flex items-center"> <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-20 mr-2"> 
-                    </div>
+            <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-20 mr-2"> 
             </a>
 
             <nav class="hidden sm:flex flex-grow justify-center">
                 <ul class="flex space-x-8 items-center">
                     <li class="relative group">
-                        <a href="#inicio" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow">Inicio</a>
+                        <a href="#inicio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1">Inicio</a>
                     </li>
                     <li class="relative group">
-                        <a href="#servicios" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                        <a href="#servicios" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
                             Servicios
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -589,7 +646,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#portafolio" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                        <a href="#portafolio" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
                             Portafolio
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -604,7 +661,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#proceso" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                        <a href="#proceso" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
                             Quiénes Somos
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -616,7 +673,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#reseñas" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                        <a href="#reseñas" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
                             Reseñas
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -627,7 +684,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#eventos" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                        <a href="#eventos" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
                             Eventos
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -639,7 +696,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#contacto" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                        <a href="#contacto" class="text-lg font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
                             Contacto
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -669,13 +726,13 @@
         </div>
     </header>
 
-    <nav id="mobile-menu" class="fixed inset-0 bg-byte-dark-bg z-40 transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col pt-20 pb-8 px-4 overflow-y-auto">
+    <nav id="mobile-menu" class="fixed inset-0 bg-black z-40 transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col pt-20 pb-8 px-4 overflow-y-auto">
         <ul class="flex flex-col space-y-6 text-center flex-grow justify-center">
             <li>
-                <a href="#inicio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow">Inicio</a>
+                <a href="#inicio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer">Inicio</a>
             </li>
             <li>
-                <a href="#servicios" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
+                <a href="#servicios" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
                     Servicios
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -689,7 +746,7 @@
                 </div>
             </li>
             <li>
-                <a href="#portafolio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
+                <a href="#portafolio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
                     Portafolio
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -704,7 +761,7 @@
                 </div>
             </li>
             <li>
-                <a href="#proceso" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                <a href="#proceso" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
                     Quiénes Somos
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -716,7 +773,7 @@
                 </div>
             </li>
             <li>
-                <a href="#reseñas" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                <a href="#reseñas" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
                     Reseñas
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -727,7 +784,7 @@
                 </div>
             </li>
             <li>
-                <a href="#eventos" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-eventos-mobile">
+                <a href="#eventos" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-eventos-mobile">
                     Eventos
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -739,7 +796,7 @@
                 </div>
             </li>
             <li>
-                <a href="#contacto" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
+                <a href="#contacto" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
                     Contacto
                     <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -794,22 +851,51 @@
                 data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-10">
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="icon">✨</div>
+                    <div class="icon">
+                        <svg class="animated" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                            <polyline points="10 9 12 7 14 9"></polyline>
+                            <line x1="12" y1="7" x2="12" y2="13"></line>
+                        </svg>
+                    </div>
                     <h3 class="text-2xl font-bold mb-4">Diseño personalizado de página web</h3>
                     <p>Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="icon">🛍️</div>
+                    <div class="icon">
+                        <svg class="animated" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            <line x1="12" y1="14" x2="12" y2="18"></line>
+                            <line x1="10" y1="16" x2="14" y2="16"></line>
+                        </svg>
+                    </div>
                     <h3 class="text-2xl font-bold mb-4">Diseño de tiendas virtuales</h3>
                     <p>Construimos tiendas online robustas, seguras y optimizadas para la conversión, transformando visitantes en clientes leales y maximizando tus ventas.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="icon">🚀</div>
+                    <div class="icon">
+                        <svg class="animated" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            <polyline points="16 6 18 8 22 4"></polyline>
+                            <path d="M16 8V4h4"></path>
+                        </svg>
+                    </div>
                     <h3 class="text-2xl font-bold mb-4">SEO</h3>
                     <p>Impulsamos tu visibilidad en los motores de búsqueda y desarrollamos estrategias de marketing digital integrales que atraen tráfico cualificado y generan resultados medibles.</p>
                 </div>
                 <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="icon">🎨</div>
+                    <div class="icon">
+                        <svg class="animated" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20h9"></path>
+                            <path d="M16.5 15.5L13 12 12 11 3 20 4 21 13 12 16.5 15.5z"></path>
+                            <path d="M18 13.5L10.5 6 14 2.5 21.5 10 18 13.5z"></path>
+                        </svg>
+                    </div>
                     <h3 class="text-2xl font-bold mb-4">Diseño Gráfico</h3>
                     <p>Desarrollamos una identidad visual coherente y memorable para tu marca, desde logotipos hasta guías de estilo, asegurando un impacto visual distintivo en todos tus canales.</p>
                 </div>
@@ -866,8 +952,8 @@
                     <h3 class="text-3xl font-bold text-center mb-8 text-stroke-cyan">Información de Contacto</h3>
                     <div class="space-y-6 text-center text-lg">
                         <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
-                        <p class="flex items-center justify-center text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
-                        <p class="flex items-center justify-center text-byte-accent-cyan">📞 +123 456 7890</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-3">📧</span> Bytewebdesign1@gmail.com</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan">📞 +584125646508</p>
                     </div>
 
                     <h3 class="text-3xl font-bold text-center mt-12 mb-8 text-stroke-cyan">Redes Sociales</h3>
@@ -937,15 +1023,30 @@
                 bubbleAudio = document.getElementById('bubbleSound');
                 if (bubbleAudio) {
                     bubbleAudio.volume = 0.4; // Asegura el volumen
+                    console.log("Audio element found and volume set."); // Debug log
                 } else {
                     console.warn("Elemento de audio de burbuja no encontrado.");
                     return; // Sale si no se encuentra el audio
                 }
             }
             
-            // Reinicia el sonido y lo reproduce
-            bubbleAudio.currentTime = 0; 
-            bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
+            // Verifica si el audio está listo para reproducirse
+            if (bubbleAudio.readyState >= 2) { // HTMLMediaElement.HAVE_CURRENT_DATA o superior
+                bubbleAudio.currentTime = 0; // Reinicia el sonido
+                bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
+                console.log("Attempting to play sound."); // Debug log
+            } else {
+                console.warn("Audio not ready to play. ReadyState:", bubbleAudio.readyState); // Debug log
+                // Intenta cargar de nuevo y añade un listener para cuando esté listo
+                bubbleAudio.load(); 
+                bubbleAudio.addEventListener('canplaythrough', () => {
+                    if (bubbleAudio.readyState >= 2) {
+                        bubbleAudio.currentTime = 0;
+                        bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja (after canplaythrough):", e));
+                        console.log("Sound played after canplaythrough.");
+                    }
+                }, { once: true }); // El listener se elimina después de la primera ejecución
+            }
         }
 
         // Lógica para el menú móvil
@@ -1072,6 +1173,14 @@
                     event.preventDefault(); // Previene la acción por defecto del enlace
                 });
             }
+        });
+
+        // Añadir la clase 'animated' a los iconos SVG después de que AOS termine su animación (si aplica)
+        // O simplemente al cargar la página si no dependen de AOS para su animación inicial
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.service-card .icon svg').forEach(svg => {
+                svg.classList.add('animated');
+            });
         });
     </script>
 </body>
