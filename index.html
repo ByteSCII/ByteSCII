@@ -8,14 +8,14 @@
 
     <meta property="og:title" content="Byte - Tu visión, nuestra misión">
     <meta property="og:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
-    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
-    <meta property="og:url" content="https://www.tudominio.com"> 
+    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales">
+    <meta property="og:url" content="https://www.tudominio.com">
     <meta property="og:type" content="website">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Byte - Tu visión, nuestra misión">
     <meta name="twitter:description" content="Nueva empresa de desarrollo web que nació de la idea de unos pocos para llegar a muchos.">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales"> 
+    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Realidades%20Digitales">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -53,7 +53,7 @@
         /* Estilos base para el cuerpo y los encabezados */
         body {
             font-family: 'Inter', sans-serif;
-            /* Deshabilita la selección de texto para una experiencia más de "aplicación". 
+            /* Deshabilita la selección de texto para una experiencia más de "aplicación".
                Considera eliminar esto si tus usuarios necesitan copiar texto. */
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -179,7 +179,7 @@
 
         .shake-pulse-animation {
             /* La animación completa ahora dura 10 segundos. */
-            animation: shake-pulse 10s ease-in-out infinite; 
+            animation: shake-pulse 10s ease-in-out infinite;
         }
 
         /* Animación para el eslogan "Tu visión, nuestra misión" (constante y sutil) */
@@ -336,12 +336,12 @@
     <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto px-4 flex items-center justify-between">
             <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2"> 
+                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2">
                 <div class="flex flex-col items-start">
-                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> 
+                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span>
                     <p class="text-sm text-byte-text-light opacity-80 mt-0.5 slogan-animation">
                         <span class="block">Tu visión,</span>
-                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span> 
+                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span>
                     </p>
                 </div>
             </a>
@@ -384,4 +384,538 @@
                         <a href="#proceso" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
                             Quiénes Somos
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#reseñas" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                            Reseñas
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#contacto" class="text-byte-accent-cyan text-lg font-semibold hover:text-byte-text-light transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                            Contacto
+                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="flex items-center">
+                <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                           shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
+                    ¡Empecemos tu proyecto!
+                </a>
+
+                <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav id="mobile-menu" class="fixed inset-0 bg-byte-dark-bg z-40 transform translate-y-full transition-transform duration-500 ease-in-out flex flex-col pt-20 pb-8 px-4 overflow-y-auto">
+        <ul class="flex flex-col space-y-6 text-center flex-grow justify-center">
+            <li>
+                <a href="#inicio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow">Inicio</a>
+            </li>
+            <li>
+                <a href="#servicios" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
+                    Servicios
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                </div>
+            </li>
+            <li>
+                <a href="#portafolio" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
+                    Portafolio
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                </div>
+            </li>
+            <li>
+                <a href="#proceso" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                    Quiénes Somos
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                    <a href="misionyvision.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                </div>
+            </li>
+            <li>
+                <a href="#reseñas" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                    Reseñas
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="reseñas.html" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                </div>
+            </li>
+            <li>
+                <a href="#contacto" class="block text-byte-accent-cyan text-2xl font-semibold hover:text-byte-text-light transition duration-300 ease-in-out py-3 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
+                    Contacto
+                    <span class="ml-2 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                    <a href="#" class="block px-4 py-2 text-base text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                </div>
+            </li>
+            <li>
+                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+                                           shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-6 text-xl">
+                    ¡Empecemos tu proyecto!
+                </a>
+            </li>
+        </ul>
+        <button id="mobile-menu-close-button" class="absolute top-4 right-4 p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </nav>
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black opacity-0 z-30 pointer-events-none transition-opacity duration-500 ease-in-out"></div>
+
+    <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
+        <img src="./images/609.jpg" alt="Imagen de fondo de la sección de inicio"
+             class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+
+        <div class="container mx-auto px-4 relative z-10 text-center"
+             data-aos="fade-up" data-aos-duration="1000">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg text-stroke-cyan"
+                data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
+                Nosotros convertimos sueños en realidades digitales
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-byte-text-light opacity-90"
+                data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
+                Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
+            </p>
+            <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+                                           shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
+                data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
+                ¡Hablemos de tu proyecto!
+            </a>
+        </div>
+    </section>
+
+    <section id="servicios" class="py-20 bg-byte-dark-bg text-byte-text-light">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
+                data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon">✨</div>
+                    <h3 class="text-2xl font-bold mb-4">Diseño Web Personalizado</h3>
+                    <p>Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="icon">🛍️</div>
+                    <h3 class="text-2xl font-bold mb-4">Desarrollo E-commerce</h3>
+                    <p>Construimos tiendas online robustas, seguras y optimizadas para la conversión, transformando visitantes en clientes leales y maximizando tus ventas.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="icon">🚀</div>
+                    <h3 class="text-2xl font-bold mb-4">SEO & Marketing Digital</h3>
+                    <p>Impulsamos tu visibilidad en los motores de búsqueda y desarrollamos estrategias de marketing digital integrales que atraen tráfico cualificado y generan resultados medibles.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="icon">🌐</div>
+                    <h3 class="text-2xl font-bold mb-4">Administración de Dominios y Subdominios</h3>
+                    <p>Gestionamos eficientemente tus activos digitales, desde el registro y configuración de dominios hasta la administración de subdominios, garantizando una presencia online impecable.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="icon">🎨</div>
+                    <h3 class="text-2xl font-bold mb-4">Branding y Diseño Gráfico</h3>
+                    <p>Desarrollamos una identidad visual coherente y memorable para tu marca, desde logotipos hasta guías de estilo, asegurando un impacto visual distintivo en todos tus canales.</p>
+                </div>
+                <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="icon">💡</div>
+                    <h3 class="text-2xl font-bold mb-4">Consultoría Digital Estratégica</h3>
+                    <p>Ofrecemos asesoramiento experto para optimizar tu estrategia digital, identificar oportunidades de crecimiento y maximizar el retorno de tu inversión online.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-byte-dark-bg text-byte-text-light">
+        <div class="container mx-auto px-4 text-center max-w-4xl"
+             data-aos="fade-up" data-aos-duration="800">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-10 text-stroke-cyan">
+                ¿Listo para despegar?
+            </h2>
+            <p class="text-lg md:text-xl mb-12 text-gray-300">
+                Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
+            </p>
+            <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded-full
+                                           shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110"
+               data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
+                ¡Hablemos de tu proyecto!
+            </a>
+        </div>
+    </section>
+
+    <section id="contacto" class="contact-section text-byte-text-light">
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
+                data-aos="fade-up" data-aos-duration="800">Conéctate con Byte</h2>
+            <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <div class="contact-form-card"
+                    data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
+                    <h3 class="text-3xl font-bold text-center text-byte-accent-cyan mb-8 text-stroke-cyan">Envíanos un Mensaje</h3>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="contact-name" class="block text-lg font-semibold text-byte-text-light mb-2">Nombre Completo</label>
+                            <input type="text" id="contact-name" name="name" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 text-lg" placeholder="Tu nombre" required>
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-lg font-semibold text-byte-text-light mb-2">Correo Electrónico</label>
+                            <input type="email" id="contact-email" name="email" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 text-lg" placeholder="tu.correo@ejemplo.com" required>
+                        </div>
+                        <div>
+                            <label for="contact-message" class="block text-lg font-semibold text-byte-text-light mb-2">Tu Mensaje</label>
+                            <textarea id="contact-message" name="message" rows="6" class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 text-lg" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-4 px-8 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-xl">
+                            Enviar Mensaje
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-info-card"
+                    data-aos="fade-left" data-aos-delay="400" data-aos-duration="800">
+                    <h3 class="text-3xl font-bold text-center mb-8 text-stroke-cyan">Información de Contacto</h3>
+                    <div class="space-y-6 text-center text-lg">
+                        <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
+                        <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
+                        <p class="flex items-center justify-center text-byte-accent-cyan">📞 +123 456 7890</p>
+                    </div>
+
+                    <h3 class="text-3xl font-bold text-center mt-12 mb-8 text-stroke-cyan">Redes Sociales</h3>
+                    <div class="flex justify-center space-x-6 text-byte-text-light">
+                        <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="mt-8 map-container rounded-lg shadow-md">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.3614275034633!2d-66.93883132560875!3d10.460592965389656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5d7c38c7f999%3A0x6b7a5a8e2b8c9d2f!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1ses!2s!4v1716867372274!5m2!1ses!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
+        <p>© 2024 Byte. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a>.</p>
+        <div class="mt-4 flex justify-center space-x-6">
+            <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                Instagram
+            </a>
+            <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="WhatsApp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="inline-block align-middle mr-1">
+                    <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                </svg>
+                WhatsApp
+            </a>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" id="whatsapp-float-button"
+       class="fixed bottom-6 right-6 bg-whatsapp-green text-white w-14 h-14 rounded-full shadow-lg
+              flex items-center justify-center z-[10000] transition-all duration-500 ease-out shake-pulse-animation">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+        </svg>
+    </a>
+
+    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
+    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicialización de AOS con configuraciones
+        AOS.init({
+            once: true, // Animaciones se ejecutan solo una vez
+            mirror: false, // No se repiten al hacer scroll hacia arriba
+            offset: 100, // Comienza la animación 100px antes de llegar al elemento
+            duration: 800, // Duración de la animación en milisegundos
+            easing: 'ease-out-cubic', // Función de temporización
+        });
+
+        // let bubbleAudio = null; // Comentado, ya que el elemento <audio> fue eliminado si solo se usa para la campanita
+        let audioContext = null; // Contexto de audio global para Web Audio API
+
+        // Función para reproducir el sonido de burbuja (si usas un archivo para esto, ej: en hover de botones)
+        // Si no tienes un archivo de burbuja y no lo necesitas, puedes eliminar esta función.
+        /*
+        function playBubbleSound() {
+            if (!bubbleAudio) {
+                bubbleAudio = document.getElementById('bubbleSound');
+                if (bubbleAudio) {
+                    bubbleAudio.volume = 0.4;
+                } else {
+                    console.warn("Elemento de audio de burbuja no encontrado. Asegúrate de tenerlo en el HTML si lo necesitas.");
+                    return;
+                }
+            }
+            bubbleAudio.currentTime = 0;
+            bubbleAudio.play().catch(e => console.error("Error al reproducir el sonido de burbuja:", e));
+        }
+        */
+
+        /**
+         * Genera y reproduce un sonido de campanita programáticamente usando la Web Audio API.
+         * @param {number} frequency - La frecuencia del tono en Hertz (Hz). Por defecto: 800 Hz.
+         * @param {number} duration - La duración del sonido en segundos. Por defecto: 0.1 segundos.
+         * @param {number} volume - El volumen del sonido (de 0.0 a 1.0). Por defecto: 0.25 (ajustado para ser más audible).
+         */
+        function playBellSoundProgrammatically(frequency = 800, duration = 0.1, volume = 0.25) {
+            // Inicializa el AudioContext si aún no existe. Esto debe hacerse en respuesta a una interacción del usuario
+            // para evitar restricciones de reproducción automática de los navegadores.
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            // Si el contexto de audio no está en estado 'running' (por ejemplo, después de un autostart bloqueado),
+            // intenta reanudarlo. Esto es clave para la reproducción inicial.
+            if (audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                    console.log('AudioContext resumed successfully after user gesture.');
+                    _createAndPlayBellSound(frequency, duration, volume);
+                }).catch(e => console.error('Error resuming AudioContext:', e));
+            } else {
+                _createAndPlayBellSound(frequency, duration, volume);
+            }
+        }
+
+        // Función interna para crear y reproducir el sonido, separada para manejar la reanudación del AudioContext.
+        function _createAndPlayBellSound(frequency, duration, volume) {
+            // Asegúrate de que el volumen no sea cero para evitar errores en exponentialRampToValueAtTime
+            const safeVolume = Math.max(0.00001, volume);
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(safeVolume, audioContext.currentTime);
+            // Pequeño desvanecimiento al final para evitar clics de audio abruptos
+            gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + duration);
+
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + duration);
+        }
+
+
+        // Lógica para el menú móvil
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuCloseButton = document.getElementById('mobile-menu-close-button');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+
+        // Función para abrir el menú móvil
+        function openMobileMenu() {
+            mobileMenu.classList.remove('translate-y-full');
+            mobileMenu.classList.add('translate-y-0');
+            mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+            mobileMenuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+            document.body.classList.add('overflow-hidden'); // Deshabilita el scroll del cuerpo
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Cambia a icono de X
+            playBellSoundProgrammatically(); // Reproduce el sonido de campanita
+        }
+
+        // Función para cerrar el menú móvil
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('translate-y-0');
+            mobileMenu.classList.add('translate-y-full');
+            mobileMenuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+            mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('overflow-hidden'); // Habilita el scroll del cuerpo
+            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Vuelve al icono de hamburguesa
+            playBellSoundProgrammatically(); // Reproduce el sonido de campanita
+        }
+
+        // Event listener para el botón de abrir/cerrar menú móvil
+        mobileMenuButton.addEventListener('click', () => {
+            if (mobileMenu.classList.contains('translate-y-full')) {
+                openMobileMenu();
+            } else {
+                closeMobileMenu();
+            }
+        });
+
+        // Event listener para el botón de cierre dentro del menú móvil
+        mobileMenuCloseButton.addEventListener('click', closeMobileMenu);
+
+        // Cierra el menú móvil al hacer clic fuera de él (en el fondo)
+        mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+
+        // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', (event) => {
+                if (link.classList.contains('js-dropdown-toggle-mobile')) {
+                    event.stopPropagation(); // Evita que se cierre el menú principal si es un toggle de submenú
+                } else {
+                    closeMobileMenu(); // Cierra el menú móvil si se hace clic en un enlace de navegación principal
+                }
+            });
+        });
+
+        // Lógica para los menús desplegables de escritorio (no necesitan sonido específico)
+        document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Evita que el enlace de anclaje se active
+                const dropdownId = this.dataset.dropdownId;
+                const dropdownMenu = document.getElementById(dropdownId);
+                const arrowIcon = this.querySelector('.js-arrow-icon');
+
+                // Cierra otros dropdowns abiertos
+                document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                        const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (otherButton) {
+                            otherButton.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                        }
+                    }
+                });
+
+                // Abre o cierra el dropdown actual
+                dropdownMenu.classList.toggle('hidden');
+                arrowIcon.classList.toggle('rotate-180');
+            });
+        });
+
+        // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
+                document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                    menu.classList.add('hidden');
+                    const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                    if (button) {
+                        button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                    }
+                });
+            }
+        });
+
+        // Lógica para los menús desplegables móviles
+        document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault(); // Evita que el enlace de anclaje se active
+                event.stopPropagation(); // Evita que el click se propague y cierre el menú móvil
+
+                const dropdownId = this.dataset.dropdownIdMobile;
+                const dropdownMenu = document.getElementById(dropdownId);
+                const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
+
+                // Cierra otros dropdowns móviles abiertos
+                document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
+                    if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                        menu.classList.add('hidden');
+                        const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                        if (otherButton) {
+                            otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
+                        }
+                    }
+                });
+
+                // Abre o cierra el dropdown móvil actual
+                dropdownMenu.classList.toggle('hidden');
+                arrowIcon.classList.toggle('rotate-180');
+            });
+        });
+
+        // Deshabilitar enlaces que no sean "Nuestra Misión y Visión" o "Deja tu Reseña"
+        document.querySelectorAll('a').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href !== 'misionyvision.html' &&
+                href !== 'reseñas.html' &&
+                !href.startsWith('#') && // Permite enlaces internos de la misma página (áncoras)
+                !link.closest('#whatsapp-float-button') && // No deshabilita el botón flotante de WhatsApp
+                link.classList.contains('disabled-link'))
+            {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción por defecto del enlace
+                });
+            }
+        });
+
+        // --- Sonido al cargar la página ---
+        // La Web Audio API requiere que el AudioContext se inicie después de una interacción del usuario.
+        // Aquí intentamos reproducir el sonido al cargar, pero si el navegador lo bloquea,
+        // se activará una vez que el usuario haga la primera interacción (por ejemplo, abrir el menú).
+        document.addEventListener('DOMContentLoaded', () => {
+            // Un pequeño retraso para asegurar que todo el DOM esté cargado.
+            setTimeout(() => {
+                // Frecuencia ligeramente diferente para el inicio para distinguirlo
+                playBellSoundProgrammatically(900, 0.1, 0.2);
+            }, 500);
+        });
+
+        // BONUS: Asegurar que el AudioContext se reanude con la primera interacción del usuario
+        // Esto es crucial para que el sonido funcione incluso si el navegador lo bloqueó inicialmente.
+        document.addEventListener('click', () => {
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                    console.log('AudioContext reanudado después del clic del usuario.');
+                }).catch(e => console.error('Error al reanudar AudioContext con clic:', e));
+            }
+        }, { once: true }); // Solo necesitamos que esto se ejecute una vez
+    </script>
+</body>
+</html>
+
