@@ -68,25 +68,9 @@
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para un efecto de brillo */
         }
 
-        /* Animación de brillo para los enlaces del menú */
-        @keyframes menu-glow {
-            0% {
-                color: #00FFFF;
-                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
-            }
-            50% {
-                color: #80FFFF; /* Un cian más claro en el punto medio */
-                text-shadow: 0 0 5px #00FFFF, 0 0 8px #00FFFF;
-            }
-            100% {
-                color: #00FFFF;
-                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
-            }
-        }
-
-        .menu-link-glow {
-            animation: menu-glow 2s infinite alternate ease-in-out; /* Aplica la animación de brillo */
-        }
+        /* Se ha eliminado la animación de brillo para los enlaces del menú */
+        /* @keyframes menu-glow { ... } */
+        /* .menu-link-glow { animation: menu-glow 2s infinite alternate ease-in-out; } */
 
         /* Estilo para el borde de texto (text-stroke) */
         .text-stroke-cyan {
@@ -132,12 +116,12 @@
         }
 
         /* Efecto de Brillo y Elevación en Enlaces de Menú al pasar el ratón */
-        .menu-link-glow {
+        /* Se ha eliminado la animación continua de brillo */
+        .menu-link-hover-effect { /* Nueva clase para efectos de hover */
             position: relative;
             transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-            animation: menu-glow 2s infinite alternate ease-in-out; /* Aplica la animación de brillo */
         }
-        .menu-link-glow::before {
+        .menu-link-hover-effect::before {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -150,16 +134,16 @@
             transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
             opacity: 0;
         }
-        .menu-link-glow:hover::before {
+        .menu-link-hover-effect:hover::before {
             width: calc(100% - 20px); /* Ajusta el ancho del subrayado según la longitud deseada */
             opacity: 1;
             background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
         }
-        .menu-link-glow:hover .nav-menu-text-stroke-cyan {
+        .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
             color: #ffffff; /* Mantiene el blanco puro al pasar el ratón */
             -webkit-text-stroke-color: #00FFFF; /* Borde cian al pasar el ratón */
         }
-        .menu-link-glow:hover {
+        .menu-link-hover-effect:hover {
              transform: translateY(-5px); /* Eleva el enlace un poco más para un "salto" más notorio */
         }
 
@@ -315,6 +299,7 @@
             border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
         }
 
+        /* Hover de subcategorías en verde agua para escritorio */
         .js-dropdown-menu a {
             display: block;
             padding: 0.75rem 1.25rem;
@@ -324,7 +309,7 @@
         }
 
         .js-dropdown-menu a:hover {
-            background-color: #FFD700; /* Amarillo dorado al pasar el ratón */
+            background-color: #00FFFF; /* Cian eléctrico para el fondo */
             color: #0A0A1A; /* Texto oscuro al pasar el ratón */
         }
 
@@ -407,6 +392,7 @@
             padding: 0.5rem 0; /* Relleno dentro del desplegable */
         }
 
+        /* Hover de subcategorías en verde agua para móvil */
         .js-dropdown-menu-mobile a {
             padding: 0.75rem 1.5rem; /* Indentar los sub-elementos */
             text-align: left;
@@ -414,7 +400,7 @@
         }
 
         .js-dropdown-menu-mobile a:hover {
-            background-color: #FFD700; /* Amarillo dorado al pasar el ratón */
+            background-color: #00FFFF; /* Cian eléctrico para el fondo */
             color: #0A0A1A; /* Texto oscuro al pasar el ratón */
         }
     </style>
@@ -424,12 +410,10 @@
     <header class="bg-byte-dark-bg text-byte-text-light py-4 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto flex justify-between items-center px-6 md:px-0">
             <nav class="hidden sm:flex flex-grow justify-center">
-                <ul class="flex space-x-6 items-center"> <li>
-                        <a href="#inicio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow"> <span class="nav-menu-text-stroke-cyan">Inicio</span>
-                        </a>
-                    </li>
+                <ul class="flex space-x-6 items-center">
                     <li class="relative group">
-                        <a href="#servicios" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-servicios"> <span class="nav-menu-text-stroke-cyan">Servicios</span>
+                        <a href="#servicios" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                            <span class="nav-menu-text-stroke-cyan">Servicios</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -442,7 +426,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#portafolio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-portafolio"> <span class="nav-menu-text-stroke-cyan">Portafolio</span>
+                        <a href="#portafolio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                            <span class="nav-menu-text-stroke-cyan">Portafolio</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -456,7 +441,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#proceso" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos"> <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
+                        <a href="#proceso" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                            <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -467,7 +453,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-eventos"> <span class="nav-menu-text-stroke-cyan">Eventos</span>
+                        <a href="#" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                            <span class="nav-menu-text-stroke-cyan">Eventos</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -478,7 +465,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#reseñas" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-reseñas"> <span class="nav-menu-text-stroke-cyan">Reseñas</span>
+                        <a href="#reseñas" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                            <span class="nav-menu-text-stroke-cyan">Reseñas</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -488,7 +476,8 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#contacto" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-glow js-dropdown-toggle" data-dropdown-id="dropdown-contacto"> <span class="nav-menu-text-stroke-cyan">Contacto</span>
+                        <a href="#contacto" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                            <span class="nav-menu-text-stroke-cyan">Contacto</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
@@ -518,85 +507,80 @@
     <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40">
         <ul class="flex flex-col space-y-4 text-center">
             <li>
-                <a href="#inicio" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow">
-                    <span class="nav-menu-text-stroke-cyan">Inicio</span>
-                </a>
-            </li>
-            <li>
-                <a href="#servicios" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
+                <a href="#servicios" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
                     <span class="nav-menu-text-stroke-cyan">Servicios</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
                 </div>
             </li>
             <li>
-                <a href="#portafolio" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
+                <a href="#portafolio" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
                     <span class="nav-menu-text-stroke-cyan">Portafolio</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                 </div>
             </li>
             <li>
-                <a href="#proceso" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                <a href="#proceso" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
                     <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
                 </div>
             </li>
             <li>
-                <a href="#" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-eventos-mobile">
+                <a href="#" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-eventos-mobile">
                     <span class="nav-menu-text-stroke-cyan">Eventos</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-eventos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
                 </div>
             </li>
             <li>
-                <a href="#reseñas" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                <a href="#reseñas" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
                     <span class="nav-menu-text-stroke-cyan">Reseñas</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                    <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                 </div>
             </li>
             <li>
-                <a href="#contacto" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-glow js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
+                <a href="#contacto" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
                     <span class="nav-menu-text-stroke-cyan">Contacto</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
                 <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                 </div>
             </li>
             <li>
