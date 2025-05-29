@@ -8,6 +8,13 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
+        /* Estilos base para HTML y Body */
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden; /* Evita el desplazamiento horizontal */
+        }
+
         /* Colores Personalizados */
         .bg-byte-dark-bg { background-color: #1a1a2e; } /* Azul/morado oscuro profundo */
         .text-byte-text-light { color: #e0e0e0; } /* Blanco roto para texto general */
@@ -422,6 +429,11 @@
             visibility: hidden; /* Oculto para accesibilidad */
             transition: opacity 0.3s ease, visibility 0.3s ease;
             border: 1px solid #00bcd4; /* Borde cian sutil */
+
+            /* Ocultar en pantallas más pequeñas que 640px (breakpoint 'sm' de Tailwind) */
+            @media (max-width: 639px) {
+                display: none !important; /* Asegura que se oculte en móviles */
+            }
         }
 
         .cookie-banner.show {
@@ -661,8 +673,8 @@
         </ul>
     </nav>
 
-    <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
+    <section id="inicio" class="relative bg-byte-dark-bg text-white min-h-[60vh] py-20 md:min-h-[70vh] md:py-32 overflow-hidden flex items-center justify-center border-2 border-red-500">
+        <img src="./images/609.jpg" onerror="this.src='https://via.placeholder.com/1920x1080/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
@@ -1022,35 +1034,33 @@
                 whatsappFloatButton.addEventListener('mouseleave', hideWhatsappPopupHover);
             }
 
-
-            if (!hasAcceptedCookies && cookieBanner) {
-                cookieBanner.classList.add('show');
-
-                // No es necesario ajustar el botón de WhatsApp ya que el banner no lo empuja desde abajo
-                // if (whatsappFloatButton) {
-                //     whatsappFloatButton.style.transition = 'bottom 0.5s ease-out';
-                //     whatsappFloatButton.style.bottom = '134px';
-                // }
-
-                acceptCookiesBtn.addEventListener('click', () => {
-                    cookieBanner.classList.remove('show'); // Inicia la animación de salida (fade out)
-                    
-                    // No es necesario ajustar el botón de WhatsApp de vuelta
-                    // if (whatsappFloatButton) {
-                    //     whatsappFloatButton.style.bottom = '24px';
-                    // }
-
-                    // Oculta completamente después de la animación y guarda el consentimiento
-                    setTimeout(() => {
-                        cookieBanner.classList.add('hidden'); // Oculta completamente
-                        localStorage.setItem('byte_cookies_accepted', 'true'); // Guarda el consentimiento
-                        showWhatsappPopupTimed(); // Mostrar el mensaje de WhatsApp solo después de aceptar cookies
-                    }, 300); // Coincide con la duración de la transición CSS del fade out
-                });
-            } else if (cookieBanner) {
-                cookieBanner.classList.add('hidden'); // Si ya aceptó, no mostrar el banner
-                showWhatsappPopupTimed(); // Si las cookies ya fueron aceptadas, mostrar el popup al cargar la página
+            // Lógica para el banner de cookies: ocultar en móviles, mostrar en escritorio
+            if (cookieBanner) { // Asegurarse de que el elemento existe
+                if (window.innerWidth < 640) {
+                    // En móviles, "aceptar" las cookies automáticamente y ocultar el banner
+                    localStorage.setItem('byte_cookies_accepted', 'true');
+                    cookieBanner.classList.add('hidden'); // Asegura que esté oculto
+                    // No se muestra el popup de WhatsApp aquí, ya que el usuario no interactuó.
+                } else {
+                    // En escritorio, si las cookies no han sido aceptadas, mostrar el banner
+                    if (!hasAcceptedCookies) {
+                        cookieBanner.classList.add('show');
+                        acceptCookiesBtn.addEventListener('click', () => {
+                            cookieBanner.classList.remove('show');
+                            setTimeout(() => {
+                                cookieBanner.classList.add('hidden');
+                                localStorage.setItem('byte_cookies_accepted', 'true');
+                                showWhatsappPopupTimed(); // Mostrar el mensaje de WhatsApp después de aceptar
+                            }, 300);
+                        });
+                    } else {
+                        // Si ya aceptó en escritorio, ocultar el banner y mostrar el popup de WhatsApp
+                        cookieBanner.classList.add('hidden');
+                        showWhatsappPopupTimed();
+                    }
+                }
             }
+
 
             // Lógica para el menú móvil
             const mobileMenuButton = document.getElementById('mobile-menu-button');
