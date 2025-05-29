@@ -16,8 +16,17 @@
             min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
             width: 100%; /* Asegura que el body ocupe el ancho completo */
             overflow-x: hidden; /* Evita el desplazamiento horizontal */
-            /* Animación de fondo eliminada para mejorar el rendimiento en móviles */
-            background-color: #1a1a2e; /* Color de fondo estático */
+            /* Animación de degradado de fondo para el body */
+            background: linear-gradient(270deg, #1a1a2e, #2e2e4a, #1a1a2e); /* Degradado de 3 colores */
+            background-size: 600% 600%; /* Permite el movimiento del degradado */
+            animation: subtle-gradient-move 15s ease infinite; /* Animación más lenta y sutil */
+        }
+
+        /* Animación de degradado de fondo para secciones */
+        @keyframes subtle-gradient-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Colores Personalizados */
@@ -113,7 +122,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Se mantiene la imagen de fondo, pero se recomienda optimizarla */
+            /* Se mantiene la imagen de fondo, pero se recomienda optimizarla y asegurar que la URL sea pública. */
+            /* Si contact-bg.jpg es un archivo local, no se mostrará en este entorno. */
             background: linear-gradient(to bottom, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7)), url('./images/contact-bg.jpg') center center/cover no-repeat;
             opacity: 0.2; /* Imagen de fondo sutil */
             z-index: 0;
@@ -449,9 +459,11 @@
             transform: scale(1.05);
         }
 
-        /* Fondo estático para la sección de servicios (animación removida) */
+        /* Fondo de la sección de servicios con animación de degradado */
         .animated-services-bg {
-            background-color: #2e2e4a; /* Fondo oscuro secundario estático */
+            background: linear-gradient(270deg, #1a1a2e, #2e2e4a, #1a1a2e); /* Degradado de 3 colores */
+            background-size: 600% 600%; /* Permite el movimiento del degradado */
+            animation: subtle-gradient-move 15s ease infinite; /* Animación más lenta y sutil */
         }
     </style>
 </head>
@@ -653,7 +665,7 @@
     </nav>
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white min-h-[60vh] py-20 md:min-h-[70vh] md:py-32 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" onerror="this.src='https://placehold.co/1200x800/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
+        <img src="https://placehold.co/1200x800/0000FF/FFFFFF?text=Fondo+de+Inicio" onerror="this.src='https://placehold.co/1200x800/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
