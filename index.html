@@ -6,7 +6,7 @@
     <title>Byte - Tu visión nuestra misión</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Configuración de Tailwind CSS para colores y fuentes personalizadas
+        // Configuración personalizada de Tailwind CSS
         tailwind.config = {
             theme: {
                 extend: {
@@ -30,11 +30,12 @@
     </script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Importación de fuentes desde Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
 
-        /* Universal Box-Sizing */
+        /* Universal Box-Sizing para asegurar un modelo de caja consistente */
         *, *::before, *::after {
             box-sizing: border-box;
         }
@@ -42,29 +43,29 @@
         /* Estilos base para HTML y Body */
         html {
             height: 100%; /* Asegura que HTML tenga altura completa */
-            width: 100%; /* Explicitly set width to 100% */
+            width: 100%; /* Asegura que HTML tenga ancho completo */
         }
         body {
             min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
             width: 100%; /* Asegura que el body ocupe el ancho completo */
-            overflow-x: hidden; /* Evita el desplazamiento horizontal */
-            /* Fondo estático sin animaciones */
-            background-color: #0A0A1A; /* Color de fondo oscuro principal de tailwind.config */
+            overflow-x: hidden; /* Evita el desplazamiento horizontal no deseado */
+            background-color: #0A0A1A; /* Color de fondo oscuro principal */
             font-family: 'Inter', sans-serif; /* Fuente principal */
-            color: #F9FAFB; /* Color de texto principal de tailwind.config */
+            color: #F9FAFB; /* Color de texto principal */
             margin: 0;
             padding: 0;
-            -webkit-user-select: none; /* Deshabilita la selección de texto */
+            /* Deshabilita la selección de texto para una experiencia más de aplicación */
+            -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* Estilos para encabezados */
+        /* Estilos para encabezados (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif; /* Fuente para encabezados */
             color: #00FFFF; /* Cian eléctrico para acentos */
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para el brillo */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para un efecto de brillo */
         }
 
         /* Animación de brillo para los enlaces del menú */
@@ -74,7 +75,7 @@
                 text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
             }
             50% {
-                color: #80FFFF;
+                color: #80FFFF; /* Un cian más claro en el punto medio */
                 text-shadow: 0 0 5px #00FFFF, 0 0 8px #00FFFF;
             }
             100% {
@@ -84,15 +85,15 @@
         }
 
         .menu-link-glow {
-            animation: menu-glow 2s infinite alternate ease-in-out;
+            animation: menu-glow 2s infinite alternate ease-in-out; /* Aplica la animación de brillo */
         }
 
         /* Estilo para el borde de texto (text-stroke) */
         .text-stroke-cyan {
-            -webkit-text-stroke: 1.5px #00FFFF; /* Para navegadores basados en WebKit */
-            text-stroke: 1.5px #00FFFF; /* Estándar */
+            -webkit-text-stroke: 1.5px #00FFFF; /* Borde cian para navegadores WebKit */
+            text-stroke: 1.5px #00FFFF; /* Borde cian estándar */
             color: #FFFFFF; /* Color de relleno del texto */
-            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran si no se desean */
+            text-shadow: none; /* Asegura que no haya sombras de texto que interfieran */
         }
 
         /* Animación de "caída" al hacer scroll para AOS */
@@ -115,14 +116,14 @@
             animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        /* Colores Personalizados (se mantienen para compatibilidad con el código original, aunque ahora se usan los de tailwind.config) */
+        /* Colores Personalizados (se mantienen para compatibilidad y claridad, aunque definidos en tailwind.config) */
         .bg-byte-dark-bg { background-color: #0A0A1A; }
         .text-byte-text-light { color: #F9FAFB; }
         .text-byte-accent-cyan { color: #00FFFF; }
         .bg-byte-secondary-dark { background-color: #1A202C; }
         .bg-whatsapp-green { background-color: #25D366; }
 
-        /* Estilo para los textos del menú de navegación (ajustado para usar las nuevas variables de color) */
+        /* Estilo para los textos del menú de navegación con borde cian */
         .nav-menu-text-stroke-cyan {
             color: white; /* Color de la letra blanca */
             -webkit-text-stroke-width: 0.7px; /* Borde cian más fino para texto pequeño */
@@ -130,11 +131,11 @@
             transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out;
         }
 
-        /* Efecto de Brillo en Enlaces de Menú (Modificado para animación y color de hover) */
+        /* Efecto de Brillo y Elevación en Enlaces de Menú al pasar el ratón */
         .menu-link-glow {
             position: relative;
             transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
-            animation: menu-glow 2s infinite alternate ease-in-out; /* Aplicar la animación de brillo */
+            animation: menu-glow 2s infinite alternate ease-in-out; /* Aplica la animación de brillo */
         }
         .menu-link-glow::before {
             content: '';
@@ -150,11 +151,10 @@
             opacity: 0;
         }
         .menu-link-glow:hover::before {
-            width: calc(100% - 20px); /* Ajusta el ancho según la longitud deseada del brillo */
+            width: calc(100% - 20px); /* Ajusta el ancho del subrayado según la longitud deseada */
             opacity: 1;
-            background-color: #00FFFF; /* Asegura que el underline sea cian al pasar el ratón */
+            background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
         }
-        /* Nueva regla para el efecto de elevación y cambio de color al pasar el ratón */
         .menu-link-glow:hover .nav-menu-text-stroke-cyan {
             color: #ffffff; /* Mantiene el blanco puro al pasar el ratón */
             -webkit-text-stroke-color: #00FFFF; /* Borde cian al pasar el ratón */
@@ -163,13 +163,13 @@
              transform: translateY(-5px); /* Eleva el enlace un poco más para un "salto" más notorio */
         }
 
-        /* Estilos para las Tarjetas de Servicio (Mejorados) */
+        /* Estilos para las Tarjetas de Servicio */
         .service-card {
-            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Degradado sutil */
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Degradado sutil para el fondo */
             border-radius: 1rem; /* Bordes más redondeados */
             padding: 2.5rem; /* Más padding */
             box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color del acento */
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out; /* Transición suave para todos los cambios */
             border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
             display: flex;
             flex-direction: column;
@@ -178,8 +178,8 @@
         }
 
         .service-card:hover {
-            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada */
+            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño al pasar el ratón */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
             border-color: #00FFFF; /* Borde más visible al hover */
         }
 
@@ -207,7 +207,7 @@
             line-height: 1.6;
         }
 
-        /* Estilos Específicos de la Sección de Contacto (Mejorados) */
+        /* Estilos Específicos de la Sección de Contacto */
         .contact-section {
             background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Degradado de fondo */
             padding: 5rem 0;
@@ -223,7 +223,7 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate-gradient 20s linear infinite;
+            animation: rotate-gradient 20s linear infinite; /* Animación de rotación para el fondo */
             z-index: 0;
         }
 
@@ -302,11 +302,11 @@
         /* Estilos para menús desplegables de escritorio */
         .js-dropdown-menu {
             position: absolute;
-            top: 100%; /* Justo debajo del botón */
+            top: 100%; /* Justo debajo del botón padre */
             left: 50%;
             transform: translateX(-50%);
             min-width: 180px; /* Ancho mínimo para los items */
-            background-color: #1A202C; /* Usar el color secundario oscuro de tailwind.config */
+            background-color: #1A202C; /* Color secundario oscuro */
             border-radius: 0.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             z-index: 1000;
@@ -332,7 +332,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #25D366;
+            background-color: #25D366; /* Verde de WhatsApp */
             color: white;
             width: 60px;
             height: 60px;
@@ -343,14 +343,12 @@
             font-size: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             z-index: 9999;
-            /* No transitions for instant appearance/disappearance */
             cursor: pointer;
-            /* Shake animation */
-            animation: whatsapp-shake 0.8s infinite alternate ease-in-out; /* 0.8s duration, infinite, alternate, ease-in-out */
-            animation-delay: 8s; /* Start after 8 seconds */
+            animation: whatsapp-shake 0.8s infinite alternate ease-in-out; /* Animación de temblor */
+            animation-delay: 8s; /* Retraso antes de que comience la animación */
         }
 
-        /* WhatsApp Shake Animation */
+        /* Animación de temblor de WhatsApp */
         @keyframes whatsapp-shake {
             0% { transform: translateX(0); }
             25% { transform: translateX(-5px) rotate(-3deg); }
@@ -360,13 +358,13 @@
         }
 
         .whatsapp-float-button:hover {
-            background-color: #128C7E;
+            background-color: #128C7E; /* Tono más oscuro al pasar el ratón */
         }
 
         /* WhatsApp Message Popup */
         .whatsapp-message-popup {
             position: fixed;
-            bottom: 90px; /* Above the button */
+            bottom: 90px; /* Encima del botón flotante */
             right: 20px;
             background-color: #fefefe;
             color: #333;
@@ -377,9 +375,9 @@
             max-width: 200px;
             text-align: center;
             opacity: 0;
-            visibility: hidden; /* Use visibility for instant hide/show */
-            z-index: 9998; /* Below the button */
-            pointer-events: none; /* Allows clicks to pass through when hidden */
+            visibility: hidden; /* Controlado por JS para mostrar/ocultar */
+            z-index: 9998; /* Debajo del botón */
+            pointer-events: none; /* Permite clics a través cuando está oculto */
         }
 
         .whatsapp-message-popup.show {
@@ -397,12 +395,12 @@
             height: 0;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-top: 10px solid #fefefe;
+            border-top: 10px solid #fefefe; /* Crea la punta del globo de diálogo */
         }
 
-        /* Mobile Dropdown Specific Styles */
+        /* Estilos específicos para menús desplegables móviles */
         .js-dropdown-menu-mobile {
-            background-color: #1A202C; /* Usar el color secundario oscuro */
+            background-color: #1A202C; /* Color secundario oscuro */
             border-radius: 0.5rem;
             margin-top: 0.5rem; /* Espacio entre el enlace padre y el submenú */
             padding: 0.5rem 0; /* Relleno dentro del desplegable */
@@ -411,7 +409,7 @@
         .js-dropdown-menu-mobile a {
             padding: 0.75rem 1.5rem; /* Indentar los sub-elementos */
             text-align: left;
-            border-radius: 0; /* Quitar bordes redondeados para elementos individuales si están dentro de un padre redondeado */
+            border-radius: 0; /* Quitar bordes redondeados para elementos individuales */
         }
 
         .js-dropdown-menu-mobile a:hover {
@@ -419,80 +417,98 @@
             color: #0A0A1A; /* Texto oscuro al pasar el ratón */
         }
 
-        /* Consent Banner Styles */
+        /* Consent Banner Styles - MODIFICADO para ser un modal centrado */
         .consent-banner {
             position: fixed;
-            bottom: 0;
-            left: 0;
+            top: 0; /* Cubrir toda la altura */
+            left: 0; /* Cubrir todo el ancho */
             width: 100%;
-            background-color: #1A202C; /* byte-secondary-dark */
-            color: #F9FAFB; /* byte-text-light */
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-            z-index: 10000;
-            text-align: center;
-            font-size: 0.9rem;
-            opacity: 0; /* Initially hidden */
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Fondo semitransparente oscuro */
+            color: #F9FAFB;
+            display: flex; /* Usar flexbox para centrar contenido */
+            flex-direction: column; /* Apilar elementos verticalmente */
+            align-items: center; /* Centrar horizontalmente */
+            justify-content: center; /* Centrar verticalmente */
+            z-index: 10000; /* Asegura que esté por encima de todo */
+            opacity: 0;
             visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease; /* Transición suave para mostrar/ocultar */
         }
-        .consent-banner.show {
-            opacity: 1;
-            visibility: visible;
+
+        /* Contenido del banner de consentimiento (interno al .consent-banner) */
+        .consent-banner .consent-content {
+            background-color: #1A202C; /* Fondo secundario oscuro */
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px; /* Ancho máximo para el modal */
+            width: 90%; /* Ancho responsivo */
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #00FFFF; /* Borde cian de acento */
+            animation: fadeInScale 0.3s ease-out forwards; /* Animación de entrada */
         }
+
+        /* Botón del banner de consentimiento */
         .consent-banner button {
-            background-color: #00FFFF; /* byte-accent-cyan */
-            color: #0A0A1A; /* byte-dark-bg */
-            padding: 8px 20px;
-            border-radius: 20px;
+            background-color: #00FFFF;
+            color: #0A0A1A;
+            padding: 10px 25px; /* Más padding para el botón */
+            border-radius: 25px; /* Bordes más redondeados */
             font-weight: bold;
             border: none;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            margin-top: 20px; /* Espacio superior */
         }
         .consent-banner button:hover {
-            background-color: #00D4D4; /* Slightly darker cyan */
+            background-color: #00D4D4; /* Cian ligeramente más oscuro al pasar el ratón */
+            transform: translateY(-2px); /* Pequeña elevación */
         }
 
-        /* Development Modal Styles */
+        /* Development Modal Styles (ya estaban bien centrados, se añadieron transiciones) */
         .development-modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente oscuro */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10001; /* Higher than everything else */
+            z-index: 10001; /* Más alto que el banner de consentimiento */
             opacity: 0;
             visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease; /* Transición para mostrar/ocultar */
         }
         .development-modal-overlay.show {
             opacity: 1;
             visibility: visible;
         }
         .development-modal-content {
-            background-color: #1A202C; /* byte-secondary-dark */
-            color: #F9FAFB; /* byte-text-light */
+            background-color: #1A202C; /* Fondo secundario oscuro */
+            color: #F9FAFB;
             padding: 30px;
             border-radius: 15px;
             text-align: center;
             width: 90%;
             max-width: 450px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
-            border: 1px solid #00FFFF; /* byte-accent-cyan */
+            border: 1px solid #00FFFF; /* Borde cian de acento */
+            animation: fadeInScale 0.3s ease-out forwards; /* Animación de entrada */
         }
+        /* Animación para la aparición de los modales */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         .development-modal-content h3 {
             font-size: 1.8rem;
             font-weight: bold;
             margin-bottom: 20px;
-            color: #00FFFF; /* byte-accent-cyan */
+            color: #00FFFF;
         }
         .development-modal-content p {
             margin-bottom: 25px;
@@ -517,30 +533,51 @@
             justify-content: center;
         }
         .development-modal-buttons .btn-accept {
-            background-color: #00FFFF; /* byte-accent-cyan */
-            color: #0A0A1A; /* byte-dark-bg */
+            background-color: #00FFFF;
+            color: #0A0A1A;
             border: none;
         }
         .development-modal-buttons .btn-accept:hover {
-            background-color: #00D4D4; /* Slightly darker cyan */
+            background-color: #00D4D4;
         }
         .development-modal-buttons .btn-whatsapp {
-            background-color: #25D366; /* whatsapp-green */
+            background-color: #25D366;
             color: white;
             border: none;
         }
         .development-modal-buttons .btn-whatsapp:hover {
-            background-color: #128C7E; /* whatsapp-dark-green */
+            background-color: #128C7E;
         }
     </style>
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal min-h-screen flex flex-col">
 
-    <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
-        <div class="container mx-auto px-4 flex items-center justify-between">
-            <a href="#" class="flex items-center sm:flex-grow sm:justify-start">
-                </a>
+    <div id="consent-banner" class="consent-banner">
+        <div class="consent-content">
+            <h3 class="text-2xl font-bold mb-4 text-byte-accent-cyan">Aviso de Cookies y Términos</h3>
+            <p>Para mejorar tu experiencia y cumplir con la normativa, necesitamos que aceptes nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white disabled-link">Términos de Servicio</a> y el uso de cookies en nuestra página.</p>
+            <button id="accept-consent-btn">Aceptar y Continuar</button>
+        </div>
+    </div>
 
+    <div id="development-modal-overlay" class="development-modal-overlay">
+        <div class="development-modal-content">
+            <h3>¡Página en Desarrollo!</h3>
+            <p>El equipo de Byte sigue desarrollando esta página web. Es posible que esté incompleta o no funcione como se espera.</p>
+            <div class="development-modal-buttons">
+                <button id="dev-modal-accept-btn" class="btn-accept">Aceptar</button>
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
+                    </svg>
+                    WhatsApp contáctanos
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <header class="bg-byte-dark-bg text-byte-text-light py-4 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
+        <div class="container mx-auto flex justify-between items-center px-6 md:px-0">
             <nav class="hidden sm:flex flex-grow justify-center">
                 <ul class="flex space-x-8 items-center">
                     <li>
@@ -736,7 +773,7 @@
 
     <main class="flex-grow">
         <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-            <img src="./images/609.jpg" onerror="this.src='https://placehold.co/1200x800/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
+            <img src="https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Fondo+de+Inicio" onerror="this.src='https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
                  class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
             <div class="container mx-auto px-4 relative z-10 text-center"
@@ -851,7 +888,7 @@
                             </a>
                         </div>
                         <div class="mt-8 map-container rounded-lg shadow-md">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.115998129486!2d-66.9209594852033!3d10.49969629252323!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59123456789b%3A0x123456789abcdef0!2sPlaza%20Sucre!5e0!3m2!1ses-419!2sve!4v1678901234567!5m2!1ses-419!2sve" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.364239843336!2d-66.9202685852026!3d10.49129599252329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59a7a9a7a9a9%3A0x123456789abcdef!2sPlaza%20Sucre%2C%20Caracas%2C%20Capital%20District%2C%20Venezuela!5e0!3m2!1sen!2sus!4m2!3d10.491296!4d-66.918079!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
                 </div>
@@ -876,16 +913,20 @@
         </div>
     </footer>
 
-    <div id="whatsapp-float-button" class="whatsapp-float-button">
+    <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="whatsapp-float-button" id="whatsapp-float-button">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12.047 2.047a9.91 9.91 0 0 0-9.91 9.91 9.91 0 0 0 1.32 4.95l-1.37 5.02 5.1-.31a9.91 9.91 0 0 0 4.86 1.25c5.47 0 9.91-4.44 9.91-9.91s-4.44-9.91-9.91-9.91zm.04 1.5a8.36 8.36 0 0 1 8.36 8.36c0 4.61-3.75 8.36-8.36 8.36a8.36 8.36 0 0 1-4.12-1.07l-.29-.17-2.99.18.18-2.92-.17-.29a8.36 8.36 0 0 1-1.07-4.12c0-4.61 3.75-8.36 8.36-8.36zM17.34 14.73c-.2-.1-.7-.34-.81-.38-.11-.04-.2-.04-.29.04-.09.09-.34.38-.42.46-.08.09-.17.09-.31.04-.14-.04-.59-.22-.75-.46-.16-.24-.09-.22-.17-.38-.08-.16-.02-.14-.11-.31-.09-.17-.7-.91-.97-1.24-.27-.34-.22-.29-.31-.46-.09-.17-.02-.14-.08-.29-.06-.15-.46-1.1-.63-1.52-.17-.42-.34-.34-.46-.34-.12 0-.26-.02-.4-.02-.14 0-.38.04-.59.22-.2.18-.75.7-.75 1.71 0 1.01.77 1.98.88 2.13.11.15 1.52 2.32 3.69 3.23.52.22.93.34 1.25.46.52.2.63.17.81.15.2-.02.7-.29.81-.59.11-.29.11-.54.08-.63-.04-.09-.14-.17-.29-.26z"/>
         </svg>
-    </div>
+    </a>
     <div id="whatsapp-message-popup" class="whatsapp-message-popup">
         ¿Tienes alguna pregunta? ¡Chatea con nosotros!
     </div>
 
     <script type="text/javascript">
+        // Este es un placeholder para la integración de tu chatbot.
+        // Si tienes un script de chatbot real, deberías pegarlo aquí.
+        // Por ejemplo, el código de ChatSimple que tenías:
+        /*
         (function() {
             var chatBotEl = document.createElement('chat-bot');
             chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
@@ -901,25 +942,8 @@
             cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
             document.body.appendChild(cs);
         })();
+        */
     </script>
-
-    <div id="consent-banner" class="consent-banner">
-        <p>Debes aceptar nuestros términos y condiciones además aceptar nuestros cookies.</p>
-        <button id="accept-consent-btn">Aceptar</button>
-    </div>
-
-    <div id="development-modal-overlay" class="development-modal-overlay">
-        <div class="development-modal-content">
-            <h3>¡Página en Desarrollo!</h3>
-            <p>El equipo de Byte sigue desarrollando esta página web. Es posible que esté incompleta o no funcione como se espera.</p>
-            <div class="development-modal-buttons">
-                <button id="dev-modal-accept-btn" class="btn-accept">Aceptar</button>
-                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
-                    WhatsApp contáctanos
-                </a>
-            </div>
-        </div>
-    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -932,29 +956,33 @@
             easing: 'ease-out-cubic', // Función de temporización para la animación
         });
 
-        let entranceSynth; // Sintetizador para el sonido de bienvenida al cargar la página
+        let entranceSynth; // Declaración del sintetizador para el sonido de bienvenida
 
         // Función para reproducir el sonido de bienvenida
         function playEntranceSound() {
             if (typeof Tone !== 'undefined' && entranceSynth) {
                 const now = Tone.context.currentTime;
+                // Reproduce un acorde C4, E4, G4 con una duración de "8n" (octava nota)
                 entranceSynth.triggerAttackRelease(["C4", "E4", "G4"], "8n", now);
             }
         }
 
-        window.addEventListener('load', () => {
+        // Función para inicializar Tone.js
+        function initializeToneJs() {
             if (typeof Tone !== 'undefined') {
+                // Inicia el contexto de audio de Tone.js (requiere interacción del usuario en algunos navegadores)
                 Tone.start().then(() => {
                     console.log("Tone.js context started.");
+                    // Crea un sintetizador polifónico con un oscilador de tipo triángulo
                     entranceSynth = new Tone.PolySynth(Tone.Synth, {
                         oscillator: { type: "triangle" },
                         envelope: { attack: 0.01, decay: 0.2, sustain: 0, release: 0.1 },
-                        volume: -10
+                        volume: -10 // Volumen del sintetizador
                     });
+                    // Agrega un efecto de reverberación y lo conecta al destino de audio principal
                     const entranceReverb = new Tone.Reverb({ decay: 1, preDelay: 0.05, wet: 0.3 }).toDestination();
                     entranceSynth.chain(entranceReverb, Tone.Destination);
-                    Tone.Master.volume.value = -8; 
-                    playEntranceSound(); 
+                    Tone.Master.volume.value = -8; // Volumen maestro
                 }).catch(e => {
                     console.error("Error al iniciar el contexto de audio de Tone.js:", e);
                     console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
@@ -962,38 +990,43 @@
             } else {
                 console.warn("Tone.js no está definido. Los sonidos no se reproducirán.");
             }
+        }
 
-            // WhatsApp Floating Button Logic (animations removed from CSS, shake added to CSS)
+        window.addEventListener('load', () => {
+            // Lógica para el botón flotante de WhatsApp y su popup
             const whatsappFloatButton = document.getElementById('whatsapp-float-button');
             const whatsappMessagePopup = document.getElementById('whatsapp-message-popup');
             let whatsappPopupTimeout;
 
             function showWhatsappPopup() {
-                clearTimeout(whatsappPopupTimeout);
+                clearTimeout(whatsappPopupTimeout); // Limpia cualquier timeout existente para evitar que se cierre
                 whatsappMessagePopup.classList.add('show');
             }
 
             function hideWhatsappPopup() {
+                // Establece un pequeño retraso antes de ocultar el popup
                 whatsappPopupTimeout = setTimeout(() => {
                     whatsappMessagePopup.classList.remove('show');
-                }, 300); // Small delay before hiding
+                }, 300);
             }
 
             if (whatsappFloatButton && whatsappMessagePopup) {
                 whatsappFloatButton.addEventListener('mouseenter', showWhatsappPopup);
                 whatsappFloatButton.addEventListener('mouseleave', hideWhatsappPopup);
-                whatsappMessagePopup.addEventListener('mouseenter', showWhatsappPopup); // Keep popup open if hovering over it
+                // Asegura que el popup permanezca abierto si el ratón se mueve sobre él
+                whatsappMessagePopup.addEventListener('mouseenter', showWhatsappPopup);
                 whatsappMessagePopup.addEventListener('mouseleave', hideWhatsappPopup);
             }
 
             // Lógica para los menús desplegables de escritorio
             document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const dropdownId = this.dataset.dropdownId;
+                    event.preventDefault(); // Evita la navegación predeterminada del enlace
+                    const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
                     const dropdownMenu = document.getElementById(dropdownId);
                     const arrowIcon = this.querySelector('.js-arrow-icon');
 
+                    // Cierra otros menús desplegables de escritorio abiertos
                     document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                         if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                             menu.classList.add('hidden');
@@ -1004,6 +1037,7 @@
                         }
                     });
 
+                    // Alterna la visibilidad del menú actual y rota el icono de flecha
                     dropdownMenu.classList.toggle('hidden');
                     arrowIcon.classList.toggle('rotate-180');
                 });
@@ -1011,25 +1045,27 @@
 
             // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
             document.addEventListener('click', function(event) {
+                // Si el clic no fue dentro de un botón de dropdown o un menú de dropdown
                 if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                     document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                        menu.classList.add('hidden');
+                        menu.classList.add('hidden'); // Oculta el menú
                         const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                         if (button) {
-                            button.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                            button.querySelector('.js-arrow-icon').classList.remove('rotate-180'); // Restaura la orientación de la flecha
                         }
                     });
                 }
             });
 
-            // Lógica para el menú móvil
+            // Lógica para el menú móvil y sus desplegables
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
                     const icon = mobileMenuButton.querySelector('svg path');
+                    // Cambia el icono de hamburguesa a 'X' y viceversa
                     if (mobileMenu.classList.contains('hidden')) {
                         icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
                     } else {
@@ -1040,8 +1076,9 @@
                 // Cierra el menú móvil al hacer clic en cualquier enlace que NO sea un toggle de subcategoría
                 document.querySelectorAll('#mobile-menu a').forEach(link => {
                     link.addEventListener('click', (event) => {
+                        // Si el enlace es un toggle de subcategoría, no cierra el menú principal
                         if (link.classList.contains('js-dropdown-toggle-mobile')) {
-                            event.stopPropagation(); 
+                            event.stopPropagation(); // Evita que el clic se propague al documento y cierre el menú
                         } else {
                             mobileMenu.classList.add('hidden'); // Oculta el menú
                             mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
@@ -1053,11 +1090,12 @@
                 document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
                     button.addEventListener('click', function(event) {
                         event.preventDefault();
-                        event.stopPropagation();
+                        event.stopPropagation(); // Importante para evitar que el clic cierre el menú principal
                         const dropdownId = this.dataset.dropdownIdMobile;
                         const dropdownMenu = document.getElementById(dropdownId);
                         const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
 
+                        // Cierra otros submenús móviles abiertos
                         document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                             if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                                 menu.classList.add('hidden');
@@ -1077,41 +1115,71 @@
             // Lógica para deshabilitar enlaces con la clase 'disabled-link'
             document.querySelectorAll('a.disabled-link').forEach(link => {
                 link.addEventListener('click', function(event) {
-                    event.preventDefault();
+                    event.preventDefault(); // Evita la acción predeterminada del enlace
                 });
             });
 
-            // Consent Banner and Development Modal Logic
+            // Lógica para Modales (Consentimiento y Desarrollo)
             const consentBanner = document.getElementById('consent-banner');
             const acceptConsentBtn = document.getElementById('accept-consent-btn');
             const developmentModalOverlay = document.getElementById('development-modal-overlay');
             const devModalAcceptBtn = document.getElementById('dev-modal-accept-btn');
 
+            // Verifica si el usuario ya ha aceptado el consentimiento (persistencia en localStorage)
             const hasAcceptedConsent = localStorage.getItem('byte_consent_accepted');
+            // Verifica si el modal de desarrollo ya se ha mostrado en esta sesión (persistencia en sessionStorage)
             const hasSeenDevModalInSession = sessionStorage.getItem('byte_dev_modal_seen');
 
-            if (!hasAcceptedConsent) {
-                consentBanner.classList.add('show');
+            // Función para mostrar un modal (añade la clase 'show' y deshabilita el scroll del body)
+            function showModal(modalElement) {
+                modalElement.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Deshabilita el scroll del body
             }
 
+            // Función para ocultar un modal (remueve la clase 'show' y restaura el scroll si no hay otros modales abiertos)
+            function hideModal(modalElement) {
+                modalElement.classList.remove('show');
+                // Solo restaura el scroll si ningún otro modal está visible
+                if (!consentBanner.classList.contains('show') && !developmentModalOverlay.classList.contains('show')) {
+                    document.body.style.overflow = '';
+                }
+            }
+
+            // Lógica inicial al cargar la página:
+            if (!hasAcceptedConsent) {
+                showModal(consentBanner); // Si no ha aceptado el consentimiento, muestra el banner de cookies primero
+            } else {
+                // Si el consentimiento ya fue aceptado, verifica si el modal de desarrollo se ha visto en esta sesión
+                if (!hasSeenDevModalInSession) {
+                    showModal(developmentModalOverlay); // Si no se ha visto, muestra el modal de desarrollo
+                    sessionStorage.setItem('byte_dev_modal_seen', 'true'); // Marca el modal de desarrollo como visto para esta sesión
+                }
+                initializeToneJs(); // Inicializa Tone.js si el consentimiento ya está aceptado
+            }
+
+            // Event listener para el botón de aceptar del banner de consentimiento
             if (acceptConsentBtn) {
                 acceptConsentBtn.addEventListener('click', () => {
-                    localStorage.setItem('byte_consent_accepted', 'true');
-                    consentBanner.classList.remove('show');
-                    consentBanner.style.display = 'none'; // Fully remove from layout
+                    localStorage.setItem('byte_consent_accepted', 'true'); // Guarda el estado de aceptación en localStorage
+                    hideModal(consentBanner); // Oculta el banner de consentimiento
+                    playEntranceSound(); // Reproduce el sonido de bienvenida una vez aceptado el consentimiento
 
-                    // Show development modal only after accepting consent and if not seen this session
+                    // Después de ocultar el banner de consentimiento, muestra el modal de desarrollo con un pequeño retraso
                     if (!hasSeenDevModalInSession) {
-                        developmentModalOverlay.classList.add('show');
-                        sessionStorage.setItem('byte_dev_modal_seen', 'true');
+                        setTimeout(() => {
+                            showModal(developmentModalOverlay);
+                            sessionStorage.setItem('byte_dev_modal_seen', 'true'); // Marca el modal de desarrollo como visto
+                        }, 400); // Retraso para una transición suave entre modales
                     }
+                    // Asegura que Tone.js esté inicializado (redundante si ya se llamó, pero seguro)
+                    initializeToneJs();
                 });
             }
 
+            // Event listener para el botón de aceptar del modal de desarrollo
             if (devModalAcceptBtn) {
                 devModalAcceptBtn.addEventListener('click', () => {
-                    developmentModalOverlay.classList.remove('show');
-                    developmentModalOverlay.style.display = 'none'; // Fully remove from layout
+                    hideModal(developmentModalOverlay); // Oculta el modal de desarrollo
                 });
             }
         });
