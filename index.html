@@ -16,6 +16,8 @@
             min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
             width: 100%; /* Asegura que el body ocupe el ancho completo */
             overflow-x: hidden; /* Evita el desplazamiento horizontal */
+            /* Animación de fondo eliminada para mejorar el rendimiento en móviles */
+            background-color: #1a1a2e; /* Color de fondo estático */
         }
 
         /* Colores Personalizados */
@@ -111,7 +113,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Restaurado el fondo original con la imagen y el gradiente */
+            /* Se mantiene la imagen de fondo, pero se recomienda optimizarla */
             background: linear-gradient(to bottom, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7)), url('./images/contact-bg.jpg') center center/cover no-repeat;
             opacity: 0.2; /* Imagen de fondo sutil */
             z-index: 0;
@@ -185,24 +187,6 @@
             cursor: not-allowed; /* Cursor de "no permitido" */
         }
 
-        /* Animación de fondo para toda la página */
-        body {
-            background: linear-gradient(-45deg, #1a1a2e, #2e2e4a, #00bcd4, #1a1a2e);
-            background-size: 400% 400%;
-            animation: gradientBackground 15s ease infinite;
-        }
-
-        @keyframes gradientBackground {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
         /* Estilos para menús desplegables */
         .js-dropdown-menu {
             position: absolute;
@@ -465,17 +449,9 @@
             transform: scale(1.05);
         }
 
-        /* Animación de fondo para la sección de servicios */
-        @keyframes services-bg-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* Fondo estático para la sección de servicios (animación removida) */
         .animated-services-bg {
-            background: linear-gradient(270deg, #1a1a2e, #2e2e4a, #1a1a2e); /* Un gradiente que se desplaza */
-            background-size: 200% 200%;
-            animation: services-bg-animation 15s ease infinite;
+            background-color: #2e2e4a; /* Fondo oscuro secundario estático */
         }
     </style>
 </head>
@@ -677,7 +653,7 @@
     </nav>
 
     <section id="inicio" class="relative bg-byte-dark-bg text-white min-h-[60vh] py-20 md:min-h-[70vh] md:py-32 overflow-hidden flex items-center justify-center">
-        <img src="./images/609.jpg" onerror="this.src='https://via.placeholder.com/1920x1080/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
+        <img src="./images/609.jpg" onerror="this.src='https://placehold.co/1200x800/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
         <div class="container mx-auto px-4 relative z-10 text-center"
@@ -796,7 +772,7 @@
                         </a>
                     </div>
                     <div class="mt-8 map-container rounded-lg shadow-md">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.111979435384!2d-66.92025688520267!3d10.505085466485094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581451f2d2b5%3A0x6b2e3e2b2e2b2e2b!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1678888888888!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.115998129486!2d-66.9209594852033!3d10.49969629252323!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59123456789b%3A0x123456789abcdef0!2sPlaza%20Sucre!5e0!3m2!1ses-419!2sve!4v1678901234567!5m2!1ses-419!2sve" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
