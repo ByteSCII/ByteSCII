@@ -13,6 +13,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
                     },
                     colors: {
                         'byte-dark-bg': '#0A0A1A', // Fondo oscuro principal
@@ -68,10 +69,6 @@
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para un efecto de brillo */
         }
 
-        /* Se ha eliminado la animación de brillo para los enlaces del menú */
-        /* @keyframes menu-glow { ... } */
-        /* .menu-link-glow { animation: menu-glow 2s infinite alternate ease-in-out; } */
-
         /* Estilo para el borde de texto (text-stroke) */
         .text-stroke-cyan {
             -webkit-text-stroke: 1.5px #00FFFF; /* Borde cian para navegadores WebKit */
@@ -108,15 +105,18 @@
         .bg-whatsapp-green { background-color: #25D366; }
 
         /* Estilo para los textos del menú de navegación con borde cian */
+        /* Se aplica la fuente Montserrat directamente aquí para asegurar su visualización */
         .nav-menu-text-stroke-cyan {
-            color: white; /* Color de la letra blanca */
+            color: #E0E0E0; /* Color base plateado para el texto */
             -webkit-text-stroke-width: 0.7px; /* Borde cian más fino para texto pequeño */
-            -webkit-text-stroke-color: #00FFFF; /* Usar el color de acento */
-            transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out;
+            -webkit-text-stroke-color: #A0A0A0; /* Borde gris más oscuro para efecto plateado */
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Sombra para profundidad */
+            transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            font-family: 'Montserrat', sans-serif; /* APLICADO DIRECTAMENTE AQUÍ */
+            font-style: italic; /* Fuente en cursiva */
         }
 
         /* Efecto de Brillo y Elevación en Enlaces de Menú al pasar el ratón */
-        /* Se ha eliminado la animación continua de brillo */
         .menu-link-hover-effect { /* Nueva clase para efectos de hover */
             position: relative;
             transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
@@ -140,8 +140,9 @@
             background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
         }
         .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
-            color: #ffffff; /* Mantiene el blanco puro al pasar el ratón */
-            -webkit-text-stroke-color: #00FFFF; /* Borde cian al pasar el ratón */
+            color: #00FFFF; /* Cian eléctrico al pasar el ratón */
+            -webkit-text-stroke-color: #00BFFF; /* Cian más oscuro para el borde al pasar el ratón */
+            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Brillo intenso al pasar el ratón */
         }
         .menu-link-hover-effect:hover {
              transform: translateY(-5px); /* Eleva el enlace un poco más para un "salto" más notorio */
@@ -419,10 +420,10 @@
                             </span>
                         </a>
                         <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -433,11 +434,11 @@
                             </span>
                         </a>
                         <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -448,8 +449,8 @@
                             </span>
                         </a>
                         <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
+                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Nuestra Historia</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -460,8 +461,8 @@
                             </span>
                         </a>
                         <div id="dropdown-eventos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -472,7 +473,7 @@
                             </span>
                         </a>
                         <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -483,9 +484,9 @@
                             </span>
                         </a>
                         <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-48 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-yellow-500 hover:text-black rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                         </div>
                     </li>
                 </ul>
@@ -772,10 +773,14 @@
             easing: 'ease-out-cubic', // Función de temporización para la animación
         });
 
-        // La inicialización de Tone.js y la reproducción del sonido de bienvenida han sido eliminadas.
-        // Si deseas sonido de bienvenida, deberás reintroducirlo con otro disparador.
-
         window.addEventListener('load', () => {
+            // Inicialización de Tone.js y creación de sintetizadores para sonidos
+            let openSynth, closeSynth;
+            Tone.start().then(() => {
+                openSynth = new Tone.Synth().toDestination();
+                closeSynth = new Tone.Synth().toDestination();
+            });
+
             // Lógica para el botón flotante de WhatsApp y su popup
             const whatsappFloatButton = document.getElementById('whatsapp-float-button');
             const whatsappMessagePopup = document.getElementById('whatsapp-message-popup');
@@ -843,6 +848,26 @@
             // Lógica para el menú móvil y sus desplegables
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            let colorIntervalId = null; // Variable para almacenar el ID del intervalo de cambio de color
+
+            // Colores para la animación del menú móvil
+            const mobileMenuColors = [
+                '#00FFFF', // Cian eléctrico
+                '#00BFFF', // Cian más oscuro
+                '#00E0E0', // Cian ligeramente más claro
+                '#00A0A0'  // Cian más apagado
+            ];
+            let currentColorIndex = 0;
+
+            // Función para cambiar el color de fondo de los enlaces del menú móvil
+            function animateMobileMenuColors() {
+                const mobileNavLinks = mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile');
+                mobileNavLinks.forEach(link => {
+                    link.style.backgroundColor = mobileMenuColors[currentColorIndex];
+                    link.style.transition = 'background-color 0.5s ease-in-out'; // Transición suave
+                });
+                currentColorIndex = (currentColorIndex + 1) % mobileMenuColors.length; // Cicla al siguiente color
+            }
 
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', () => {
@@ -851,8 +876,46 @@
                     // Cambia el icono de hamburguesa a 'X' y viceversa
                     if (mobileMenu.classList.contains('hidden')) {
                         icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                        if (closeSynth) closeSynth.triggerAttackRelease("C3", "8n"); // Sonido al cerrar
+                        // Detiene la animación de color cuando el menú está cerrado
+                        if (colorIntervalId) {
+                            clearInterval(colorIntervalId);
+                            colorIntervalId = null;
+                            // Resetea el color de fondo de los enlaces del menú móvil
+                            mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile').forEach(link => {
+                                link.style.backgroundColor = ''; // Elimina el estilo inline para volver al CSS original
+                            });
+                        }
                     } else {
                         icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+                        if (openSynth) openSynth.triggerAttackRelease("C4", "8n"); // Sonido al abrir
+                        // Inicia la animación de color cuando el menú está abierto
+                        if (!colorIntervalId) {
+                            currentColorIndex = 0; // Reinicia el índice de color
+                            animateMobileMenuColors(); // Aplica el primer color inmediatamente
+                            colorIntervalId = setInterval(animateMobileMenuColors, 500); // Cambia cada 0.5 segundos
+                        }
+                    }
+                });
+
+                // Cierre del menú móvil al hacer clic fuera de él
+                document.addEventListener('click', function(event) {
+                    const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+                    const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
+
+                    if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden'); // Oculta el menú
+                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                        if (closeSynth) closeSynth.triggerAttackRelease("C3", "8n"); // Sonido al cerrar
+                        // Detiene la animación de color cuando el menú está cerrado
+                        if (colorIntervalId) {
+                            clearInterval(colorIntervalId);
+                            colorIntervalId = null;
+                            // Resetea el color de fondo de los enlaces del menú móvil
+                            mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile').forEach(link => {
+                                link.style.backgroundColor = ''; // Elimina el estilo inline para volver al CSS original
+                            });
+                        }
                     }
                 });
 
@@ -867,6 +930,16 @@
                         if (!isDropdownToggle && !isInsideDropdownMenu) {
                             mobileMenu.classList.add('hidden'); // Oculta el menú principal
                             mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                            if (closeSynth) closeSynth.triggerAttackRelease("C3", "8n"); // Sonido al cerrar
+                            // Detiene la animación de color al cerrar el menú
+                            if (colorIntervalId) {
+                                clearInterval(colorIntervalId);
+                                colorIntervalId = null;
+                                // Resetea el color de fondo de los enlaces del menú móvil
+                                mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile').forEach(link => {
+                                    link.style.backgroundColor = ''; // Elimina el estilo inline
+                                });
+                            }
                         } else if (link.classList.contains('disabled-link')) {
                             event.preventDefault(); // Previene la navegación para enlaces deshabilitados
                             event.stopPropagation(); // Evita que el clic se propague y cierre el menú principal
@@ -909,8 +982,6 @@
                     event.stopPropagation(); // Evita la propagación del evento para que no se cierre el menú padre
                 });
             });
-
-            // Los modales de consentimiento y desarrollo han sido eliminados del JavaScript aquí
         });
     </script>
 </body>
