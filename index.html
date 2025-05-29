@@ -9,9 +9,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <style>
         /* Estilos base para HTML y Body */
-        html, body {
-            height: 100%;
-            width: 100%;
+        html {
+            height: 100%; /* Asegura que HTML tenga altura completa */
+        }
+        body {
+            min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
+            width: 100%; /* Asegura que el body ocupe el ancho completo */
             overflow-x: hidden; /* Evita el desplazamiento horizontal */
         }
 
@@ -673,7 +676,7 @@
         </ul>
     </nav>
 
-    <section id="inicio" class="relative bg-byte-dark-bg text-white min-h-[60vh] py-20 md:min-h-[70vh] md:py-32 overflow-hidden flex items-center justify-center border-2 border-red-500">
+    <section id="inicio" class="relative bg-byte-dark-bg text-white min-h-[60vh] py-20 md:min-h-[70vh] md:py-32 overflow-hidden flex items-center justify-center">
         <img src="./images/609.jpg" onerror="this.src='https://via.placeholder.com/1920x1080/0000FF/FFFFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
              class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
@@ -848,27 +851,6 @@
         <button id="accept-cookies-btn">Aceptar</button>
     </div>
 
-    <script type="text/javascript">
-    (function() {
-        // Create and append the chat-bot element
-        var chatBotEl = document.createElement('chat-bot');
-        chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
-        chatBotEl.setAttribute('user_id', '872cc8d5-f312-44c1-a9cc-15b7d1740044');
-        chatBotEl.setAttribute('chatbot_id', '359c0fb9-fd3d-4753-8ce1-2b076bdd6b34');
-
-        var chatbotLink = document.createElement('a');
-        chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
-        chatbotLink.innerHTML = 'chatsimple';
-        chatBotEl.appendChild(chatbotLink);
-
-        document.body.appendChild(chatBotEl);
-
-        // Dynamically load the external script
-        var cs = document.createElement('script');
-        cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-        document.body.appendChild(cs);
-    })();
-    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Inicialización de AOS con configuraciones
