@@ -773,7 +773,7 @@
 
     <main class="flex-grow">
         <section id="inicio" class="relative bg-byte-dark-bg text-white py-32 md:py-48 overflow-hidden flex items-center justify-center">
-            <img src="https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Fondo+de+Inicio" onerror="this.src='https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Fondo+de+Inicio';" alt="Imagen de fondo de la sección de inicio"
+            <img src="./images/609.jpg" onerror="this.src='https://placehold.co/1920x1080/0A0A1A/00FFFF?text=Fondo+Tecnologico';" alt="Imagen de fondo de la sección de inicio"
                  class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
 
             <div class="container mx-auto px-4 relative z-10 text-center"
@@ -923,10 +923,6 @@
     </div>
 
     <script type="text/javascript">
-        // Este es un placeholder para la integración de tu chatbot.
-        // Si tienes un script de chatbot real, deberías pegarlo aquí.
-        // Por ejemplo, el código de ChatSimple que tenías:
-        /*
         (function() {
             var chatBotEl = document.createElement('chat-bot');
             chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
@@ -942,7 +938,6 @@
             cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
             document.body.appendChild(cs);
         })();
-        */
     </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -1129,6 +1124,9 @@
             const hasAcceptedConsent = localStorage.getItem('byte_consent_accepted');
             // Verifica si el modal de desarrollo ya se ha mostrado en esta sesión (persistencia en sessionStorage)
             const hasSeenDevModalInSession = sessionStorage.getItem('byte_dev_modal_seen');
+
+            // --- DEBUGGING: Log para ver el estado de consentimiento ---
+            console.log('Estado de consentimiento (localStorage):', hasAcceptedConsent);
 
             // Función para mostrar un modal (añade la clase 'show' y deshabilita el scroll del body)
             function showModal(modalElement) {
