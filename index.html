@@ -242,10 +242,11 @@
             backdrop-filter: blur(5px); /* Efecto de desenfoque */
         }
 
+        /* Ajuste de padding para las tarjetas de contacto - AHORA MANEJADO EN EL HTML CON TAILWIND */
         .contact-form-card,
         .contact-info-card {
             background: #1A202C; /* Fondo oscuro para las tarjetas internas */
-            padding: 2.5rem;
+            /* padding se moverá al HTML */
             border-radius: 1rem;
             box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
             border: 1px solid rgba(0, 255, 255, 0.2);
@@ -285,7 +286,7 @@
             border-radius: 1rem;
             margin-top: 2.5rem;
             width: 100%;
-            height: 450px; /* Altura fija para el mapa */
+            /* Altura del mapa - AHORA CONTROLADA POR TAILWIND EN EL HTML */
         }
         .map-container iframe {
             width: 100%;
@@ -689,7 +690,7 @@
                 <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 text-stroke-cyan"
                     data-aos="fade-up" data-aos-duration="800">Conéctate con Byte</h2>
                 <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-                    <div class="contact-form-card"
+                    <div class="contact-form-card p-6 lg:p-10"
                         data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
                         <h3 class="text-3xl font-bold text-center text-byte-accent-cyan mb-8 text-stroke-cyan">Envíanos un Mensaje</h3>
                         <form action="#" method="POST" class="space-y-6">
@@ -711,17 +712,17 @@
                         </form>
                     </div>
 
-                    <div class="contact-info-card"
+                    <div class="contact-info-card p-6 lg:p-10"
                         data-aos="fade-left" data-aos-delay="400" data-aos-duration="800">
                         <h3 class="text-3xl font-bold text-center mb-8 text-stroke-cyan">Información de Contacto</h3>
-                        <div class="space-y-6 text-center text-lg mb-10">
+                        <div class="space-y-6 text-center text-lg mb-6 sm:mb-10">
                             <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-3">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
                             <p class="flex items-center justify-center text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-3">📧</span> info@byte.com</p>
                             <p class="flex items-center justify-center text-byte-accent-cyan">📞 +123 456 7890</p>
                         </div>
 
-                        <h3 class="text-3xl font-bold text-center mt-10 mb-8 text-stroke-cyan">Redes Sociales</h3>
-                        <div class="flex justify-center space-x-6 text-byte-text-light mb-10">
+                        <h3 class="text-3xl font-bold text-center mt-10 mb-6 sm:mb-8 text-stroke-cyan">Redes Sociales</h3>
+                        <div class="flex justify-center space-x-6 text-byte-text-light mb-6 sm:mb-10">
                             <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                             </a>
@@ -731,7 +732,7 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="mt-8 map-container rounded-lg shadow-md">
+                        <div class="mt-8 map-container rounded-lg shadow-md h-[300px] lg:h-[450px]">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.364239843336!2d-66.9202685852026!3d10.49129599252329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59a7a9a7a9a9%3A0x123456789abcdef!2sPlaza%20Sucre%2C%20Caracas%2C%20Capital%20District%2C%20Venezuela!5e0!3m2!1sen!2sus!4m2!3d10.491296!4d-66.918079!5m2!1sen!2sus" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                     </div>
