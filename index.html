@@ -435,6 +435,7 @@
         @media (min-width: 1024px) { /* Ajusta este breakpoint según sea necesario (lg en Tailwind) */
             .header-nav-item {
                 font-size: 0.95rem; /* Fuente más pequeña para enlaces de navegación */
+                /* padding-left y padding-right eliminados para usar el default de Tailwind */
             }
 
             .main-cta-button {
@@ -547,11 +548,10 @@
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal min-h-screen flex flex-col">
 
-    <header class="bg-byte-dark-bg text-byte-text-light py-4 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
+    <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="container mx-auto flex justify-between items-center md:px-0 gap-8">
-            <div class="w-32 h-32 flex items-center justify-start ml-0">
-                <img src="./images/logo.png" alt="Logo de Byte" class="h-full w-auto object-contain">
-            </div>
+            <div class="flex items-center justify-start ml-0">
+                </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
                 <ul class="flex space-x-4 items-center">
