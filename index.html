@@ -560,8 +560,8 @@
         }
 
         .footer-social-icon:hover {
-            transform: translateY(-3px) scale(1.1);
             color: #00FFFF; /* Cian al pasar el ratón */
+            transform: translateY(-3px) scale(1.1);
         }
     </style>
 </head>
@@ -964,7 +964,7 @@
                         } else {
                             icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
                             // Reproducir sonido al abrir el menú móvil
-                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                            synth.triggerAttackAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
                         }
                     });
 
@@ -1087,7 +1087,7 @@
                                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm md:text-base">
                     Aceptar
                 </button>
-                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" id="contact-whatsapp-button-dev" class="bg-whatsapp-green text-white font-bold py-2.5 px-6 rounded-full
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" id="contact-whatsapp-button-dev" class="bg-whatsapp-green text-black font-bold py-2.5 px-6 rounded-full
                                                              shadow-lg hover:bg-whatsapp-dark-green transition duration-300 transform hover:scale-105 text-sm md:text-base flex items-center justify-center">
                     <i class="fab fa-whatsapp mr-2"></i> Contáctanos
                 </a>
@@ -1231,57 +1231,58 @@
         // Main page load logic for banners
         window.addEventListener('load', () => {
             const cookieConsentAccepted = localStorage.getItem('cookieConsentAccepted');
-            const developmentBannerDismissed = localStorage.getItem('developmentBannerDismissed');
+            // Eliminamos la variable developmentBannerDismissed ya que queremos que el banner se muestre siempre
+            // const developmentBannerDismissed = localStorage.getItem('developmentBannerDismissed');
 
             if (!cookieConsentAccepted) {
-                // Scenario 1: First-time visitor (no cookie consent)
+                // Escenario 1: Primera visita (no hay consentimiento de cookies)
                 cookieBanner.classList.remove('hidden');
-                updateWhatsappPositionAndState(); // Adjust WhatsApp for cookie banner
+                updateWhatsappPositionAndState(); // Ajusta el botón de WhatsApp para el banner de cookies
 
-                // On Cookie Banner 'Aceptar' click
+                // Al hacer clic en 'Aceptar' del banner de cookies
                 acceptCookiesButton.addEventListener('click', () => {
                     localStorage.setItem('cookieConsentAccepted', 'true');
-                    cookieBanner.classList.add('hidden'); // Hide cookie banner
+                    cookieBanner.classList.add('hidden'); // Oculta el banner de cookies
+                    updateWhatsappPositionAndState(); // Vuelve a ajustar la posición de WhatsApp
 
-                    if (!developmentBannerDismissed) {
-                        // If development banner hasn't been dismissed, show it
+                    // Después de aceptar las cookies, siempre muestra el banner de desarrollo
+                    if (developmentBanner) {
                         developmentBanner.classList.remove('hidden');
-                        updateWhatsappPositionAndState(); // Adjust WhatsApp for development banner
-                    } else {
-                        // If development banner was already dismissed, restore WhatsApp fully
-                        updateWhatsappPositionAndState();
+                        updateWhatsappPositionAndState(); // Ajusta el botón de WhatsApp para el banner de desarrollo
                     }
                 });
 
-            } else if (!developmentBannerDismissed) {
-                // Scenario 2: Cookie consent given, development banner not dismissed
-                cookieBanner.classList.add('hidden'); // Ensure cookie banner is hidden
-                developmentBanner.classList.remove('hidden');
-                updateWhatsappPositionAndState(); // Adjust WhatsApp for development banner
+            } else { // Si el consentimiento de cookies ya fue dado
+                cookieBanner.classList.add('hidden'); // Asegura que el banner de cookies esté oculto
 
-            } else {
-                // Scenario 3: Both accepted/dismissed
-                cookieBanner.classList.add('hidden');
-                developmentBanner.classList.add('hidden');
-                updateWhatsappPositionAndState(); // Restore WhatsApp to default
+                // Siempre muestra el banner de desarrollo en cada carga de página
+                if (developmentBanner) {
+                    developmentBanner.classList.remove('hidden');
+                    updateWhatsappPositionAndState(); // Ajusta el botón de WhatsApp para el banner de desarrollo
+                } else {
+                    // Si no hay banner de desarrollo, restaura el WhatsApp a su estado por defecto
+                    updateWhatsappPositionAndState();
+                }
             }
 
-            // Event listener for Development Banner 'Aceptar' button
+            // Event listener para el botón 'Aceptar' del Development Banner
             if (acceptDevelopmentButton) {
                 acceptDevelopmentButton.addEventListener('click', () => {
-                    localStorage.setItem('developmentBannerDismissed', 'true');
+                    // NO guardamos en localStorage que el banner fue descartado
+                    // localStorage.setItem('developmentBannerDismissed', 'true'); // ¡Esta línea fue eliminada!
                     developmentBanner.classList.add('hidden');
-                    updateWhatsappPositionAndState(); // Restore WhatsApp
+                    updateWhatsappPositionAndState(); // Restaura el botón de WhatsApp
                 });
             }
 
-            // Event listener for Development Banner 'Contáctanos' WhatsApp button
+            // Event listener para el botón de WhatsApp 'Contáctanos' dentro del Development Banner
             if (contactWhatsappDevelopmentButton) {
                 contactWhatsappDevelopmentButton.addEventListener('click', () => {
-                    localStorage.setItem('developmentBannerDismissed', 'true');
+                    // NO guardamos en localStorage que el banner fue descartado
+                    // localStorage.setItem('developmentBannerDismissed', 'true'); // ¡Esta línea fue eliminada!
                     developmentBanner.classList.add('hidden');
-                    updateWhatsappPositionAndState(); // Restore WhatsApp
-                    // The href will handle navigation to WhatsApp
+                    updateWhatsappPositionAndState(); // Restaura el botón de WhatsApp
+                    // El href se encargará de la navegación a WhatsApp
                 });
             }
         });
