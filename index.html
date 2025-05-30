@@ -430,6 +430,11 @@
             border-radius: 0.5rem;
             margin-top: 0.5rem; /* Espacio entre el enlace padre y el submenú */
             padding: 0.5rem 0; /* Relleno dentro del desplegable */
+            position: relative; /* Necesario para el centrado absoluto */
+            left: 50%; /* Centrado horizontal */
+            transform: translateX(-50%); /* Centrado horizontal */
+            width: 90%; /* Ajustar el ancho para que no sea fijo a 40 y sea más adaptable */
+            max-width: 200px; /* Ancho máximo para evitar que sea demasiado grande */
         }
 
         /* Hover de subcategoría en verde aqua para móvil */
@@ -568,7 +573,7 @@
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
-                <ul class="flex flex-row-reverse space-x-6 items-center">
+                <ul class="flex flex-row-reverse space-x-10 items-center">
                     <li class="relative group">
                         <a href="#reseñas" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
                             <span class="nav-menu-text-stroke-cyan">Reseñas</span>
@@ -704,7 +709,7 @@
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
-                <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1 w-40">
+                <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
@@ -719,7 +724,7 @@
                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </span>
                 </a>
-                <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1 w-40">
+                <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
