@@ -438,6 +438,119 @@
             background-color: #00FFFF; /* Electric cyan for background */
             color: #0A0A1A; /* Dark text on hover */
         }
+
+        /* --- Estilos para reducción de tamaño en PC y pantallas grandes --- */
+        @media (min-width: 1024px) { /* Adjust this breakpoint as needed (lg in Tailwind) */
+            .header-nav-item {
+                font-size: 0.95rem; /* Smaller font for navigation links */
+            }
+
+            .main-cta-button {
+                padding: 0.6rem 1.5rem; /* Slightly smaller button padding */
+                font-size: 0.9rem; /* Smaller font for CTA button */
+            }
+
+            .hero-section-padding {
+                padding-top: 6rem; /* Adjust top padding for hero section */
+                padding-bottom: 6rem; /* Adjust bottom padding for hero section */
+            }
+
+            .hero-heading {
+                font-size: 3.5rem; /* Smaller heading for hero section */
+            }
+
+            .hero-subheading {
+                font-size: 1.1rem; /* Smaller subheading for hero section */
+            }
+
+            .section-heading {
+                font-size: 2.5rem; /* Smaller general section headings */
+            }
+
+            .service-card {
+                padding: 1.5rem; /* Smaller padding for service cards */
+            }
+
+            .service-card .icon {
+                font-size: 3rem; /* Smaller icon size in service cards */
+            }
+
+            .service-card h3 {
+                font-size: 1.3rem; /* Smaller title in service cards */
+            }
+
+            .service-card p {
+                font-size: 0.85rem; /* Smaller paragraph text in service cards */
+            }
+
+            .contact-section {
+                padding: 3rem 0; /* Smaller padding for contact section */
+            }
+
+            .contact-content {
+                padding: 2rem; /* Smaller padding for contact content card */
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 1.5rem; /* Smaller padding for inner contact cards */
+            }
+
+            .contact-form-card input,
+            .contact-form-card textarea {
+                font-size: 0.8rem; /* Smaller font for form inputs */
+            }
+
+            .social-icon-link svg {
+                width: 24px; /* Smaller social icons */
+                height: 24px;
+            }
+
+            .whatsapp-float-button {
+                width: 50px; /* Smaller WhatsApp button */
+                height: 50px;
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Estilos del pie de página */
+        .footer {
+            background-color: #1A202C; /* Secondary dark background */
+            color: #F9FAFB; /* Light text */
+            padding: 2rem 0; /* Padding for the footer */
+            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border top */
+        }
+
+        .footer a {
+            color: #00FFFF; /* Cyan for links */
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00BFFF; /* Darker cyan on hover */
+        }
+
+        .footer-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem; /* Larger font for headings */
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #00FFFF; /* Cyan color for headings */
+        }
+
+        .footer-link-item {
+            margin-bottom: 0.5rem; /* Space between list items */
+        }
+
+        .footer-social-icon {
+            font-size: 1.75rem; /* Size of social icons */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #00FFFF; /* Cyan on hover */
+        }
     </style>
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal min-h-screen flex flex-col">
@@ -447,7 +560,7 @@
             <nav class="hidden sm:flex justify-center">
                 <ul class="flex space-x-6 items-center">
                     <li class="relative group">
-                        <a href="#servicios" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                        <a href="#servicios" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
                             <span class="nav-menu-text-stroke-cyan">Servicios</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -461,7 +574,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#portafolio" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                        <a href="#portafolio" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
                             <span class="nav-menu-text-stroke-cyan">Portafolio</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -476,7 +589,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#proceso" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                        <a href="#proceso" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
                             <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -488,7 +601,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                        <a href="#" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
                             <span class="nav-menu-text-stroke-cyan">Eventos</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -500,7 +613,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#reseñas" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                        <a href="#reseñas" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
                             <span class="nav-menu-text-stroke-cyan">Reseñas</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -511,7 +624,7 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#contacto" class="text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
+                        <a href="#contacto" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
                             <span class="nav-menu-text-stroke-cyan">Contacto</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -527,7 +640,7 @@
             </nav>
 
             <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                      shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
+                                      shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                 ¡Empecemos tu proyecto!
             </a>
 
@@ -620,7 +733,7 @@
             </li>
             <li>
                 <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm">
+                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm main-cta-button">
                     ¡Empecemos tu proyecto!
                 </a>
             </li>
@@ -628,7 +741,7 @@
     </nav>
 
     <main class="flex-grow">
-        <section id="inicio" class="relative bg-byte-dark-bg text-white py-16 md:py-28 overflow-hidden flex items-center justify-center">
+        <section id="inicio" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
             <video autoplay loop muted playsinline
                    class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
                 <source src="./images/fondo.mp4" type="video/mp4">
@@ -637,27 +750,27 @@
 
             <div class="container mx-auto px-4 relative z-10 text-center"
                  data-aos="fade-up" data-aos-duration="1000">
-                <h1 class="text-2xl md:text-5xl font-extrabold leading-tight mb-3 text-white drop-shadow-lg text-stroke-cyan"
+                <h1 class="text-3xl md:text-6xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading"
                     data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
                     Nosotros convertimos sueños en realidades digitales
                 </h1>
-                <p class="text-sm md:text-lg mb-6 max-w-3xl mx-auto text-byte-text-light opacity-90"
+                <p class="text-base md:text-xl mb-8 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading"
                     data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
                     Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
                 </p>
                 <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm"
+                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button"
                     data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                     ¡Hablemos de tu proyecto!
                 </a>
             </div>
         </section>
 
-        <section id="servicios" class="py-10 bg-byte-dark-bg text-byte-text-light">
+        <section id="servicios" class="py-12 bg-byte-dark-bg text-byte-text-light">
             <div class="container mx-auto px-4">
-                <h2 class="text-2xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan"
+                <h2 class="text-2xl md:text-4xl font-extrabold text-center mb-10 section-heading text-stroke-cyan"
                     data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
                         <div class="icon">✨</div>
                         <h3 class="text-lg font-bold mb-2">Diseño Web Personalizado</h3>
@@ -682,32 +795,32 @@
             </div>
         </section>
 
-        <section class="py-10 bg-byte-dark-bg text-byte-text-light">
+        <section class="py-12 bg-byte-dark-bg text-byte-text-light">
             <div class="container mx-auto px-4 text-center max-w-4xl"
                  data-aos="fade-up" data-aos-duration="800">
-                <h2 class="text-2xl md:text-4xl font-extrabold text-center mb-7 text-stroke-cyan">
+                <h2 class="text-2xl md:text-4xl font-extrabold text-center mb-8 section-heading text-stroke-cyan">
                     ¿Listo para despegar?
                 </h2>
-                <p class="text-base md:text-lg mb-7 text-gray-300">
+                <p class="text-base md:text-lg mb-8 text-gray-300">
                     Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
                 </p>
                 <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm"
+                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button"
                    data-aos="zoom-in" data-aos-delay="600" data-aos-duration="1200">
                     ¡Hablemos de tu proyecto!
                 </a>
             </div>
         </section>
 
-        <section id="contacto" class="contact-section text-byte-text-light pt-8 pb-12">
+        <section id="contacto" class="contact-section text-byte-text-light pt-10 pb-14">
             <div class="container mx-auto px-4 relative z-10 max-w-screen-lg lg:px-0">
-                <h2 class="text-2xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan"
+                <h2 class="text-2xl md:text-4xl font-extrabold text-center mb-10 section-heading text-stroke-cyan"
                     data-aos="fade-up" data-aos-duration="800">Conéctate con Byte</h2>
-                <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
-                    <div class="contact-form-card p-3 lg:p-5"
+                <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                    <div class="contact-form-card p-4 lg:p-6"
                         data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
-                        <h3 class="text-xl font-bold text-center text-byte-accent-cyan mb-4 text-stroke-cyan">Envíanos un Mensaje</h3>
-                        <form action="#" method="POST" class="space-y-3">
+                        <h3 class="text-xl font-bold text-center text-byte-accent-cyan mb-5 text-stroke-cyan">Envíanos un Mensaje</h3>
+                        <form action="#" method="POST" class="space-y-4">
                             <div>
                                 <label for="contact-name" class="block text-sm font-semibold text-byte-text-light mb-1">Nombre Completo</label>
                                 <input type="text" id="contact-name" name="name" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 text-xs" placeholder="Tu nombre" required>
@@ -718,25 +831,25 @@
                             </div>
                             <div>
                                 <label for="contact-message" class="block text-sm font-semibold text-byte-text-light mb-1">Tu Mensaje</label>
-                                <textarea id="contact-message" name="message" rows="3" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 text-xs" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
+                                <textarea id="contact-message" name="message" rows="4" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 text-xs" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-2 px-5 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
+                            <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-2.5 px-5 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
                                 Enviar Mensaje
                             </button>
                         </form>
                     </div>
 
-                    <div class="contact-info-card p-3 lg:p-5"
+                    <div class="contact-info-card p-4 lg:p-6"
                         data-aos="fade-left" data-aos-delay="400" data-aos-duration="800">
-                        <h3 class="text-xl font-bold text-center mb-4 text-stroke-cyan">Información de Contacto</h3>
-                        <div class="space-y-3 text-center text-sm mb-5 sm:mb-7">
+                        <h3 class="text-xl font-bold text-center mb-5 text-stroke-cyan">Información de Contacto</h3>
+                        <div class="space-y-3 text-center text-sm mb-6">
                             <p class="flex items-center justify-center text-byte-text-light"><span class="text-byte-accent-cyan mr-2">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
                             <p class="flex items-center justify-center text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-2">📧</span> Bytewebdesign1@gmail.com</p>
                             <p class="flex items-center justify-center text-byte-accent-cyan">📞 +584125646508</p>
                         </div>
 
-                        <h3 class="text-xl font-bold text-center mt-5 mb-4 sm:mb-7 text-stroke-cyan">Redes Sociales</h3>
-                        <div class="flex justify-center space-x-4 text-byte-text-light mb-5 sm:mb-7">
+                        <h3 class="text-xl font-bold text-center mt-6 mb-5 text-stroke-cyan">Redes Sociales</h3>
+                        <div class="flex justify-center space-x-5 text-byte-text-light mb-6">
                             <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                             </a>
@@ -931,9 +1044,8 @@
                 ¡Hola! ¿Necesitas ayuda?
             </div>
             <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="whatsapp-float-button" id="whatsapp-float-button" aria-label="Chatear por WhatsApp">
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M12.04 2.16c-5.45 0-9.87 4.42-9.87 9.87 0 1.96.58 3.8 1.63 5.38l-1.68 6.17 6.32-1.64c1.55.84 3.29 1.28 5.06 1.28 5.45 0 9.87-4.42 9.87-9.87S17.49 2.16 12.04 2.16zm3.6 14.4c-.2-.1-.7-.3-1.1-.4-.4-.1-.7-.1-1 .1-.3.2-.8.8-1 .9-.2.2-.4.2-.7.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.5.1-.7.1-.2.2-.4.3-.5.1-.2.1-.4 0-.5-.1-.1-.7-1.7-1-2.4-.3-.7-.6-.6-.8-.6-.2 0-.4 0-.6.1-.2.1-.5.3-.8.6-.3.3-.6.6-.6 1.4s.6 1.7.7 1.9c.1.2 1.3 2 3.1 2.8 1.4.7 2.6 1.1 3.5 1.4.3.1.6.1.8.1.3 0 .7-.1.9-.2.2-.1.7-.3.8-.5.1-.2.1-.4.1-.5.1-.2.1-.3.1-.4 0-.1-.1-.2-.2-.2z"/>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="144px" height="144px">
+                    <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fd5"/><stop offset=".328" stop-color="#ff543f"/><stop offset=".348" stop-color="#fc5245"/><stop offset=".504" stop-color="#e64771"/><stop offset=".643" stop-color="#d53e91"/><stop offset=".761" stop-color="#cc39a4"/><stop offset=".841" stop-color="#c837ab"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8ma)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4168c9"/><stop offset=".999" stop-color="#4168c9" stop-opacity="0"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8mb)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"/><circle cx="31.5" cy="16.5" r="1.5" fill="#fff"/><path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"/></svg>
             </a>
         </div>
 
@@ -1018,5 +1130,45 @@
             }
         </script>
     </main>
-    </body>
-    </html>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div>
+                <h3 class="footer-heading">Contacto</h3>
+                <ul class="text-sm">
+                    <li class="footer-link-item flex items-center justify-center md:justify-start"><span class="text-byte-accent-cyan mr-2">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</li>
+                    <li class="footer-link-item flex items-center justify-center md:justify-start"><span class="text-byte-accent-cyan mr-2">📧</span> <a href="mailto:Bytewebdesign1@gmail.com">Bytewebdesign1@gmail.com</a></li>
+                    <li class="footer-link-item flex items-center justify-center md:justify-start">📞 +584125646508</li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="footer-heading">Navegación Rápida</h3>
+                <ul class="text-sm">
+                    <li class="footer-link-item"><a href="#inicio" class="hover:underline">Inicio</a></li>
+                    <li class="footer-link-item"><a href="#servicios" class="hover:underline">Servicios</a></li>
+                    <li class="footer-link-item"><a href="#portafolio" class="hover:underline disabled-link">Portafolio</a></li>
+                    <li class="footer-link-item"><a href="misionyvision.html" class="hover:underline">Quiénes Somos</a></li>
+                    <li class="footer-link-item"><a href="reseñas.html" class="hover:underline">Reseñas</a></li>
+                    <li class="footer-link-item"><a href="#contacto" class="hover:underline">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="footer-heading">Síguenos</h3>
+                <div class="flex justify-center md:justify-start space-x-4 mt-3">
+                    <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                        <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
+                    </a>
+                    <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p>&copy; 2025 Byte. Todos los derechos reservados. Tu visión, nuestra misión.</p>
+        </div>
+    </footer>
+</body>
+</html>
