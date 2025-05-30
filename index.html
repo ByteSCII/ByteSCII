@@ -117,19 +117,19 @@
         .menu-link-hover-effect::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 50%;
+            bottom: -5px; /* Posición de la línea debajo del texto */
+            left: 50%; /* Centrado inicial */
             transform: translateX(-50%);
-            width: 0;
-            height: 3px;
-            background-color: #00FFFF; /* Color de brillo cian */
+            width: 0; /* La línea comienza con ancho cero */
+            height: 3px; /* Grosor de la línea */
+            background-color: #00FFFF; /* Color cian */
             border-radius: 2px;
-            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            opacity: 0;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición para el ancho y la opacidad */
+            opacity: 0; /* Inicialmente invisible */
         }
         .menu-link-hover-effect:hover::before {
-            width: calc(100% - 20px); /* Ajusta el ancho del subrayado según se desee */
-            opacity: 1;
+            width: 100%; /* La línea se expande al 100% del ancho del elemento padre */
+            opacity: 1; /* Se vuelve visible */
             background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
         }
         .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
@@ -545,19 +545,6 @@
             transform: translateY(-3px) scale(1.1);
             color: #00FFFF; /* Cian al pasar el ratón */
         }
-
-        /* Optimización móvil: Ocultar video y usar imagen de fondo en pantallas pequeñas */
-        @media (max-width: 767px) {
-            #inicio video {
-                display: none; /* Oculta el video en pantallas pequeñas */
-            }
-            #inicio {
-                background-image: url('https://placehold.co/1200x800/0A0A1A/00FFFF?text=Fondo+Byte'); /* Imagen de fondo estática */
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-        }
     </style>
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal min-h-screen flex flex-col">
@@ -569,8 +556,7 @@
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
-                <ul class="flex flex-row-reverse space-x-4 items-center">
-                    <li class="relative group">
+                <ul class="flex flex-row-reverse space-x-6 items-center"> <li class="relative group">
                         <a href="#contacto" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
                             <span class="nav-menu-text-stroke-cyan">Contacto</span>
                             <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
