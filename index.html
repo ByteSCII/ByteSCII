@@ -118,8 +118,7 @@
             content: '';
             position: absolute;
             bottom: -5px; /* Posición de la línea debajo del texto */
-            left: 50%; /* Centrado inicial */
-            transform: translateX(-50%);
+            left: 0; /* Comienza desde el inicio del texto */
             width: 0; /* La línea comienza con ancho cero */
             height: 3px; /* Grosor de la línea */
             background-color: #00FFFF; /* Color cian */
@@ -139,6 +138,18 @@
         }
         .menu-link-hover-effect:hover {
             transform: translateY(-5px); /* Eleva el enlace ligeramente más para un "salto" notable */
+        }
+
+        /* Animación de rebote sutil para el icono de flecha */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        /* Clase para activar la rotación y el rebote de la flecha */
+        .js-arrow-icon.arrow-active, .js-arrow-icon-mobile.arrow-active {
+            transform: rotate(180deg);
+            animation: bounce-subtle 0.5s ease-in-out infinite alternate;
         }
 
         /* Estilos de las tarjetas de servicio */
@@ -556,10 +567,22 @@
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
-                <ul class="flex flex-row-reverse space-x-6 items-center"> <li class="relative group">
+                <ul class="flex flex-row-reverse space-x-6 items-center">
+                    <li class="relative group">
+                        <a href="#reseñas" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                            <span class="nav-menu-text-stroke-cyan">Reseñas</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
                         <a href="#contacto" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
                             <span class="nav-menu-text-stroke-cyan">Contacto</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
@@ -570,20 +593,9 @@
                         </div>
                     </li>
                     <li class="relative group">
-                        <a href="#reseñas" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
-                            <span class="nav-menu-text-stroke-cyan">Reseñas</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
-                        </div>
-                    </li>
-                    <li class="relative group">
                         <a href="#" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
                             <span class="nav-menu-text-stroke-cyan">Eventos</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
@@ -595,7 +607,7 @@
                     <li class="relative group">
                         <a href="#proceso" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
                             <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
@@ -607,7 +619,7 @@
                     <li class="relative group">
                         <a href="#servicios" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
                             <span class="nav-menu-text-stroke-cyan">Servicios</span>
-                            <span class="ml-1 transform transition-transform duration-300 group-hover:rotate-180 js-arrow-icon">
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
                                 <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                             </span>
                         </a>
@@ -637,6 +649,17 @@
     <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40">
         <ul class="flex flex-col-reverse space-y-4 text-center">
             <li>
+                <a href="#reseñas" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Reseñas</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                </div>
+            </li>
+            <li>
                 <a href="#contacto" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
                     <span class="nav-menu-text-stroke-cyan">Contacto</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
@@ -647,17 +670,6 @@
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
-                </div>
-            </li>
-            <li>
-                <a href="#reseñas" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Reseñas</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
                 </div>
             </li>
             <li>
@@ -873,14 +885,19 @@
                                 menu.classList.add('hidden');
                                 const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                                 if (otherButton) {
-                                    otherButton.querySelector('.js-arrow-icon').classList.remove('rotate-180');
+                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                    otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
                                 }
                             }
                         });
 
-                        // Alterna la visibilidad del menú actual y rota el icono de flecha
+                        // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
                         dropdownMenu.classList.toggle('hidden');
-                        arrowIcon.classList.toggle('rotate-180');
+                        if (!dropdownMenu.classList.contains('hidden')) {
+                            arrowIcon.classList.add('arrow-active');
+                        } else {
+                            arrowIcon.classList.remove('arrow-active');
+                        }
                     });
                 });
 
@@ -892,7 +909,8 @@
                             menu.classList.add('hidden'); // Oculta el menú
                             const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                             if (button) {
-                                button.querySelector('.js-arrow-icon').classList.remove('rotate-180'); // Restaura la orientación de la flecha
+                                // Restaura la orientación de la flecha y elimina la animación al cerrar
+                                button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
                             }
                         });
                     }
@@ -969,7 +987,8 @@
                                     menu.classList.add('hidden');
                                     const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
                                     if (otherButton) {
-                                        otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
+                                        // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                        otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
                                         // Restablece el color del texto de la categoría que se está cerrando
                                         const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
                                         if (otherCategoryTextSpan) {
@@ -980,13 +999,12 @@
                             });
 
                             dropdownMenu.classList.toggle('hidden');
-                            arrowIcon.classList.toggle('rotate-180');
-
-                            // Aplica o restablece el color del texto de la categoría actual
                             if (!dropdownMenu.classList.contains('hidden')) {
+                                arrowIcon.classList.add('arrow-active');
                                 // Si el menú se está abriendo, aplica estilos cian
                                 applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
                             } else {
+                                arrowIcon.classList.remove('arrow-active');
                                 // Si el menú se está cerrando, aplica estilos plateados
                                 applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
                             }
