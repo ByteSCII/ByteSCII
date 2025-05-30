@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Tu visión nuestra misión</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <script>
         // Configuración personalizada de Tailwind CSS
         tailwind.config = {
@@ -434,7 +435,7 @@
         /* Hover de subcategoría en verde aqua para móvil */
         .js-dropdown-menu-mobile a {
             padding: 0.75rem 1.5rem; /* Indentar sub-elementos */
-            text-align: left;
+            text-align: center; /* CENTRADO DE SUBCATEGORÍAS EN MÓVIL */
             border-radius: 0; /* Eliminar bordes redondeados para elementos individuales */
         }
 
@@ -933,6 +934,9 @@
                     textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
                 };
 
+                // Inicializar Tone.js Synth
+                const synth = new Tone.Synth().toDestination();
+
                 // Función para aplicar estilos al texto del menú móvil
                 function applyMobileMenuTextStyles(element, styles) {
                     element.style.color = styles.color;
@@ -953,6 +957,8 @@
                             });
                         } else {
                             icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+                            // Reproducir sonido al abrir el menú móvil
+                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
                         }
                     });
 
