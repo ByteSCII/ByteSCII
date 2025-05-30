@@ -327,6 +327,7 @@
             z-index: 9999;
             display: flex;
             align-items: center;
+            transition: bottom 0.3s ease-out; /* Transición para el movimiento */
         }
 
         .whatsapp-float-button {
@@ -1060,6 +1061,42 @@
         </a>
     </div>
 
+    <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 z-[10000] bg-byte-secondary-dark text-byte-text-light p-4 shadow-lg rounded-t-lg text-center transition-all duration-300 ease-out">
+        <p class="mb-2 text-sm md:text-base">
+            Esta página web utiliza cookies para mejorar tu experiencia y entender qué le interesa a nuestros clientes.
+            Al continuar navegando, aceptas nuestros
+            <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
+            <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Condiciones</a>.
+        </p>
+        <button id="accept-cookies-button" class="bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                                 shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
+            Aceptar
+        </button>
+        <p class="mt-2 text-xs text-gray-400">© 2025 Byte. Todos los derechos reservados.</p>
+    </div>
+
+    <div id="development-banner" class="hidden fixed inset-0 flex items-center justify-center p-4 z-[100000000] bg-byte-dark-bg bg-opacity-95 backdrop-blur-sm">
+        <div class="bg-byte-secondary-dark text-byte-text-light p-8 rounded-lg shadow-2xl max-w-lg w-full text-center border border-byte-accent-cyan" data-aos="zoom-in" data-aos-duration="600">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-byte-accent-cyan mb-4 text-stroke-cyan">¡Página en Desarrollo!</h3>
+            <p class="mb-6 text-base md:text-lg">
+                Esta página web se encuentra en desarrollo. Es posible que esté incompleta o presente funcionalidades limitadas.
+                El equipo de desarrolladores de Byte trabaja arduamente para terminarla y ofrecerte la mejor experiencia.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+                <button id="accept-development-button" class="bg-yellow-500 text-black font-bold py-2.5 px-6 rounded-full
+                                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm md:text-base">
+                    Aceptar
+                </button>
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" id="contact-whatsapp-button-dev" class="bg-whatsapp-green text-white font-bold py-2.5 px-6 rounded-full
+                                                             shadow-lg hover:bg-whatsapp-dark-green transition duration-300 transform hover:scale-105 text-sm md:text-base flex items-center justify-center">
+                    <i class="fab fa-whatsapp mr-2"></i> Contáctanos
+                </a>
+            </div>
+            <p class="mt-4 text-xs text-gray-400">© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+
     <script type="text/javascript">
         (function() {
             var chatBotEl = document.createElement('chat-bot');
@@ -1079,86 +1116,175 @@
     </script>
 
     <script>
+        // Global variables for WhatsApp elements
         const whatsappButton = document.getElementById('whatsapp-float-button');
         const whatsappTooltip = document.getElementById('whatsapp-tooltip');
+        const whatsappFloatContainer = document.querySelector('.whatsapp-float-container');
         let initialTooltipTimeout;
         let hoverTooltipTimeout;
         let animationInterval;
+        let whatsappTooltipEnabled = true; // Flag to control tooltip visibility and animations
 
-        // Añadir una verificación para asegurar que los elementos existan antes de continuar
-        if (!whatsappButton || !whatsappTooltip) {
-            console.error("Error: WhatsApp button or tooltip element not found in the DOM. Skipping WhatsApp animations and tooltip logic.");
-        } else {
-            // Función para mostrar el tooltip
-            function showTooltip() {
+        // Global variables for cookie banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookiesButton = document.getElementById('accept-cookies-button');
+
+        // Global variables for development banner
+        const developmentBanner = document.getElementById('development-banner');
+        const acceptDevelopmentButton = document.getElementById('accept-development-button');
+        const contactWhatsappDevelopmentButton = document.getElementById('contact-whatsapp-button-dev'); // Specific ID for the WhatsApp button within dev banner
+
+        // Function to show the WhatsApp tooltip
+        function showTooltip() {
+            if (whatsappTooltipEnabled) {
                 whatsappTooltip.classList.add('show-tooltip');
             }
+        }
 
-            // Función para ocultar el tooltip
-            function hideTooltip() {
-                whatsappTooltip.classList.remove('show-tooltip');
-            }
+        // Function to hide the WhatsApp tooltip
+        function hideTooltip() {
+            whatsappTooltip.classList.remove('show-tooltip');
+        }
 
-            // Función para iniciar la secuencia de animación
-            function startWhatsappAnimations() {
-                // Detener cualquier animación existente
+        // Function to start the WhatsApp animation sequence
+        function startWhatsappAnimations() {
+            if (whatsappTooltipEnabled) {
+                // Clear any existing animation to restart
                 whatsappButton.style.animation = 'none';
-                void whatsappButton.offsetWidth; // Forzar el reflow para reiniciar la animación
-                whatsappButton.style.animation = ''; // Limpiar la propiedad de animación
+                void whatsappButton.offsetWidth; // Force reflow
+                whatsappButton.style.animation = ''; // Reset animation property
 
-                // Iniciar pulse-glow
                 whatsappButton.style.animation = 'pulse-glow 2s forwards';
 
-                // Después de pulse-glow, iniciar shake
                 setTimeout(() => {
                     whatsappButton.style.animation = 'shake 1s forwards';
-                }, 2000); // Después de 2 segundos (duración de pulse-glow)
+                }, 2000);
             }
+        }
 
-            // Función para gestionar el ciclo de animación cada 8 segundos
-            function setupAnimationCycle() {
-                // Limpiar cualquier intervalo anterior para evitar duplicados
-                if (animationInterval) {
-                    clearInterval(animationInterval);
-                }
-                // Iniciar la primera secuencia de animación inmediatamente
+        // Function to manage the WhatsApp animation cycle
+        function setupAnimationCycle() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+            }
+            if (whatsappTooltipEnabled) {
                 startWhatsappAnimations();
-                // Establecer intervalo para secuencias de animación posteriores (cada 8 segundos)
                 animationInterval = setInterval(() => {
                     startWhatsappAnimations();
-                }, 8000); // Cada 8 segundos
+                }, 8000);
             }
+        }
 
-            // Mostrar el tooltip inicial cuando la página carga
-            // El tooltip se muestra automáticamente al cargar la página
-            window.addEventListener('load', () => {
-                showTooltip(); // Mostrar el tooltip
-                // Cambiado el tiempo de ocultación a 3000ms (3 segundos)
+        // Function to update WhatsApp button position and state based on banner visibility
+        function updateWhatsappPositionAndState() {
+            const isCookieBannerVisible = !cookieBanner.classList.contains('hidden');
+            const isDevelopmentBannerVisible = !developmentBanner.classList.contains('hidden');
+
+            if (isDevelopmentBannerVisible) {
+                // If development banner is visible, elevate WhatsApp significantly
+                whatsappFloatContainer.style.bottom = '250px'; // Adjust as needed to clear the modal
+                whatsappTooltipEnabled = false;
+                hideTooltip();
+                clearInterval(animationInterval);
+                whatsappButton.style.animation = 'none';
+            } else if (isCookieBannerVisible) {
+                // If only cookie banner is visible, elevate based on cookie banner height
+                // Small delay to ensure the cookie banner's height is rendered before calculation
                 setTimeout(() => {
-                    hideTooltip(); // Ocultar el tooltip después de 3 segundos
-                }, 3000);
-                setupAnimationCycle(); // Iniciar el ciclo de animación después de ocultar el tooltip inicial
-            });
+                    const cookieBannerHeight = cookieBanner.offsetHeight;
+                    whatsappFloatContainer.style.bottom = `${cookieBannerHeight + 20}px`;
+                }, 50);
+                whatsappTooltipEnabled = false;
+                hideTooltip();
+                clearInterval(animationInterval);
+                whatsappButton.style.animation = 'none';
+            } else {
+                // Neither banner is visible, restore WhatsApp default state
+                whatsappFloatContainer.style.bottom = '20px';
+                whatsappTooltipEnabled = true;
+                setupAnimationCycle(); // Restart animations only if enabled
+            }
+        }
 
-
-            // Mostrar tooltip al pasar el ratón y detener animaciones
+        // Event listeners for WhatsApp button itself (outside the banners)
+        if (whatsappButton && whatsappTooltip) {
             whatsappButton.addEventListener('mouseenter', () => {
-                clearTimeout(initialTooltipTimeout); // Limpiar cualquier auto-ocultar pendiente
-                clearTimeout(hoverTooltipTimeout); // Limpiar cualquier ocultar-hover pendiente
-                clearInterval(animationInterval); // Detener el ciclo de animación
-                whatsappButton.style.animation = 'none'; // Asegurarse de que las animaciones estén detenidas
-                showTooltip();
+                if (whatsappTooltipEnabled) {
+                    clearTimeout(initialTooltipTimeout);
+                    clearTimeout(hoverTooltipTimeout);
+                    clearInterval(animationInterval); // Stop cycle when hovered
+                    whatsappButton.style.animation = 'none'; // Clear any ongoing animation
+                    showTooltip();
+                }
             });
 
-            // Ocultar tooltip al quitar el ratón y reiniciar animaciones
             whatsappButton.addEventListener('mouseleave', () => {
-                // Establecer un pequeño retraso antes de ocultar al quitar el ratón, en caso de salida accidental rápida
-                hoverTooltipTimeout = setTimeout(() => {
-                    hideTooltip();
-                }, 200); // Retraso de 200ms
-                setupAnimationCycle(); // Reiniciar el ciclo de animación
+                if (whatsappTooltipEnabled) {
+                    hoverTooltipTimeout = setTimeout(() => {
+                        hideTooltip();
+                    }, 200);
+                    setupAnimationCycle(); // Restart cycle after hover
+                }
             });
         }
+
+        // Main page load logic for banners
+        window.addEventListener('load', () => {
+            const cookieConsentAccepted = localStorage.getItem('cookieConsentAccepted');
+            const developmentBannerDismissed = localStorage.getItem('developmentBannerDismissed');
+
+            if (!cookieConsentAccepted) {
+                // Scenario 1: First-time visitor (no cookie consent)
+                cookieBanner.classList.remove('hidden');
+                updateWhatsappPositionAndState(); // Adjust WhatsApp for cookie banner
+
+                // On Cookie Banner 'Aceptar' click
+                acceptCookiesButton.addEventListener('click', () => {
+                    localStorage.setItem('cookieConsentAccepted', 'true');
+                    cookieBanner.classList.add('hidden'); // Hide cookie banner
+
+                    if (!developmentBannerDismissed) {
+                        // If development banner hasn't been dismissed, show it
+                        developmentBanner.classList.remove('hidden');
+                        updateWhatsappPositionAndState(); // Adjust WhatsApp for development banner
+                    } else {
+                        // If development banner was already dismissed, restore WhatsApp fully
+                        updateWhatsappPositionAndState();
+                    }
+                });
+
+            } else if (!developmentBannerDismissed) {
+                // Scenario 2: Cookie consent given, development banner not dismissed
+                cookieBanner.classList.add('hidden'); // Ensure cookie banner is hidden
+                developmentBanner.classList.remove('hidden');
+                updateWhatsappPositionAndState(); // Adjust WhatsApp for development banner
+
+            } else {
+                // Scenario 3: Both accepted/dismissed
+                cookieBanner.classList.add('hidden');
+                developmentBanner.classList.add('hidden');
+                updateWhatsappPositionAndState(); // Restore WhatsApp to default
+            }
+
+            // Event listener for Development Banner 'Aceptar' button
+            if (acceptDevelopmentButton) {
+                acceptDevelopmentButton.addEventListener('click', () => {
+                    localStorage.setItem('developmentBannerDismissed', 'true');
+                    developmentBanner.classList.add('hidden');
+                    updateWhatsappPositionAndState(); // Restore WhatsApp
+                });
+            }
+
+            // Event listener for Development Banner 'Contáctanos' WhatsApp button
+            if (contactWhatsappDevelopmentButton) {
+                contactWhatsappDevelopmentButton.addEventListener('click', () => {
+                    localStorage.setItem('developmentBannerDismissed', 'true');
+                    developmentBanner.classList.add('hidden');
+                    updateWhatsappPositionAndState(); // Restore WhatsApp
+                    // The href will handle navigation to WhatsApp
+                });
+            }
+        });
     </script>
 </body>
 </html>
