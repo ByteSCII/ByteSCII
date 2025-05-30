@@ -6,7 +6,7 @@
     <title>Byte - Tu visión nuestra misión</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // Custom Tailwind CSS configuration
+        // Configuración personalizada de Tailwind CSS
         tailwind.config = {
             theme: {
                 extend: {
@@ -16,68 +16,67 @@
                         navigation: ['Montserrat', 'sans-serif'],
                     },
                     colors: {
-                        'byte-dark-bg': '#0A0A1A', // Main dark background
-                        'byte-accent-cyan': '#00FFFF', // Electric cyan for accents
-                        'byte-light-bg': '#F8FAFC', // Light background (if used)
-                        'byte-text-dark': '#374151', // Dark text (if used)
-                        'byte-text-light': '#F9FAFB', // Light text
-                        'byte-secondary-dark': '#1A202C', // Secondary dark background (for dropdowns)
-                        'whatsapp-green': '#25D366', // Official WhatsApp color
-                        'whatsapp-dark-green': '#128C7E', // Darker shade for WhatsApp hover
+                        'byte-dark-bg': '#0A0A1A', // Fondo oscuro principal
+                        'byte-accent-cyan': '#00FFFF', // Cian eléctrico para acentos
+                        'byte-light-bg': '#F8FAFC', // Fondo claro (si se usa)
+                        'byte-text-dark': '#374151', // Texto oscuro (si se usa)
+                        'byte-text-light': '#F9FAFB', // Texto claro
+                        'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario (para desplegables)
+                        'whatsapp-green': '#25D366', // Color oficial de WhatsApp
+                        'whatsapp-dark-green': '#128C7E', // Tono más oscuro para hover de WhatsApp
                     }
                 }
             }
         }
     </script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Font import from Google Fonts */
+        /* Importación de fuentes desde Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
 
-        /* Universal Box-Sizing for consistent box model */
+        /* Box-Sizing universal para un modelo de caja consistente */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        /* Base styles for HTML and Body */
+        /* Estilos base para HTML y Body */
         html {
-            height: 100%; /* Ensures HTML has full height */
-            width: 100%; /* Ensures HTML has full width */
+            height: 100%; /* Asegura que HTML tenga altura completa */
+            width: 100%; /* Asegura que HTML tenga ancho completo */
         }
         body {
-            min-height: 100vh; /* Ensures body takes at least full viewport height, allowing scrolling */
-            width: 100%; /* Ensures body takes full width */
-            overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
-            background-color: #0A0A1A; /* Main dark background color */
-            font-family: 'Inter', sans-serif; /* Primary font */
-            color: #F9FAFB; /* Primary text color */
+            min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
+            width: 100%; /* Asegura que el body ocupe el ancho completo */
+            overflow-x: hidden; /* Previene el scroll horizontal no deseado */
+            background-color: #0A0A1A; /* Color de fondo oscuro principal */
+            font-family: 'Inter', sans-serif; /* Fuente principal */
+            color: #F9FAFB; /* Color de texto principal */
             margin: 0;
             padding: 0;
-            /* Disable text selection for a more app-like experience */
+            /* Deshabilita la selección de texto para una experiencia más similar a una aplicación */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* Styles for headings (h1-h6) */
+        /* Estilos para encabezados (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif; /* Font for headings */
-            color: #00FFFF; /* Electric cyan for accents */
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Shadow for a glow effect */
+            font-family: 'Montserrat', sans-serif; /* Fuente para encabezados */
+            color: #00FFFF; /* Cian eléctrico para acentos */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para un efecto de brillo */
         }
 
-        /* Text stroke style */
+        /* Estilo de contorno de texto */
         .text-stroke-cyan {
-            -webkit-text-stroke: 1.5px #00FFFF; /* Cyan stroke for WebKit browsers */
-            text-stroke: 1.5px #00FFFF; /* Standard cyan stroke */
-            color: #FFFFFF; /* Text fill color */
-            text-shadow: none; /* Ensures no text shadows interfere */
+            -webkit-text-stroke: 1.5px #00FFFF; /* Contorno cian para navegadores WebKit */
+            text-stroke: 1.5px #00FFFF; /* Contorno cian estándar */
+            color: #FFFFFF; /* Color de relleno del texto */
+            text-shadow: none; /* Asegura que no haya sombras de texto que interfieran */
         }
 
-        /* "Fall-in" animation on scroll for AOS */
+        /* Animación "Fall-in" al hacer scroll para AOS */
         @keyframes fall-in {
             0% {
                 opacity: 0;
@@ -89,7 +88,7 @@
             }
         }
 
-        /* Class applied by AOS.js to animate elements */
+        /* Clase aplicada por AOS.js para animar elementos */
         .aos-animate {
             animation-name: fall-in;
             animation-duration: 1s;
@@ -97,27 +96,20 @@
             animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        /* Custom Colors (kept for compatibility and clarity, although defined in tailwind.config) */
-        .bg-byte-dark-bg { background-color: #0A0A1A; }
-        .text-byte-text-light { color: #F9FAFB; }
-        .text-byte-accent-cyan { color: #00FFFF; }
-        .bg-byte-secondary-dark { background-color: #1A202C; }
-        .bg-whatsapp-green { background-color: #25D366; }
-
-        /* Styles for navigation menu text with cyan stroke */
-        /* Montserrat font applied directly here to ensure its display */
+        /* Estilos para el texto del menú de navegación con contorno cian */
+        /* Fuente Montserrat aplicada directamente aquí para asegurar su visualización */
         .nav-menu-text-stroke-cyan {
-            color: #E0E0E0; /* Base silver color for text */
-            -webkit-text-stroke-width: 0.7px; /* Thinner cyan stroke for small text */
-            -webkit-text-stroke-color: #A0A0A0; /* Darker gray stroke for silver effect */
-            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Shadow for depth */
+            color: #E0E0E0; /* Color base plateado para el texto */
+            -webkit-text-stroke-width: 0.7px; /* Contorno cian más delgado para texto pequeño */
+            -webkit-text-stroke-color: #A0A0A0; /* Contorno gris más oscuro para efecto plateado */
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Sombra para profundidad */
             transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-            font-family: 'Montserrat', sans-serif; /* APPLIED DIRECTLY HERE */
-            font-style: italic; /* Italic font */
+            font-family: 'Montserrat', sans-serif; /* APLICADO DIRECTAMENTE AQUÍ */
+            font-style: italic; /* Fuente itálica */
         }
 
-        /* Glow and lift effect on menu links on hover */
-        .menu-link-hover-effect { /* New class for hover effects */
+        /* Efecto de brillo y elevación en los enlaces del menú al pasar el ratón */
+        .menu-link-hover-effect { /* Nueva clase para efectos hover */
             position: relative;
             transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
@@ -129,33 +121,33 @@
             transform: translateX(-50%);
             width: 0;
             height: 3px;
-            background-color: #00FFFF; /* Cyan glow color */
+            background-color: #00FFFF; /* Color de brillo cian */
             border-radius: 2px;
             transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
             opacity: 0;
         }
         .menu-link-hover-effect:hover::before {
-            width: calc(100% - 20px); /* Adjust underline width as desired */
+            width: calc(100% - 20px); /* Ajusta el ancho del subrayado según se desee */
             opacity: 1;
-            background-color: #00FFFF; /* Ensures underline is cyan on hover */
+            background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
         }
         .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
-            color: #00FFFF; /* Electric cyan on hover */
-            -webkit-text-stroke-color: #00BFFF; /* Darker cyan for stroke on hover */
-            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Intense glow on hover */
+            color: #00FFFF; /* Cian eléctrico al pasar el ratón */
+            -webkit-text-stroke-color: #00BFFF; /* Cian más oscuro para el contorno al pasar el ratón */
+            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Brillo intenso al pasar el ratón */
         }
         .menu-link-hover-effect:hover {
-             transform: translateY(-5px); /* Lifts the link slightly more for a noticeable "jump" */
+            transform: translateY(-5px); /* Eleva el enlace ligeramente más para un "salto" notable */
         }
 
-        /* Service Card Styles */
+        /* Estilos de las tarjetas de servicio */
         .service-card {
-            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Subtle gradient for background */
-            border-radius: 1rem; /* More rounded corners */
-            padding: 2rem; /* Reduced padding */
-            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Shadow with accent color */
-            transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle border */
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Gradiente sutil para el fondo */
+            border-radius: 1rem; /* Esquinas más redondeadas */
+            padding: 2rem; /* Relleno reducido */
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color de acento */
+            transition: all 0.3s ease-in-out; /* Transición suave para todos los cambios */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -163,39 +155,39 @@
         }
 
         .service-card:hover {
-            transform: translateY(-8px) scale(1.03); /* Lift and slight increase in size on hover */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* More pronounced shadow on hover */
-            border-color: #00FFFF; /* More visible border on hover */
+            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño al pasar el ratón */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+            border-color: #00FFFF; /* Borde más visible al pasar el ratón */
         }
 
         .service-card .icon {
-            font-size: 3.5rem; /* Reduced icon size */
-            margin-bottom: 1rem; /* Reduced margin */
-            color: #00FFFF; /* Accent color */
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Icon glow */
-            transition: transform 0.3s ease-in-out; /* Transition for icon hover */
+            font-size: 3.5rem; /* Tamaño de icono reducido */
+            margin-bottom: 1rem; /* Margen reducido */
+            color: #00FFFF; /* Color de acento */
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Brillo del icono */
+            transition: transform 0.3s ease-in-out; /* Transición para el hover del icono */
         }
         .service-card:hover .icon {
-            transform: rotate(10deg) scale(1.1); /* Rotate and scale effect on hover */
+            transform: rotate(10deg) scale(1.1); /* Efecto de rotación y escala al pasar el ratón */
         }
 
         .service-card h3 {
-            color: #F9FAFB; /* Lighter title text */
-            font-size: 1.5rem; /* Reduced title size */
-            margin-bottom: 0.75rem; /* Reduced margin */
-            font-weight: 700; /* Bolder */
+            color: #F9FAFB; /* Texto del título más claro */
+            font-size: 1.5rem; /* Tamaño del título reducido */
+            margin-bottom: 0.75rem; /* Margen reducido */
+            font-weight: 700; /* Más negrita */
         }
 
         .service-card p {
-            color: #CBD5E0; /* Softer paragraph text */
-            font-size: 0.95rem; /* Reduced paragraph size */
+            color: #CBD5E0; /* Texto de párrafo más suave */
+            font-size: 0.95rem; /* Tamaño de párrafo reducido */
             line-height: 1.6;
         }
 
-        /* Contact Section Specific Styles */
+        /* Estilos específicos de la sección de contacto */
         .contact-section {
-            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Background gradient */
-            padding: 4rem 0; /* Reduced padding */
+            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Gradiente de fondo */
+            padding: 4rem 0; /* Relleno reducido */
             position: relative;
             overflow: hidden;
         }
@@ -208,7 +200,7 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate-gradient 20s linear infinite; /* Rotation animation for background */
+            animation: rotate-gradient 20s linear infinite; /* Animación de rotación para el fondo */
             z-index: 0;
         }
 
@@ -220,18 +212,18 @@
         .contact-content {
             position: relative;
             z-index: 1;
-            background: rgba(10, 10, 26, 0.85); /* Semi-transparent background for content */
+            background: rgba(10, 10, 26, 0.85); /* Fondo semi-transparente para el contenido */
             border-radius: 1.5rem;
-            padding: 2.5rem; /* Reduced padding */
+            padding: 2.5rem; /* Relleno reducido */
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px); /* Blur effect */
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
         }
 
-        /* Padding adjustment for contact cards - NOW HANDLED IN HTML WITH TAILWIND */
+        /* Ajuste de relleno para tarjetas de contacto - AHORA MANEJADO EN HTML CON TAILWIND */
         .contact-form-card,
         .contact-info-card {
-            background: #1A202C; /* Dark background for inner cards */
-            /* padding will be moved to HTML */
+            background: #1A202C; /* Fondo oscuro para tarjetas internas */
+            /* el padding se moverá a HTML */
             border-radius: 1rem;
             box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
             border: 1px solid rgba(0, 255, 255, 0.2);
@@ -244,34 +236,34 @@
 
         .contact-form-card input,
         .contact-form-card textarea {
-            background-color: #0A0A1A; /* Use primary background color */
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
-            color: #F9FAFB; /* Light text color */
+            background-color: #0A0A1A; /* Usar el color de fondo primario */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
+            color: #F9FAFB; /* Color de texto claro */
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
         .contact-form-card input::placeholder,
         .contact-form-card textarea::placeholder {
-            color: #b0b0b0; /* Placeholder color */
+            color: #b0b0b0; /* Color del placeholder */
         }
         .contact-form-card input:focus,
         .contact-form-card textarea:focus {
-            border-color: #00FFFF; /* Cyan on focus */
+            border-color: #00FFFF; /* Cian al enfocar */
             box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
         }
         .social-icon-link {
             transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
-            color: #F9FAFB; /* Default icon color */
+            color: #F9FAFB; /* Color de icono predeterminado */
         }
         .social-icon-link:hover {
             transform: translateY(-3px) scale(1.1);
-            color: #00FFFF; /* Cyan on hover */
+            color: #00FFFF; /* Cian al pasar el ratón */
         }
         .map-container {
             overflow: hidden;
             border-radius: 1rem;
-            margin-top: 2rem; /* Reduced margin */
+            margin-top: 2rem; /* Margen reducido */
             width: 100%;
-            /* Map height - NOW CONTROLLED BY TAILWIND IN HTML */
+            /* Altura del mapa - AHORA CONTROLADA POR TAILWIND EN HTML */
         }
         .map-container iframe {
             width: 100%;
@@ -279,42 +271,42 @@
             border: none;
         }
 
-        /* Disabled link style */
+        /* Estilo de enlace deshabilitado */
         .disabled-link {
-            opacity: 0.6; /* Reduced opacity to indicate disabled */
-            cursor: not-allowed; /* "Not allowed" cursor */
+            opacity: 0.6; /* Opacidad reducida para indicar deshabilitado */
+            cursor: not-allowed; /* Cursor de "no permitido" */
         }
 
-        /* Desktop dropdown menu styles */
+        /* Estilos del menú desplegable de escritorio */
         .js-dropdown-menu {
             position: absolute;
-            top: 100%; /* Just below the parent button */
+            top: 100%; /* Justo debajo del botón padre */
             left: 50%;
             transform: translateX(-50%);
-            min-width: 180px; /* Minimum width for items */
-            background-color: #1A202C; /* Secondary dark color */
+            min-width: 180px; /* Ancho mínimo para los elementos */
+            background-color: #1A202C; /* Color oscuro secundario */
             border-radius: 0.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             z-index: 1000;
-            overflow: hidden; /* For rounded corners to work well with items */
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
+            overflow: hidden; /* Para que las esquinas redondeadas funcionen bien con los elementos */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
         }
 
-        /* Subcategory hover in aqua green for desktop */
+        /* Hover de subcategoría en verde aqua para escritorio */
         .js-dropdown-menu a {
             display: block;
             padding: 0.75rem 1.25rem;
-            color: #F9FAFB; /* Light text color */
-            text-align: center; /* Center text in dropdown */
+            color: #F9FAFB; /* Color de texto claro */
+            text-align: center; /* Centrar texto en el desplegable */
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .js-dropdown-menu a:hover {
-            background-color: #00FFFF; /* Electric cyan for background */
-            color: #0A0A1A; /* Dark text on hover */
+            background-color: #00FFFF; /* Cian eléctrico para el fondo */
+            color: #0A0A1A; /* Texto oscuro al pasar el ratón */
         }
 
-        /* WhatsApp Floating Button (Global) */
+        /* Botón flotante de WhatsApp (Global) */
         .whatsapp-float-container {
             position: fixed;
             bottom: 20px;
@@ -325,7 +317,7 @@
         }
 
         .whatsapp-float-button {
-            background-color: #25D366; /* WhatsApp green */
+            background-color: #25D366; /* Verde de WhatsApp */
             color: white;
             width: 60px;
             height: 60px;
@@ -341,56 +333,56 @@
         }
 
         .whatsapp-float-button:hover {
-            background-color: #128C7E; /* Darker shade on hover */
-            transform: scale(1.05); /* Slight scale increase on hover */
-            animation: none !important; /* Stop all animations on hover */
+            background-color: #128C7E; /* Tono más oscuro al pasar el ratón */
+            transform: scale(1.05); /* Ligero aumento de escala al pasar el ratón */
+            animation: none !important; /* Detener todas las animaciones al pasar el ratón */
         }
 
         .whatsapp-float-button svg {
-            fill: white; /* Ensures SVG icon has white color */
-            width: 60%; /* Adjust icon size within button */
-            height: 60%; /* Adjust icon size within button */
+            fill: white; /* Asegura que el icono SVG tenga color blanco */
+            width: 60%; /* Ajusta el tamaño del icono dentro del botón */
+            height: 60%; /* Ajusta el tamaño del icono dentro del botón */
         }
 
-        /* Tooltip for WhatsApp button - Message Bubble Style */
+        /* Tooltip para el botón de WhatsApp - Estilo de burbuja de mensaje */
         .whatsapp-tooltip {
-            background-color: #FFFFFF; /* White background */
-            color: #0A0A1A; /* Dark text */
+            background-color: #FFFFFF; /* Fondo blanco */
+            color: #0A0A1A; /* Texto oscuro */
             padding: 0.75rem 1rem;
-            border-radius: 0.75rem; /* More rounded corners for bubble look */
+            border-radius: 0.75rem; /* Esquinas más redondeadas para un aspecto de burbuja */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-right: 15px; /* Space between tooltip and button */
-            opacity: 0; /* Initially hidden */
-            visibility: hidden; /* Initially hidden */
-            transform: translateX(20px); /* Start slightly to the right */
+            margin-right: 15px; /* Espacio entre el tooltip y el botón */
+            opacity: 0; /* Inicialmente oculto */
+            visibility: hidden; /* Inicialmente oculto */
+            transform: translateX(20px); /* Empieza ligeramente a la derecha */
             transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
-            white-space: nowrap; /* Prevent text wrapping */
+            white-space: nowrap; /* Evita que el texto se envuelva */
             font-size: 0.9rem;
-            border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle light border */
-            position: relative; /* Needed for pseudo-element positioning */
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Borde claro sutil */
+            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
         }
 
         .whatsapp-tooltip.show-tooltip {
             opacity: 1;
             visibility: visible;
-            transform: translateX(0); /* Slide into view */
+            transform: translateX(0); /* Desliza a la vista */
         }
 
-        /* Speech bubble tail */
+        /* Cola de la burbuja de diálogo */
         .whatsapp-tooltip::after {
             content: '';
             position: absolute;
-            right: -10px; /* Position outside the bubble */
-            top: 50%; /* Vertically center with the bubble */
-            transform: translateY(-50%); /* Adjust for vertical centering */
+            right: -10px; /* Posición fuera de la burbuja */
+            top: 50%; /* Centrado verticalmente con la burbuja */
+            transform: translateY(-50%); /* Ajuste para el centrado vertical */
             width: 0;
             height: 0;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
-            border-left: 10px solid #FFFFFF; /* White border to match bubble background */
+            border-left: 10px solid #FFFFFF; /* Borde blanco para que coincida con el fondo de la burbuja */
         }
 
-        /* Shake animation for WhatsApp button */
+        /* Animación de vibración para el botón de WhatsApp */
         @keyframes shake {
             10%, 90% {
                 transform: translate3d(-1px, 0, 0);
@@ -406,7 +398,7 @@
             }
         }
 
-        /* Pulse glow animation for WhatsApp button */
+        /* Animación de brillo de pulso para el botón de WhatsApp */
         @keyframes pulse-glow {
             0% {
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
@@ -419,95 +411,95 @@
             }
         }
 
-        /* Mobile dropdown menu styles */
+        /* Estilos del menú desplegable móvil */
         .js-dropdown-menu-mobile {
-            background-color: #1A202C; /* Secondary dark color */
+            background-color: #1A202C; /* Color oscuro secundario */
             border-radius: 0.5rem;
-            margin-top: 0.5rem; /* Space between parent link and submenu */
-            padding: 0.5rem 0; /* Padding inside dropdown */
+            margin-top: 0.5rem; /* Espacio entre el enlace padre y el submenú */
+            padding: 0.5rem 0; /* Relleno dentro del desplegable */
         }
 
-        /* Subcategory hover in aqua green for mobile */
+        /* Hover de subcategoría en verde aqua para móvil */
         .js-dropdown-menu-mobile a {
-            padding: 0.75rem 1.5rem; /* Indent sub-elements */
+            padding: 0.75rem 1.5rem; /* Indentar sub-elementos */
             text-align: left;
-            border-radius: 0; /* Remove rounded borders for individual elements */
+            border-radius: 0; /* Eliminar bordes redondeados para elementos individuales */
         }
 
         .js-dropdown-menu-mobile a:hover {
-            background-color: #00FFFF; /* Electric cyan for background */
-            color: #0A0A1A; /* Dark text on hover */
+            background-color: #00FFFF; /* Cian eléctrico para el fondo */
+            color: #0A0A1A; /* Texto oscuro al pasar el ratón */
         }
 
         /* --- Estilos para reducción de tamaño en PC y pantallas grandes --- */
-        @media (min-width: 1024px) { /* Adjust this breakpoint as needed (lg in Tailwind) */
+        @media (min-width: 1024px) { /* Ajusta este breakpoint según sea necesario (lg en Tailwind) */
             .header-nav-item {
-                font-size: 0.95rem; /* Smaller font for navigation links */
+                font-size: 0.95rem; /* Fuente más pequeña para enlaces de navegación */
             }
 
             .main-cta-button {
-                padding: 0.6rem 1.5rem; /* Slightly smaller button padding */
-                font-size: 0.9rem; /* Smaller font for CTA button */
+                padding: 0.6rem 1.5rem; /* Relleno de botón ligeramente más pequeño */
+                font-size: 0.9rem; /* Fuente más pequeña para el botón CTA */
             }
 
             .hero-section-padding {
-                padding-top: 6rem; /* Adjust top padding for hero section */
-                padding-bottom: 6rem; /* Adjust bottom padding for hero section */
+                padding-top: 6rem; /* Ajusta el relleno superior para la sección hero */
+                padding-bottom: 6rem; /* Ajusta el relleno inferior para la sección hero */
             }
 
             .hero-heading {
-                font-size: 3.5rem; /* Smaller heading for hero section */
+                font-size: 3.5rem; /* Encabezado más pequeño para la sección hero */
             }
 
             .hero-subheading {
-                font-size: 1.1rem; /* Smaller subheading for hero section */
+                font-size: 1.1rem; /* Subencabezado más pequeño para la sección hero */
             }
 
             .section-heading {
-                font-size: 2.5rem; /* Smaller general section headings */
+                font-size: 2.5rem; /* Encabezados de sección generales más pequeños */
             }
 
             .service-card {
-                padding: 1.5rem; /* Smaller padding for service cards */
+                padding: 1.5rem; /* Relleno más pequeño para tarjetas de servicio */
             }
 
             .service-card .icon {
-                font-size: 3rem; /* Smaller icon size in service cards */
+                font-size: 3rem; /* Tamaño de icono más pequeño en tarjetas de servicio */
             }
 
             .service-card h3 {
-                font-size: 1.3rem; /* Smaller title in service cards */
+                font-size: 1.3rem; /* Título más pequeño en tarjetas de servicio */
             }
 
             .service-card p {
-                font-size: 0.85rem; /* Smaller paragraph text in service cards */
+                font-size: 0.85rem; /* Texto de párrafo más pequeño en tarjetas de servicio */
             }
 
             .contact-section {
-                padding: 3rem 0; /* Smaller padding for contact section */
+                padding: 3rem 0; /* Relleno más pequeño para la sección de contacto */
             }
 
             .contact-content {
-                padding: 2rem; /* Smaller padding for contact content card */
+                padding: 2rem; /* Relleno más pequeño para la tarjeta de contenido de contacto */
             }
 
             .contact-form-card,
             .contact-info-card {
-                padding: 1.5rem; /* Smaller padding for inner contact cards */
+                padding: 1.5rem; /* Relleno más pequeño para tarjetas de contacto internas */
             }
 
             .contact-form-card input,
             .contact-form-card textarea {
-                font-size: 0.8rem; /* Smaller font for form inputs */
+                font-size: 0.8rem; /* Fuente más pequeña para campos de formulario */
             }
 
             .social-icon-link svg {
-                width: 24px; /* Smaller social icons */
+                width: 24px; /* Iconos sociales más pequeños */
                 height: 24px;
             }
 
             .whatsapp-float-button {
-                width: 50px; /* Smaller WhatsApp button */
+                width: 50px; /* Botón de WhatsApp más pequeño */
                 height: 50px;
                 font-size: 1.8rem;
             }
@@ -515,48 +507,50 @@
 
         /* Estilos del pie de página */
         .footer {
-            background-color: #1A202C; /* Secondary dark background */
-            color: #F9FAFB; /* Light text */
-            padding: 2rem 0; /* Padding for the footer */
-            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border top */
+            background-color: #1A202C; /* Fondo oscuro secundario */
+            color: #F9FAFB; /* Texto claro */
+            padding: 2rem 0; /* Relleno para el pie de página */
+            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Borde superior cian sutil */
         }
 
         .footer a {
-            color: #00FFFF; /* Cyan for links */
+            color: #00FFFF; /* Cian para enlaces */
             transition: color 0.3s ease;
         }
 
         .footer a:hover {
-            color: #00BFFF; /* Darker cyan on hover */
+            color: #00BFFF; /* Cian más oscuro al pasar el ratón */
         }
 
         .footer-heading {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.25rem; /* Larger font for headings */
+            font-size: 1.25rem; /* Fuente más grande para encabezados */
             font-weight: 700;
             margin-bottom: 0.75rem;
-            color: #00FFFF; /* Cyan color for headings */
+            color: #00FFFF; /* Color cian para encabezados */
         }
 
         .footer-link-item {
-            margin-bottom: 0.5rem; /* Space between list items */
+            margin-bottom: 0.5rem; /* Espacio entre elementos de la lista */
         }
 
         .footer-social-icon {
-            font-size: 1.75rem; /* Size of social icons */
+            font-size: 1.75rem; /* Tamaño de los iconos sociales */
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .footer-social-icon:hover {
             transform: translateY(-3px) scale(1.1);
-            color: #00FFFF; /* Cyan on hover */
+            color: #00FFFF; /* Cian al pasar el ratón */
         }
     </style>
 </head>
 <body class="bg-byte-dark-bg font-sans leading-normal tracking-normal min-h-screen flex flex-col">
 
     <header class="bg-byte-dark-bg text-byte-text-light py-4 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
-        <div class="container mx-auto flex justify-end items-center px-6 md:px-0 gap-8">
+        <div class="container mx-auto flex justify-between items-center px-6 md:px-0 gap-8">
+            <img src="./images/isotipo.png" alt="Isotipo de Byte" title="Isotipo de Byte" class="w-12 h-12 rounded-full object-contain">
+
             <nav class="hidden sm:flex justify-end flex-grow">
                 <ul class="flex space-x-6 items-center">
                     <li class="relative group">
@@ -640,7 +634,7 @@
             </nav>
 
             <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                      shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                 ¡Empecemos tu proyecto!
             </a>
 
@@ -733,7 +727,7 @@
             </li>
             <li>
                 <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm main-cta-button">
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm main-cta-button">
                     ¡Empecemos tu proyecto!
                 </a>
             </li>
@@ -747,7 +741,6 @@
                 <source src="./images/fondo.mp4" type="video/mp4">
                 Tu navegador no soporta la etiqueta de video.
             </video>
-
             <div class="container mx-auto px-4 relative z-10 text-center"
                  data-aos="fade-up" data-aos-duration="1000">
                 <h1 class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading"
@@ -759,7 +752,7 @@
                     Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
                 </p>
                 <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                                             shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                     ¡Hablemos de tu proyecto!
                 </a>
             </div>
@@ -804,7 +797,7 @@
                     Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
                 </p>
                 <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                              shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                                             shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                     ¡Hablemos de tu proyecto!
                 </a>
             </div>
@@ -846,34 +839,21 @@
                             <p class="flex items-center justify-center lg:justify-start text-byte-accent-cyan">📞 +584125646508</p>
                         </div>
 
-                        <h3 class="text-xl lg:text-lg font-bold text-center mt-6 mb-5 text-stroke-cyan">Redes Sociales</h3>
-                        <div class="flex justify-center lg:justify-start space-x-5 text-byte-text-light mb-6">
-                            <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="Instagram">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 lg:w-6 lg:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                            </a>
-                            <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="WhatsApp">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px"><path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"/>
-                                </svg>
-                            </a>
+                        <div class="mt-8">
+                            <h3 class="text-xl lg:text-lg font-bold text-center mb-4 text-stroke-cyan">Nuestra Ubicación</h3>
+                            <div class="map-container relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-lg border border-byte-accent-cyan/30">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3923.080066597793!2d-66.9318856247942!3d10.499806489620712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a591e1d3e2001%3A0x6b4a3c1d2e1b0a8!2sPlaza%20Sucre%2C%20Caracas%201010%2C%20Capital%20District%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1717088400000!5m2!1sen!2sus"
+                                    width="100%"
+                                    height="100%"
+                                    style="border:0;"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    title="Ubicación de Byte en Google Maps">
+                                </iframe>
+                            </div>
                         </div>
-
-                        <script type="text/javascript">
-                            (function() {
-                                var chatBotEl = document.createElement('chat-bot');
-                                chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
-                                chatBotEl.setAttribute('user_id', '872cc8d5-f312-44c1-a9cc-15b7d1740044');
-                                chatBotEl.setAttribute('chatbot_id', '359c0fb9-fd3d-4753-8ce1-2b076bdd6b34');
-                                var chatbotLink = document.createElement('a');
-                                chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
-                                chatbotLink.innerHTML = 'chatsimple';
-                                chatBotEl.appendChild(chatbotLink);
-                                document.body.appendChild(chatBotEl);
-
-                                var cs = document.createElement('script');
-                                cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-                                document.body.appendChild(cs);
-                            })();
-                        </script>
                     </div>
                 </div>
             </div>
@@ -881,25 +861,25 @@
 
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script>
-            // AOS initialization with configurations
+            // Inicialización de AOS con configuraciones
             AOS.init({
-                once: true, // Animations only run once when scrolling down
-                mirror: false, // Do not animate when scrolling up
-                offset: 100, // Offset (in px) from the original activation point
-                duration: 800, // Animation duration (in ms)
-                easing: 'ease-out-cubic', // Timing function for the animation
+                once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
+                mirror: false, // No animar al desplazarse hacia arriba
+                offset: 100, // Desplazamiento (en px) desde el punto de activación original
+                duration: 800, // Duración de la animación (en ms)
+                easing: 'ease-out-cubic', // Función de temporización para la animación
             });
 
             window.addEventListener('load', () => {
-                // Logic for desktop dropdown menus
+                // Lógica para menús desplegables de escritorio
                 document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
                     button.addEventListener('click', function(event) {
-                        event.preventDefault(); // Prevents default link navigation
-                        const dropdownId = this.dataset.dropdownId; // Gets the ID of the associated dropdown menu
+                        event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
+                        const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
                         const dropdownMenu = document.getElementById(dropdownId);
                         const arrowIcon = this.querySelector('.js-arrow-icon');
 
-                        // Closes other open desktop dropdown menus
+                        // Cierra otros menús desplegables de escritorio abiertos
                         document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                             if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                                 menu.classList.add('hidden');
@@ -910,31 +890,31 @@
                             }
                         });
 
-                        // Toggles visibility of the current menu and rotates the arrow icon
+                        // Alterna la visibilidad del menú actual y rota el icono de flecha
                         dropdownMenu.classList.toggle('hidden');
                         arrowIcon.classList.toggle('rotate-180');
                     });
                 });
 
-                // Closes all desktop dropdown menus when clicking outside them
+                // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
                 document.addEventListener('click', function(event) {
-                    // If the click was not inside a dropdown button or a dropdown menu
+                    // Si el clic no fue dentro de un botón desplegable o un menú desplegable
                     if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                         document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            menu.classList.add('hidden'); // Hides the menu
+                            menu.classList.add('hidden'); // Oculta el menú
                             const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                             if (button) {
-                                button.querySelector('.js-arrow-icon').classList.remove('rotate-180'); // Restores arrow orientation
+                                button.querySelector('.js-arrow-icon').classList.remove('rotate-180'); // Restaura la orientación de la flecha
                             }
                         });
                     }
                 });
 
-                // Logic for mobile menu and its dropdowns
+                // Lógica para el menú móvil y sus desplegables
                 const mobileMenuButton = document.getElementById('mobile-menu-button');
                 const mobileMenu = document.getElementById('mobile-menu');
 
-                // Definition of styles for mobile menu text (silver and cyan)
+                // Definición de estilos para el texto del menú móvil (plateado y cian)
                 const mobileMenuSilverStyles = {
                     color: '#E0E0E0',
                     webkitTextStrokeColor: '#A0A0A0',
@@ -947,7 +927,7 @@
                     textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
                 };
 
-                // Function to apply styles to mobile menu text
+                // Función para aplicar estilos al texto del menú móvil
                 function applyMobileMenuTextStyles(element, styles) {
                     element.style.color = styles.color;
                     element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
@@ -956,53 +936,53 @@
 
                 if (mobileMenuButton && mobileMenu) {
                     mobileMenuButton.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('hidden'); // Toggles visibility of mobile menu
+                        mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
                         const icon = mobileMenuButton.querySelector('svg path');
-                        // Changes hamburger icon to 'X' and vice versa
+                        // Cambia el icono de hamburguesa a 'X' y viceversa
                         if (mobileMenu.classList.contains('hidden')) {
-                            icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
-                            // When closing the main menu, reset all category texts to silver
+                            icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                            // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
                             mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
                                 applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
                             });
                         } else {
-                            icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // 'X' icon
+                            icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
                         }
                     });
 
-                    // Close mobile menu when clicking outside it
+                    // Cierra el menú móvil al hacer clic fuera de él
                     document.addEventListener('click', function(event) {
                         const isClickInsideMobileMenu = mobileMenu.contains(event.target);
                         const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
 
                         if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden'); // Hides the menu
-                            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restores icon
-                            // When closing the main menu, reset all category texts to silver
+                            mobileMenu.classList.add('hidden'); // Oculta el menú
+                            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                            // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
                             mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
                                 applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
                             });
                         }
                     });
 
-                    // Logic for mobile dropdown menus (similar to desktop but with mobile-specific classes)
+                    // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
                     document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
                         button.addEventListener('click', function(event) {
                             event.preventDefault();
-                            event.stopPropagation(); // Important to prevent click from propagating to document and closing main menu
+                            event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
                             const dropdownId = this.dataset.dropdownIdMobile;
                             const dropdownMenu = document.getElementById(dropdownId);
                             const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
-                            const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // The span with the category text
+                            const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
 
-                            // Closes other open mobile submenus and resets their text styles
+                            // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
                             document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                                 if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                                     menu.classList.add('hidden');
                                     const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
                                     if (otherButton) {
                                         otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
-                                        // Resets the text color of the category being closed
+                                        // Restablece el color del texto de la categoría que se está cerrando
                                         const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
                                         if (otherCategoryTextSpan) {
                                             applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
@@ -1014,347 +994,150 @@
                             dropdownMenu.classList.toggle('hidden');
                             arrowIcon.classList.toggle('rotate-180');
 
-                            // Applies or resets the color of the current category text
+                            // Aplica o restablece el color del texto de la categoría actual
                             if (!dropdownMenu.classList.contains('hidden')) {
-                                // If the menu is opening, apply cyan styles
+                                // Si el menú se está abriendo, aplica estilos cian
                                 applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
                             } else {
-                                // If the menu is closing, apply silver styles
+                                // Si el menú se está cerrando, aplica estilos plateados
                                 applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
                             }
                         });
                     });
                 }
 
-                // Logic to disable links with the 'disabled-link' class
+                // Lógica para deshabilitar enlaces con la clase 'disabled-link'
                 document.querySelectorAll('a.disabled-link').forEach(link => {
                     link.addEventListener('click', function(event) {
-                        event.preventDefault(); // Prevents default link action
-                        event.stopPropagation(); // Prevents event propagation so parent menu doesn't close
+                        event.preventDefault(); // Previene la acción predeterminada del enlace
+                        event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
                     });
                 });
             });
-        </script>
-
-        <div class="whatsapp-float-container">
-            <div id="whatsapp-tooltip" class="whatsapp-tooltip">
-                ¡Hola! ¿Necesitas ayuda?
-            </div>
-            <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="whatsapp-float-button" id="whatsapp-float-button" aria-label="Chatear por WhatsApp">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px"><path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"/>
-                                </svg>
-                            </a>
-                        </div>
-
-                        <script type="text/javascript">
-                            (function() {
-                                var chatBotEl = document.createElement('chat-bot');
-                                chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
-                                chatBotEl.setAttribute('user_id', '872cc8d5-f312-44c1-a9cc-15b7d1740044');
-                                chatBotEl.setAttribute('chatbot_id', '359c0fb9-fd3d-4753-8ce1-2b076bdd6b34');
-                                var chatbotLink = document.createElement('a');
-                                chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
-                                chatbotLink.innerHTML = 'chatsimple';
-                                chatBotEl.appendChild(chatbotLink);
-                                document.body.appendChild(chatBotEl);
-
-                                var cs = document.createElement('script');
-                                cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-                                document.body.appendChild(cs);
-                            })();
-                        </script>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-        <script>
-            // AOS initialization with configurations
-            AOS.init({
-                once: true, // Animations only run once when scrolling down
-                mirror: false, // Do not animate when scrolling up
-                offset: 100, // Offset (in px) from the original activation point
-                duration: 800, // Animation duration (in ms)
-                easing: 'ease-out-cubic', // Timing function for the animation
-            });
-
-            window.addEventListener('load', () => {
-                // Logic for desktop dropdown menus
-                document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
-                    button.addEventListener('click', function(event) {
-                        event.preventDefault(); // Prevents default link navigation
-                        const dropdownId = this.dataset.dropdownId; // Gets the ID of the associated dropdown menu
-                        const dropdownMenu = document.getElementById(dropdownId);
-                        const arrowIcon = this.querySelector('.js-arrow-icon');
-
-                        // Closes other open desktop dropdown menus
-                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                                menu.classList.add('hidden');
-                                const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                                if (otherButton) {
-                                    otherButton.querySelector('.js-arrow-icon').classList.remove('rotate-180');
-                                }
-                            }
-                        });
-
-                        // Toggles visibility of the current menu and rotates the arrow icon
-                        dropdownMenu.classList.toggle('hidden');
-                        arrowIcon.classList.toggle('rotate-180');
-                    });
-                });
-
-                // Closes all desktop dropdown menus when clicking outside them
-                document.addEventListener('click', function(event) {
-                    // If the click was not inside a dropdown button or a dropdown menu
-                    if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
-                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            menu.classList.add('hidden'); // Hides the menu
-                            const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                            if (button) {
-                                button.querySelector('.js-arrow-icon').classList.remove('rotate-180'); // Restores arrow orientation
-                            }
-                        });
-                    }
-                });
-
-                // Logic for mobile menu and its dropdowns
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const mobileMenu = document.getElementById('mobile-menu');
-
-                // Definition of styles for mobile menu text (silver and cyan)
-                const mobileMenuSilverStyles = {
-                    color: '#E0E0E0',
-                    webkitTextStrokeColor: '#A0A0A0',
-                    textShadow: '0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2)'
-                };
-
-                const mobileMenuCyanStyles = {
-                    color: '#00FFFF',
-                    webkitTextStrokeColor: '#00BFFF',
-                    textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
-                };
-
-                // Function to apply styles to mobile menu text
-                function applyMobileMenuTextStyles(element, styles) {
-                    element.style.color = styles.color;
-                    element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
-                    element.style.textShadow = styles.textShadow;
-                }
-
-                if (mobileMenuButton && mobileMenu) {
-                    mobileMenuButton.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('hidden'); // Toggles visibility of mobile menu
-                        const icon = mobileMenuButton.querySelector('svg path');
-                        // Changes hamburger icon to 'X' and vice versa
-                        if (mobileMenu.classList.contains('hidden')) {
-                            icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
-                            // When closing the main menu, reset all category texts to silver
-                            mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
-                                applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
-                            });
-                        } else {
-                            icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // 'X' icon
-                        }
-                    });
-
-                    // Close mobile menu when clicking outside it
-                    document.addEventListener('click', function(event) {
-                        const isClickInsideMobileMenu = mobileMenu.contains(event.target);
-                        const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
-
-                        if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden'); // Hides the menu
-                            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restores icon
-                            // When closing the main menu, reset all category texts to silver
-                            mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
-                                applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
-                            });
-                        }
-                    });
-
-                    // Logic for mobile dropdown menus (similar to desktop but with mobile-specific classes)
-                    document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
-                        button.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            event.stopPropagation(); // Important to prevent click from propagating to document and closing main menu
-                            const dropdownId = this.dataset.dropdownIdMobile;
-                            const dropdownMenu = document.getElementById(dropdownId);
-                            const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
-                            const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // The span with the category text
-
-                            // Closes other open mobile submenus and resets their text styles
-                            document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
-                                if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                                    menu.classList.add('hidden');
-                                    const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
-                                    if (otherButton) {
-                                        otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('rotate-180');
-                                        // Resets the text color of the category being closed
-                                        const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
-                                        if (otherCategoryTextSpan) {
-                                            applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
-                                        }
-                                    }
-                                }
-                            });
-
-                            dropdownMenu.classList.toggle('hidden');
-                            arrowIcon.classList.toggle('rotate-180');
-
-                            // Applies or resets the color of the current category text
-                            if (!dropdownMenu.classList.contains('hidden')) {
-                                // If the menu is opening, apply cyan styles
-                                applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
-                            } else {
-                                // If the menu is closing, apply silver styles
-                                applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
-                            }
-                        });
-                    });
-                }
-
-                // Logic to disable links with the 'disabled-link' class
-                document.querySelectorAll('a.disabled-link').forEach(link => {
-                    link.addEventListener('click', function(event) {
-                        event.preventDefault(); // Prevents default link action
-                        event.stopPropagation(); // Prevents event propagation so parent menu doesn't close
-                    });
-                });
-            });
-        </script>
-
-        <div class="whatsapp-float-container">
-            <div id="whatsapp-tooltip" class="whatsapp-tooltip">
-                ¡Hola! ¿Necesitas ayuda?
-            </div>
-            <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="whatsapp-float-button" id="whatsapp-float-button" aria-label="Chatear por WhatsApp">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px"><path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"/>
-                                </svg>
-                            </a>
-                        </div>
-
-        <script>
-            // WhatsApp Floating Button Tooltip Logic
-            const whatsappButton = document.getElementById('whatsapp-float-button');
-            const whatsappTooltip = document.getElementById('whatsapp-tooltip');
-            let initialTooltipTimeout;
-            let hoverTooltipTimeout;
-            let animationInterval;
-
-            // Add a check to ensure elements exist before proceeding
-            if (!whatsappButton || !whatsappTooltip) {
-                console.error("Error: WhatsApp button or tooltip element not found in the DOM. Skipping WhatsApp animations and tooltip logic.");
-                // No return here, as other parts of the script might still be relevant
-            } else {
-                // Function to show the tooltip
-                function showTooltip() {
-                    whatsappTooltip.classList.add('show-tooltip');
-                }
-
-                // Function to hide the tooltip
-                function hideTooltip() {
-                    whatsappTooltip.classList.remove('show-tooltip');
-                }
-
-                // Function to start the animation sequence
-                function startWhatsappAnimations() {
-                    // Stop any existing animations
-                    whatsappButton.style.animation = 'none';
-                    void whatsappButton.offsetWidth; // Trigger reflow to restart animation
-                    whatsappButton.style.animation = ''; // Clear animation property
-
-                    // Start pulse-glow
-                    whatsappButton.style.animation = 'pulse-glow 2s forwards';
-
-                    // After pulse-glow, start shake
-                    setTimeout(() => {
-                        whatsappButton.style.animation = 'shake 1s forwards';
-                    }, 2000); // After 2 seconds (duration of pulse-glow)
-                }
-
-                // Function to manage the animation cycle every 8 seconds
-                function setupAnimationCycle() {
-                    // Clear any previous interval to prevent duplicates
-                    if (animationInterval) {
-                        clearInterval(animationInterval);
-                    }
-                    // Start the first animation sequence immediately
-                    startWhatsappAnimations();
-                    // Set interval for subsequent animation sequences (every 8 seconds)
-                    animationInterval = setInterval(() => {
-                        startWhatsappAnimations();
-                    }, 8000); // Every 8 seconds
-                }
-
-                // Initial display of the tooltip when the page loads
-                initialTooltipTimeout = setTimeout(() => {
-                    hideTooltip();
-                }, 1300); // 1.3 seconds
-
-                // Start the animation cycle on page load
-                setupAnimationCycle();
-
-                // Show tooltip on hover and stop animations
-                whatsappButton.addEventListener('mouseenter', () => {
-                    clearTimeout(initialTooltipTimeout); // Clear any pending auto-hide
-                    clearTimeout(hoverTooltipTimeout); // Clear any pending hover-hide
-                    clearInterval(animationInterval); // Stop the animation cycle
-                    whatsappButton.style.animation = 'none'; // Ensure animations are stopped
-                    showTooltip();
-                });
-
-                // Hide tooltip on mouse leave and restart animations
-                whatsappButton.addEventListener('mouseleave', () => {
-                    // Set a small delay before hiding on mouse leave, in case of accidental quick leave
-                    hoverTooltipTimeout = setTimeout(() => {
-                        hideTooltip();
-                    }, 200); // 200ms delay
-                    setupAnimationCycle(); // Restart the animation cycle
-                });
-            }
         </script>
     </main>
 
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div>
-                <h3 class="footer-heading">Contacto</h3>
-                <ul class="text-sm">
-                    <li class="footer-link-item flex items-center justify-center md:justify-start"><span class="text-byte-accent-cyan mr-2">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</li>
-                    <li class="footer-link-item flex items-center justify-center md:justify-start"><span class="text-byte-accent-cyan mr-2">📧</span> <a href="mailto:Bytewebdesign1@gmail.com">Bytewebdesign1@gmail.com</a></li>
-                    <li class="footer-link-item flex items-center justify-center md:justify-start">📞 +584125646508</li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="footer-heading">Navegación Rápida</h3>
-                <ul class="text-sm">
-                    <li class="footer-link-item"><a href="#inicio" class="hover:underline">Inicio</a></li>
-                    <li class="footer-link-item"><a href="#servicios" class="hover:underline">Servicios</a></li>
-                    <li class="footer-link-item"><a href="#portafolio" class="hover:underline disabled-link">Portafolio</a></li>
-                    <li class="footer-link-item"><a href="misionyvision.html" class="hover:underline">Quiénes Somos</a></li>
-                    <li class="footer-link-item"><a href="reseñas.html" class="hover:underline">Reseñas</a></li>
-                    <li class="footer-link-item"><a href="#contacto" class="hover:underline">Contacto</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h3 class="footer-heading">Síguenos</h3>
-                <div class="flex justify-center md:justify-start space-x-4 mt-3">
-                    <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                        <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
-                    </a>
-                    <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
-                    </a>
-                </div>
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
+                </a>
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
             </div>
         </div>
         <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
-            <p>&copy; 2025 Byte. Todos los derechos reservados. Tu visión, nuestra misión.</p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <div class="whatsapp-float-container">
+        <div id="whatsapp-tooltip" class="whatsapp-tooltip">
+            ¡Hola! ¿Necesitas ayuda?
+        </div>
+        <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" class="whatsapp-float-button" id="whatsapp-float-button" aria-label="Chatear por WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px"><path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"/>
+            </svg>
+        </a>
+    </div>
+
+    <script type="text/javascript">
+        (function() {
+            var chatBotEl = document.createElement('chat-bot');
+            chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
+            chatBotEl.setAttribute('user_id', '872cc8d5-f312-44c1-a9cc-15b7d1740044');
+            chatBotEl.setAttribute('chatbot_id', '359c0fb9-fd3d-4753-8ce1-2b076bdd6b34');
+            var chatbotLink = document.createElement('a');
+            chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+            chatbotLink.innerHTML = 'chatsimple';
+            chatBotEl.appendChild(chatbotLink);
+            document.body.appendChild(chatBotEl);
+
+            var cs = document.createElement('script');
+            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+            document.body.appendChild(cs);
+        })();
+    </script>
+
+    <script>
+        const whatsappButton = document.getElementById('whatsapp-float-button');
+        const whatsappTooltip = document.getElementById('whatsapp-tooltip');
+        let initialTooltipTimeout;
+        let hoverTooltipTimeout;
+        let animationInterval;
+
+        // Añadir una verificación para asegurar que los elementos existan antes de continuar
+        if (!whatsappButton || !whatsappTooltip) {
+            console.error("Error: WhatsApp button or tooltip element not found in the DOM. Skipping WhatsApp animations and tooltip logic.");
+        } else {
+            // Función para mostrar el tooltip
+            function showTooltip() {
+                whatsappTooltip.classList.add('show-tooltip');
+            }
+
+            // Función para ocultar el tooltip
+            function hideTooltip() {
+                whatsappTooltip.classList.remove('show-tooltip');
+            }
+
+            // Función para iniciar la secuencia de animación
+            function startWhatsappAnimations() {
+                // Detener cualquier animación existente
+                whatsappButton.style.animation = 'none';
+                void whatsappButton.offsetWidth; // Forzar el reflow para reiniciar la animación
+                whatsappButton.style.animation = ''; // Limpiar la propiedad de animación
+
+                // Iniciar pulse-glow
+                whatsappButton.style.animation = 'pulse-glow 2s forwards';
+
+                // Después de pulse-glow, iniciar shake
+                setTimeout(() => {
+                    whatsappButton.style.animation = 'shake 1s forwards';
+                }, 2000); // Después de 2 segundos (duración de pulse-glow)
+            }
+
+            // Función para gestionar el ciclo de animación cada 8 segundos
+            function setupAnimationCycle() {
+                // Limpiar cualquier intervalo anterior para evitar duplicados
+                if (animationInterval) {
+                    clearInterval(animationInterval);
+                }
+                // Iniciar la primera secuencia de animación inmediatamente
+                startWhatsappAnimations();
+                // Establecer intervalo para secuencias de animación posteriores (cada 8 segundos)
+                animationInterval = setInterval(() => {
+                    startWhatsappAnimations();
+                }, 8000); // Cada 8 segundos
+            }
+
+            // Mostrar el tooltip inicial cuando la página carga
+            initialTooltipTimeout = setTimeout(() => {
+                hideTooltip();
+            }, 1300); // 1.3 segundos
+
+            // Iniciar el ciclo de animación al cargar la página
+            setupAnimationCycle();
+
+            // Mostrar tooltip al pasar el ratón y detener animaciones
+            whatsappButton.addEventListener('mouseenter', () => {
+                clearTimeout(initialTooltipTimeout); // Limpiar cualquier auto-ocultar pendiente
+                clearTimeout(hoverTooltipTimeout); // Limpiar cualquier ocultar-hover pendiente
+                clearInterval(animationInterval); // Detener el ciclo de animación
+                whatsappButton.style.animation = 'none'; // Asegurarse de que las animaciones estén detenidas
+                showTooltip();
+            });
+
+            // Ocultar tooltip al quitar el ratón y reiniciar animaciones
+            whatsappButton.addEventListener('mouseleave', () => {
+                // Establecer un pequeño retraso antes de ocultar al quitar el ratón, en caso de salida accidental rápida
+                hoverTooltipTimeout = setTimeout(() => {
+                    hideTooltip();
+                }, 200); // Retraso de 200ms
+                setupAnimationCycle(); // Reiniciar el ciclo de animación
+            });
+        }
+    </script>
 </body>
 </html>
