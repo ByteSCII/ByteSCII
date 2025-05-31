@@ -30,7 +30,6 @@
             }
         }
     </script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,7 +77,7 @@
             text-shadow: none; /* Asegura que no haya sombras de texto que interfieran */
         }
 
-        /* Animación "Fall-in" al hacer scroll para AOS */
+        /* Animación "Fall-in" al hacer scroll para AOS (se mantiene la definición pero no se usará si AOS.init se elimina) */
         @keyframes fall-in {
             0% {
                 opacity: 0;
@@ -90,7 +89,7 @@
             }
         }
 
-        /* Clase aplicada por AOS.js para animar elementos */
+        /* Clase aplicada por AOS.js para animar elementos (se mantiene la definición pero no se usará si AOS.init se elimina) */
         .aos-animate {
             animation-name: fall-in;
             animation-duration: 1s;
@@ -107,7 +106,6 @@
             text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Sombra para profundidad */
             transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
             font-family: 'Montserrat', sans-serif; /* APLICADO DIRECTAMENTE AQUÍ */
-            /* REMOVED: font-style: italic; */
         }
 
         /* Efecto de brillo y elevación en los enlaces del menú al pasar el ratón */
@@ -176,12 +174,14 @@
         .service-card .icon {
             font-size: 3.5rem; /* Tamaño de icono reducido */
             margin-bottom: 1rem; /* Margen reducido */
-            color: #00FFFF; /* Color de acento */
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Brillo del icono */
-            transition: transform 0.3s ease-in-out; /* Transición para el hover del icono */
+            /* Eliminado: color: #00FFFF; */ /* Eliminado el color cian para los iconos de servicio */
+            /* Eliminado: text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); */ /* Eliminado el brillo para los iconos de servicio */
+            color: #E0E0E0; /* Color gris claro para los iconos de servicio (blanco y negro) */
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transición para el hover del icono */
         }
         .service-card:hover .icon {
             transform: rotate(10deg) scale(1.1); /* Efecto de rotación y escala al pasar el ratón */
+            color: #FFFFFF; /* Blanco puro al pasar el ratón para un contraste más fuerte */
         }
 
         .service-card h3 {
@@ -296,7 +296,7 @@
             top: 100%; /* Justo debajo del botón padre */
             left: 50%;
             transform: translateX(-50%);
-            /* min-width: 180px;  Ajustado via Tailwind classes */
+            /* min-width: 180px; Ajustado via Tailwind classes */
             background-color: #1A202C; /* Color oscuro secundario */
             border-radius: 0.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
@@ -324,7 +324,8 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 9999;
+            /* Z-index para estar siempre encima de todo, incluyendo el banner de desarrollo */
+            z-index: 100000001;
             display: flex;
             align-items: center;
             transition: bottom 0.3s ease-out; /* Transición para el movimiento */
@@ -454,7 +455,6 @@
         @media (min-width: 1024px) { /* Ajusta este breakpoint según sea necesario (lg en Tailwind) */
             .header-nav-item {
                 font-size: 0.95rem; /* Fuente más pequeña para enlaces de navegación */
-                /* padding-left y padding-right eliminados para usar el default de Tailwind */
             }
 
             .main-cta-button {
@@ -583,10 +583,24 @@
                             </span>
                         </a>
                         <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de paginas web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#portafolio" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                            <span class="nav-menu-text-stroke-cyan">Portafolio</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de paginas web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -611,19 +625,6 @@
                         <div id="dropdown-eventos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
                             <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
                             <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
-                        </div>
-                    </li>
-                    <li class="relative group">
-                        <a href="#contacto" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-contacto">
-                            <span class="nav-menu-text-stroke-cyan">Contacto</span>
-                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
-                        </a>
-                        <div id="dropdown-contacto" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -663,10 +664,10 @@
                     </span>
                 </a>
                 <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Web Personalizado</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Desarrollo E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO & Marketing Digital</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Administración de Dominios y Subdominios</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de paginas web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
                 </div>
             </li>
             <li>
@@ -677,11 +678,10 @@
                     </span>
                 </a>
                 <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Sitios Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">E-commerce</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Aplicaciones Web</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Casos de Estudio</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño Gráfico</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño personalizado de paginas web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Diseño gráfico</a>
                 </div>
             </li>
             <li>
@@ -706,19 +706,6 @@
                 <div id="dropdown-eventos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Próximos</a>
                     <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Realizados</a>
-                </div>
-            </li>
-            <li>
-                <a href="#contacto" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-contacto-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Contacto</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
-                </a>
-                <div id="dropdown-contacto-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Ubicación</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Formulario de Contacto</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105 disabled-link">Redes Sociales</a>
                 </div>
             </li>
             <li>
@@ -748,14 +735,11 @@
                 <source src="./images/fondo.mp4" type="video/mp4">
                 Tu navegador no soporta la etiqueta de video.
             </video>
-            <div class="container mx-auto px-4 relative z-10 text-center"
-                 data-aos="fade-up" data-aos-duration="1000">
-                <h1 class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading"
-                    data-aos="zoom-in" data-aos-delay="200" data-aos-duration="1200">
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h1 class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading">
                     Nosotros convertimos sueños en realidades digitales
                 </h1>
-                <p class="text-base md:text-xl lg:text-lg mb-8 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading"
-                    data-aos="fade-up" data-aos-delay="400" data-aos-duration="1200">
+                <p class="text-base md:text-xl lg:text-lg mb-8 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading">
                     Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
                 </p>
                 <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
@@ -767,56 +751,37 @@
 
         <section id="servicios" class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
             <div class="container mx-auto px-4">
-                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan"
-                    data-aos="fade-up" data-aos-duration="800">Nuestros Servicios Innovadores</h2>
+                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Nuestros Servicios Innovadores</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4">
-                    <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon text-3xl lg:text-2xl">✨</div>
-                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño Web Personalizado</h3>
+                    <div class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-desktop"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño personalizado de paginas web</h3>
                         <p class="text-xs lg:text-sm">Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
                     </div>
-                    <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="icon text-3xl lg:text-2xl">🛍️</div>
-                        <h3 class="text-lg lg:text-base font-bold mb-2">Desarrollo E-commerce</h3>
+                    <div class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño de tiendas virtuales</h3>
                         <p class="text-xs lg:text-sm">Construimos tiendas online robustas, seguras y optimizadas para la conversión, transformando visitantes en clientes leales y maximizando tus ventas.</p>
                     </div>
-                    <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="icon text-3xl lg:text-2xl">🚀</div>
-                        <h3 class="text-lg lg:text-base font-bold mb-2">SEO & Marketing Digital</h3>
-                        <p class="text-xs lg:text-sm">Impulsamos tu visibilidad en los motores de búsqueda y desarrollamos estrategias de marketing digital integrales que atraen tráfico cualificado y generan resultados medibles.</p>
+                    <div class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">SEO</h3>
+                        <p class="text-xs lg:text-sm">Impulsamos tu visibilidad en los motores de búsqueda para atraer tráfico cualificado y generar resultados medibles.</p>
                     </div>
-                    <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="icon text-3xl lg:text-2xl">🌐</div>
-                        <h3 class="text-lg lg:text-base font-bold mb-2">Administración de Dominios y Subdominios</h3>
-                        <p class="text-xs lg:text-sm">Gestionamos eficientemente tus activos digitales, desde el registro y configuración de dominios hasta la administración de subdominios, garantizando una presencia online impecable.</p>
+                    <div class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-palette"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño gráfico</h3>
+                        <p class="text-xs lg:text-sm">Creamos diseños visuales impactantes que comunican tu mensaje de manera efectiva y refuerzan la identidad de tu marca.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
-            <div class="container mx-auto px-4 text-center max-w-4xl"
-                 data-aos="fade-up" data-aos-duration="800">
-                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-8 section-heading text-stroke-cyan">
-                    ¿Listo para despegar?
-                </h2>
-                <p class="text-base md:text-xl lg:text-base mb-8 text-gray-300">
-                    Contacta con nosotros hoy mismo y convierte tus ideas en una realidad digital impactante.
-                </p>
-                <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                             shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
-                    ¡Hablemos de tu proyecto!
-                </a>
-            </div>
-        </section>
-
         <section id="contacto" class="contact-section text-byte-text-light pt-10 pb-14 lg:pt-8 lg:pb-12">
             <div class="container mx-auto px-4 relative z-10 max-w-screen-lg lg:px-0">
-                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan"
-                    data-aos="fade-up" data-aos-duration="800">Conéctate con Byte</h2>
+                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Conéctate con Byte</h2>
                 <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-6 items-start p-4 lg:p-6">
-                    <div class="contact-form-card p-4 lg:p-5"
-                        data-aos="fade-right" data-aos-delay="200" data-aos-duration="800">
+                    <div class="contact-form-card p-4 lg:p-5">
                         <h3 class="text-xl lg:text-lg font-bold text-center text-byte-accent-cyan mb-5 text-stroke-cyan">Envíanos un Mensaje</h3>
                         <form action="#" method="POST" class="space-y-4">
                             <div>
@@ -837,8 +802,7 @@
                         </form>
                     </div>
 
-                    <div class="contact-info-card p-4 lg:p-5"
-                        data-aos="fade-left" data-aos-delay="400" data-aos-duration="800">
+                    <div class="contact-info-card p-4 lg:p-5">
                         <h3 class="text-xl lg:text-lg font-bold text-center mb-5 text-stroke-cyan">Información de Contacto</h3>
                         <div class="space-y-3 text-center text-sm lg:text-xs mb-6">
                             <p class="flex items-center justify-center lg:justify-start text-byte-text-light"><span class="text-byte-accent-cyan mr-2">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
@@ -866,9 +830,9 @@
             </div>
         </section>
 
-        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script>
-            // Inicialización de AOS con configuraciones
+            // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
+            /*
             AOS.init({
                 once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
                 mirror: false, // No animar al desplazarse hacia arriba
@@ -876,6 +840,7 @@
                 duration: 800, // Duración de la animación (en ms)
                 easing: 'ease-out-cubic', // Función de temporización para la animación
             });
+            */
 
             window.addEventListener('load', () => {
                 // Lógica para menús desplegables de escritorio
@@ -964,7 +929,7 @@
                         } else {
                             icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
                             // Reproducir sonido al abrir el menú móvil
-                            synth.triggerAttackAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
                         }
                     });
 
@@ -1047,11 +1012,16 @@
             </div>
         </div>
         <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Condiciones</a>.
+            </p>
             <p>© 2025 Byte. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <div class="whatsapp-float-container">
+    <div class="whatsapp-float-container z-[100000001]">
         <div id="whatsapp-tooltip" class="whatsapp-tooltip">
             ¡Hola! ¿Necesitas ayuda?
         </div>
@@ -1076,7 +1046,7 @@
     </div>
 
     <div id="development-banner" class="hidden fixed inset-0 flex items-center justify-center p-4 z-[100000000] bg-byte-dark-bg bg-opacity-95 backdrop-blur-sm">
-        <div class="bg-byte-secondary-dark text-byte-text-light p-8 rounded-lg shadow-2xl max-w-lg w-full text-center border border-byte-accent-cyan" data-aos="zoom-in" data-aos-duration="600">
+        <div class="bg-byte-secondary-dark text-byte-text-light p-8 rounded-lg shadow-2xl max-w-lg w-full text-center border border-byte-accent-cyan">
             <h3 class="text-2xl md:text-3xl font-extrabold text-byte-accent-cyan mb-4 text-stroke-cyan">¡Página en Desarrollo!</h3>
             <p class="mb-6 text-base md:text-lg">
                 Esta página web se encuentra en desarrollo. Es posible que esté incompleta o presente funcionalidades limitadas.
@@ -1089,7 +1059,7 @@
                 </button>
                 <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" id="contact-whatsapp-button-dev" class="bg-whatsapp-green text-black font-bold py-2.5 px-6 rounded-full
                                                              shadow-lg hover:bg-whatsapp-dark-green transition duration-300 transform hover:scale-105 text-sm md:text-base flex items-center justify-center">
-                    <i class="fab fa-whatsapp mr-2"></i> Contáctanos
+                    <i class="fab fa-whatsapp mr-2 text-black"></i> Contáctanos
                 </a>
             </div>
             <p class="mt-4 text-xs text-gray-400">© 2025 Byte. Todos los derechos reservados.</p>
@@ -1116,173 +1086,178 @@
     </script>
 
     <script>
-        // Global variables for WhatsApp elements
+        // Variables globales para elementos de WhatsApp
         const whatsappButton = document.getElementById('whatsapp-float-button');
         const whatsappTooltip = document.getElementById('whatsapp-tooltip');
         const whatsappFloatContainer = document.querySelector('.whatsapp-float-container');
         let initialTooltipTimeout;
-        let hoverTooltipTimeout;
         let animationInterval;
-        let whatsappTooltipEnabled = true; // Flag to control tooltip visibility and animations
+        let whatsappTooltipEnabled = true; // Bandera para controlar la visibilidad del tooltip y las animaciones
 
-        // Global variables for cookie banner
+        // Variables globales para el banner de cookies
         const cookieBanner = document.getElementById('cookie-banner');
         const acceptCookiesButton = document.getElementById('accept-cookies-button');
 
-        // Global variables for development banner
+        // Variables globales para el banner de desarrollo
         const developmentBanner = document.getElementById('development-banner');
         const acceptDevelopmentButton = document.getElementById('accept-development-button');
-        const contactWhatsappDevelopmentButton = document.getElementById('contact-whatsapp-button-dev'); // Specific ID for the WhatsApp button within dev banner
+        const contactWhatsappDevelopmentButton = document.getElementById('contact-whatsapp-button-dev'); // ID específico para el botón de WhatsApp dentro del banner de desarrollo
 
-        // Function to show the WhatsApp tooltip
-        function showTooltip() {
-            if (whatsappTooltipEnabled) {
+        // Función para mostrar el tooltip de WhatsApp
+        function showTooltip(autoHide = false) {
+            if (whatsappTooltipEnabled) { // Solo mostrar si está habilitado globalmente
                 whatsappTooltip.classList.add('show-tooltip');
+                if (autoHide) {
+                    // Limpiar cualquier timeout de auto-ocultamiento existente para evitar conflictos
+                    if (initialTooltipTimeout) {
+                        clearTimeout(initialTooltipTimeout);
+                    }
+                    initialTooltipTimeout = setTimeout(() => {
+                        hideTooltip();
+                    }, 8000); // Auto-ocultar después de 8 segundos
+                }
             }
         }
 
-        // Function to hide the WhatsApp tooltip
+        // Función para ocultar el tooltip de WhatsApp
         function hideTooltip() {
             whatsappTooltip.classList.remove('show-tooltip');
         }
 
-        // Function to start the WhatsApp animation sequence
+        // Función para iniciar la secuencia de animaciones de WhatsApp
         function startWhatsappAnimations() {
-            if (whatsappTooltipEnabled) {
-                // Clear any existing animation to restart
-                whatsappButton.style.animation = 'none';
-                void whatsappButton.offsetWidth; // Force reflow
-                whatsappButton.style.animation = ''; // Reset animation property
+            // Limpiar cualquier animación existente para reiniciar
+            whatsappButton.style.animation = 'none';
+            void whatsappButton.offsetWidth; // Forzar el reflujo
+            whatsappButton.style.animation = ''; // Restablecer la propiedad de animación
 
-                whatsappButton.style.animation = 'pulse-glow 2s forwards';
+            whatsappButton.style.animation = 'pulse-glow 2s forwards';
 
-                setTimeout(() => {
-                    whatsappButton.style.animation = 'shake 1s forwards';
-                }, 2000);
-            }
+            setTimeout(() => {
+                whatsappButton.style.animation = 'shake 1s forwards';
+            }, 2000);
         }
 
-        // Function to manage the WhatsApp animation cycle
+        // Función para gestionar el ciclo de animación de WhatsApp
         function setupAnimationCycle() {
             if (animationInterval) {
                 clearInterval(animationInterval);
             }
-            if (whatsappTooltipEnabled) {
+            if (whatsappTooltipEnabled) { // Solo iniciar animaciones si está habilitado globalmente
                 startWhatsappAnimations();
                 animationInterval = setInterval(() => {
                     startWhatsappAnimations();
                 }, 8000);
+            } else {
+                // Si las animaciones están deshabilitadas, asegurar que no haya ninguna animación en ejecución
+                whatsappButton.style.animation = 'none';
             }
         }
 
-        // Function to update WhatsApp button position and state based on banner visibility
-        function updateWhatsappPositionAndState() {
+        // Función para actualizar la posición del botón de WhatsApp según la visibilidad del banner de cookies
+        function updateWhatsappPosition() {
             const isCookieBannerVisible = !cookieBanner.classList.contains('hidden');
-            const isDevelopmentBannerVisible = !developmentBanner.classList.contains('hidden');
 
-            if (isDevelopmentBannerVisible) {
-                // If development banner is visible, elevate WhatsApp significantly
-                whatsappFloatContainer.style.bottom = '250px'; // Adjust as needed to clear the modal
-                whatsappTooltipEnabled = false;
-                hideTooltip();
-                clearInterval(animationInterval);
-                whatsappButton.style.animation = 'none';
-            } else if (isCookieBannerVisible) {
-                // If only cookie banner is visible, elevate based on cookie banner height
-                // Small delay to ensure the cookie banner's height is rendered before calculation
+            if (isCookieBannerVisible) {
+                // Si el banner de cookies está visible, elevar según la altura del banner de cookies
+                // Pequeño retraso para asegurar que la altura del banner de cookies se renderice antes del cálculo
                 setTimeout(() => {
                     const cookieBannerHeight = cookieBanner.offsetHeight;
                     whatsappFloatContainer.style.bottom = `${cookieBannerHeight + 20}px`;
                 }, 50);
-                whatsappTooltipEnabled = false;
-                hideTooltip();
-                clearInterval(animationInterval);
-                whatsappButton.style.animation = 'none';
             } else {
-                // Neither banner is visible, restore WhatsApp default state
+                // Si ningún banner de cookies está visible, restaurar la posición predeterminada de WhatsApp
                 whatsappFloatContainer.style.bottom = '20px';
-                whatsappTooltipEnabled = true;
-                setupAnimationCycle(); // Restart animations only if enabled
             }
+            // La visibilidad del banner de desarrollo no afecta la posición del botón de WhatsApp
+            // ya que es una superposición de pantalla completa y WhatsApp debe estar encima.
         }
 
-        // Event listeners for WhatsApp button itself (outside the banners)
+        // Listeners de eventos para el botón de WhatsApp (fuera de los banners)
         if (whatsappButton && whatsappTooltip) {
             whatsappButton.addEventListener('mouseenter', () => {
-                if (whatsappTooltipEnabled) {
-                    clearTimeout(initialTooltipTimeout);
-                    clearTimeout(hoverTooltipTimeout);
-                    clearInterval(animationInterval); // Stop cycle when hovered
-                    whatsappButton.style.animation = 'none'; // Clear any ongoing animation
-                    showTooltip();
-                }
+                // Cuando se pasa el ratón por encima, detener el ciclo de animación automático
+                clearInterval(animationInterval);
+                whatsappButton.style.animation = 'none'; // Limpiar cualquier animación en curso
+                showTooltip(); // Mostrar tooltip al pasar el ratón (sin auto-ocultar en hover)
             });
 
             whatsappButton.addEventListener('mouseleave', () => {
-                if (whatsappTooltipEnabled) {
-                    hoverTooltipTimeout = setTimeout(() => {
-                        hideTooltip();
-                    }, 200);
-                    setupAnimationCycle(); // Restart cycle after hover
+                // Después de pasar el ratón, reiniciar el ciclo de animación automático
+                hideTooltip();
+                if (whatsappTooltipEnabled) { // Solo reiniciar animaciones si están habilitadas para el ciclo automático
+                    setupAnimationCycle();
                 }
             });
         }
 
-        // Main page load logic for banners
+        // Lógica principal de carga de página para los banners
         window.addEventListener('load', () => {
             const cookieConsentAccepted = localStorage.getItem('cookieConsentAccepted');
-            // Eliminamos la variable developmentBannerDismissed ya que queremos que el banner se muestre siempre
-            // const developmentBannerDismissed = localStorage.getItem('developmentBannerDismissed');
 
+            // Si las cookies NO han sido aceptadas
             if (!cookieConsentAccepted) {
-                // Escenario 1: Primera visita (no hay consentimiento de cookies)
-                cookieBanner.classList.remove('hidden');
-                updateWhatsappPositionAndState(); // Ajusta el botón de WhatsApp para el banner de cookies
+                cookieBanner.classList.remove('hidden'); // Mostrar el banner de cookies
+                updateWhatsappPosition(); // Ajustar la posición de WhatsApp para el banner de cookies
+
+                developmentBanner.classList.add('hidden'); // Asegurar que el banner de desarrollo esté oculto inicialmente
+
+                whatsappTooltipEnabled = false; // Deshabilitar tooltip y animaciones automáticas
+                hideTooltip(); // Asegurar que el tooltip esté oculto en la carga
+                clearInterval(animationInterval); // Detener cualquier animación predeterminada
 
                 // Al hacer clic en 'Aceptar' del banner de cookies
                 acceptCookiesButton.addEventListener('click', () => {
                     localStorage.setItem('cookieConsentAccepted', 'true');
-                    cookieBanner.classList.add('hidden'); // Oculta el banner de cookies
-                    updateWhatsappPositionAndState(); // Vuelve a ajustar la posición de WhatsApp
+                    cookieBanner.classList.add('hidden'); // Ocultar el banner de cookies
+                    updateWhatsappPosition(); // Reajustar la posición de WhatsApp (irá a 20px por defecto)
 
-                    // Después de aceptar las cookies, siempre muestra el banner de desarrollo
+                    whatsappTooltipEnabled = true; // Habilitar tooltip y animaciones automáticas
+                    // Mostrar tooltip y comenzar animaciones después de un breve retraso al aceptar cookies
+                    initialTooltipTimeout = setTimeout(() => {
+                        showTooltip(true); // Mostrar y auto-ocultar
+                        setupAnimationCycle();
+                    }, 1000);
+
+                    // Después de aceptar las cookies, siempre mostrar el banner de desarrollo
                     if (developmentBanner) {
                         developmentBanner.classList.remove('hidden');
-                        updateWhatsappPositionAndState(); // Ajusta el botón de WhatsApp para el banner de desarrollo
                     }
                 });
 
-            } else { // Si el consentimiento de cookies ya fue dado
-                cookieBanner.classList.add('hidden'); // Asegura que el banner de cookies esté oculto
+            } else { // Si el consentimiento de cookies YA fue dado
+                cookieBanner.classList.add('hidden'); // Asegurar que el banner de cookies esté oculto
+                updateWhatsappPosition(); // Ajustar la posición de WhatsApp (será 20px)
 
-                // Siempre muestra el banner de desarrollo en cada carga de página
+                whatsappTooltipEnabled = true; // Habilitar tooltip y animaciones automáticas
+                // Mostrar tooltip y comenzar animaciones después de un breve retraso en la carga de la página
+                initialTooltipTimeout = setTimeout(() => {
+                    showTooltip(true); // Mostrar y auto-ocultar
+                    setupAnimationCycle();
+                }, 1000);
+
+                // Siempre mostrar el banner de desarrollo en cada carga de página
                 if (developmentBanner) {
                     developmentBanner.classList.remove('hidden');
-                    updateWhatsappPositionAndState(); // Ajusta el botón de WhatsApp para el banner de desarrollo
-                } else {
-                    // Si no hay banner de desarrollo, restaura el WhatsApp a su estado por defecto
-                    updateWhatsappPositionAndState();
                 }
             }
 
-            // Event listener para el botón 'Aceptar' del Development Banner
+            // Listener de eventos para el botón 'Aceptar' del Development Banner
             if (acceptDevelopmentButton) {
                 acceptDevelopmentButton.addEventListener('click', () => {
-                    // NO guardamos en localStorage que el banner fue descartado
-                    // localStorage.setItem('developmentBannerDismissed', 'true'); // ¡Esta línea fue eliminada!
                     developmentBanner.classList.add('hidden');
-                    updateWhatsappPositionAndState(); // Restaura el botón de WhatsApp
+                    updateWhatsappPosition(); // Restaurar la posición del botón de WhatsApp
+                    // Las animaciones y el tooltip ya están habilitados si las cookies fueron aceptadas
                 });
             }
 
-            // Event listener para el botón de WhatsApp 'Contáctanos' dentro del Development Banner
+            // Listener de eventos para el botón de WhatsApp 'Contáctanos' dentro del Development Banner
             if (contactWhatsappDevelopmentButton) {
                 contactWhatsappDevelopmentButton.addEventListener('click', () => {
-                    // NO guardamos en localStorage que el banner fue descartado
-                    // localStorage.setItem('developmentBannerDismissed', 'true'); // ¡Esta línea fue eliminada!
                     developmentBanner.classList.add('hidden');
-                    updateWhatsappPositionAndState(); // Restaura el botón de WhatsApp
+                    updateWhatsappPosition(); // Restaurar la posición del botón de WhatsApp
                     // El href se encargará de la navegación a WhatsApp
+                    // Las animaciones y el tooltip ya están habilitados si las cookies fueron aceptadas
                 });
             }
         });
