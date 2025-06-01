@@ -267,56 +267,71 @@
         /* --- Estilos para dispositivos móviles (max-width: 768px) --- */
         @media (max-width: 768px) {
             .service-detail-section {
-                padding: 1.5rem; /* Reduce el padding para las secciones de detalle en móvil */
-                margin-bottom: 1.5rem; /* Ajusta el margen inferior */
+                padding: 1rem; /* Más reducción del padding para las secciones de detalle en móvil */
+                margin-bottom: 0.75rem; /* Más reducción del margen inferior */
             }
 
             .service-detail-section h2 {
-                font-size: 1.75rem; /* Reduce el tamaño del título de la sección */
-                margin-bottom: 1rem; /* Ajusta el margen inferior del título */
+                font-size: 1.5rem; /* Más reducción del tamaño del título de la sección */
+                margin-bottom: 0.5rem; /* Ajusta el margen inferior del título */
             }
 
             .service-detail-section p {
-                font-size: 0.95rem; /* Reduce el tamaño del texto de párrafo */
-                line-height: 1.6; /* Ajusta la altura de línea */
+                font-size: 0.85rem; /* Más reducción del tamaño del texto de párrafo */
+                line-height: 1.4; /* Ajusta la altura de línea para ser más compacta */
+            }
+
+            .service-detail-section ul {
+                margin-bottom: 0.6rem; /* Reduce el margen inferior de la lista completa */
             }
 
             .service-detail-section ul li {
-                font-size: 0.9rem; /* Reduce el tamaño del texto de la lista */
-                margin-bottom: 0.5rem; /* Ajusta el margen inferior de los ítems de la lista */
+                font-size: 0.8rem; /* Más reducción del tamaño del texto de la lista */
+                margin-bottom: 0.3rem; /* Más reducción del margen entre ítems de la lista */
             }
 
             .photo-card img {
-                width: 96px; /* Reduce el tamaño de la imagen del diseñador (h-24) */
-                height: 96px; /* Reduce el tamaño de la imagen del diseñador (h-24) */
+                width: 64px; /* Aún más reducción del tamaño de la imagen del diseñador (h-16) */
+                height: 64px; /* Aún más reducción del tamaño de la imagen del diseñador (h-16) */
             }
 
             .photo-card {
-                padding: 1rem; /* Reduce el padding de las tarjetas de fotos */
+                padding: 0.6rem; /* Aún más reducción del padding de las tarjetas de fotos */
             }
 
             .photo-card h3 {
-                font-size: 1.1rem; /* Reduce el tamaño del título de la tarjeta de foto */
+                font-size: 0.95rem; /* Aún más reducción del tamaño del título de la tarjeta de foto */
             }
 
             .photo-card p {
-                font-size: 0.85rem; /* Reduce el tamaño del texto de la tarjeta de foto */
+                font-size: 0.75rem; /* Aún más reducción del tamaño del texto de la tarjeta de foto */
             }
 
             /* Ajustes para los pasos del proceso */
             .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div {
-                padding: 1rem; /* Añade un poco de padding a cada paso del proceso */
+                padding: 0.6rem; /* Aún más reducción del padding a cada paso del proceso */
+                margin-bottom: 0.6rem; /* Aún más reducción del margen inferior a cada paso */
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div:last-child {
+                margin-bottom: 0; /* Eliminar margen inferior del último paso */
             }
             .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 {
-                width: 40px; /* Reduce el tamaño del número de paso */
-                height: 40px;
-                font-size: 1.5rem;
+                width: 32px; /* Aún más reducción del tamaño del número de paso */
+                height: 32px;
+                font-size: 1.2rem;
             }
             .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div h3 {
-                font-size: 1.1rem; /* Reduce el tamaño del título del paso */
+                font-size: 0.95rem; /* Aún más reducción del tamaño del título del paso */
             }
             .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div p {
-                font-size: 0.85rem; /* Reduce el tamaño del texto del paso */
+                font-size: 0.75rem; /* Aún más reducción del tamaño del texto del paso */
+            }
+
+            /* Ajustar el margen superior y el padding del contenido principal para móvil */
+            .mobile-main-mt-adjustment {
+                margin-top: 3.5rem; /* Reduce mt-20 (5rem) a 3.5rem para móvil */
+                padding-top: 0.75rem; /* Reduce py-8 (2rem) a 0.75rem para móvil */
+                padding-bottom: 0.75rem; /* Reduce py-8 (2rem) a 0.75rem para móvil */
             }
         }
     </style>
@@ -336,7 +351,7 @@
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20 mobile-main-mt-adjustment">
         <section class="p-6 md:p-8">
             <h1 class="text-3xl md:text-5xl font-extrabold text-center mb-10 text-stroke-cyan">Servicio de Diseño Gráfico</h1>
 
