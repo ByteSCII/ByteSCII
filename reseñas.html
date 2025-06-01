@@ -3,321 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Reseñas de Clientes</title>
-    <link rel="icon" href="https://i.imgur.com/WLFbcrE.png" type="image/png">
-    
-    <meta property="og:title" content="Byte - Reseñas de Clientes">
-    <meta property="og:description" content="Lee y deja reseñas sobre los servicios de desarrollo web de Byte. Tu opinión nos ayuda a crecer.">
-    <meta property="og:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Reseñas"> 
-    <meta property="og:url" content="[URL_DE_TU_SITIO_WEB]/reseñas.html"> 
-    <meta property="og:type" content="website">
-    
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Byte - Reseñas de Clientes">
-    <meta name="twitter:description" content="Lee y deja reseñas sobre los servicios de desarrollo web de Byte. Tu opinión nos ayuda a crecer.">
-    <meta name="twitter:image" content="https://placehold.co/1200x630/0A0A1A/00FFFF?text=Byte%20-%20Reseñas"> 
-
+    <title>Byte - Reseñas</title> <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <meta name="description" content="Lee las reseñas de nuestros clientes satisfechos sobre los servicios de Byte."> <meta name="keywords" content="Byte, reseñas, comentarios, opinión, feedback, clientes, satisfacción, testimonios">
+    <meta property="og:title" content="Byte - Reseñas"> <meta property="og:description" content="Lee las reseñas de nuestros clientes satisfechos sobre los servicios de Byte."> <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
-    <script>
+    <style>
+        /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
         tailwind.config = {
             theme: {
                 extend: {
-                    // Fuentes personalizadas (Inter para texto general, Montserrat para encabezados)
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
                     },
-                    // Colores personalizados para la marca Byte y WhatsApp
                     colors: {
-                        'byte-dark-bg': '#0A0A1A', // Fondo oscuro principal
-                        'byte-accent-cyan': '#00FFFF', // Cian eléctrico para acentos
-                        'byte-light-bg': '#F8FAFC', // Fondo claro (si se usa)
-                        'byte-text-dark': '#374151', // Texto oscuro (si se usa)
-                        'byte-text-light': '#F9FAFB', // Texto claro
-                        'byte-secondary-dark': '#1A202C', // Fondo secundario oscuro (para dropdowns)
-                        'whatsapp-green': '#25D366', // Color oficial de WhatsApp
-                        'whatsapp-dark-green': '#128C7E', // Tono más oscuro para hover de WhatsApp
+                        'byte-dark-bg': '#0A0A1A',
+                        'byte-accent-cyan': '#00FFFF',
+                        'byte-light-bg': '#F8FAFC',
+                        'byte-text-dark': '#374151',
+                        'byte-text-light': '#F9FAFB',
+                        'byte-secondary-dark': '#1A202C',
+                        'whatsapp-green': '#25D366',
+                        'whatsapp-dark-green': '#128C7E',
                     }
                 }
             }
+        };
+
+        /* Box-Sizing universal para un modelo de caja consistente */
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
-    </script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <style>
-        /* Importación de fuentes desde Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap');
-
-        /* Estilos base para el cuerpo y los encabezados */
+        /* Estilos base para HTML y Body */
+        html {
+            height: 100%;
+            width: 100%;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            /* Deshabilita la selección de texto para una experiencia más de "aplicación" */
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #0A0A1A; /* Color de fondo base */
+            font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
+            color: #F9FAFB;
+            margin: 0;
+            padding: 0;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            /* Asegura que el body no tenga margen para el posicionamiento fijo */
-            margin: 0;
-            padding: 0;
+
+            /* Animación de fondo */
+            background: linear-gradient(270deg, #0A0A1A, #1A202C, #0A0A1A);
+            background-size: 600% 600%;
+            animation: gradientAnimation 15s ease infinite;
         }
+
+        /* Keyframes para la animación del fondo */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Estilos para encabezados (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
+            color: #00FFFF;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
 
-        /* Animación de brillo para los enlaces del menú (más suave) */
-        @keyframes menu-glow {
-            0% {
-                color: #00FFFF;
-                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
-            }
-            50% {
-                color: #80FFFF;
-                text-shadow: 0 0 5px #00FFFF, 0 0 8px #00FFFF;
-            }
-            100% {
-                color: #00FFFF;
-                text-shadow: 0 0 1px #00FFFF, 0 0 3px #00FFFF;
-            }
-        }
-
-        .menu-link-glow {
-            animation: menu-glow 2s infinite alternate ease-in-out;
-        }
-
-        /* Estilo para el borde de texto (text-stroke) */
+        /* Estilo de contorno de texto */
         .text-stroke-cyan {
-            -webkit-text-stroke: 1.5px #00FFFF; /* Para navegadores basados en WebKit */
-            text-stroke: 1.5px #00FFFF; /* Estándar */
-            color: #FFFFFF; /* Color de relleno del texto */
-            text-shadow: none; /* Asegúrate de que no haya sombras de texto que interfieran si no se desean */
+            -webkit-text-stroke: 1.5px #00FFFF;
+            text-stroke: 1.5px #00FFFF;
+            color: #FFFFFF;
+            text-shadow: none;
         }
 
-        /* Animación de "caída" al hacer scroll para AOS */
-        @keyframes fall-in {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px) scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        /* Estilo de enlace deshabilitado */
+        .disabled-link {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        /* Clase aplicada por AOS.js para animar los elementos */
-        .aos-animate {
-            animation-name: fall-in;
-            animation-duration: 1s;
-            animation-fill-mode: forwards;
-            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        img {
+            pointer-events: none;
+        }
+        p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
         }
 
-        /* Estilos para el contenedor del mapa de Google Maps (responsive) */
-        .map-container {
-            position: relative;
-            overflow: hidden;
-            padding-bottom: 56.25%; /* Relación de aspecto 16:9 (altura / ancho) */
-            height: 0;
-        }
-
-        .map-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Animación de sacudida y pulso para el botón de WhatsApp */
-        /* Eliminado ya que el botón de WhatsApp ha sido removido */
-
-        /* Animación para el eslogan "Tu visión, nuestra misión" (constante y sutil) */
-        @keyframes slogan-blink {
-            0% {
-                opacity: 0.6; /* Opacidad inicial sutil */
-                text-shadow: none;
-            }
-            50% {
-                opacity: 0.9; /* Ligero aumento de opacidad */
-                text-shadow: 0 0 3px rgba(255, 255, 255, 0.2); /* Sombra sutil */
-            }
-            100% {
-                opacity: 0.6; /* Vuelve a la opacidad inicial */
-                text-shadow: none;
-            }
-        }
-
-        .slogan-animation {
-            animation: slogan-blink 2.5s infinite alternate ease-in-out; /* Duración, repetición y alternancia */
-        }
-
-        /* Clase para rotar el icono de flecha (usada en los dropdowns) */
-        .rotate-180 {
-            transform: rotate(180deg);
-        }
-
-        /* Estilos para las tarjetas de servicio */
-        .service-card {
-            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Degradado sutil */
-            border-radius: 1rem; /* Bordes más redondeados */
-            padding: 2.5rem; /* Más padding */
-            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color del acento */
+        /* Estilos para las tarjetas de reseña */
+        .review-card {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Fondo oscuro con gradiente */
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
             transition: all 0.3s ease-in-out;
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            border: 1px solid rgba(0, 255, 255, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
         }
 
-        .service-card:hover {
-            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada */
-            border-color: #00FFFF; /* Borde más visible al hover */
+        .review-card:hover {
+            transform: translateY(-8px) scale(1.02); /* Elevación y ligero aumento de tamaño al pasar el ratón */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+            border-color: #00FFFF; /* Borde más visible al pasar el ratón */
         }
 
-        .service-card .icon {
-            font-size: 4.5rem; /* Iconos más grandes */
-            margin-bottom: 1.5rem;
-            color: #00FFFF; /* Color del acento */
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Brillo en los iconos */
-        }
-
-        .service-card h3 {
-            color: #F9FAFB; /* Texto del título más claro */
-            font-size: 1.75rem; /* Título más grande */
-            margin-bottom: 1rem;
-            font-weight: 700; /* Más negrita */
-        }
-
-        .service-card p {
-            color: #CBD5E0; /* Texto de párrafo más suave */
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* Estilos para la sección de Contacto */
-        .contact-section {
-            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Degradado de fondo */
-            padding: 5rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate-gradient 20s linear infinite;
-            z-index: 0;
-        }
-
-        @keyframes rotate-gradient {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .contact-content {
-            position: relative;
-            z-index: 1;
-            background: rgba(10, 10, 26, 0.85); /* Fondo semitransparente para el contenido */
-            border-radius: 1.5rem;
-            padding: 3rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px); /* Efecto de desenfoque */
-        }
-
-        .contact-form-card, .contact-info-card {
-            background: #1A202C; /* Fondo oscuro para las tarjetas internas */
-            border-radius: 1rem;
-            padding: 2.5rem;
-            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .contact-form-card:hover, .contact-info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
-        }
-
-        .contact-form-card input, .contact-form-card textarea {
-            background-color: #0A0A1A;
-            border-color: rgba(0, 255, 255, 0.3);
-            color: #F9FAFB;
-        }
-
-        .contact-form-card input:focus, .contact-form-card textarea:focus {
-            border-color: #00FFFF;
-            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
-        }
-
-        .social-icon-link {
-            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
-        }
-
-        .social-icon-link:hover {
-            transform: translateY(-3px) scale(1.1);
-            color: #00FFFF; /* Color de acento al pasar el ratón */
-        }
-
-        /* Estilos para el texto del logo "Byte" */
-        #byte-logo-text {
-            /* Los estilos de color y text-shadow son animados por menu-glow */
-            position: relative;
-            z-index: 1; /* Asegura que el texto esté encima de la imagen si hay un fondo */
-        }
-
-        /* Estilos específicos para la página de reseñas */
-        .star-icon.filled {
-            color: #FFD700; /* Color dorado para estrellas rellenas */
-        }
-
-        .review-card {
-            background: #1A202C;
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 255, 255, 0.15);
-        }
-
-        .review-card .stars {
-            color: #FFD700; /* Color dorado para las estrellas mostradas */
-        }
-
-        .review-card .review-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .review-card .review-author {
-            font-weight: 600;
-            color: #00FFFF;
+        .review-card .reviewer-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00FFFF; /* Cian para el nombre */
+            margin-bottom: 0.75rem;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
 
         .review-card .review-date {
-            font-size: 0.875rem;
-            color: #CBD5E0;
+            font-family: 'Inter', sans-serif; /* Fuente Inter para la fecha */
+            font-size: 0.85rem;
+            color: #9CA3AF; /* Color gris suave para la fecha */
+            margin-bottom: 1rem;
         }
 
         .review-card .review-text {
-            color: #F9FAFB;
-            line-height: 1.5;
+            font-family: 'Inter', sans-serif; /* Fuente Inter para el texto de la reseña */
+            color: #CBD5E0; /* Texto de párrafo más suave */
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
         }
 
-        /* Estilos para el modal de mensaje */
-        .message-modal {
+        /* Estrellas de calificación en las reseñas */
+        .review-stars .fa-star {
+            font-size: 1.8rem;
+            color: #00FFFF; /* Color cian para estrellas vacías */
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .review-stars .fa-star.fas { /* Estrellas llenas */
+            color: #FFD700; /* Color dorado para estrellas llenas */
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* Sombra para brillo */
+            animation: pulse-glow-star 1.5s ease-in-out infinite alternate; /* Animación de pulso */
+        }
+
+        .review-stars .fa-star:hover {
+            transform: scale(1.2); /* Efecto de escala al pasar el ratón */
+        }
+
+        /* Animación de brillo para estrellas llenas */
+        @keyframes pulse-glow-star {
+            0% {
+                text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.4);
+            }
+            100% {
+                text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+            }
+        }
+
+        /* Estilos para el modal */
+        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -333,470 +196,379 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
-        .message-modal.show {
+        .modal-overlay.show {
             opacity: 1;
             visibility: visible;
         }
 
-        .message-modal-content {
-            background-color: #1A202C;
+        .modal-content {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
             padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+            max-width: 90%;
+            width: 500px;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
-            border: 1px solid #00FFFF;
+            position: relative;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
         }
 
-        .message-modal-content h3 {
+        .modal-overlay.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-content h3 { /* Estilo específico para el título del modal */
+            color: #00FFFF; /* Color cian para el título */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para el brillo */
+        }
+
+        .modal-content p { /* Estilo específico para el texto del párrafo dentro del modal */
+            color: #F9FAFB; /* Cambiado a un color más claro */
+        }
+
+        .modal-close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
             color: #00FFFF;
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
         }
 
-        .message-modal-content p {
-            color: #F9FAFB;
-            margin-bottom: 1.5rem;
+        .modal-close-button:hover {
+            color: #FFFFFF;
         }
 
-        .message-modal-content button {
-            background-color: #00FFFF;
-            color: #0A0A1A;
-            font-weight: bold;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            transition: background-color 0.3s ease;
+        .modal-social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
-        .message-modal-content button:hover {
-            background-color: #80FFFF;
-        }
-
-        /* Estilos para el spinner de carga */
-        .loading-spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid #00FFFF;
+        .modal-social-buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem auto;
-            display: none; /* Oculto por defecto */
+            font-size: 1.8rem;
+            color: #F9FAFB;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .modal-social-buttons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Estilos para el indicador de estado de Firebase */
-        #firebase-status-indicator {
-            font-size: 0.85rem;
-            color: #CBD5E0;
-            margin-top: 1rem;
+        .modal-social-buttons .instagram { background-color: #E1306C; }
+        .modal-social-buttons .whatsapp { background-color: #25D366; }
+        .modal-social-buttons .email { background-color: #D44638; } /* Gmail red */
+
+        /* Estilos para el botón de "Volver arriba" */
+        #scroll-to-top-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00FFFF; /* Cian */
+            color: #0A0A1A; /* Texto oscuro de Byte */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.2s ease;
+            z-index: 9999;
         }
 
-        #firebase-status-indicator .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: gray; /* Default */
-            transition: background-color 0.3s ease;
+        #scroll-to-top-button.show {
+            opacity: 1;
+            visibility: visible;
         }
 
-        #firebase-status-indicator .status-dot.active {
-            background-color: #25D366; /* Green for active */
+        #scroll-to-top-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
         }
 
-        #firebase-status-indicator .status-dot.inactive {
-            background-color: #EF4444; /* Red for inactive */
+        /* Estilos para el encabezado que se oculta/muestra */
+        .main-header {
+            background-color: #0A0A1A; /* Fondo oscuro */
+            color: #F9FAFB; /* Texto claro */
+            padding: 0.5rem 0; /* Relleno */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+            position: fixed; /* Fijo en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50; /* Asegura que esté por encima del contenido */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
+        }
+
+        .main-header.header-hide {
+            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
+            opacity: 0; /* Desvanece */
         }
     </style>
 </head>
-<body class="bg-byte-dark-bg text-byte-text-light min-h-screen flex flex-col">
+<body class="flex flex-col min-h-screen">
 
-    <header class="bg-byte-dark-bg shadow-lg py-4 sticky top-0 z-50 border-b border-byte-accent-cyan">
-        <div class="container mx-auto px-4 flex items-center justify-between">
-            <a href="index.html" class="flex items-center sm:flex-grow sm:justify-start">
-                <img src="https://i.imgur.com/WLFbcrE.png" alt="Byte Logo" class="h-16 mr-2"> 
-                <div class="flex flex-col items-start">
-                    <span id="byte-logo-text" class="text-2xl font-extrabold text-byte-accent-cyan block menu-link-glow">Byte</span> 
-                    <p class="text-sm text-byte-text-light opacity-80 mt-0.5 slogan-animation">
-                        <span class="block">Tu visión,</span>
-                        <span class="block" style="padding-left: 2.2em;">nuestra misión</span> 
-                    </p>
-                </div>
-            </a>
-
-            <div class="flex items-center">
-                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110">
-                    Volver al inicio
-                </a>
+    <header id="main-header" class="main-header">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center">
+            <div class="flex items-center justify-start">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
             </div>
+
+            <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
+                Volver al inicio
+            </a>
         </div>
     </header>
 
-    <main class="flex-grow py-16 bg-byte-dark-bg text-byte-text-light">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-center mb-12 text-stroke-cyan"
-                data-aos="fade-up" data-aos-duration="800">Deja tu Reseña</h1>
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20"> <section class="p-6 md:p-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-6 text-stroke-cyan">Reseñas de Clientes</h1>
 
-            <section class="bg-byte-secondary-dark rounded-lg p-8 mb-12 shadow-xl border border-byte-accent-cyan"
-                data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
-                <h2 class="text-3xl font-bold text-center text-byte-accent-cyan mb-6">Comparte tu Experiencia</h2>
-                <form id="review-form" class="space-y-6">
-                    <div>
-                        <label for="reviewer-name" class="block text-lg font-semibold text-byte-text-light mb-2">Tu Nombre</label>
-                        <input type="text" id="reviewer-name" name="name" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan bg-byte-dark-bg text-byte-text-light" placeholder="Ej: Juan Pérez" required>
-                    </div>
-                    <div>
-                        <label for="reviewer-email" class="block text-lg font-semibold text-byte-text-light mb-2">Tu Correo Electrónico</label>
-                        <input type="email" id="reviewer-email" name="email" class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan bg-byte-dark-bg text-byte-text-light" placeholder="ejemplo@dominio.com" required>
-                    </div>
-                    <div>
-                        <label class="block text-lg font-semibold text-byte-text-light mb-2">Calificación</label>
-                        <div class="flex items-center justify-center space-x-1" id="star-rating-input">
-                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
-                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="2" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
-                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
-                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
-                            <svg class="w-8 h-8 text-gray-400 cursor-pointer star-icon" data-value="5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>
-                        </div>
-                        <input type="hidden" id="star-rating-value" name="rating" value="0" required>
-                    </div>
-                    <div class="loading-spinner" id="loading-spinner"></div>
-                    <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-3 px-6 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
-                        Enviar Reseña
-                    </button>
-                </form>
-            </section>
+            <p class="text-byte-text-light text-center mb-10 text-base md:text-lg">
+                Descubre lo que nuestros clientes tienen que decir sobre su experiencia con Byte.
+            </p>
 
-            <section class="mt-16" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-12 text-stroke-cyan">Reseñas de Nuestros Clientes</h2>
-                <div id="reviews-list" class="space-y-6">
-                    <p class="text-center text-gray-400" id="no-reviews-message">No hay reseñas todavía. ¡Sé el primero en dejar una!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <div class="review-card">
+                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=AL" alt="Foto de perfil de Ana López"
+                         class="w-24 h-24 rounded-full object-cover mb-4"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
+                    <p class="reviewer-name">Ana López</p>
+                    <p class="review-date">1 de Junio, 2025</p>
+                    <div class="review-stars mb-4">
+                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="5"></i>
+                    </div>
+                    <p class="review-text">"El equipo de Byte superó mis expectativas. Mi nueva tienda virtual es increíble, fácil de usar y se ve fantástica. ¡Altamente recomendados!"</p>
                 </div>
-            </section>
-        </div>
+
+                <div class="review-card">
+                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=CG" alt="Foto de perfil de Carlos G."
+                         class="w-24 h-24 rounded-full object-cover mb-4"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
+                    <p class="reviewer-name">Carlos G.</p>
+                    <p class="review-date">28 de Mayo, 2025</p>
+                    <div class="review-stars mb-4">
+                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
+                        <i class="far fa-star text-byte-accent-cyan" data-value="5"></i>
+                    </div>
+                    <p class="review-text">"Excelente servicio de diseño web. La comunicación fue fluida y el resultado final es muy profesional. Hubo un pequeño retraso, pero lo compensaron con creces."</p>
+                </div>
+
+                <div class="review-card">
+                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=SM" alt="Foto de perfil de Sofía M."
+                         class="w-24 h-24 rounded-full object-cover mb-4"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
+                    <p class="reviewer-name">Sofía M.</p>
+                    <p class="review-date">20 de Mayo, 2025</p>
+                    <div class="review-stars mb-4">
+                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="5"></i>
+                    </div>
+                    <p class="review-text">"Contraté a Byte para el SEO de mi página y los resultados han sido asombrosos. Mi visibilidad ha mejorado drásticamente. ¡Gracias!"</p>
+                </div>
+
+                <div class="review-card">
+                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=JR" alt="Foto de perfil de Javier R."
+                         class="w-24 h-24 rounded-full object-cover mb-4"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
+                    <p class="reviewer-name">Javier R.</p>
+                    <p class="review-date">15 de Mayo, 2025</p>
+                    <div class="review-stars mb-4">
+                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
+                        <i class="far fa-star text-byte-accent-cyan" data-value="4"></i>
+                        <i class="far fa-star text-byte-accent-cyan" data-value="5"></i>
+                    </div>
+                    <p class="review-text">"El diseño gráfico fue bueno, pero la entrega tomó más tiempo de lo esperado. El resultado es decente, pero la gestión de tiempos podría mejorar."</p>
+                </div>
+
+                <div class="review-card">
+                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=LP" alt="Foto de perfil de Laura P."
+                         class="w-24 h-24 rounded-full object-cover mb-4"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
+                    <p class="reviewer-name">Laura P.</p>
+                    <p class="review-date">10 de Mayo, 2025</p>
+                    <div class="review-stars mb-4">
+                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="5"></i>
+                    </div>
+                    <p class="review-text">"Desde el concepto hasta el lanzamiento, Byte hizo un trabajo impecable con mi sitio web personalizado. Son verdaderos profesionales."</p>
+                </div>
+
+                 <div class="review-card">
+                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=MS" alt="Foto de perfil de María S."
+                         class="w-24 h-24 rounded-full object-cover mb-4"
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
+                    <p class="reviewer-name">María S.</p>
+                    <p class="review-date">5 de Mayo, 2025</p>
+                    <div class="review-stars mb-4">
+                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
+                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
+                        <i class="far fa-star text-byte-accent-cyan" data-value="5"></i>
+                    </div>
+                    <p class="review-text">"Estoy muy contenta con el logo que me diseñaron. Captaron la esencia de mi marca a la perfección. ¡Recomiendo su servicio de diseño gráfico!"</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-byte-dark-bg py-8 text-center text-gray-400">
-        <p>© 2024 Byte. Todos los derechos reservados.</p>
-        <p class="text-sm mt-2">Al usar la página web de Byte, aceptas nuestros <a href="#" class="underline text-byte-accent-cyan hover:text-white">Términos de Servicio</a>.</p>
-        <div class="mt-4 flex justify-center space-x-6">
-            <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="text-byte-accent-cyan hover:text-white transition duration-300 flex items-center" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram inline-block align-middle mr-1"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                Instagram
-            </a>
+    <div id="review-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="close-review-modal" class="modal-close-button">&times;</button>
+            <h3 class="text-2xl md:text-3xl font-extrabold text-byte-accent-cyan mb-4 text-stroke-cyan">¿Quieres que tu reseña esté aquí?</h3>
+            <p class="text-byte-text-light text-base md:text-lg mb-6">
+                ¡Nos encantaría escuchar tu experiencia! Escríbenos a nuestras redes sociales o por correo.
+            </p>
+            <div class="modal-social-buttons">
+                <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" class="instagram" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="mailto:byte.web.design@gmail.com" class="email" aria-label="Correo electrónico">
+                    <i class="fas fa-envelope"></i>
+                </a>
             </div>
-        <div id="firebase-status-indicator" class="mt-4">
-            <span class="status-dot" id="firebase-status-dot"></span>
-            <span id="firebase-status-text">Firebase: Desactivado</span>
-        </div>
-    </footer>
-
-    <div id="message-modal" class="message-modal">
-        <div class="message-modal-content">
-            <h3 id="modal-title"></h3>
-            <p id="modal-message"></p>
-            <button id="modal-close-button">Cerrar</button>
         </div>
     </div>
 
-    <chat-bot platform_id="832d1607-677c-4411-a2b7-d106e7204294" user_id="d57dd191-a963-4fc7-80fc-354ee9f53d5c" chatbot_id="e360cb16-3faf-411a-a5d4-6076d42ae79d"></chat-bot>
-    <script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
+    <button id="scroll-to-top-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, Timestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
+                </a>
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Condiciones</a>.
+            </p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
-        // Global variables for Firebase config and app ID
-        // Firebase configuration provided by the user
-        const firebaseConfig = {
-            apiKey: "AIzaSyBNc4xIBik7rOjPXGVmVPO06tPDnycU7MA",
-            authDomain: "byte-8c730.firebaseapp.com",
-            projectId: "byte-8c730",
-            storageBucket: "byte-8c730.firebasestorage.app",
-            messagingSenderId: "198935744200",
-            appId: "1:198935744200:web:f8c76bf77127e9aa00dffd"
-        };
-        const appId = firebaseConfig.appId || 'default-app-id'; // Use appId from config or default
-        // Se ha eliminado initialAuthToken ya que no se utiliza signInWithCustomToken
+    <script type="text/javascript">
+        // Chatbot script
+        (function() {
+            var chatBotEl = document.createElement('chat-bot');
+            chatBotEl.setAttribute('platform_id', '6d3c9a14-c164-43f9-830c-5b3396d07e7c');
+            chatBotEl.setAttribute('user_id', '2910a969-1916-4c77-afec-594e2627a98b');
+            chatBotEl.setAttribute('chatbot_id', '1998b065-0e20-4a7d-8863-fad0f5032c8d');
+            var chatbotLink = document.createElement('a');
+            chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+            chatbotLink.innerHTML = 'chatsimple';
+            chatBotEl.appendChild(chatbotLink);
+            document.body.appendChild(chatBotEl);
 
-        let app;
-        let db;
-        let auth;
-        let userId = null;
-        let firebaseStatusDot;
-        let firebaseStatusText;
-
-        // Function to show custom message modal
-        function showMessageModal(title, message) {
-            const modal = document.getElementById('message-modal');
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-message').textContent = message;
-            modal.classList.add('show');
-        }
-
-        // Function to hide custom message modal
-        function hideMessageModal() {
-            const modal = document.getElementById('message-modal');
-            modal.classList.remove('show');
-        }
-
-        // Event listener for modal close button
-        document.getElementById('modal-close-button').addEventListener('click', hideMessageModal);
-
-        // Function to update Firebase status indicator
-        function updateFirebaseStatus(isActive) {
-            if (firebaseStatusDot && firebaseStatusText) {
-                if (isActive) {
-                    firebaseStatusDot.classList.remove('inactive');
-                    firebaseStatusDot.classList.add('active');
-                    firebaseStatusText.textContent = "Firebase: Activado";
-                } else {
-                    firebaseStatusDot.classList.remove('active');
-                    firebaseStatusDot.classList.add('inactive');
-                    firebaseStatusText.textContent = "Firebase: Desactivado";
-                }
-            }
-        }
-
-        // Initialize Firebase and authenticate
-        async function initializeFirebase() {
-            firebaseStatusDot = document.getElementById('firebase-status-dot');
-            firebaseStatusText = document.getElementById('firebase-status-text');
-            updateFirebaseStatus(false); // Set to inactive initially
-
-            try {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                // Autenticación anónima por defecto para evitar problemas con custom tokens
-                await signInAnonymously(auth);
-                
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        userId = user.uid;
-                        console.log("Firebase authenticated. User ID:", userId);
-                        updateFirebaseStatus(true); // Set to active on successful authentication
-                        setupRealtimeReviews(); // Start listening for reviews once authenticated
-                    } else {
-                        console.log("No user is signed in.");
-                        updateFirebaseStatus(false); // Set to inactive if no user
-                        // Handle unauthenticated state if necessary
-                    }
-                });
-
-            } catch (error) {
-                console.error("Error initializing Firebase:", error);
-                showMessageModal("Error de Inicialización", "No se pudo conectar con el servicio de reseñas. Por favor, inténtalo de nuevo más tarde.");
-                updateFirebaseStatus(false); // Set to inactive on error
-            }
-        }
-
-        // Function to render stars based on a rating
-        function renderStars(rating) {
-            let starsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                starsHtml += `<svg class="w-5 h-5 inline-block ${i <= rating ? 'text-yellow-400' : 'text-gray-400'}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.929 8.72c-.783-.57-.381-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z"></path></svg>`;
-            }
-            return starsHtml;
-        }
-
-        // Function to display reviews
-        function displayReviews(reviews) {
-            const reviewsList = document.getElementById('reviews-list');
-            reviewsList.innerHTML = ''; // Clear existing reviews
-
-            if (reviews.length === 0) {
-                reviewsList.innerHTML = '<p class="text-center text-gray-400" id="no-reviews-message">No hay reseñas todavía. ¡Sé el primero en dejar una!</p>';
-                return;
-            }
-
-            // Sort reviews by timestamp in descending order (newest first)
-            reviews.sort((a, b) => b.timestamp.toDate() - a.timestamp.toDate());
-
-            reviews.forEach(review => {
-                const reviewCard = document.createElement('div');
-                reviewCard.className = 'review-card';
-                reviewCard.innerHTML = `
-                    <div class="review-header">
-                        <span class="review-author">${review.name}</span>
-                        <span class="review-date">${new Date(review.timestamp.toDate()).toLocaleDateString()}</span>
-                    </div>
-                    <div class="stars mb-2">
-                        ${renderStars(review.rating)}
-                    </div>
-                    <p class="review-text">${review.reviewText}</p>
-                `;
-                reviewsList.appendChild(reviewCard);
-            });
-        }
-
-        // Setup real-time listener for reviews
-        function setupRealtimeReviews() {
-            if (!db) {
-                console.error("Firestore no está inicializado.");
-                return;
-            }
-            const reviewsColRef = collection(db, `artifacts/${appId}/public/data/reviews`);
-            const q = query(reviewsColRef); // No orderBy to avoid index issues
-
-            onSnapshot(q, (snapshot) => {
-                const reviews = [];
-                snapshot.forEach(doc => {
-                    reviews.push({ id: doc.id, ...doc.data() });
-                });
-                displayReviews(reviews);
-            }, (error) => {
-                console.error("Error al obtener reseñas en tiempo real:", error);
-                showMessageModal("Error de Carga", "No se pudieron cargar las reseñas. Por favor, inténtalo de nuevo.");
-            });
-        }
-
-        // Handle star rating input
-        let selectedRating = 0;
-        const starRatingInput = document.getElementById('star-rating-input');
-        const starRatingValueInput = document.getElementById('star-rating-value');
-
-        starRatingInput.addEventListener('click', (event) => {
-            const star = event.target.closest('.star-icon');
-            if (star) {
-                selectedRating = parseInt(star.dataset.value);
-                starRatingValueInput.value = selectedRating;
-                highlightStars(selectedRating);
-            }
-        });
-
-        starRatingInput.addEventListener('mouseover', (event) => {
-            const star = event.target.closest('.star-icon');
-            if (star) {
-                const hoverRating = parseInt(star.dataset.value);
-                highlightStars(hoverRating);
-            }
-        });
-
-        starRatingInput.addEventListener('mouseout', () => {
-            highlightStars(selectedRating); // Revert to selected rating
-        });
-
-        function highlightStars(rating) {
-            const stars = starRatingInput.querySelectorAll('.star-icon');
-            stars.forEach(star => {
-                if (parseInt(star.dataset.value) <= rating) {
-                    star.classList.add('text-yellow-400');
-                    star.classList.remove('text-gray-400');
-                } else {
-                    star.classList.remove('text-yellow-400');
-                    star.classList.add('text-gray-400');
-                }
-            });
-        }
-
-        // Handle review form submission
-        const reviewForm = document.getElementById('review-form');
-        const loadingSpinner = document.getElementById('loading-spinner');
-
-        reviewForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById('reviewer-name').value.trim();
-            const email = document.getElementById('reviewer-email').value.trim();
-            const rating = parseInt(document.getElementById('star-rating-value').value);
-            const reviewText = document.getElementById('review-text').value.trim();
-
-            if (!name || !email || rating === 0 || !reviewText) {
-                showMessageModal("Error de Envío", "Por favor, completa todos los campos y selecciona una calificación.");
-                return;
-            }
-
-            loadingSpinner.style.display = 'block'; // Show spinner
-
-            try {
-                const reviewsColRef = collection(db, `artifacts/${appId}/public/data/reviews`);
-                await addDoc(reviewsColRef, {
-                    name,
-                    email,
-                    rating,
-                    reviewText,
-                    timestamp: Timestamp.now()
-                });
-
-                showMessageModal("Reseña Enviada", "¡Gracias por tu reseña! Se ha publicado correctamente.");
-                reviewForm.reset(); // Clear the form
-                selectedRating = 0; // Reset star rating
-                highlightStars(0); // Clear star highlight
-            } catch (error) {
-                console.error("Error al añadir reseña:", error);
-                showMessageModal("Error al Enviar", "Hubo un problema al enviar tu reseña. Por favor, inténtalo de nuevo.");
-            } finally {
-                loadingSpinner.style.display = 'none'; // Hide spinner
-            }
-        });
-
-        // Initialize Firebase when the window loads
-        window.addEventListener('load', initializeFirebase);
+            var cs = document.createElement('script');
+            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+            document.body.appendChild(cs);
+        })();
     </script>
-    
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <script>
-        AOS.init({
-            once: true,
-            mirror: false,
-            offset: 100,
-            duration: 800,
-            easing: 'ease-out-cubic',
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const reviewModalOverlay = document.getElementById('review-modal-overlay');
+            const closeReviewModalButton = document.getElementById('close-review-modal');
+            const body = document.body;
+            const scrollToTopButton = document.getElementById('scroll-to-top-button');
+            const mainHeader = document.getElementById('main-header'); // Obtener el encabezado
+            let lastScrollY = 0; // Para rastrear la dirección del scroll
 
-        // Solo se mantiene el sintetizador de entrada si se desea un sonido al cargar la página
-        let entranceSynth;
+            // Mostrar el modal al cargar la página
+            reviewModalOverlay.classList.add('show');
+            body.style.overflow = 'hidden'; // Evitar el desplazamiento cuando el modal está abierto
 
-        function playEntranceSound() {
-            if (entranceSynth) {
-                const now = Tone.context.currentTime;
-                entranceSynth.triggerAttackRelease(["C4", "E4", "G4"], "8n", now);
-            }
-        }
-
-        window.addEventListener('load', () => {
-            Tone.start().then(() => {
-                console.log("Tone.js context started.");
-                
-                entranceSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: "triangle" },
-                    envelope: { attack: 0.01, decay: 0.2, sustain: 0, release: 0.1 },
-                    volume: -10
-                });
-                const entranceReverb = new Tone.Reverb({ decay: 1, preDelay: 0.05, wet: 0.3 }).toDestination();
-                entranceSynth.chain(entranceReverb, Tone.Destination);
-
-                Tone.Master.volume.value = -8; 
-                playEntranceSound(); 
-
-            }).catch(e => {
-                console.error("Error al iniciar el contexto de audio de Tone.js:", e);
-                console.warn("Algunos navegadores pueden bloquear la reproducción automática de audio. El sonido de bienvenida podría requerir una interacción del usuario.");
+            // Cerrar el modal al hacer clic en el botón de cerrar
+            closeReviewModalButton.addEventListener('click', () => {
+                reviewModalOverlay.classList.remove('show');
+                body.style.overflow = ''; // Habilitar el desplazamiento
             });
-        });
 
-        // Deshabilitar enlaces que no sean el botón de "Volver al inicio"
-        document.querySelectorAll('a').forEach(link => {
-            if (link.getAttribute('href') !== 'index.html') {
-                link.classList.add('disabled-link');
-                link.setAttribute('href', '#');
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
+            // Cerrar el modal al hacer clic fuera del contenido del modal
+            reviewModalOverlay.addEventListener('click', (event) => {
+                if (event.target === reviewModalOverlay) {
+                    reviewModalOverlay.classList.remove('show');
+                    body.style.overflow = ''; // Habilitar el desplazamiento
+                }
+            });
+
+            // Lógica para el botón "Volver arriba" y el encabezado
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                // Lógica para el botón "Volver arriba"
+                if (currentScrollY > 0) { // Muestra el botón apenas el usuario comience a desplazarse
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+
+                // Lógica para ocultar/mostrar el encabezado
+                if (currentScrollY > lastScrollY && currentScrollY > 0) { // Scrolling down and past the top
+                    mainHeader.classList.add('header-hide');
+                } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
+                    // Scrolling up or at the very top
+                    mainHeader.classList.remove('header-hide');
+                }
+
+                lastScrollY = currentScrollY; // Actualizar la última posición de scroll
+            });
+
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Desplazamiento suave
                 });
-            }
+            });
         });
     </script>
 </body>
