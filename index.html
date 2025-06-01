@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="./images/logo.ico">
     <meta name="description" content="Byte - Soluciones digitales innovadoras en Venezuela. Diseño de páginas web, tiendas virtuales, SEO y diseño gráfico. Transforma tu visión en realidad digital.">
     <meta name="keywords" content="Byte, pagos seguros, tecnología, atención al cliente, soluciones digitales, Venezuela, diseño web, tiendas virtuales, SEO, diseño gráfico, desarrollo web, Caracas">
-    <meta name="author" content="Byte">
     <meta property="og:title" content="Byte - Tecnología y confianza">
     <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles y nuestras soluciones digitales.">
     <meta property="og:type" content="website">
@@ -573,8 +572,9 @@
 
         /* Animación para la imagen del icono de precios */
         @keyframes rotate-3d {
-            from { transform: rotateY(0deg) rotateX(0deg); }
-            to { transform: rotateY(360deg) rotateX(360deg); }
+            /* Modificado para rotar solo en el eje Y */
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
         }
 
         .price-icon-animated {
@@ -584,6 +584,45 @@
 
         .hover\:pause-scroll:hover {
             animation-play-state: paused;
+        }
+
+        /* Animación de giro para el texto del encabezado */
+        @keyframes text-flip-out {
+            0% {
+                opacity: 1;
+                transform: rotateY(0deg);
+            }
+            50% {
+                opacity: 0;
+                transform: rotateY(90deg);
+            }
+            100% {
+                opacity: 0;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes text-flip-in {
+            0% {
+                opacity: 0;
+                transform: rotateY(-90deg);
+            }
+            50% {
+                opacity: 0;
+                transform: rotateY(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateY(0deg);
+            }
+        }
+
+        .text-flip-out {
+            animation: text-flip-out 0.8s ease-in-out forwards;
+        }
+
+        .text-flip-in {
+            animation: text-flip-in 0.8s ease-in-out forwards;
         }
 
     </style>
@@ -772,7 +811,7 @@
                 Tu navegador no soporta la etiqueta de video.
             </video>
             <div class="container mx-auto px-4 relative z-10 text-center">
-                <h1 class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading">
+                <h1 id="hero-heading-text" class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading">
                     Nosotros convertimos sueños en realidades digitales
                 </h1>
                 <p class="text-base md:text-xl lg:text-lg mb-8 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading">
@@ -788,7 +827,7 @@
         <section id="servicios" class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
             <div class="container mx-auto px-4">
                 <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Nuestros Servicios Innovadores</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-4 max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-4 w-full">
                     <div class="service-card">
                         <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-desktop"></i></div>
                         <h3 class="text-lg lg:text-base font-bold mb-2">Diseño personalizado de paginas web</h3>
@@ -840,58 +879,54 @@
                     Nuestra prioridad es la satisfacción de nuestros clientes. Por eso ofrecemos métodos de pago seguros, rápidos y variados para tu comodidad.
                 </p>
                 <div class="carousel-wrapper overflow-hidden relative">
-                    <div id="carousel" class="flex whitespace-nowrap gap-6 animate-scroll-carousel  w-max">
-                        <div class="flex gap-6">
-                            <div class="payment-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
-                                <span>Visa</span>
-                            </div>
-
-                            <div class="payment-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" class="w-14 h-14 object-contain">
-                                <span>Mastercard</span>
-                            </div>
-
-                            <div class="payment-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-14 object-contain">
-                                <span>PayPal</span>
-                            </div>
-
-                            <div class="payment-card">
-                                <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
-                                <span>Pago Móvil</span>
-                            </div>
-
-                            <div class="payment-card">
-                                <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
-                                <span>Transferencia</span>
-                            </div>
+                    <div id="carousel" class="flex whitespace-nowrap animate-scroll-carousel gap-6" style="width: max-content;">
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
+                            <span>Visa</span>
                         </div>
-                        <div class="flex gap-6">
-                            <div class="payment-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
-                                <span>Visa</span>
-                            </div>
 
-                            <div class="payment-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" class="w-14 h-14 object-contain">
-                                <span>Mastercard</span>
-                            </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" class="w-14 h-14 object-contain">
+                            <span>Mastercard</span>
+                        </div>
 
-                            <div class="payment-card">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-14 object-contain">
-                                <span>PayPal</span>
-                            </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-14 object-contain">
+                            <span>PayPal</span>
+                        </div>
 
-                            <div class="payment-card">
-                                <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
-                                <span>Pago Móvil</span>
-                            </div>
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
+                            <span>Pago Móvil</span>
+                        </div>
 
-                            <div class="payment-card">
-                                <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
-                                <span>Transferencia</span>
-                            </div>
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
+                            <span>Transferencia</span>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
+                            <span>Visa</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" class="w-14 h-14 object-contain">
+                            <span>Mastercard</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-14 object-contain">
+                            <span>PayPal</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
+                            <span>Pago Móvil</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
+                            <span>Transferencia</span>
                         </div>
                     </div>
 
@@ -1067,174 +1102,201 @@
         </section>
 
 
-        <script>
-            // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
-            /*
-            AOS.init({
-                once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
-                mirror: false, // No animar al desplazarse hacia arriba
-                offset: 100, // Desplazamiento (en px) desde el punto de activación original
-                duration: 800, // Duración de la animación (en ms)
-                easing: 'ease-out-cubic', // Función de temporización para la animación
-            });
-            */
+    <script>
+        // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
+        /*
+        AOS.init({
+            once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
+            mirror: false, // No animar al desplazarse hacia arriba
+            offset: 100, // Desplazamiento (en px) desde el punto de activación original
+            duration: 800, // Duración de la animación (en ms)
+            easing: 'ease-out-cubic', // Función de temporización para la animación
+        });
+        */
 
-            window.addEventListener('load', () => {
-                // Lógica para menús desplegables de escritorio
-                document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
-                    button.addEventListener('click', function(event) {
-                        event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
-                        const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
-                        const dropdownMenu = document.getElementById(dropdownId);
-                        const arrowIcon = this.querySelector('.js-arrow-icon');
+        window.addEventListener('load', () => {
+            // Lógica para menús desplegables de escritorio
+            document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
+                    const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
+                    const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = this.querySelector('.js-arrow-icon');
 
-                        // Cierra otros menús desplegables de escritorio abiertos
-                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                                menu.classList.add('hidden');
-                                const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                                if (otherButton) {
-                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
-                                    otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
-                                }
+                    // Cierra otros menús desplegables de escritorio abiertos
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                            menu.classList.add('hidden');
+                            const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                            if (otherButton) {
+                                // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
                             }
-                        });
-
-                        // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
-                        dropdownMenu.classList.toggle('hidden');
-                        if (!dropdownMenu.classList.Contains('hidden')) {
-                            arrowIcon.classList.add('arrow-active');
-                        } else {
-                            arrowIcon.classList.remove('arrow-active');
                         }
                     });
+
+                    // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
+                    dropdownMenu.classList.toggle('hidden');
+                    if (!dropdownMenu.classList.Contains('hidden')) {
+                        arrowIcon.classList.add('arrow-active');
+                    } else {
+                        arrowIcon.classList.remove('arrow-active');
+                    }
+                });
+            });
+
+            // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+            document.addEventListener('click', function(event) {
+                // Si el clic no fue dentro de un botón desplegable o un menú desplegable
+                if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        menu.classList.add('hidden'); // Oculta el menú
+                        const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (button) {
+                            // Restaura la orientación de la flecha y elimina la animación al cerrar
+                            button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
+                        }
+                    });
+                }
+            });
+
+            // Lógica para el menú móvil y sus desplegables
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Definición de estilos para el texto del menú móvil (plateado y cian)
+            const mobileMenuSilverStyles = {
+                color: '#E0E0E0',
+                webkitTextStrokeColor: '#A0A0A0',
+                textShadow: '0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2)'
+            };
+
+            const mobileMenuCyanStyles = {
+                color: '#00FFFF',
+                webkitTextStrokeColor: '#00BFFF',
+                textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
+            };
+
+            // Inicializar Tone.js Synth
+            const synth = new Tone.Synth().toDestination();
+
+            // Función para aplicar estilos al texto del menú móvil
+            function applyMobileMenuTextStyles(element, styles) {
+                element.style.color = styles.color;
+                element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
+                element.style.textShadow = styles.textShadow;
+            }
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
+                    const icon = mobileMenuButton.querySelector('svg path');
+                    // Cambia el icono de hamburguesa a 'X' y viceversa
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                        // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
+                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
+                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                    } else {
+                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+                        // Reproducir sonido al abrir el menú móvil
+                        synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                    }
                 });
 
-                // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+                // Cierra el menú móvil al hacer clic fuera de él
                 document.addEventListener('click', function(event) {
-                    // Si el clic no fue dentro de un botón desplegable o un menú desplegable
-                    if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
-                        document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                            menu.classList.add('hidden'); // Oculta el menú
-                            const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                            if (button) {
-                                // Restaura la orientación de la flecha y elimina la animación al cerrar
-                                button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
-                            }
+                    const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+                    const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
+
+                    if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden'); // Oculta el menú
+                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                        // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
+                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
+                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
                         });
                     }
                 });
 
-                // Lógica para el menú móvil y sus desplegables
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                const mobileMenu = document.getElementById('mobile-menu');
+                // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
+                document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
+                        const dropdownId = this.dataset.dropdownIdMobile;
+                        const dropdownMenu = document.getElementById(dropdownId);
+                        const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
+                        const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
 
-                // Definición de estilos para el texto del menú móvil (plateado y cian)
-                const mobileMenuSilverStyles = {
-                    color: '#E0E0E0',
-                    webkitTextStrokeColor: '#A0A0A0',
-                    textShadow: '0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2)'
-                };
-
-                const mobileMenuCyanStyles = {
-                    color: '#00FFFF',
-                    webkitTextStrokeColor: '#00BFFF',
-                    textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
-                };
-
-                // Inicializar Tone.js Synth
-                const synth = new Tone.Synth().toDestination();
-
-                // Función para aplicar estilos al texto del menú móvil
-                function applyMobileMenuTextStyles(element, styles) {
-                    element.style.color = styles.color;
-                    element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
-                    element.style.textShadow = styles.textShadow;
-                }
-
-                if (mobileMenuButton && mobileMenu) {
-                    mobileMenuButton.addEventListener('click', () => {
-                        mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
-                        const icon = mobileMenuButton.querySelector('svg path');
-                        // Cambia el icono de hamburguesa a 'X' y viceversa
-                        if (mobileMenu.classList.contains('hidden')) {
-                            icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
-                            // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
-                            mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
-                                applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
-                            });
-                        } else {
-                            icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
-                            // Reproducir sonido al abrir el menú móvil
-                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
-                        }
-                    });
-
-                    // Cierra el menú móvil al hacer clic fuera de él
-                    document.addEventListener('click', function(event) {
-                        const isClickInsideMobileMenu = mobileMenu.contains(event.target);
-                        const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
-
-                        if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden'); // Oculta el menú
-                            mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
-                            // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
-                            mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
-                                applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
-                            });
-                        }
-                    });
-
-                    // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
-                    document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
-                        button.addEventListener('click', function(event) {
-                            event.preventDefault();
-                            event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
-                            const dropdownId = this.dataset.dropdownIdMobile;
-                            const dropdownMenu = document.getElementById(dropdownId);
-                            const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
-                            const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
-
-                            // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
-                            document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
-                                if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                                    menu.classList.add('hidden');
-                                    const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
-                                    if (otherButton) {
-                                        // Eliminar la animación de rebote y la rotación al cerrar otros menús
-                                        otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                                        // Restablece el color del texto de la categoría que se está cerrando
-                                        const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
-                                        if (otherCategoryTextSpan) {
-                                            applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
-                                        }
+                        // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
+                        document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
+                            if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                                menu.classList.add('hidden');
+                                const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                                if (otherButton) {
+                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                    otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                                    // Restablece el color del texto de la categoría que se está cerrando
+                                    const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
+                                    if (otherCategoryTextSpan) {
+                                        applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
                                     }
                                 }
-                            });
-
-                            dropdownMenu.classList.toggle('hidden');
-                            if (!dropdownMenu.classList.Contains('hidden')) {
-                                arrowIcon.classList.add('arrow-active');
-                                // Si el menú se está abriendo, aplica estilos cian
-                                applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
-                            } else {
-                                arrowIcon.classList.remove('arrow-active');
-                                // Si el menú se está cerrando, aplica estilos plateados
-                                applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
                             }
                         });
-                    });
-                }
 
-                // Lógica para deshabilitar enlaces con la clase 'disabled-link'
-                document.querySelectorAll('a.disabled-link').forEach(link => {
-                    link.addEventListener('click', function(event) {
-                        event.preventDefault(); // Previene la acción predeterminada del enlace
-                        event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
+                        dropdownMenu.classList.toggle('hidden');
+                        if (!dropdownMenu.classList.Contains('hidden')) {
+                            arrowIcon.classList.add('arrow-active');
+                            // Si el menú se está abriendo, aplica estilos cian
+                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
+                        } else {
+                            arrowIcon.classList.remove('arrow-active');
+                            // Si el menú se está cerrando, aplica estilos plateados
+                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
+                        }
                     });
                 });
+            }
+
+            // Lógica para deshabilitar enlaces con la clase 'disabled-link'
+            document.querySelectorAll('a.disabled-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción predeterminada del enlace
+                    event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
+                });
             });
-        </script>
+
+            // Lógica para el texto dinámico en la sección de inicio
+            const heroHeadingElement = document.getElementById('hero-heading-text');
+            const heroHeadings = [
+                "Nosotros convertimos sueños en realidades digitales",
+                "¿Qué esperas para convertir los tuyos?"
+            ];
+            let currentHeadingIndex = 0;
+
+            function updateHeroHeading() {
+                // Aplica la animación de salida
+                heroHeadingElement.classList.remove('text-flip-in');
+                heroHeadingElement.classList.add('text-flip-out');
+
+                // Después de la mitad de la animación de salida, cambia el texto
+                setTimeout(() => {
+                    currentHeadingIndex = (currentHeadingIndex + 1) % heroHeadings.length;
+                    heroHeadingElement.textContent = heroHeadings[currentHeadingIndex];
+
+                    // Remueve la animación de salida y aplica la de entrada
+                    heroHeadingElement.classList.remove('text-flip-out');
+                    heroHeadingElement.classList.add('text-flip-in');
+                }, 400); // La mitad de la duración de text-flip-out (0.8s / 2 = 0.4s)
+            }
+
+            // Inicia el cambio de texto cada 9 segundos
+            setInterval(updateHeroHeading, 9000); // Cambia el texto cada 9 segundos
+        });
+    </script>
     </main>
 
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
