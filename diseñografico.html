@@ -263,6 +263,62 @@
             animation-timeline: view(); /* Animar cuando esté en la vista */
             animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
         }
+
+        /* --- Estilos para dispositivos móviles (max-width: 768px) --- */
+        @media (max-width: 768px) {
+            .service-detail-section {
+                padding: 1.5rem; /* Reduce el padding para las secciones de detalle en móvil */
+                margin-bottom: 1.5rem; /* Ajusta el margen inferior */
+            }
+
+            .service-detail-section h2 {
+                font-size: 1.75rem; /* Reduce el tamaño del título de la sección */
+                margin-bottom: 1rem; /* Ajusta el margen inferior del título */
+            }
+
+            .service-detail-section p {
+                font-size: 0.95rem; /* Reduce el tamaño del texto de párrafo */
+                line-height: 1.6; /* Ajusta la altura de línea */
+            }
+
+            .service-detail-section ul li {
+                font-size: 0.9rem; /* Reduce el tamaño del texto de la lista */
+                margin-bottom: 0.5rem; /* Ajusta el margen inferior de los ítems de la lista */
+            }
+
+            .photo-card img {
+                width: 96px; /* Reduce el tamaño de la imagen del diseñador (h-24) */
+                height: 96px; /* Reduce el tamaño de la imagen del diseñador (h-24) */
+            }
+
+            .photo-card {
+                padding: 1rem; /* Reduce el padding de las tarjetas de fotos */
+            }
+
+            .photo-card h3 {
+                font-size: 1.1rem; /* Reduce el tamaño del título de la tarjeta de foto */
+            }
+
+            .photo-card p {
+                font-size: 0.85rem; /* Reduce el tamaño del texto de la tarjeta de foto */
+            }
+
+            /* Ajustes para los pasos del proceso */
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div {
+                padding: 1rem; /* Añade un poco de padding a cada paso del proceso */
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 {
+                width: 40px; /* Reduce el tamaño del número de paso */
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div h3 {
+                font-size: 1.1rem; /* Reduce el tamaño del título del paso */
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div p {
+                font-size: 0.85rem; /* Reduce el tamaño del texto del paso */
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
