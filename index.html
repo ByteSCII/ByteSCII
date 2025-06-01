@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Tu visión nuestra misión</title>
 
-    <link rel="icon" type="image/png" href="logo.png">
-    <meta name="description" content="Byte - Métodos de pago seguros, atención al cliente y soluciones digitales confiables.">
-    <meta name="keywords" content="Byte, pagos seguros, tecnología, atención al cliente, soluciones digitales, Venezuela">
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <meta name="description" content="Byte - Soluciones digitales innovadoras en Venezuela. Diseño de páginas web, tiendas virtuales, SEO y diseño gráfico. Transforma tu visión en realidad digital.">
+    <meta name="keywords" content="Byte, pagos seguros, tecnología, atención al cliente, soluciones digitales, Venezuela, diseño web, tiendas virtuales, SEO, diseño gráfico, desarrollo web, Caracas">
     <meta name="author" content="Byte">
     <meta property="og:title" content="Byte - Tecnología y confianza">
-    <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles.">
+    <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles y nuestras soluciones digitales.">
     <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
@@ -573,12 +573,12 @@
 
         /* Animación para la imagen del icono de precios */
         @keyframes rotate-3d {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
+            from { transform: rotateY(0deg) rotateX(0deg); }
+            to { transform: rotateY(360deg) rotateX(360deg); }
         }
 
         .price-icon-animated {
-            animation: rotate-3d 8s linear infinite; /* Animación de rotación 3D */
+            animation: rotate-3d 12s linear infinite; /* Animación de rotación 3D, más lenta */
             transform-style: preserve-3d; /* Necesario para que la rotación 3D funcione */
         }
 
@@ -788,7 +788,7 @@
         <section id="servicios" class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
             <div class="container mx-auto px-4">
                 <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Nuestros Servicios Innovadores</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-4 max-w-4xl mx-auto">
                     <div class="service-card">
                         <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-desktop"></i></div>
                         <h3 class="text-lg lg:text-base font-bold mb-2">Diseño personalizado de paginas web</h3>
@@ -906,7 +906,7 @@
             }
 
             :root {
-                --speed: 40s;
+                --speed: 60s; /* Velocidad del carrusel más lenta para mayor fluidez */
             }
 
             .animate-scroll-carousel {
@@ -1050,7 +1050,7 @@
                             <h3 class="text-xl lg:text-lg font-bold text-center mb-4 text-stroke-cyan">Nuestra Ubicación</h3>
                             <div class="map-container relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-lg border border-byte-accent-cyan/30">
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1568.106596167822!2d-66.93175493019316!3d10.505702299999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5927b2a26569%3A0x6b1062b1b2a26569!2sPlaza%20Sucre%2C%20Caracas%2C%20Distrito%20Capital%2C%20Venezuela!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6183086.239168103!2d-73.56833749999998!3d40.82609490000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5fe7c3070e99%3A0x67a622cd70e4ef2e!2sInstituto%20Gerencial%20de%20Talentos%20-%20Catia(IGT)!5e0!3m2!1ses!2sus!4v1748801811392!5m2!1ses!2sus"
                                     width="100%"
                                     height="100%"
                                     style="border:0;"
