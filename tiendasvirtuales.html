@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte - Diseño de Tiendas Virtuales</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <meta name="description" content="Byte - Tiendas Virtuales">
+    <meta name="keywords" content="Byte, tiendas virtuales, e-commerce, comercio electrónico, desarrollo de tiendas online, ventas online, pasarelas de pago, gestión de productos">
+    <meta property="og:title" content="Byte - Diseño de Tiendas Virtuales">
+    <meta property="og:description" content="Byte - Tiendas Virtuales">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A',
+                        'byte-accent-cyan': '#00FFFF',
+                        'byte-light-bg': '#F8FAFC',
+                        'byte-text-dark': '#374151',
+                        'byte-text-light': '#F9FAFB',
+                        'byte-secondary-dark': '#1A202C',
+                        'whatsapp-green': '#25D366',
+                        'whatsapp-dark-green': '#128C7E',
+                    }
+                }
+            }
+        };
+
+        /* Box-Sizing universal para un modelo de caja consistente */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Estilos base para HTML y Body */
+        html {
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #0A0A1A; /* Color de fondo base, sin animación */
+            font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
+            color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Estilos para encabezados (h1-h6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
+            color: #00FFFF;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Estilo de contorno de texto */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF;
+            text-stroke: 1.5px #00FFFF;
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+
+        /* Estilo de enlace deshabilitado */
+        .disabled-link {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        img {
+            pointer-events: none;
+        }
+        p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Estilos para el botón de "Volver arriba" */
+        #scroll-to-top-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00FFFF; /* Cian */
+            color: #0A0A1A; /* Texto oscuro de Byte */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.2s ease;
+            z-index: 9999;
+        }
+
+        #scroll-to-top-button.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scroll-to-top-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Estilos para el encabezado que se oculta/muestra */
+        .main-header {
+            background-color: #0A0A1A; /* Fondo oscuro */
+            color: #F9FAFB; /* Texto claro */
+            padding: 0.5rem 0; /* Relleno */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+            position: fixed; /* Fijo en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50; /* Asegura que esté por encima del contenido */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
+        }
+
+        .main-header.header-hide {
+            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
+            opacity: 0; /* Desvanece */
+        }
+
+        /* Estilos para la sección de servicio */
+        .service-detail-section {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transición para el efecto de salto */
+        }
+
+        .service-detail-section:hover {
+            transform: translateY(-10px); /* Efecto de salto al pasar el cursor */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+        }
+
+        .service-detail-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00FFFF;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .service-detail-section p {
+            color: #CBD5E0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail-section ul {
+            list-style: none; /* Elimina los puntos de la lista */
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail-section ul li {
+            position: relative;
+            padding-left: 1.5rem; /* Espacio para el icono personalizado */
+            margin-bottom: 0.75rem;
+            color: #F9FAFB;
+            font-size: 1rem;
+        }
+
+        .service-detail-section ul li::before {
+            content: '✓'; /* Icono de check mark */
+            color: #25D366; /* Verde de WhatsApp */
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Estilos para los iconos SVG en el footer */
+        .footer-social-icon {
+            width: 1.75rem; /* Tamaño de los iconos sociales */
+            height: 1.75rem;
+            /* fill: currentColor; */ /* Usa el color del texto del padre */
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            fill: #00FFFF; /* Cian al pasar el ratón */
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Nuevos estilos para las tarjetas de fotos (similar a programadores) */
+        .photo-card {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px) scale(1.02); /* Efecto de salto sutil al pasar el cursor */
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
+            border-color: #00FFFF;
+        }
+
+        .photo-card img {
+            width: 128px; /* h-32 */
+            height: 128px; /* h-32 */
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #00FFFF; /* Borde cian para las imágenes de perfil */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Animación para la aparición de la sección al hacer scroll */
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0; /* Oculto por defecto */
+            animation: fade-in-up 0.8s ease-out forwards;
+            animation-timeline: view(); /* Animar cuando esté en la vista */
+            animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header id="main-header" class="main-header">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center">
+            <div class="flex items-center justify-start">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
+            </div>
+
+            <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
+                Volver al inicio
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
+        <section class="p-6 md:p-8">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-center mb-10 text-stroke-cyan">Diseño de Tiendas Virtuales</h1>
+
+            <div class="service-detail-section">
+                <h2 class="text-center">Tu Negocio Abierto 24/7 en Línea</h2>
+                <p class="text-center">
+                    En Byte, creamos tiendas virtuales potentes y atractivas que te permiten vender tus productos o servicios en línea de manera eficiente y segura. Desde la configuración inicial hasta la integración de pasarelas de pago y la gestión de inventario, nos encargamos de todo para que puedas enfocarte en hacer crecer tu negocio.
+                </p>
+                <p class="text-center mt-4">
+                    Diseñamos experiencias de compra intuitivas y visualmente impactantes que capturan la atención de tus clientes y los guían sin esfuerzo a través del proceso de compra, maximizando tus conversiones y la lealtad a la marca.
+                </p>
+            </div>
+
+            <div class="service-detail-section">
+                <h2 class="text-center">Nuestro Proceso de Creación de Tiendas Virtuales</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">1</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Análisis y Estrategia E-commerce</h3>
+                            <p class="text-base text-byte-text-light">Definimos tus productos, público objetivo, funcionalidades necesarias y la plataforma de e-commerce más adecuada para tu negocio.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">2</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Diseño Visual y Experiencia de Usuario</h3>
+                            <p class="text-base text-byte-text-light">Creamos un diseño atractivo y una estructura de navegación intuitiva que facilite la búsqueda de productos y el proceso de compra.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">3</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Desarrollo, Configuración e Integraciones</h3>
+                            <p class="text-base text-byte-text-light">Construimos la tienda, configuramos productos, pasarelas de pago, métodos de envío y cualquier otra integración necesaria.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">4</div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Pruebas, Lanzamiento y Capacitación</h3>
+                            <p class="text-base text-byte-text-light">Realizamos pruebas exhaustivas, lanzamos tu tienda y te capacitamos para que puedas gestionarla de forma autónoma.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail-section">
+                <h2 class="text-center">¿Qué Incluye Nuestro Servicio?</h2>
+                <ul class="text-left mx-auto max-w-2xl">
+                    <li>Diseño de tienda virtual personalizado y responsivo.</li>
+                    <li>Configuración de productos y categorías.</li>
+                    <li>Integración de pasarelas de pago seguras (nacionales e internacionales).</li>
+                    <li>Gestión de inventario y pedidos.</li>
+                    <li>Optimización SEO básica para productos y categorías.</li>
+                    <li>Asesoramiento en estrategias de venta online.</li>
+                    <li>Soporte post-lanzamiento.</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-section">
+                <h2 class="text-center">Beneficios de una Tienda Virtual con Byte</h2>
+                <ul class="text-left mx-auto max-w-2xl">
+                    <li><strong>Alcance Global:</strong> Vende a clientes en cualquier parte del mundo.</li>
+                    <li><strong>Disponibilidad 24/7:</strong> Tu negocio siempre abierto, sin límites de horario.</li>
+                    <li><strong>Reducción de Costos Operativos:</strong> Menos gastos que una tienda física.</li>
+                    <li><strong>Mayor Visibilidad:</strong> Atrae a nuevos clientes a través de búsquedas online.</li>
+                    <li><strong>Análisis y Datos:</strong> Obtén información valiosa sobre el comportamiento de tus clientes.</li>
+                    <li><strong>Escalabilidad:</strong> Crece tu catálogo y operaciones a medida que tu negocio se expande.</li>
+                </ul>
+            </div>
+
+            <section class="p-6 md:p-8 fade-in-on-scroll">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-stroke-cyan">Nuestros Diseñadores de Tiendas Virtuales</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="photo-card">
+                        <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=DISEÑADOR+1" alt="Foto de diseñador de tiendas virtuales 1">
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=DISEÑADOR+2" alt="Foto de diseñador de tiendas virtuales 2">
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=DISEÑADOR+3" alt="Foto de diseñador de tiendas virtuales 3">
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <button id="scroll-to-top-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/byteweb_design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg class="footer-social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <radialGradient id="yOrnnhliCrdS2gy~4tD8ma-footer" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fd5"/><stop offset=".328" stop-color="#ff543f"/><stop offset=".348" stop-color="#fc5245"/><stop offset=".504" stop-color="#e64771"/><stop offset=".643" stop-color="#d53e91"/><stop offset=".761" stop-color="#cc39a4"/><stop offset=".841" stop-color="#c837ab"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8ma-footer)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><radialGradient id="yOrnnhliCrdS2gy~4tD8mb-footer" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4168c9"/><stop offset=".999" stop-color="#4168c9" stop-opacity="0"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8mb-footer)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"/><circle cx="31.5" cy="16.5" r="1.5" fill="#fff"/><path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Condiciones</a>.
+            </p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        // Chatbot script
+        (function() {
+            var chatBotEl = document.createElement('chat-bot');
+            chatBotEl.setAttribute('platform_id', '6d3c9a14-c164-43f9-830c-5b3396d07e7c');
+            chatBotEl.setAttribute('user_id', '2910a969-1916-4c77-afec-594e2627a98b');
+            chatBotEl.setAttribute('chatbot_id', '1998b065-0e20-4a7d-8863-fad0f5032c8d');
+            var chatbotLink = document.createElement('a');
+            chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+            chatbotLink.innerHTML = 'chatsimple';
+            chatBotEl.appendChild(chatbotLink);
+            document.body.appendChild(chatBotEl);
+
+            var cs = document.createElement('script');
+            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+            document.body.appendChild(cs);
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollToTopButton = document.getElementById('scroll-to-top-button');
+            const mainHeader = document.getElementById('main-header'); // Obtener el encabezado
+            let lastScrollY = 0; // Para rastrear la dirección del scroll
+
+            // Lógica para el botón "Volver arriba" y el encabezado
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                // Lógica para el botón "Volver arriba"
+                if (currentScrollY > 0) { // Muestra el botón apenas el usuario comience a desplazarse
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+
+                // Lógica para ocultar/mostrar el encabezado
+                if (currentScrollY > lastScrollY && currentScrollY > 0) { // Scrolling down and past the top
+                    mainHeader.classList.add('header-hide');
+                } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
+                    // Scrolling up or at the very top
+                    mainHeader.classList.remove('header-hide');
+                }
+
+                lastScrollY = currentScrollY; // Actualizar la última posición de scroll
+            });
+
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Desplazamiento suave
+                });
+            });
+        });
+    </script>
+</body>
+</html>
