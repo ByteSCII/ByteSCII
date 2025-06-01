@@ -625,6 +625,22 @@
             animation: text-flip-in 0.8s ease-in-out forwards;
         }
 
+        /* Estilos para asegurar que el h1 mantenga su altura y centrado */
+        #hero-heading-text {
+            min-height: 7.5rem; /* Altura mínima para acomodar el texto más largo en varias líneas */
+            display: flex; /* Habilitar flexbox */
+            align-items: center; /* Centrar verticalmente el contenido */
+            justify-content: center; /* Centrar horizontalmente el contenido */
+            perspective: 1000px; /* Necesario para la animación 3D de giro */
+        }
+
+        /* Ajustes para pantallas más pequeñas si el texto se desborda */
+        @media (max-width: 768px) {
+            #hero-heading-text {
+                min-height: 6rem; /* Un poco menos de altura mínima para pantallas móviles */
+            }
+        }
+
     </style>
 
     <style>
@@ -1178,7 +1194,13 @@
             };
 
             // Inicializar Tone.js Synth
-            const synth = new Tone.Synth().toDestination();
+            let synth;
+            try {
+                synth = new Tone.Synth().toDestination();
+            } catch (e) {
+                console.error("Error al inicializar Tone.js:", e);
+                // Si Tone.js falla, el synth será undefined y no se intentará reproducir el sonido.
+            }
 
             // Función para aplicar estilos al texto del menú móvil
             function applyMobileMenuTextStyles(element, styles) {
@@ -1200,8 +1222,10 @@
                         });
                     } else {
                         icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
-                        // Reproducir sonido al abrir el menú móvil
-                        synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                        // Reproducir sonido al abrir el menú móvil, solo si synth se inicializó correctamente
+                        if (synth) {
+                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                        }
                     }
                 });
 
@@ -1376,11 +1400,8 @@
             chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
             chatbotLink.innerHTML = 'chatsimple';
             chatBotEl.appendChild(chatbotLink);
-            document.body.appendChild(chatBotEl);
-
-            var cs = document.createElement('script');
-            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-            document.body.appendChild(cs);
+            // Removed the duplicate line that caused the error: document.body.appendChild(cs);
+            // The 'cs' script is already appended within the IIFE where it's defined.
         })();
     </script>
 
