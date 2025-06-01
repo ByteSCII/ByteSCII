@@ -821,8 +821,16 @@
 
     <main class="flex-grow">
         <section id="inicio" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
-            <video autoplay loop muted playsinline
+            <video autoplay loop muted playsinline preload="auto"
                    class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+                <!--
+                    Atributos importantes para la reproducción automática de videos de fondo:
+                    - autoplay: Inicia la reproducción del video automáticamente.
+                    - loop: Reproduce el video en un bucle continuo.
+                    - muted: Silencia el video. Es crucial para que el autoplay funcione en la mayoría de los navegadores, ya que muchos bloquean la reproducción automática con sonido.
+                    - playsinline: Permite que el video se reproduzca en línea en iOS, en lugar de ir a pantalla completa automáticamente.
+                    - preload="auto": Sugiere al navegador que cargue el video completo tan pronto como sea posible.
+                -->
                 <source src="./images/fondo.mp4" type="video/mp4">
                 Tu navegador no soporta la etiqueta de video.
             </video>
@@ -1392,16 +1400,23 @@
 
     <script type="text/javascript">
         (function() {
+            // Create and append the chat-bot element
             var chatBotEl = document.createElement('chat-bot');
-            chatBotEl.setAttribute('platform_id', 'cc02bbfd-49a7-49c6-ba17-12baee780e29');
-            chatBotEl.setAttribute('user_id', '872cc8d5-f312-44c1-a9cc-15b7d1740044');
-            chatBotEl.setAttribute('chatbot_id', '359c0fb9-fd3d-4753-8ce1-2b076bdd6b34');
+            chatBotEl.setAttribute('platform_id', '6d3c9a14-c164-43f9-830c-5b3396d07e7c');
+            chatBotEl.setAttribute('user_id', '2910a969-1916-4c77-afec-594e2627a98b');
+            chatBotEl.setAttribute('chatbot_id', '1998b065-0e20-4a7d-8863-fad0f5032c8d');
+
             var chatbotLink = document.createElement('a');
             chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
             chatbotLink.innerHTML = 'chatsimple';
             chatBotEl.appendChild(chatbotLink);
-            // Removed the duplicate line that caused the error: document.body.appendChild(cs);
-            // The 'cs' script is already appended within the IIFE where it's defined.
+
+            document.body.appendChild(chatBotEl);
+
+            // Dynamically load the external script
+            var cs = document.createElement('script');
+            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+            document.body.appendChild(cs);
         })();
     </script>
 
