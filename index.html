@@ -360,7 +360,9 @@
         }
 
         .whatsapp-float-button svg {
-            fill: white; /* Asegura que el icono SVG tenga color blanco */
+            fill: white; /* Changed fill to white */
+            stroke: white; /* Added stroke for thickness */
+            stroke-width: 2; /* Increased stroke width for thickness */
             width: 60%; /* Ajusta el tamaño del icono dentro del botón */
             height: 60%; /* Ajusta el tamaño del icono dentro del botón */
         }
@@ -455,6 +457,17 @@
         .js-dropdown-menu-mobile a:hover {
             background-color: #00FFFF; /* Cian eléctrico para el fondo */
             color: #0A0A1A; /* Texto oscuro al pasar el ratón */
+        }
+
+        /* Nuevo estilo para enlaces de menú móvil activos (subrayado y color de texto) */
+        .mobile-menu-link-active::before {
+            width: 100% !important; /* Fuerza el ancho a 100% */
+            opacity: 1 !important; /* Fuerza la visibilidad */
+            background-color: #00FFFF !important; /* Asegura el color cian */
+        }
+
+        .mobile-menu-link-active {
+            transform: translateY(-5px) !important; /* Eleva el enlace */
         }
 
         /* --- Estilos para reducción de tamaño en PC y pantallas grandes --- */
@@ -582,9 +595,6 @@
             transform-style: preserve-3d; /* Necesario para que la rotación 3D funcione */
         }
 
-        .hover\:pause-scroll:hover {
-            animation-play-state: paused;
-        }
 
         /* Animación de giro para el texto del encabezado */
         @keyframes text-flip-out {
@@ -627,7 +637,7 @@
 
         /* Estilos para asegurar que el h1 mantenga su altura y centrado */
         #hero-heading-text {
-            min-height: 7.5rem; /* Altura mínima para acomodar el texto más largo en varias líneas */
+            height: 8rem; /* Altura fija para acomodar el texto más largo en varias líneas */
             display: flex; /* Habilitar flexbox */
             align-items: center; /* Centrar verticalmente el contenido */
             justify-content: center; /* Centrar horizontalmente el contenido */
@@ -637,7 +647,7 @@
         /* Ajustes para pantallas más pequeñas si el texto se desborda */
         @media (max-width: 768px) {
             #hero-heading-text {
-                min-height: 6rem; /* Un poco menos de altura mínima para pantallas móviles */
+                height: 7rem; /* Altura fija para pantallas móviles */
             }
         }
 
@@ -903,6 +913,12 @@
                     Nuestra prioridad es la satisfacción de nuestros clientes. Por eso ofrecemos métodos de pago seguros, rápidos y variados para tu comodidad.
                 </p>
                 <div class="carousel-wrapper overflow-hidden relative">
+                    <button id="carousel-arrow-left" class="arrow arrow-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+
                     <div id="carousel" class="flex whitespace-nowrap animate-scroll-carousel gap-6" style="width: max-content;">
                         <div class="payment-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
@@ -954,6 +970,11 @@
                         </div>
                     </div>
 
+                    <button id="carousel-arrow-right" class="arrow arrow-right">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </section>
@@ -965,15 +986,11 @@
             }
 
             :root {
-                --speed: 60s; /* Velocidad del carrusel más lenta para mayor fluidez */
+                --speed: 60s; /* Velocidad inicial del carrusel en segundos */
             }
 
             .animate-scroll-carousel {
                 animation: scroll-carousel var(--speed) linear infinite;
-            }
-
-            .hover\:pause-scroll:hover {
-                animation-play-state: paused;
             }
 
             .payment-card {
@@ -1019,30 +1036,52 @@
                 position: relative;
             }
 
+            /* Estilos para las flechas de navegación */
             .arrow {
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
                 width: 40px;
                 height: 40px;
-                background-color: rgba(0, 255, 255, 0.15);
+                background-color: rgba(0, 255, 255, 0.15); /* Cian semi-transparente */
                 color: white;
-                border-radius: 9999px;
+                border-radius: 50%; /* Circular */
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                pointer-events: none;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                z-index: 10;
+                cursor: pointer;
+                opacity: 0; /* Oculto por defecto */
+                pointer-events: none; /* No interactivo cuando está oculto */
+                transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+                border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+                z-index: 10; /* Asegura que las flechas estén por encima de los elementos del carrusel */
             }
 
+            .arrow:hover {
+                background-color: rgba(0, 255, 255, 0.3); /* Más opaco al pasar el ratón */
+                transform: translateY(-50%) scale(1.1); /* Ligero aumento de escala al pasar el ratón */
+            }
+
+            .arrow-left {
+                left: 10px;
+            }
+
+            .arrow-right {
+                right: 10px;
+            }
+
+            /* Mostrar flechas al pasar el ratón sobre el contenedor del carrusel (solo en escritorio) */
             .carousel-wrapper:hover .arrow {
                 opacity: 1;
+                pointer-events: auto;
             }
 
-            .arrow-left { left: 0.5rem; }
-            .arrow-right { right: 0.5rem; }
+            /* Ocultar flechas en móvil */
+            @media (max-width: 768px) {
+                .arrow {
+                    display: none;
+                }
+            }
         </style>
 
         <style>
@@ -1072,9 +1111,6 @@
                 animation: bounce-custom 0.6s ease-in-out;
             }
 
-            .hover\:pause-scroll:hover {
-                animation-play-state: paused;
-            }
         </style>
 
 
@@ -1224,9 +1260,19 @@
                     // Cambia el icono de hamburguesa a 'X' y viceversa
                     if (mobileMenu.classList.contains('hidden')) {
                         icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
-                        // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
                         mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
                             applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                            button.classList.remove('mobile-menu-link-active');
+                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                            // También ocultar cualquier submenú abierto
+                            const dropdownId = button.dataset.dropdownIdMobile;
+                            const dropdownMenu = document.getElementById(dropdownId);
+                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                                dropdownMenu.classList.add('hidden');
+                            }
                         });
                     } else {
                         icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
@@ -1237,7 +1283,6 @@
                     }
                 });
 
-                // Cierra el menú móvil al hacer clic fuera de él
                 document.addEventListener('click', function(event) {
                     const isClickInsideMobileMenu = mobileMenu.contains(event.target);
                     const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
@@ -1245,9 +1290,19 @@
                     if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden'); // Oculta el menú
                         mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
-                        // Al cerrar el menú principal, restablece todos los textos de categoría a plateado
                         mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
                             applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                            button.classList.remove('mobile-menu-link-active');
+                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                            // También ocultar cualquier submenú abierto
+                            const dropdownId = button.dataset.dropdownIdMobile;
+                            const dropdownMenu = document.getElementById(dropdownId);
+                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                                dropdownMenu.classList.add('hidden');
+                            }
                         });
                     }
                 });
@@ -1270,7 +1325,8 @@
                                 if (otherButton) {
                                     // Eliminar la animación de rebote y la rotación al cerrar otros menús
                                     otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                                    // Restablece el color del texto de la categoría que se está cerrando
+                                    // Eliminar la clase activa del otro enlace
+                                    otherButton.classList.remove('mobile-menu-link-active');
                                     const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
                                     if (otherCategoryTextSpan) {
                                         applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
@@ -1282,10 +1338,14 @@
                         dropdownMenu.classList.toggle('hidden');
                         if (!dropdownMenu.classList.Contains('hidden')) {
                             arrowIcon.classList.add('arrow-active');
+                            // Añadir la clase activa al enlace actual
+                            this.classList.add('mobile-menu-link-active');
                             // Si el menú se está abriendo, aplica estilos cian
                             applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
                         } else {
                             arrowIcon.classList.remove('arrow-active');
+                            // Eliminar la clase activa del enlace actual
+                            this.classList.remove('mobile-menu-link-active');
                             // Si el menú se está cerrando, aplica estilos plateados
                             applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
                         }
@@ -1377,13 +1437,19 @@
     </div>
 
     <div id="development-banner" class="hidden fixed inset-0 flex items-center justify-center p-4 z-[100000000] bg-byte-dark-bg bg-opacity-95 backdrop-blur-sm">
-        <div class="bg-byte-secondary-dark text-byte-text-light p-8 rounded-lg shadow-2xl max-w-lg w-full text-center border border-byte-accent-cyan">
-            <h3 class="text-2xl md:text-3xl font-extrabold text-byte-accent-cyan mb-4 text-stroke-cyan">¡Página en Desarrollo!</h3>
-            <p class="mb-6 text-base md:text-lg">
-                Esta página web se encuentra en desarrollo. Es posible que esté incompleta o presente funcionalidades limitadas.
-                El equipo de desarrolladores de Byte trabaja arduamente para terminarla y ofrecerte la mejor experiencia.
+        <div class="bg-byte-secondary-dark text-byte-text-light p-5 sm:p-6 md:p-8 rounded-lg shadow-2xl max-w-sm md:max-w-lg w-full text-center border border-byte-accent-cyan relative">
+            <button id="close-development-banner" class="absolute top-3 right-3 text-byte-accent-cyan hover:text-white transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-byte-accent-cyan mb-3 sm:mb-4 text-stroke-cyan">¡Página en Desarrollo!</h3>
+            <p class="mb-5 text-sm sm:text-base md:text-lg leading-relaxed">
+                Esta página web se encuentra actualmente en desarrollo. Es posible que algunas secciones estén incompletas
+                o que ciertas funcionalidades se encuentren limitadas. Nuestro equipo de Byte está trabajando activamente
+                para completarla y ofrecerte la mejor experiencia posible.
             </p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mb-4">
                 <button id="accept-development-button" class="bg-yellow-500 text-black font-bold py-2.5 px-6 rounded-full
                                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm md:text-base">
                     Aceptar
@@ -1437,6 +1503,25 @@
         const developmentBanner = document.getElementById('development-banner');
         const acceptDevelopmentButton = document.getElementById('accept-development-button');
         const contactWhatsappDevelopmentButton = document.getElementById('contact-whatsapp-button-dev'); // ID específico para el botón de WhatsApp dentro del banner de desarrollo
+        const closeDevelopmentBannerButton = document.getElementById('close-development-banner'); // Nuevo botón de cierre
+
+        // Variables para el control de velocidad del carrusel
+        const carousel = document.getElementById('carousel');
+        const leftArrow = document.getElementById('carousel-arrow-left');
+        const rightArrow = document.getElementById('carousel-arrow-right');
+        let currentSpeed = 60; // Velocidad inicial en segundos (más alto = más lento)
+        const minSpeed = 10; // Velocidad mínima (más rápido)
+        const maxSpeed = 120; // Velocidad máxima (más lento)
+        const speedStep = 10; // Incremento/decremento de velocidad
+
+        // Variables para el control táctil
+        let touchStartX = 0;
+        let touchTimeout; // Para restablecer la velocidad después de un toque
+
+        // Función para actualizar la velocidad del carrusel (modifica la variable CSS)
+        function updateCarouselSpeed() {
+            document.documentElement.style.setProperty('--speed', `${currentSpeed}s`);
+        }
 
         // Función para mostrar el tooltip de WhatsApp
         function showTooltip(autoHide = false) {
@@ -1530,6 +1615,9 @@
         window.addEventListener('load', () => {
             const cookieConsentAccepted = localStorage.getItem('cookieConsentAccepted');
 
+            // Inicializar la velocidad del carrusel al cargar
+            updateCarouselSpeed();
+
             // Si las cookies NO han sido aceptadas
             if (!cookieConsentAccepted) {
                 cookieBanner.classList.remove('hidden'); // Mostrar el banner de cookies
@@ -1593,6 +1681,67 @@
                     updateWhatsappPosition(); // Restaurar la posición del botón de WhatsApp
                     // El href se encargará de la navegación a WhatsApp
                     // Las animaciones y el tooltip ya están habilitados si las cookies fueron aceptadas
+                });
+            }
+
+            // Listener para el nuevo botón de cierre del banner de desarrollo
+            if (closeDevelopmentBannerButton) {
+                closeDevelopmentBannerButton.addEventListener('click', () => {
+                    developmentBanner.classList.add('hidden');
+                    updateWhatsappPosition();
+                });
+            }
+
+            // Lógica para menús desplegables de escritorio
+            // ... (código existente para menús desplegables de escritorio) ...
+
+            // Lógica para el texto dinámico en la sección de inicio
+            // ... (código existente para texto dinámico) ...
+
+            // Lógica para el control de velocidad del carrusel con flechas (escritorio)
+            if (leftArrow && rightArrow) {
+                leftArrow.addEventListener('click', () => {
+                    currentSpeed = Math.min(maxSpeed, currentSpeed + speedStep);
+                    updateCarouselSpeed();
+                });
+
+                rightArrow.addEventListener('click', () => {
+                    currentSpeed = Math.max(minSpeed, currentSpeed - speedStep);
+                    updateCarouselSpeed();
+                });
+            }
+
+            // Lógica para el control de velocidad del carrusel con deslizamiento (móvil)
+            if (carousel) {
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                    // Limpiar cualquier timeout de restablecimiento de velocidad
+                    if (touchTimeout) {
+                        clearTimeout(touchTimeout);
+                    }
+                });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    const touchCurrentX = e.touches[0].clientX;
+                    const deltaX = touchStartX - touchCurrentX; // Deslizamiento a la izquierda es positivo, a la derecha es negativo
+
+                    if (Math.abs(deltaX) > 5) { // Solo ajustar si hay un movimiento significativo
+                        if (deltaX > 0) { // Deslizando a la izquierda (más rápido)
+                            currentSpeed = Math.max(minSpeed, currentSpeed - speedStep);
+                        } else if (deltaX < 0) { // Deslizando a la derecha (más lento)
+                            currentSpeed = Math.min(maxSpeed, currentSpeed + speedStep);
+                        }
+                        updateCarouselSpeed();
+                        touchStartX = touchCurrentX; // Actualizar touchStartX para movimientos continuos
+                    }
+                });
+
+                carousel.addEventListener('touchend', () => {
+                    // Restablecer la velocidad a la inicial después de un breve retraso
+                    touchTimeout = setTimeout(() => {
+                        currentSpeed = 60; // Restablecer a la velocidad inicial
+                        updateCarouselSpeed();
+                    }, 500); // 0.5 segundos de retraso
                 });
             }
         });
