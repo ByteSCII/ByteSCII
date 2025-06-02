@@ -263,66 +263,151 @@
             animation-timeline: view(); /* Animar cuando esté en la vista */
             animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
         }
+
+        /* --- Estilos específicos para móviles (media queries) --- */
+        @media (max-width: 767px) { /* Para pantallas menores a 'md' (768px) */
+            .main-header .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .main-header img {
+                height: 48px; /* h-12 en Tailwind */
+            }
+
+            .main-header a.inline-block {
+                padding: 0.5rem 0.75rem; /* Reducir padding del botón */
+                font-size: 0.875rem; /* text-sm */
+            }
+
+            main.container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 1rem; /* Ajustar padding superior de main */
+            }
+
+            section.p-6 { /* La sección principal de contenido */
+                padding: 1.5rem; /* Reducir el padding general */
+            }
+
+            h1 {
+                font-size: 2rem; /* text-3xl */
+                margin-bottom: 2rem; /* mb-8 */
+            }
+
+            .service-detail-section {
+                padding: 1.5rem; /* Reducir el padding en móviles */
+                margin-bottom: 1.5rem; /* Reducir el margen inferior */
+            }
+
+            .service-detail-section h2 {
+                font-size: 1.75rem; /* Reducir tamaño de h2 en móviles */
+                margin-bottom: 1rem;
+            }
+
+            .service-detail-section p {
+                font-size: 1rem; /* Ajustar tamaño de párrafo en móviles */
+            }
+
+            .service-detail-section ul li {
+                font-size: 0.95rem; /* Ajustar tamaño de lista en móviles */
+                margin-bottom: 0.5rem;
+            }
+            
+            /* Ajuste para el espaciado interno de los pasos (1, 2, 3, 4) */
+            .service-detail-section .grid > div {
+                flex-direction: column; /* Apilar en móviles */
+                align-items: center; /* Centrar elementos apilados */
+                text-align: center; /* Centrar texto debajo del número */
+                margin-bottom: 1.5rem; /* Espacio entre pasos */
+            }
+
+            .service-detail-section .grid > div:last-child {
+                margin-bottom: 0; /* Eliminar margen en el último elemento */
+            }
+
+            .service-detail-section .grid > div .flex-shrink-0 {
+                margin-bottom: 0.75rem; /* Espacio entre el número y el texto en móviles */
+            }
+
+            .photo-card img {
+                width: 100px; /* Un poco más pequeña en móviles */
+                height: 100px;
+            }
+
+            .footer {
+                padding-top: 1.5rem; /* py-6 */
+                padding-bottom: 1.5rem; /* py-6 */
+            }
+
+            .footer .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .footer .grid {
+                gap: 1.5rem; /* Reducir gap en el footer */
+            }
+
+            .footer .text-xs {
+                font-size: 0.75rem; /* Mantener texto pequeño */
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <header id="main-header" class="main-header">
-        <div class="w-full px-4 md:px-8 flex justify-between items-center">
+        <div class="w-full px-4 sm:px-6 md:px-8 flex justify-between items-center">
             <div class="flex items-center justify-start">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
             </div>
 
             <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
+                                        shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm md:text-base">
                 Volver al inicio
             </a>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
-        <section class="p-6 md:p-8">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-center mb-10 text-stroke-cyan">Diseño de Tiendas Virtuales</h1>
+    <main class="flex-grow container mx-auto px-4 sm:px-6 py-8 md:py-12 mt-20">
+        <section class="p-4 sm:p-6 md:p-8">
+            <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Diseño de Tiendas Virtuales</h1>
 
             <div class="service-detail-section">
                 <h2 class="text-center">Tu Negocio Abierto 24/7 en Línea</h2>
-                <p class="text-center">
-                    En Byte, creamos tiendas virtuales potentes y atractivas que te permiten vender tus productos o servicios en línea de manera eficiente y segura. Desde la configuración inicial hasta la integración de pasarelas de pago y la gestión de inventario, nos encargamos de todo para que puedas enfocarte en hacer crecer tu negocio.
+                <p class="text-center text-sm sm:text-base md:text-lg"> En Byte, creamos **tiendas virtuales potentes y atractivas** que te permiten vender tus productos o servicios en línea de manera eficiente y segura. Desde la configuración inicial hasta la integración de pasarelas de pago y la gestión de inventario, nos encargamos de todo para que puedas enfocarte en hacer crecer tu negocio.
                 </p>
-                <p class="text-center mt-4">
-                    Diseñamos experiencias de compra intuitivas y visualmente impactantes que capturan la atención de tus clientes y los guían sin esfuerzo a través del proceso de compra, maximizando tus conversiones y la lealtad a la marca.
+                <p class="text-center mt-4 text-sm sm:text-base md:text-lg"> Diseñamos **experiencias de compra intuitivas** y visualmente impactantes que capturan la atención de tus clientes y los guían sin esfuerzo a través del proceso de compra, maximizando tus conversiones y la lealtad a la marca.
                 </p>
             </div>
 
             <div class="service-detail-section">
                 <h2 class="text-center">Nuestro Proceso de Creación de Tiendas Virtuales</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                    <div class="flex items-start space-x-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6"> <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">1</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Análisis y Estrategia E-commerce</h3>
-                            <p class="text-base text-byte-text-light">Definimos tus productos, público objetivo, funcionalidades necesarias y la plataforma de e-commerce más adecuada para tu negocio.</p>
-                        </div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Análisis y Estrategia E-commerce</h3> <p class="text-sm sm:text-base text-byte-text-light">Definimos tus productos, público objetivo, funcionalidades necesarias y la plataforma de e-commerce más adecuada para tu negocio.</p> </div>
                     </div>
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">2</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Diseño Visual y Experiencia de Usuario</h3>
-                            <p class="text-base text-byte-text-light">Creamos un diseño atractivo y una estructura de navegación intuitiva que facilite la búsqueda de productos y el proceso de compra.</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Diseño Visual y Experiencia de Usuario</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Creamos un diseño atractivo y una estructura de navegación intuitiva que facilite la búsqueda de productos y el proceso de compra.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">3</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Desarrollo, Configuración e Integraciones</h3>
-                            <p class="text-base text-byte-text-light">Construimos la tienda, configuramos productos, pasarelas de pago, métodos de envío y cualquier otra integración necesaria.</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Desarrollo, Configuración e Integraciones</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Construimos la tienda, configuramos productos, pasarelas de pago, métodos de envío y cualquier otra integración necesaria.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">4</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Pruebas, Lanzamiento y Capacitación</h3>
-                            <p class="text-base text-byte-text-light">Realizamos pruebas exhaustivas, lanzamos tu tienda y te capacitamos para que puedas gestionarla de forma autónoma.</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Pruebas, Lanzamiento y Capacitación</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Realizamos pruebas exhaustivas, lanzamos tu tienda y te capacitamos para que puedas gestionarla de forma autónoma.</p>
                         </div>
                     </div>
                 </div>
@@ -330,34 +415,30 @@
 
             <div class="service-detail-section">
                 <h2 class="text-center">¿Qué Incluye Nuestro Servicio?</h2>
-                <ul class="text-left mx-auto max-w-2xl">
-                    <li>Diseño de tienda virtual personalizado y responsivo.</li>
-                    <li>Configuración de productos y categorías.</li>
-                    <li>Integración de pasarelas de pago seguras (nacionales e internacionales).</li>
-                    <li>Gestión de inventario y pedidos.</li>
-                    <li>Optimización SEO básica para productos y categorías.</li>
-                    <li>Asesoramiento en estrategias de venta online.</li>
-                    <li>Soporte post-lanzamiento.</li>
+                <ul class="text-left mx-auto max-w-xl sm:max-w-2xl"> <li class="text-sm sm:text-base">Diseño de tienda virtual **personalizado y responsivo**.</li> <li class="text-sm sm:text-base">Configuración de productos y categorías.</li>
+                    <li class="text-sm sm:text-base">Integración de **pasarelas de pago seguras** (nacionales e internacionales).</li>
+                    <li class="text-sm sm:text-base">Gestión de inventario y pedidos.</li>
+                    <li class="text-sm sm:text-base">Optimización SEO básica para productos y categorías.</li>
+                    <li class="text-sm sm:text-base">Asesoramiento en **estrategias de venta online**.</li>
+                    <li class="text-sm sm:text-base">Soporte post-lanzamiento.</li>
                 </ul>
             </div>
 
             <div class="service-detail-section">
                 <h2 class="text-center">Beneficios de una Tienda Virtual con Byte</h2>
-                <ul class="text-left mx-auto max-w-2xl">
-                    <li><strong>Alcance Global:</strong> Vende a clientes en cualquier parte del mundo.</li>
-                    <li><strong>Disponibilidad 24/7:</strong> Tu negocio siempre abierto, sin límites de horario.</li>
-                    <li><strong>Reducción de Costos Operativos:</strong> Menos gastos que una tienda física.</li>
-                    <li><strong>Mayor Visibilidad:</strong> Atrae a nuevos clientes a través de búsquedas online.</li>
-                    <li><strong>Análisis y Datos:</strong> Obtén información valiosa sobre el comportamiento de tus clientes.</li>
-                    <li><strong>Escalabilidad:</strong> Crece tu catálogo y operaciones a medida que tu negocio se expande.</li>
+                <ul class="text-left mx-auto max-w-xl sm:max-w-2xl"> <li class="text-sm sm:text-base"><strong>Alcance Global:</strong> Vende a clientes en cualquier parte del mundo.</li>
+                    <li class="text-sm sm:text-base"><strong>Disponibilidad 24/7:</strong> Tu negocio siempre abierto, sin límites de horario.</li>
+                    <li class="text-sm sm:text-base"><strong>Reducción de Costos Operativos:</strong> Menos gastos que una tienda física.</li>
+                    <li class="text-sm sm:text-base"><strong>Mayor Visibilidad:</strong> Atrae a nuevos clientes a través de búsquedas online.</li>
+                    <li class="text-sm sm:text-base"><strong>Análisis y Datos:</strong> Obtén información valiosa sobre el comportamiento de tus clientes.</li>
+                    <li class="text-sm sm:text-base"><strong>Escalabilidad:</strong> Crece tu catálogo y operaciones a medida que tu negocio se expande.</li>
                 </ul>
             </div>
 
-            <section class="p-6 md:p-8 fade-in-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-stroke-cyan">Nuestros Diseñadores de Tiendas Virtuales</h2>
+            <section class="p-4 sm:p-6 md:p-8 fade-in-on-scroll">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Nuestros Diseñadores de Tiendas Virtuales</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="photo-card">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> <div class="photo-card">
                         <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=DISEÑADOR+1" alt="Foto de diseñador de tiendas virtuales 1">
                     </div>
                     <div class="photo-card">
@@ -375,8 +456,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-6 sm:py-8"> <div class="container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
             <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
                 <a href="https://www.instagram.com/byteweb_design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <svg class="footer-social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -388,7 +468,7 @@
                 </a>
             </div>
         </div>
-        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+        <div class="container mx-auto px-4 sm:px-6 text-center text-xs sm:text-sm text-gray-400 mt-6 sm:mt-8 border-t border-gray-700 pt-4">
             <p class="mb-2">
                 Al navegar en la página de Byte, aceptas nuestros
                 <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
