@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Byte - Reseñas</title> <link rel="icon" type="image/x-icon" href="./images/logo.ico">
-    <meta name="description" content="Lee las reseñas de nuestros clientes satisfechos sobre los servicios de Byte."> <meta name="keywords" content="Byte, reseñas, comentarios, opinión, feedback, clientes, satisfacción, testimonios">
-    <meta property="og:title" content="Byte - Reseñas"> <meta property="og:description" content="Lee las reseñas de nuestros clientes satisfechos sobre los servicios de Byte."> <meta property="og:type" content="website">
+    <title>Byte - Nuestra Misión y Visión</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <meta name="description" content="Conoce la misión y visión de Byte, nuestra dedicación a la innovación y la excelencia en soluciones digitales.">
+    <meta name="keywords" content="Byte, misión, visión, valores, empresa, tecnología, soluciones digitales, innovación, excelencia">
+    <meta property="og:title" content="Byte - Nuestra Misión y Visión">
+    <meta property="og:description" content="Conoce la misión y visión de Byte, nuestra dedicación a la innovación y la excelencia en soluciones digitales.">
+    <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -62,8 +66,6 @@
             user-select: none;
         }
 
-        /* Eliminada la animación de fondo y sus keyframes */
-
         /* Estilos para encabezados (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
@@ -93,186 +95,6 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
-        }
-
-        /* Estilos para las tarjetas de reseña */
-        .review-card {
-            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Fondo oscuro con gradiente */
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
-            transition: all 0.3s ease-in-out;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .review-card:hover {
-            transform: translateY(-8px) scale(1.02); /* Elevación y ligero aumento de tamaño al pasar el ratón */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
-            border-color: #00FFFF; /* Borde más visible al pasar el ratón */
-        }
-
-        .review-card .reviewer-name {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #00FFFF; /* Cian para el nombre */
-            margin-bottom: 0.75rem;
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-        }
-
-        .review-card .review-date {
-            font-family: 'Inter', sans-serif; /* Fuente Inter para la fecha */
-            font-size: 0.85rem;
-            color: #9CA3AF; /* Color gris suave para la fecha */
-            margin-bottom: 1rem;
-        }
-
-        .review-card .review-text {
-            font-family: 'Inter', sans-serif; /* Fuente Inter para el texto de la reseña */
-            color: #CBD5E0; /* Texto de párrafo más suave */
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        /* Estrellas de calificación en las reseñas */
-        .review-stars .fa-star {
-            font-size: 1.8rem;
-            color: #00FFFF; /* Color cian para estrellas vacías */
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-
-        .review-stars .fa-star.fas { /* Estrellas llenas */
-            color: #FFD700; /* Color dorado para estrellas llenas */
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); /* Sombra para brillo */
-            animation: pulse-glow-star 1.5s ease-in-out infinite alternate; /* Animación de pulso */
-        }
-
-        .review-stars .fa-star:hover {
-            transform: scale(1.2); /* Efecto de escala al pasar el ratón */
-        }
-
-        /* Animación de brillo para estrellas llenas */
-        @keyframes pulse-glow-star {
-            0% {
-                text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-            }
-            50% {
-                text-shadow: 0 0 15px rgba(255, 215, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.4);
-            }
-            100% {
-                text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
-            }
-        }
-
-        /* Estilos para el modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        .modal-overlay.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: linear-gradient(145deg, #1A202C, #0A0A1A);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
-            max-width: 90%;
-            width: 500px;
-            text-align: center;
-            position: relative;
-            border: 1px solid rgba(0, 255, 255, 0.5);
-            transform: translateY(-20px);
-            opacity: 0;
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        }
-
-        .modal-overlay.show .modal-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Modificado: Estilo específico para el título del modal */
-        .modal-content h3 {
-            color: #F9FAFB; /* Cambiado a color blanco */
-            text-shadow: none; /* Eliminada la sombra para un aspecto más limpio */
-            font-weight: 600; /* Fuente menos gruesa (semibold) */
-        }
-
-        .modal-content p { /* Estilo específico para el texto del párrafo dentro del modal */
-            color: #F9FAFB; /* Cambiado a un color más claro */
-        }
-
-        .modal-close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: #00FFFF;
-            cursor: pointer;
-            transition: color 0.2s ease;
-        }
-
-        .modal-close-button:hover {
-            color: #FFFFFF;
-        }
-
-        .modal-social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .modal-social-buttons a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.8rem; /* Tamaño base para los iconos */
-            color: #F9FAFB;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-social-buttons a:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-social-buttons .instagram { background-color: #E1306C; }
-        .modal-social-buttons .whatsapp { background-color: #25D366; }
-        .modal-social-buttons .email { background-color: #D44638; } /* Gmail red */
-
-        /* Estilos para los iconos SVG dentro de los botones sociales */
-        .modal-social-buttons svg {
-            width: 60%; /* Ajusta el tamaño del SVG dentro del círculo */
-            height: 60%;
-            /* fill: currentColor; */ /* Usa el color del texto del padre */
-            transition: fill 0.2s ease;
         }
 
         /* Estilos para el botón de "Volver arriba" */
@@ -326,6 +148,37 @@
             opacity: 0; /* Desvanece */
         }
 
+        /* Estilos para la sección de Misión y Visión */
+        .mission-vision-section {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transición para el efecto de salto */
+        }
+
+        .mission-vision-section:hover {
+            transform: translateY(-10px); /* Efecto de salto al pasar el cursor */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+        }
+
+        .mission-vision-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00FFFF;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .mission-vision-section p {
+            color: #CBD5E0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
         /* Estilos para los iconos SVG en el footer */
         .footer-social-icon {
             width: 1.75rem; /* Tamaño de los iconos sociales */
@@ -355,135 +208,25 @@
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20"> <section class="p-6 md:p-8">
-            <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-6 text-stroke-cyan">Reseñas de Clientes</h1>
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
+        <section class="p-6 md:p-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-stroke-cyan">Nuestra Misión y Visión</h1>
 
-            <p class="text-byte-text-light text-center mb-10 text-base md:text-lg">
-                Descubre lo que nuestros clientes tienen que decir sobre su experiencia con Byte.
-            </p>
+            <div class="mission-vision-section">
+                <h2 class="text-center">Nuestra Misión</h2>
+                <p class="text-center">
+                    Proporcionar servicios de diseño web y marketing digital de alta calidad, personalizados y accesibles, que ayuden a las empresas a alcanzar sus objetivos comerciales.
+                </p>
+            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                <div class="review-card">
-                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=AL" alt="Foto de perfil de Ana López"
-                         class="w-24 h-24 rounded-full object-cover mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
-                    <p class="reviewer-name">Ana López</p>
-                    <p class="review-date">1 de Junio, 2025</p>
-                    <div class="review-stars mb-4">
-                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="5"></i>
-                    </div>
-                    <p class="review-text">"El equipo de Byte superó mis expectativas. Mi nueva tienda virtual es increíble, fácil de usar y se ve fantástica. ¡Altamente recomendados!"</p>
-                </div>
-
-                <div class="review-card">
-                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=CG" alt="Foto de perfil de Carlos G."
-                         class="w-24 h-24 rounded-full object-cover mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
-                    <p class="reviewer-name">Carlos G.</p>
-                    <p class="review-date">28 de Mayo, 2025</p>
-                    <div class="review-stars mb-4">
-                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
-                        <i class="far fa-star text-byte-accent-cyan" data-value="5"></i>
-                    </div>
-                    <p class="review-text">"Excelente servicio de diseño web. La comunicación fue fluida y el resultado final es muy profesional. Hubo un pequeño retraso, pero lo compensaron con creces."</p>
-                </div>
-
-                <div class="review-card">
-                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=SM" alt="Foto de perfil de Sofía M."
-                         class="w-24 h-24 rounded-full object-cover mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
-                    <p class="reviewer-name">Sofía M.</p>
-                    <p class="review-date">20 de Mayo, 2025</p>
-                    <div class="review-stars mb-4">
-                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="5"></i>
-                    </div>
-                    <p class="review-text">"Contraté a Byte para el SEO de mi página y los resultados han sido asombrosos. Mi visibilidad ha mejorado drásticamente. ¡Gracias!"</p>
-                </div>
-
-                <div class="review-card">
-                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=JR" alt="Foto de perfil de Javier R."
-                         class="w-24 h-24 rounded-full object-cover mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
-                    <p class="reviewer-name">Javier R.</p>
-                    <p class="review-date">15 de Mayo, 2025</p>
-                    <div class="review-stars mb-4">
-                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
-                        <i class="far fa-star text-byte-accent-cyan" data-value="4"></i>
-                        <i class="far fa-star text-byte-accent-cyan" data-value="5"></i>
-                    </div>
-                    <p class="review-text">"El diseño gráfico fue bueno, pero la entrega tomó más tiempo de lo esperado. El resultado es decente, pero la gestión de tiempos podría mejorar."</p>
-                </div>
-
-                <div class="review-card">
-                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=LP" alt="Foto de perfil de Laura P."
-                         class="w-24 h-24 rounded-full object-cover mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
-                    <p class="reviewer-name">Laura P.</p>
-                    <p class="review-date">10 de Mayo, 2025</p>
-                    <div class="review-stars mb-4">
-                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="5"></i>
-                    </div>
-                    <p class="review-text">"Desde el concepto hasta el lanzamiento, Byte hizo un trabajo impecable con mi sitio web personalizado. Son verdaderos profesionales."</p>
-                </div>
-
-                 <div class="review-card">
-                    <img src="https://placehold.co/100x100/555555/FFFFFF?text=MS" alt="Foto de perfil de María S."
-                         class="w-24 h-24 rounded-full object-cover mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/555555/FFFFFF?text=👤';">
-                    <p class="reviewer-name">María S.</p>
-                    <p class="review-date">5 de Mayo, 2025</p>
-                    <div class="review-stars mb-4">
-                        <i class="fas fa-star text-yellow-400" data-value="1"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="2"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="3"></i>
-                        <i class="fas fa-star text-yellow-400" data-value="4"></i>
-                        <i class="far fa-star text-byte-accent-cyan" data-value="5"></i>
-                    </div>
-                    <p class="review-text">"Estoy muy contenta con el logo que me diseñaron. Captaron la esencia de mi marca a la perfección. ¡Recomiendo su servicio de diseño gráfico!"</p>
-                </div>
+            <div class="mission-vision-section">
+                <h2 class="text-center">Nuestra Visión</h2>
+                <p class="text-center">
+                    Ser la agencia líder en la creación de soluciones digitales innovadoras que transformen la presencia en línea de nuestros clientes, impulsando su crecimiento y éxito en el mundo digital.
+                </p>
             </div>
         </section>
     </main>
-
-    <div id="review-modal-overlay" class="modal-overlay">
-        <div class="modal-content">
-            <button id="close-review-modal" class="modal-close-button">&times;</button>
-            <h3 class="text-2xl md:text-3xl font-semibold text-byte-text-light mb-4">¿Quieres que tu reseña esté aquí?</h3>
-            <p class="text-byte-text-light text-base md:text-lg mb-6">
-                ¡Nos encantaría escuchar tu experiencia! Escríbenos a nuestras redes sociales o por correo.
-            </p>
-            <div class="modal-social-buttons">
-                <a href="https://www.instagram.com/byteweb_design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="instagram" aria-label="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="144px" height="144px">
-                        <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fd5"/><stop offset=".328" stop-color="#ff543f"/><stop offset=".348" stop-color="#fc5245"/><stop offset=".504" stop-color="#e64771"/><stop offset=".643" stop-color="#d53e91"/><stop offset=".761" stop-color="#cc39a4"/><stop offset=".841" stop-color="#c837ab"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8ma)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4168c9"/><stop offset=".999" stop-color="#4168c9" stop-opacity="0"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8mb)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"/><circle cx="31.5" cy="16.5" r="1.5" fill="#fff"/><path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"/>
-                    </svg>
-                </a>
-                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" class="whatsapp" aria-label="WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="mailto:bytewebdesign1@gmail.com" class="email" aria-label="Correo electrónico">
-                    <svg shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" xmlns="http://www.w3.org/2000/svg" width="2500" height="1809" viewBox="7.086 7.087 1277.149 924.008"><path fill="none" d="M1138.734 931.095h.283M1139.017 931.095h-.283"/><path d="M1179.439 7.087c57.543 0 104.627 47.083 104.627 104.626v30.331l-145.36 103.833-494.873 340.894L148.96 242.419v688.676h-37.247c-57.543 0-104.627-47.082-104.627-104.625V111.742C7.086 54.198 54.17 7.115 111.713 7.115l532.12 394.525L1179.41 7.115l.029-.028z" fill="#e75a4d"/><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#a)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><path fill="#e7e4d7" d="M148.96 242.419v688.676h989.774V245.877L643.833 586.771z"/><path fill="#b8b7ae" d="M148.96 931.095l494.873-344.324-2.24-1.586L148.96 923.527z"/><path fill="#b7b6ad" d="M1138.734 245.877l.283 685.218-495.184-344.324z"/><path d="M1284.066 142.044l.17 684.51c-2.494 76.082-35.461 103.238-145.219 104.514l-.283-685.219 145.36-103.833-.028.028z" fill="#b2392f"/><linearGradient id="b" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#b)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><linearGradient id="c" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#c)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><linearGradient id="d" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#d)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><linearGradient id="e" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#e)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><linearGradient id="f" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#f)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#g)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><linearGradient id="h" gradientUnits="userSpaceOnUse" x1="1959.712" y1="737.107" x2="26066.213" y2="737.107" gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"><stop offset="0" stop-color="#f8f6ef"/><stop offset="1" stop-color="#e7e4d6"/></linearGradient><path fill="url(#h)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/><path fill="#f7f5ed" d="M111.713 7.087l532.12 394.525L1179.439 7.087z"/></svg>
-                </a>
-            </div>
-        </div>
-    </div>
 
     <button id="scroll-to-top-button">
         <i class="fas fa-arrow-up"></i>
@@ -532,30 +275,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const reviewModalOverlay = document.getElementById('review-modal-overlay');
-            const closeReviewModalButton = document.getElementById('close-review-modal');
-            const body = document.body;
             const scrollToTopButton = document.getElementById('scroll-to-top-button');
             const mainHeader = document.getElementById('main-header'); // Obtener el encabezado
             let lastScrollY = 0; // Para rastrear la dirección del scroll
-
-            // Mostrar el modal al cargar la página
-            reviewModalOverlay.classList.add('show');
-            body.style.overflow = 'hidden'; // Evitar el desplazamiento cuando el modal está abierto
-
-            // Cerrar el modal al hacer clic en el botón de cerrar
-            closeReviewModalButton.addEventListener('click', () => {
-                reviewModalOverlay.classList.remove('show');
-                body.style.overflow = ''; // Habilitar el desplazamiento
-            });
-
-            // Cerrar el modal al hacer clic fuera del contenido del modal
-            reviewModalOverlay.addEventListener('click', (event) => {
-                if (event.target === reviewModalOverlay) {
-                    reviewModalOverlay.classList.remove('show');
-                    body.style.overflow = ''; // Habilitar el desplazamiento
-                }
-            });
 
             // Lógica para el botón "Volver arriba" y el encabezado
             window.addEventListener('scroll', () => {
