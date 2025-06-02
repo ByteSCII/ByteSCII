@@ -2,7 +2,11 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1024px, initial-scale=1.0"> <title>Byte - Servicio de Diseño Gráfico</title>
+    <!-- REVERTIDO: Se vuelve al meta viewport estándar para diseño responsivo.
+         Esto es crucial para que la página se adapte al ancho del dispositivo y
+         los estilos responsivos (media queries, clases de Tailwind) funcionen correctamente. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte - Servicio de Diseño Gráfico</title>
     <link rel="icon" type="image/x-icon" href="./images/logo.ico">
     <meta name="description" content="Byte - Servicio de Diseño Gráfico para crear una identidad visual impactante para tu marca.">
     <meta name="keywords" content="Byte, diseño gráfico, branding, logotipos, identidad visual, material publicitario, redes sociales, diseño web">
@@ -14,7 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
@@ -53,7 +57,7 @@
         body {
             min-height: 100vh;
             width: 100%;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Asegura que no haya scroll horizontal no deseado */
             background-color: #0A0A1A; /* Color de fondo base, sin animación */
             font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
             color: #F9FAFB;
@@ -89,6 +93,9 @@
         /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
         img {
             pointer-events: none;
+            max-width: 100%; /* Asegura que las imágenes no desborden su contenedor */
+            height: auto;    /* Mantiene la proporción de la imagen */
+            display: block;  /* Evita espacio extra debajo de las imágenes */
         }
         p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
             user-select: none;
@@ -263,22 +270,129 @@
             animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
         }
 
-        /*
-        IMPORTANTE: Con la meta viewport ajustada a un ancho fijo (1024px),
-        las media queries para dispositivos móviles como las que tenías previamente
-        (@media (max-width: 768px)) serán menos relevantes o incluso innecesarias
-        para el escalado general.
-        Sin embargo, si quieres hacer ajustes muy específicos para la legibilidad
-        aún con el escalado (por ejemplo, reducir el tamaño de una fuente
-        para que no se vea microscópica), podrías usarlas, pero su impacto
-        será diferente. Para el objetivo de "ver igual de pequeño", la meta viewport
-        es la solución principal.
+        /* --- Estilos para dispositivos móviles (max-width: 768px) --- */
+        /* Estos estilos se aplicarán en pantallas con un ancho máximo de 768px (tablets en vertical, la mayoría de los móviles) */
+        @media (max-width: 768px) {
+            /* Ajustes generales de texto para mejor legibilidad en pantallas pequeñas */
+            body {
+                font-size: 14px; /* Un tamaño de fuente base más adecuado para móviles */
+            }
+            h1 {
+                font-size: 2.2rem; /* Reduce el tamaño del título principal */
+            }
+            h2 {
+                font-size: 1.6rem; /* Reduce el tamaño de los subtítulos de sección */
+            }
+            h3 {
+                font-size: 1.1rem; /* Reduce el tamaño de los títulos de tarjeta/paso */
+            }
+            p, ul li {
+                font-size: 0.9rem; /* Ajusta el tamaño de los párrafos y listas para mejor lectura */
+            }
 
-        He eliminado el bloque de media queries que tenías porque contradice
-        el objetivo de mantener el layout de escritorio escalado.
-        Si necesitas algún ajuste MUY puntual, puedes reintroducirlo,
-        pero ten en cuenta que su efecto se aplicará al lienzo de 1024px.
-        */
+            /* Ajuste del padding del contenedor principal y margen superior del contenido */
+            /* Las clases de Tailwind 'px-4' ya manejan esto, pero se puede refinar si es necesario */
+            .container.mx-auto.px-4 {
+                padding-left: 1rem !important; /* Asegura un padding adecuado en los lados */
+                padding-right: 1rem !important;
+            }
+            /* Ajusta el margen superior del main para que no se superponga con el header fijo */
+            main.mobile-main-mt-adjustment {
+                margin-top: 4.5rem !important; /* Reduce el margen superior para móviles */
+                padding-top: 1rem !important; /* Ajusta el padding superior para móviles */
+                padding-bottom: 1rem !important; /* Ajusta el padding inferior para móviles */
+            }
+
+            /* Secciones de detalle de servicio */
+            .service-detail-section {
+                padding: 1.5rem; /* Padding adecuado para las secciones de detalle en móvil */
+                margin-bottom: 1.5rem; /* Espaciado entre secciones */
+            }
+            .service-detail-section p {
+                line-height: 1.5; /* Altura de línea para mejor legibilidad */
+            }
+            .service-detail-section ul li {
+                padding-left: 1.2rem; /* Espacio para el checkmark */
+                margin-bottom: 0.5rem;
+            }
+            .service-detail-section ul li::before {
+                top: 2px; /* Alinea mejor el checkmark */
+            }
+
+            /* Tarjetas de fotos */
+            .photo-card {
+                padding: 1rem; /* Padding de las tarjetas de fotos */
+            }
+            .photo-card img {
+                width: 96px; /* Ajusta el tamaño de la imagen (equivalente a h-24 de Tailwind) */
+                height: 96px;
+                margin-bottom: 0.75rem; /* Margen inferior */
+            }
+            .photo-card h3 {
+                font-size: 1rem; /* Tamaño del título de la tarjeta de foto */
+            }
+            .photo-card p {
+                font-size: 0.8rem; /* Tamaño del texto de la tarjeta de foto */
+            }
+
+            /* Pasos del proceso (dentro de service-detail-section) */
+            /* Asegura que los pasos se apilen verticalmente en lugar de lado a lado */
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div {
+                flex-direction: column; /* Cambia a columna para apilar */
+                align-items: center; /* Centra el contenido horizontalmente */
+                text-align: center; /* Centra el texto */
+                padding: 1rem; /* Padding para cada paso individual */
+                margin-bottom: 1rem;
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div:last-child {
+                margin-bottom: 0; /* Eliminar margen inferior del último paso para evitar doble espacio */
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 {
+                width: 40px; /* Tamaño del número de paso */
+                height: 40px;
+                font-size: 1.4rem;
+                margin-bottom: 0.75rem; /* Espacio entre el número y el texto */
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div h3 {
+                font-size: 0.95rem; /* Tamaño del título del paso */
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div p {
+                font-size: 0.75rem; /* Tamaño del texto del paso */
+            }
+        }
+
+        /* --- Media Query Adicional para Celulares Pequeños (max-width: 480px) --- */
+        /* Estos estilos se aplicarán en pantallas con un ancho máximo de 480px (móviles más pequeños) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem; /* Títulos aún más pequeños para pantallas muy compactas */
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            p, ul li {
+                font-size: 0.85rem;
+            }
+            .service-detail-section {
+                padding: 1rem; /* Padding más compacto en celulares muy pequeños */
+                margin-bottom: 1rem;
+            }
+            .photo-card img {
+                width: 80px; /* Imágenes de diseñador más pequeñas */
+                height: 80px;
+            }
+            .photo-card h3 {
+                font-size: 0.9rem;
+            }
+            .photo-card p {
+                font-size: 0.7rem;
+            }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 {
+                width: 36px; /* Números de paso más pequeños */
+                height: 36px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
