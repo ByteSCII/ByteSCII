@@ -263,66 +263,114 @@
             animation-timeline: view(); /* Animar cuando esté en la vista */
             animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
         }
+
+        /* Ajustes específicos para móviles */
+        @media (max-width: 767px) { /* Para pantallas menores a 'md' (768px) */
+            .service-detail-section {
+                padding: 1.5rem; /* Reducir el padding en móviles */
+                margin-bottom: 1.5rem; /* Reducir el margen inferior */
+            }
+
+            .service-detail-section h2 {
+                font-size: 1.75rem; /* Reducir tamaño de h2 en móviles */
+                margin-bottom: 1rem;
+            }
+
+            .service-detail-section p {
+                font-size: 1rem; /* Ajustar tamaño de párrafo en móviles */
+            }
+
+            .service-detail-section ul li {
+                font-size: 0.95rem; /* Ajustar tamaño de lista en móviles */
+                margin-bottom: 0.5rem;
+            }
+
+            .photo-card img {
+                width: 100px; /* Un poco más pequeña en móviles */
+                height: 100px;
+            }
+            
+            /* Ajuste para el espaciado interno de los pasos (1, 2, 3, 4) */
+            .service-detail-section .grid > div {
+                flex-direction: column; /* Apilar en móviles */
+                align-items: center; /* Centrar elementos apilados */
+                text-align: center; /* Centrar texto debajo del número */
+                margin-bottom: 1.5rem; /* Espacio entre pasos */
+            }
+
+            .service-detail-section .grid > div:last-child {
+                margin-bottom: 0; /* Eliminar margen en el último elemento */
+            }
+
+            .service-detail-section .grid > div .flex-shrink-0 {
+                margin-bottom: 0.75rem; /* Espacio entre el número y el texto en móviles */
+            }
+
+             /* Ajustar el tamaño del logo en el encabezado para pantallas muy pequeñas */
+            .main-header img {
+                height: 48px; /* Tamaño del logo en móviles, h-12 en Tailwind */
+            }
+
+            /* Ajustar el tamaño del botón del encabezado para pantallas muy pequeñas */
+            .main-header a.inline-block {
+                padding: 0.5rem 0.75rem; /* Reducir padding del botón */
+                font-size: 0.875rem; /* Reducir tamaño de fuente del botón (text-sm) */
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <header id="main-header" class="main-header">
-        <div class="w-full px-4 md:px-8 flex justify-between items-center">
+        <div class="w-full px-4 sm:px-6 md:px-8 flex justify-between items-center">
             <div class="flex items-center justify-start">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
             </div>
 
             <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
+                                        shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm md:text-base">
                 Volver al inicio
             </a>
         </div>
     </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
-        <section class="p-6 md:p-8">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-center mb-10 text-stroke-cyan">Servicio de Optimización SEO</h1>
+    <main class="flex-grow container mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 mt-20">
+        <section class="p-4 md:p-8"> <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Servicio de Optimización SEO</h1>
 
             <div class="service-detail-section">
                 <h2 class="text-center">Aumenta tu Visibilidad y Atrae Más Clientes</h2>
-                <p class="text-center">
-                    En el competitivo mundo digital, tener una página web o tienda virtual es solo el primer paso. Para ser encontrado por tus clientes potenciales, necesitas una estrategia de SEO (Search Engine Optimization) sólida. En Byte, nos especializamos en optimizar tu presencia online para que tu negocio aparezca en los primeros resultados de búsqueda, atrayendo tráfico cualificado y aumentando tus oportunidades de venta.
+                <p class="text-center text-sm sm:text-base md:text-lg"> En el competitivo mundo digital, tener una página web o tienda virtual es solo el primer paso. Para ser encontrado por tus clientes potenciales, necesitas una estrategia de SEO (Search Engine Optimization) sólida. En Byte, nos especializamos en optimizar tu presencia online para que tu negocio aparezca en los primeros resultados de búsqueda, atrayendo tráfico cualificado y aumentando tus oportunidades de venta.
                 </p>
-                <p class="text-center mt-4">
-                    Nuestro enfoque integral de SEO combina análisis profundo, optimización técnica y de contenido, y construcción de autoridad para asegurar que tu marca no solo sea visible, sino también relevante y confiable para los motores de búsqueda y, lo más importante, para tus usuarios.
+                <p class="text-center mt-4 text-sm sm:text-base md:text-lg"> Nuestro enfoque integral de SEO combina análisis profundo, optimización técnica y de contenido, y construcción de autoridad para asegurar que tu marca no solo sea visible, sino también relevante y confiable para los motores de búsqueda y, lo más importante, para tus usuarios.
                 </p>
             </div>
 
             <div class="service-detail-section">
                 <h2 class="text-center">Nuestro Proceso de Optimización SEO</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                    <div class="flex items-start space-x-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6"> <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">1</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Auditoría y Análisis de Palabras Clave</h3>
-                            <p class="text-base text-byte-text-light">Realizamos un análisis exhaustivo de tu sitio web y de la competencia, identificando las palabras clave más relevantes y rentables para tu negocio.</p>
-                        </div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Auditoría y Análisis de Palabras Clave</h3> <p class="text-sm sm:text-base text-byte-text-light">Realizamos un análisis exhaustivo de tu sitio web y de la competencia, identificando las palabras clave más relevantes y rentables para tu negocio.</p> </div>
                     </div>
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">2</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Optimización On-Page</h3>
-                            <p class="text-base text-byte-text-light">Optimizamos la estructura, el contenido, las meta etiquetas, las imágenes y la velocidad de carga de tu sitio para mejorar su relevancia y usabilidad.</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Optimización On-Page</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Optimizamos la estructura, el contenido, las meta etiquetas, las imágenes y la velocidad de carga de tu sitio para mejorar su relevancia y usabilidad.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">3</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Optimización Off-Page y Link Building</h3>
-                            <p class="text-base text-byte-text-light">Desarrollamos estrategias para construir enlaces de calidad y mejorar la autoridad de tu dominio, lo que es crucial para el posicionamiento.</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Optimización Off-Page y Link Building</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Desarrollamos estrategias para construir enlaces de calidad y mejorar la autoridad de tu dominio, lo que es crucial para el posicionamiento.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-4">
                         <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">4</div>
                         <div>
-                            <h3 class="text-xl font-semibold text-byte-text-light mb-2">Monitoreo y Reportes Continuos</h3>
-                            <p class="text-base text-byte-text-light">Supervisamos constantemente el rendimiento de tu SEO, ajustamos las estrategias según sea necesario y te proporcionamos informes detallados de progreso.</p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-1 sm:mb-2">Monitoreo y Reportes Continuos</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Supervisamos constantemente el rendimiento de tu SEO, ajustamos las estrategias según sea necesario y te proporcionamos informes detallados de progreso.</p>
                         </div>
                     </div>
                 </div>
@@ -330,35 +378,30 @@
 
             <div class="service-detail-section">
                 <h2 class="text-center">¿Qué Incluye Nuestro Servicio de SEO?</h2>
-                <ul class="text-left mx-auto max-w-2xl">
-                    <li>Investigación exhaustiva de palabras clave.</li>
-                    <li>Optimización técnica del sitio (velocidad, rastreabilidad, indexación).</li>
-                    <li>Optimización de contenido (títulos, descripciones, encabezados, texto).</li>
-                    <li>Estrategia de link building y adquisición de enlaces.</li>
-                    <li>Análisis de la competencia.</li>
-                    <li>Monitoreo de rankings y tráfico.</li>
-                    <li>Informes de rendimiento mensuales.</li>
-                    <li>Asesoramiento y soporte continuo.</li>
+                <ul class="text-left mx-auto max-w-xl sm:max-w-2xl"> <li class="text-sm sm:text-base">Investigación exhaustiva de palabras clave.</li> <li class="text-sm sm:text-base">Optimización técnica del sitio (velocidad, rastreabilidad, indexación).</li>
+                    <li class="text-sm sm:text-base">Optimización de contenido (títulos, descripciones, encabezados, texto).</li>
+                    <li class="text-sm sm:text-base">Estrategia de link building y adquisición de enlaces.</li>
+                    <li class="text-sm sm:text-base">Análisis de la competencia.</li>
+                    <li class="text-sm sm:text-base">Monitoreo de rankings y tráfico.</li>
+                    <li class="text-sm sm:text-base">Informes de rendimiento mensuales.</li>
+                    <li class="text-sm sm:text-base">Asesoramiento y soporte continuo.</li>
                 </ul>
             </div>
 
             <div class="service-detail-section">
                 <h2 class="text-center">Beneficios del SEO para tu Negocio</h2>
-                <ul class="text-left mx-auto max-w-2xl">
-                    <li><strong>Mayor Visibilidad Online:</strong> Aparece en los primeros resultados de búsqueda.</li>
-                    <li><strong>Aumento del Tráfico Orgánico:</strong> Atrae visitantes interesados en tus productos/servicios.</li>
-                    <li><strong>Generación de Leads y Ventas:</strong> Convierte visitantes en clientes.</li>
-                    <li><strong>Credibilidad y Autoridad:</strong> Posiciona tu marca como líder en tu sector.</li>
-                    <li><strong>Retorno de Inversión (ROI) Sostenible:</strong> Resultados a largo plazo con un costo-beneficio superior.</li>
-                    <li><strong>Ventaja Competitiva:</strong> Supera a tus competidores en el espacio digital.</li>
+                <ul class="text-left mx-auto max-w-xl sm:max-w-2xl"> <li class="text-sm sm:text-base"><strong>Mayor Visibilidad Online:</strong> Aparece en los primeros resultados de búsqueda.</li>
+                    <li class="text-sm sm:text-base"><strong>Aumento del Tráfico Orgánico:</strong> Atrae visitantes interesados en tus productos/servicios.</li>
+                    <li class="text-sm sm:text-base"><strong>Generación de Leads y Ventas:</strong> Convierte visitantes en clientes.</li>
+                    <li class="text-sm sm:text-base"><strong>Credibilidad y Autoridad:</strong> Posiciona tu marca como líder en tu sector.</li>
+                    <li class="text-sm sm:text-base"><strong>Retorno de Inversión (ROI) Sostenible:</strong> Resultados a largo plazo con un costo-beneficio superior.</li>
+                    <li class="text-sm sm:text-base"><strong>Ventaja Competitiva:</strong> Supera a tus competidores en el espacio digital.</li>
                 </ul>
             </div>
 
-            <section class="p-6 md:p-8 fade-in-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-stroke-cyan">Nuestros Especialistas en Optimización SEO</h2>
+            <section class="p-4 md:p-8 fade-in-on-scroll"> <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Nuestros Especialistas en Optimización SEO</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="photo-card">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"> <div class="photo-card">
                         <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=SEO+Esp.+1" alt="Foto de especialista SEO 1">
                     </div>
                     <div class="photo-card">
@@ -376,8 +419,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-6 sm:py-8"> <div class="container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
             <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
                 <a href="https://www.instagram.com/byteweb_design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <svg class="footer-social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
@@ -389,7 +431,7 @@
                 </a>
             </div>
         </div>
-        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+        <div class="container mx-auto px-4 sm:px-6 text-center text-xs sm:text-sm text-gray-400 mt-6 sm:mt-8 border-t border-gray-700 pt-4">
             <p class="mb-2">
                 Al navegar en la página de Byte, aceptas nuestros
                 <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
