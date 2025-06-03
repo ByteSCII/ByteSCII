@@ -12,9 +12,7 @@
     <meta property="og:title" content="Foro de Byte - Comunidad y Soporte">
     <meta property="og:description" content="Un espacio para discutir, aprender y colaborar con la comunidad de Byte.">
     <meta property="og:type" content="website">
-    <script src="https://cdn.tailwindcss.com">
-    initFirebase();
-</script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -36,6 +34,22 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, signOut, sendPasswordResetEmail, updateProfile, updateEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, updateDoc, doc, arrayUnion, arrayRemove, getDoc, setDoc, where, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- INICIO DE DEFINICIONES DE VARIABLES GLOBALES DE CANVAS (IMPORTANTE) ---
+        // Si estás ejecutando esto fuera del entorno de Canvas, DEBES reemplazar 'your-firebase-project-id'
+        // con el ID REAL de tu proyecto de Firebase.
+        window.__app_id = 'byteforo'; // <--- REEMPLAZA ESTO CON TU ID DE PROYECTO REAL
+        // La configuración de Firebase también debe ser la de tu proyecto.
+        window.__firebase_config = JSON.stringify({
+            apiKey: "AIzaSyCWZItBsYQqOm3xzp_VKsI3KfhbvVvtMv0",
+            authDomain: "byteforo.firebaseapp.com",
+            projectId: "byteforo",
+            storageBucket: "byteforo.firebasestorage.app",
+            messagingSenderId: "583747734708",
+            appId: "1:583747734708:web:2e9cb5b05060ac0a2c9be1"
+        });
+        // --- FIN DE DEFINICIONES DE VARIABLES GLOBALES DE CANVAS ---
+
 
         // Global Firebase variables
         window.firebaseApp = null;
@@ -342,7 +356,8 @@
         async function initFirebase() {
             try {
                 // Firebase configuration provided by the user
-                const firebaseConfig = {
+                // Using window.__firebase_config if available, otherwise fallback to hardcoded
+                const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
                     apiKey: "AIzaSyCWZItBsYQqOm3xzp_VKsI3KfhbvVvtMv0",
                     authDomain: "byteforo.firebaseapp.com",
                     projectId: "byteforo",
@@ -379,59 +394,68 @@
 
                         // Fetch additional user profile data from Firestore (now directly from user document)
                         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                        const userDocRef = doc(window.db, `artifacts/${appId}/users/${user.uid}`);
-                        console.log("Attempting to fetch user profile from path:", userDocRef.path);
-                        try {
-                            const profileSnap = await getDoc(userDocRef);
+                        console.log("App ID being used for Firestore:", appId); // Log the appId HERE
+                        
+                        // Add explicit checks for window.db and user.uid before attempting Firestore operation
+                        if (window.db && user && user.uid) {
+                            const userDocRef = doc(window.db, `artifacts/${appId}/users/${user.uid}`);
+                            console.log("Attempting to fetch user profile from path:", userDocRef.path); // Log the path HERE
+                            try {
+                                const profileSnap = await getDoc(userDocRef);
 
-                            if (profileSnap.exists()) {
-                                window.currentUserProfile = profileSnap.data();
-                                console.log("User profile exists in Firestore. Data:", window.currentUserProfile);
-                                // Update currentUsername with Firestore name if available and different
-                                if (window.currentUserProfile.name) {
-                                    window.currentUsername = window.currentUserProfile.name;
-                                }
-                                // Check if banned
-                                if (window.currentUserProfile.isBanned) {
-                                    console.warn("User is banned. Signing out.");
-                                    await signOut(window.auth); // Force sign out if banned
-                                    authModalOverlay.classList.remove('hidden');
-                                    videoBackground.classList.remove('hidden');
-                                    forumContentWrapper.classList.add('hidden');
-                                    showAuthMessage("Tu cuenta ha sido baneada del foro. Contacta a un administrador para más información.", true);
-                                    if (activityTimer) clearInterval(activityTimer);
-                                    return; // Stop further execution
-                                }
+                                if (profileSnap.exists()) {
+                                    window.currentUserProfile = profileSnap.data();
+                                    console.log("User profile exists in Firestore. Data:", window.currentUserProfile);
+                                    // Update currentUsername with Firestore name if available and different
+                                    if (window.currentUserProfile.name) {
+                                        window.currentUsername = window.currentUserProfile.name;
+                                    }
+                                    // Check if banned
+                                    if (window.currentUserProfile.isBanned) {
+                                        console.warn("User is banned. Signing out.");
+                                        await signOut(window.auth); // Force sign out if banned
+                                        authModalOverlay.classList.remove('hidden');
+                                        videoBackground.classList.remove('hidden');
+                                        forumContentWrapper.classList.add('hidden');
+                                        showAuthMessage("Tu cuenta ha sido baneada del foro. Contacta a un administrador para más información.", true);
+                                        if (activityTimer) clearInterval(activityTimer);
+                                        return; // Stop further execution
+                                    }
 
-                            } else {
-                                // If profile doesn't exist, create a basic one (e.g., for users registered before this feature)
-                                console.log("User profile NOT found in Firestore for UID:", user.uid, ". Creating a new one.");
-                                await setDoc(userDocRef, {
-                                    name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
-                                    email: user.email,
-                                    phone: '',
-                                    photoURL: user.photoURL || "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser",
-                                    createdAt: Date.now(),
-                                    last_name_change_timestamp: Date.now(),
-                                    last_email_change_timestamp: Date.now(),
-                                    last_phone_change_timestamp: Date.now(),
-                                    date_of_birth: '',
-                                    note: '', // Initialize note
-                                    profileColor: '#00FFFF', // Default profile color
-                                    lastActivity: Date.now(), // Initialize last activity
-                                    isAdmin: false, // Default to not admin
-                                    isBanned: false // Default to not banned
-                                });
-                                window.currentUserProfile = (await getDoc(userDocRef)).data(); // Fetch the newly created profile
-                                console.log("New user profile created. Data:", window.currentUserProfile);
+                                } else {
+                                    // If profile doesn't exist, create a basic one (e.g., for users registered before this feature)
+                                    console.log("User profile NOT found in Firestore for UID:", user.uid, ". Creating a new one.");
+                                    await setDoc(userDocRef, {
+                                        name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
+                                        email: user.email,
+                                        phone: '',
+                                        photoURL: user.photoURL || "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser",
+                                        createdAt: Date.now(),
+                                        last_name_change_timestamp: Date.now(),
+                                        last_email_change_timestamp: Date.now(),
+                                        last_phone_change_timestamp: Date.now(),
+                                        date_of_birth: '',
+                                        note: '', // Initialize note
+                                        profileColor: '#00FFFF', // Default profile color
+                                        lastActivity: Date.now(), // Initialize last activity
+                                        isAdmin: false, // Default to not admin
+                                        isBanned: false // Default to not banned
+                                    });
+                                    window.currentUserProfile = (await getDoc(userDocRef)).data(); // Fetch the newly created profile
+                                    console.log("New user profile created. Data:", window.currentUserProfile);
+                                }
+                            } catch (profileError) {
+                                console.error("Error fetching or creating user profile:", profileError);
+                                // If there's an error fetching profile, it might be due to permissions.
+                                // Force sign out to prevent the app from being stuck in a bad state.
+                                await signOut(window.auth);
+                                showAuthMessage("Error al cargar tu perfil. Por favor, intenta iniciar sesión de nuevo.", true);
+                                return; // Stop further execution
                             }
-                        } catch (profileError) {
-                            console.error("Error fetching or creating user profile:", profileError);
-                            // If there's an error fetching profile, it might be due to permissions.
-                            // Force sign out to prevent the app from being stuck in a bad state.
-                            await signOut(window.auth);
-                            showAuthMessage("Error al cargar tu perfil. Por favor, intenta iniciar sesión de nuevo.", true);
-                            return; // Stop further execution
+                        } else {
+                            console.warn("Firestore DB or user UID not available for profile fetch. Skipping profile load.");
+                            // Potentially sign out or show a message if this state is unexpected after a successful login
+                            // For now, just log and continue, as the user might be anonymous or in a transition state.
                         }
 
 
@@ -2795,7 +2819,7 @@
             <h2 class="text-xl font-bold mb-6 text-byte-accent-cyan text-center">Personalizar mi perfil</h2>
             <form id="profile-settings-form" class="space-y-4">
                 <div class="flex flex-col items-center mb-4">
-                    <img id="profile-photo-preview" src="https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover border-2 border-byte-accent-cyan mb-3">
+                    <img id="profile-photo-preview" src="https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover border-2 border-byte-accent-cyan mx-auto mb-4">
                     <input type="url" id="profile-photo-url" placeholder="URL de la Foto de Perfil" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan/30 text-byte-text-light focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
                 </div>
                 <label for="profile-name" class="text-byte-text-light block text-left mb-1">Nombre:</label>
