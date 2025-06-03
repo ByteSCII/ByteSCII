@@ -324,7 +324,11 @@
             try {
                 if (activityTimer) clearInterval(activityTimer); // Stop activity updates
                 await signOut(window.auth);
-                console.log("Sign out successful.");
+                // Clear global user state variables after successful sign out
+                window.currentUserId = null;
+                window.currentUsername = "Usuario Anónimo";
+                window.currentUserProfile = {};
+                console.log("Sign out successful. User state cleared.");
                 // onAuthStateChanged will handle UI updates
             } catch (error) {
                 console.error("Error signing out:", error);
@@ -354,7 +358,7 @@
                     if (user) {
                         window.currentUserId = user.uid;
                         window.currentUsername = user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`;
-                        console.log("onAuthStateChanged: User is logged in.", user.uid);
+                        console.log("onAuthStateChanged: User is logged in. UID:", user.uid);
 
                         // Force reload user data to get the latest email verification status
                         // This helps when a user verifies email in a separate tab/process and then logs in.
@@ -373,10 +377,12 @@
                         // Fetch additional user profile data from Firestore (now directly from user document)
                         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                         const userDocRef = doc(window.db, `artifacts/${appId}/users/${user.uid}`);
+                        console.log("Attempting to fetch user profile from path:", userDocRef.path);
                         const profileSnap = await getDoc(userDocRef);
 
                         if (profileSnap.exists()) {
                             window.currentUserProfile = profileSnap.data();
+                            console.log("User profile exists in Firestore. Data:", window.currentUserProfile);
                             // Update currentUsername with Firestore name if available and different
                             if (window.currentUserProfile.name) {
                                 window.currentUsername = window.currentUserProfile.name;
@@ -395,7 +401,7 @@
 
                         } else {
                             // If profile doesn't exist, create a basic one (e.g., for users registered before this feature)
-                            console.log("User profile not found in Firestore. Creating a new one.");
+                            console.log("User profile NOT found in Firestore. Creating a new one.");
                             await setDoc(userDocRef, {
                                 name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
                                 email: user.email,
@@ -413,6 +419,7 @@
                                 isBanned: false // Default to not banned
                             });
                             window.currentUserProfile = (await getDoc(userDocRef)).data();
+                            console.log("New user profile created. Data:", window.currentUserProfile);
                         }
 
                         // Hardcode admin UID check for client-side display and logic
@@ -2846,10 +2853,25 @@
                     <li>No compartas información personal tuya ni de otros (direcciones, teléfonos, etc.).</li>
                 </ul>
 
-                <h3 class="text-lg font-semibold text-byte-accent-cyan">7. Moderación y Sanciones</h3>
+                <h3 class="text-lg font-semibold text-byte-accent-cyan">7. Sin Publicidad ni Spam</h3>
                 <ul class="list-disc list-inside space-y-1 pl-4">
-                    <li>Los moderadores tienen la última palabra.</li>
-                    <li>El incumplimiento de las reglas puede llevar a la edición, eliminación de contenido o suspensión de la cuenta.</li>
+                    <li>El foro no es para promocionar productos, servicios o hacer spam.</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold text-byte-accent-cyan">8. Respeto a la Moderación</h3>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>Las decisiones de los moderadores son definitivas.</li>
+                    <li>Si tienes una queja, contacta a un moderador en privado.</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold text-byte-accent-cyan">9. Reporta, No Actúes</h3>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>Si ves una regla rota, repórtala. No intentes resolverlo tú mismo.</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold text-byte-accent-cyan">10. Consecuencias</h3>
+                <ul class="list-disc list-inside space-y-1 pl-4">
+                    <li>Incumplir estas reglas puede llevar a la edición/eliminación de contenido, advertencias, suspensiones o expulsión del foro.</li>
                 </ul>
 
                 <p class="text-sm italic mt-6">Al participar en este foro, aceptas estas reglas. ¡Gracias por contribuir a una comunidad positiva!</p>
@@ -2871,14 +2893,14 @@
 
     <!-- Private Chat Modal -->
     <div id="private-chat-modal" class="modal hidden">
-        <div class="modal-content max-w-md">
+        <div class="modal-content max-w-md h-[80vh] flex flex-col">
             <button id="close-private-chat-modal" class="modal-close-button">&times;</button>
             <h2 id="private-chat-header-name" class="text-xl font-bold mb-4 text-byte-accent-cyan text-center">Chat Privado</h2>
-            <div id="private-chat-messages-container" class="max-h-80 overflow-y-auto space-y-4 p-3 rounded-md bg-byte-dark-bg border border-gray-700 mb-4">
+            <div id="private-chat-messages-container" class="flex-grow overflow-y-auto space-y-4 p-3 rounded-md bg-byte-dark-bg border border-gray-700 mb-4">
                 <!-- Private messages will be loaded here -->
             </div>
             <div class="flex">
-                <input type="text" id="private-chat-input" placeholder="Escribe tu mensaje..." class="flex-grow p-3 rounded-l-md bg-byte-secondary-dark border border-byte-accent-cyan/30 text-byte-text-light focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+                <input type="text" id="private-chat-input" placeholder="Escribe tu mensaje privado..." class="flex-grow p-3 rounded-l-md bg-byte-secondary-dark border border-byte-accent-cyan/30 text-byte-text-light focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
                 <button id="send-private-chat-button" class="bg-byte-accent-cyan text-byte-dark-bg p-3 rounded-r-md font-semibold hover:bg-cyan-400 transition duration-200">
                     <i class="fas fa-paper-plane"></i>
                 </button>
@@ -2906,7 +2928,7 @@
             <button id="close-admin-chat-view-modal" class="modal-close-button">&times;</button>
             <h2 class="text-xl font-bold mb-6 text-byte-accent-cyan text-center">Todos los Chats Privados (Admin)</h2>
             <div id="admin-chat-list-container" class="max-h-96 overflow-y-auto p-2 border border-gray-700 rounded-md">
-                <!-- List of all private chats will be loaded here -->
+                <!-- List of private chats will be loaded here for admin -->
                 <p class="text-center text-gray-400 text-sm">Cargando chats...</p>
             </div>
         </div>
