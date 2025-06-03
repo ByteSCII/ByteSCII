@@ -103,7 +103,7 @@
         /* Estilos para el botón de "Volver arriba" */
         #scroll-to-top-button {
             position: fixed;
-            bottom: 20px;
+            bottom: 20px; /* Revertido a una posición estándar */
             right: 20px;
             background-color: #00FFFF; /* Cian */
             color: #0A0A1A; /* Texto oscuro de Byte */
@@ -187,6 +187,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
+            position: relative; /* Para posicionar los botones de admin */
         }
 
         .post-avatar {
@@ -312,6 +313,13 @@
             padding: 0.75rem 1rem;
             margin-bottom: 0.75rem;
             border: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex; /* Para alinear el botón de eliminar */
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .comment-content-wrapper {
+            flex-grow: 1;
         }
 
         .comment-author {
@@ -351,14 +359,22 @@
             margin-bottom: 1rem;
         }
 
-        .new-post-form input[type="file"] {
-            display: block;
-            margin-bottom: 1rem;
-            color: #F9FAFB;
+        /* Modificado: ahora es un input de URL/texto */
+        .new-post-form input[type="url"],
+        .new-post-form input[type="text"] {
+            width: 100%;
             background-color: #1A202C;
             border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 0.5rem;
-            padding: 0.5rem;
+            padding: 0.75rem; /* Ajustado el padding para uniformidad */
+            color: #F9FAFB;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            outline: none;
+        }
+        .new-post-form input[type="url"]::placeholder,
+        .new-post-form input[type="text"]::placeholder {
+            color: #9CA3AF;
         }
 
         .new-post-form button[type="submit"] {
@@ -462,7 +478,7 @@
         .modal-content input[type="text"],
         .modal-content input[type="email"],
         .modal-content input[type="password"], /* Added password input styling */
-        .modal-content input[type="file"] {
+        .modal-content input[type="url"] { /* Modificado para avatar */
             width: 100%;
             padding: 0.75rem;
             margin-bottom: 1rem;
@@ -475,7 +491,8 @@
 
         .modal-content input[type="text"]::placeholder,
         .modal-content input[type="email"]::placeholder,
-        .modal-content input[type="password"]::placeholder {
+        .modal-content input[type="password"]::placeholder,
+        .modal-content input[type="url"]::placeholder { /* Modificado para avatar */
             color: #9CA3AF;
         }
 
@@ -551,6 +568,19 @@
             text-shadow: none; /* Remove text shadow for badge */
         }
 
+        /* Banned Badge Style */
+        .banned-badge {
+            background-color: #FF6347; /* Tomato Red */
+            color: #F9FAFB; /* Texto claro */
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 8px;
+            vertical-align: middle;
+            text-shadow: none;
+        }
+
         /* Online Users Section */
         #online-users-container {
             padding: 1.5rem;
@@ -589,6 +619,33 @@
             margin-bottom: 0.25rem;
         }
 
+        /* Admin Action Buttons (Delete Post, Delete Comment, Ban User) */
+        .admin-action-button {
+            background-color: #FF6347; /* Red for delete */
+            color: white;
+            border: none;
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.3rem 0.6rem;
+            font-size: 0.75rem; /* text-xs */
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            margin-left: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .admin-action-button:hover {
+            background-color: #E5533D;
+            transform: translateY(-1px);
+        }
+
+        .admin-action-button.ban {
+            background-color: #8B5CF6; /* Purple for ban */
+        }
+        .admin-action-button.ban:hover {
+            background-color: #7C3AED;
+        }
+
         /* Media Queries for responsiveness */
         @media (max-width: 768px) {
             .main-header img {
@@ -597,6 +654,10 @@
             .main-header a.inline-block {
                 padding: 0.5rem 0.75rem; /* Reducir padding del botón */
                 font-size: 0.875rem; /* text-sm */
+            }
+            #open-chat-button { /* Adjust chat button on mobile */
+                padding: 0.5rem 0.75rem;
+                font-size: 0.875rem;
             }
             main.container {
                 padding-left: 1rem;
@@ -633,6 +694,9 @@
                 padding: 0.6rem 1rem;
                 font-size: 0.85rem;
             }
+            .comment-list {
+                padding-left: 0.5rem; /* Slightly indent comments on mobile */
+            }
             .comment-item {
                 padding: 0.6rem 0.8rem;
             }
@@ -643,17 +707,21 @@
                 font-size: 0.75rem;
             }
             .new-post-form textarea,
-            .new-post-form input[type="file"],
+            .new-post-form input[type="url"], /* Modificado */
+            .new-post-form input[type="text"], /* Modificado */
             .new-post-form button[type="submit"] {
                 font-size: 0.9rem;
             }
             #user-info-bar {
                 padding: 0.6rem 1rem;
                 font-size: 0.9rem;
+                flex-direction: column; /* Stack user info and button */
+                gap: 0.5rem;
             }
             #user-info-bar button {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
+                width: 100%; /* Full width button */
             }
             .modal-content {
                 padding: 1.5rem;
@@ -667,6 +735,7 @@
             .modal-content input[type="text"],
             .modal-content input[type="email"],
             .modal-content input[type="password"],
+            .modal-content input[type="url"], /* Modificado para avatar */
             .modal-content button {
                 font-size: 0.9rem;
                 padding: 0.6rem;
@@ -675,13 +744,57 @@
                 flex-direction: column; /* Stack buttons on small screens */
                 gap: 0.75rem;
             }
+            #online-users-list {
+                justify-content: flex-start; /* Align online users to start on small screens */
+                gap: 0.75rem;
+            }
+            .online-user-item {
+                flex-direction: row; /* Display avatar and name in a row */
+                gap: 0.5rem;
+            }
+            .online-user-avatar {
+                width: 32px; /* Smaller avatar on mobile */
+                height: 32px;
+            }
+
+            /* Chat Modal adjustments for mobile */
+            #chat-modal-overlay .modal-content {
+                flex-direction: column; /* Stack chat list and window on mobile */
+                width: 95%;
+                height: 95%;
+                padding: 1rem;
+            }
+            #chat-list-sidebar, #chat-window-area, #no-chat-selected-view {
+                width: 100%; /* Full width for both sections */
+                border-radius: 0.75rem; /* Apply border-radius to both */
+                border-right: none; /* Remove right border for sidebar */
+                border-bottom: 1px solid gray; /* Add bottom border for sidebar */
+            }
+            #chat-list-sidebar {
+                margin-bottom: 1rem;
+                padding-bottom: 1rem;
+                max-height: 25%; /* Limit height of sidebar on mobile */
+            }
+            #chat-window-area {
+                flex-grow: 1; /* Allow chat window to take remaining space */
+            }
+            /* Adjust emoji picker position for mobile */
+            #emoji-picker-container {
+                bottom: 50px; /* Adjust as needed for mobile keyboard */
+                right: 10px;
+                width: 200px; /* Smaller width for mobile */
+                padding: 0.5rem;
+            }
+            .emoji-button {
+                font-size: 1.2rem; /* Smaller emoji size */
+                padding: 0.3rem;
+            }
         }
 
         /* Firebase Status Indicator Styles */
         #firebase-status-indicator {
-            position: fixed;
-            bottom: 80px; /* Adjust based on scroll-to-top button */
-            left: 20px;
+            /* Eliminamos 'position: fixed' y 'bottom/left' */
+            /* Ahora se posicionará dentro del flujo normal del footer */
             background-color: #1A202C;
             color: #F9FAFB;
             padding: 0.5rem 1rem;
@@ -691,8 +804,11 @@
             align-items: center;
             gap: 0.5rem;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            z-index: 9998; /* Below scroll-to-top button */
+            /* z-index ya no es tan crítico aquí, pero lo mantenemos si hay otros elementos superpuestos */
+            z-index: 1;
             transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 1rem auto; /* Centrarlo horizontalmente y darle un margen superior/inferior */
+            width: fit-content; /* Ajustar el ancho al contenido */
         }
 
         #firebase-status-indicator.connected {
@@ -708,6 +824,64 @@
         #firebase-status-indicator i {
             font-size: 1rem;
         }
+
+        /* Responsive video embeds (aspect ratio) */
+        .aspect-w-16 {
+            position: relative;
+            width: 100%;
+        }
+        .aspect-w-16::before {
+            content: '';
+            display: block;
+            padding-top: calc(9 / 16 * 100%); /* 16:9 aspect ratio */
+        }
+        .aspect-h-9 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .aspect-h-9 iframe, .aspect-h-9 video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Emoji Picker Styles */
+        #emoji-picker-container {
+            position: absolute;
+            bottom: 60px; /* Above the input field */
+            right: 0;
+            background-color: #1A202C;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+            z-index: 100; /* Ensure it's above other chat elements */
+            display: none; /* Hidden by default */
+        }
+
+        .emoji-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .emoji-button:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -718,10 +892,16 @@
                 <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
             </div>
 
-            <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                        shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm md:text-base">
-                Volver al inicio
-            </a>
+            <div>
+                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                            shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm md:text-base">
+                    Volver al inicio
+                </a>
+                <button id="open-chat-button" class="ml-2 inline-block bg-byte-accent-cyan text-byte-dark-bg font-bold py-2 px-4 rounded-full
+                                                    shadow-lg hover:bg-opacity-80 transition duration-300 transform hover:scale-105 text-sm md:text-base">
+                    <i class="fas fa-comments"></i> Chat
+                </button>
+            </div>
         </div>
     </header>
 
@@ -745,7 +925,8 @@
                 <h2 class="text-xl sm:text-2xl font-semibold text-center mb-4 text-byte-accent-cyan">Crear Nueva Publicación</h2>
                 <form id="new-post-form">
                     <textarea id="post-text" placeholder="¿Qué tienes en mente?" class="mb-4"></textarea>
-                    <input type="file" id="post-image-upload" accept="image/*" class="mb-4">
+                    <input type="url" id="post-image-url" placeholder="Pega aquí el enlace de tu imagen (Imgur, Postimages, etc.)" class="mb-4">
+                    <input type="url" id="post-video-url" placeholder="Pega aquí el enlace de tu video (YouTube, Vimeo, MP4, etc.)" class="mb-4">
                     <button type="submit" id="submit-post-button" disabled>Publicar</button>
                 </form>
             </div>
@@ -760,11 +941,6 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <div id="firebase-status-indicator">
-        <i class="fas fa-circle"></i>
-        <span>Estado de Firebase: Conectando...</span>
-    </div>
-
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-6 sm:py-8">
         <div class="container mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-center">
             <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
@@ -777,6 +953,10 @@
                     <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
                 </a>
             </div>
+        </div>
+        <div id="firebase-status-indicator">
+            <i class="fas fa-circle"></i>
+            <span>Estado de Firebase: Conectando...</span>
         </div>
         <div class="container mx-auto px-4 sm:px-6 text-center text-xs text-gray-400 mt-6 sm:mt-8 border-t border-gray-700 pt-4">
             <p class="mb-2">
@@ -813,10 +993,10 @@
                 <form id="profile-form">
                     <input type="text" id="profile-name-input" placeholder="Tu nombre" required>
                     <div id="profile-name-error-message" class="modal-error-message hidden"></div>
-                    <label for="profile-avatar-upload" class="block text-left text-byte-text-light text-sm mb-1">
-                        Foto de Perfil (obligatoria):
+                    <label for="profile-avatar-url" class="block text-left text-byte-text-light text-sm mb-1">
+                        Foto de Perfil (opcional - pega una URL):
                     </label>
-                    <input type="file" id="profile-avatar-upload" accept="image/*" class="mb-4" required>
+                    <input type="url" id="profile-avatar-url" placeholder="Pega aquí el enlace de tu avatar (Imgur, Postimages, etc.)">
                     <div id="profile-avatar-error-message" class="modal-error-message hidden"></div>
                     <button type="submit">Guardar Perfil</button>
                 </form>
@@ -824,29 +1004,91 @@
         </div>
     </div>
 
+    <div id="chat-modal-overlay" class="modal-overlay">
+        <div class="modal-content !w-[700px] !max-w-[95%] !h-[90%] !flex !flex-col">
+            <button id="close-chat-modal-button" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200 text-xl"><i class="fas fa-times"></i></button>
+            <h3 class="text-xl font-semibold mb-4 text-byte-accent-cyan text-center">Chat de la Comunidad</h3>
+
+            <div class="flex-grow flex overflow-hidden">
+                <div id="chat-list-sidebar" class="w-1/3 bg-byte-secondary-dark p-4 rounded-l-lg overflow-y-auto border-r border-gray-700">
+                    <h4 class="text-lg font-semibold mb-3 text-byte-accent-cyan">Usuarios en línea</h4>
+                    <ul id="chat-online-users-list" class="space-y-2">
+                        <p class="text-gray-400 text-sm">Cargando usuarios...</p>
+                    </ul>
+                    <div id="admin-chat-monitoring-section" class="mt-6" style="display: none;">
+                        <h4 class="text-lg font-semibold mb-3 text-red-500">Chats de Administrador</h4>
+                        <ul id="admin-chats-list" class="space-y-2">
+                            <p class="text-gray-400 text-sm">Cargando chats...</p>
+                        </ul>
+                    </div>
+                    <h4 class="text-lg font-semibold mt-6 mb-3 text-byte-accent-cyan">Mis Chats</h4>
+                    <ul id="my-active-chats-list" class="space-y-2">
+                        <p class="text-gray-400 text-sm">No hay chats activos aún.</p>
+                    </ul>
+                </div>
+
+                <div id="chat-window-area" class="w-2/3 flex flex-col bg-byte-dark-bg rounded-r-lg" style="display: none;">
+                    <div class="p-4 border-b border-gray-700 flex items-center">
+                        <img id="chat-partner-avatar" src="https://placehold.co/40x40/00FFFF/0A0A1A?text=U" alt="Avatar" class="w-10 h-10 rounded-full mr-3 border-2 border-byte-accent-cyan">
+                        <h4 id="chat-partner-name" class="text-lg font-semibold text-byte-accent-cyan">Selecciona un chat</h4>
+                    </div>
+                    <div id="messages-display" class="flex-grow p-4 overflow-y-auto space-y-3">
+                        <p class="text-gray-400 text-center">Envía un mensaje para empezar la conversación.</p>
+                    </div>
+                    <div class="p-4 border-t border-gray-700 flex gap-2 relative">
+                        <button id="emoji-picker-button" class="bg-gray-700 text-white py-3 px-4 rounded-lg hover:bg-gray-600 transition-colors">
+                            😊
+                        </button>
+                        <input type="text" id="chat-message-input" placeholder="Escribe tu mensaje..." class="flex-grow bg-byte-secondary-dark border border-gray-600 rounded-lg p-3 text-byte-text-light focus:outline-none focus:border-byte-accent-cyan">
+                        <button id="send-chat-message-button" class="bg-whatsapp-green text-byte-dark-bg font-bold py-3 px-4 rounded-lg hover:bg-whatsapp-dark-green transition-colors">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <div id="emoji-picker-container"></div>
+                    </div>
+                </div>
+                <div id="no-chat-selected-view" class="w-2/3 flex items-center justify-center bg-byte-dark-bg rounded-r-lg p-4">
+                    <p class="text-gray-400 text-center text-lg">Selecciona un usuario de la lista izquierda para iniciar un chat.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmation-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <h3 id="confirmation-modal-title" class="text-xl font-semibold mb-4 text-byte-accent-cyan">Confirmación</h3>
+            <p id="confirmation-modal-message" class="text-gray-300 mb-6"></p>
+            <div class="flex justify-center gap-4">
+                <button id="confirm-action-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Confirmar</button>
+                <button id="cancel-action-button" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { 
-            getAuth, 
-            onAuthStateChanged, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
+        import {
+            getAuth,
+            onAuthStateChanged,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
             signOut,
-            sendPasswordResetEmail // Import for password reset
+            sendPasswordResetEmail
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { 
-            getFirestore, 
-            collection, 
-            query, 
-            onSnapshot, 
-            addDoc, 
-            doc, 
-            updateDoc, 
-            arrayUnion, 
-            getDoc, 
+        import {
+            getFirestore,
+            collection,
+            query,
+            onSnapshot,
+            addDoc,
+            doc,
+            updateDoc,
+            arrayUnion,
+            getDoc,
             setDoc,
-            serverTimestamp, // Import for server timestamps
-            deleteDoc // Import for deleting presence on sign out
+            serverTimestamp,
+            deleteDoc,
+            orderBy,
+            where
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Configuración REAL de tu proyecto de Firebase (ByteForo)
@@ -859,14 +1101,10 @@
             appId: "1:583747734708:web:fcac1599ca9180b32c9be1"
         };
 
-        // El appId se extrae directamente de firebaseConfig.appId
         const appId = firebaseConfig.appId;
 
-        // initialAuthToken ya no es relevante con autenticación de email/password
-        const initialAuthToken = null; 
-
         // UID del administrador (¡IMPORTANTE: REEMPLAZA ESTO CON TU UID REAL DE ADMINISTRADOR!)
-        const ADMIN_UID = 'TU_UID_DE_ADMIN_AQUI'; 
+        const ADMIN_UID = 'gEnwfp7imwfgz5H7VdSvCn8Yvnk2';
 
         // Global variables for Firebase instances
         let app;
@@ -876,11 +1114,15 @@
         let userName = 'Usuario Anónimo'; // Default user name
         let userEmail = ''; // To store the current user's email
         let userAvatar = 'https://placehold.co/48x48/00FFFF/0A0A1A?text=U'; // Default avatar
+        let isUserBanned = false; // New flag to track if the current user is banned
 
         // Presence tracking interval
         let presenceInterval = null;
         const PRESENCE_UPDATE_INTERVAL = 20 * 1000; // Update every 20 seconds
         const OFFLINE_THRESHOLD = 30 * 1000; // Consider offline after 30 seconds of no update
+
+        // Global variable to track Firebase readiness
+        let isFirebaseReady = false;
 
         // Get elements for user info and post button
         const userInfoBar = document.getElementById('user-status');
@@ -910,9 +1152,95 @@
         const profileFormContainer = document.getElementById('profile-form-container');
         const profileForm = document.getElementById('profile-form');
         const profileNameInput = document.getElementById('profile-name-input');
-        const profileAvatarUpload = document.getElementById('profile-avatar-upload');
+        const profileAvatarUrlInput = document.getElementById('profile-avatar-url');
         const profileNameErrorMessage = document.getElementById('profile-name-error-message');
         const profileAvatarErrorMessage = document.getElementById('profile-avatar-error-message');
+
+        // Global variables for chat functionality
+        let activeChatId = null;
+        let activeChatPartnerId = null;
+        let activeChatPartnerName = null;
+        let activeChatPartnerAvatar = null;
+        let isChatReadOnly = false; // New flag for admin monitoring mode
+        let unsubscribeFromMessages = null; // To unsubscribe from message listener
+        let unsubscribeFromMyChats = null; // To unsubscribe from my chats listener
+        let unsubscribeFromOnlineUsersForChat = null; // To unsubscribe from online users chat listener
+        let unsubscribeFromAdminChats = null; // To unsubscribe from admin chat listener
+
+        // Chat UI element references
+        const openChatButton = document.getElementById('open-chat-button');
+        const chatModalOverlay = document.getElementById('chat-modal-overlay');
+        const closeChatModalButton = document.getElementById('close-chat-modal-button');
+        const chatListSidebar = document.getElementById('chat-list-sidebar');
+        const chatOnlineUsersList = document.getElementById('chat-online-users-list');
+        const myActiveChatsList = document.getElementById('my-active-chats-list');
+        const adminChatMonitoringSection = document.getElementById('admin-chat-monitoring-section');
+        const adminChatsList = document.getElementById('admin-chats-list');
+        const chatWindowArea = document.getElementById('chat-window-area');
+        const noChatSelectedView = document.getElementById('no-chat-selected-view');
+        const chatPartnerAvatar = document.getElementById('chat-partner-avatar');
+        const chatPartnerName = document.getElementById('chat-partner-name');
+        const messagesDisplay = document.getElementById('messages-display');
+        const chatMessageInput = document.getElementById('chat-message-input');
+        const sendChatMessageButton = document.getElementById('send-chat-message-button');
+        const emojiPickerButton = document.getElementById('emoji-picker-button');
+        const emojiPickerContainer = document.getElementById('emoji-picker-container');
+
+        const emojis = [
+            '😀', '😃', '�', '😁', '😆', '😅', '😂', '🤣', '😊', '😇', '🙂', '🙃', '😉', '😌', '😍', '🥰', '😘', '😗', '😙', '😚',
+            '😋', '😛', '😝', '😜', '🤪', '🤨', '🧐', '🤓', '😎', '🤩', '🥳', '😏', '😒', '😞', '😔', '😟', '😕', '🙁', '☹️', '😣',
+            '😖', '😫', '😩', '🥺', '😢', '😭', '😤', '😠', '😡', '🤬', '🤯', '😳', '🥵', '🥶', '😱', '😨', '😰', '😥', '😓', '🤗',
+            '🤔', '🤫', '🤭', '🤥', '😶', '😐', '😑', '😬', '🙄', '😯', '😦', '😧', '😮', '😲', '🥱', '😴', '🤤', '😪', '😵', '🤐',
+            '🥴', '🤢', '🤮', '🤧', '😷', '🤒', '🤕', '🤑', '🤠', '😈', '👿', '👹', '👺', '🤡', '💩', '👻', '💀', '👽', '👾', '🤖',
+            '👋', '🤚', '🖐️', '✋', '🖖', '👌', '🤏', '✌️', '🤞', '🤟', '🤘', '🤙', '👈', '👉', '👆', '🖕', '👇', '☝️', '👍', '👎',
+            '👏', '🙌', '👐', '🤲', '🤝', '🙏', '✍️', '💅', '🤳', '💪', '🦵', '🦶', '👂', '👃', '🧠', '🫀', '🫁', '🦷', '🦴', '👀',
+            '👁️', '👅', '👄', '👶', '🧒', '👦', '👧', '🧑', '👱', '👨', '🧔', '👴', '👵', '🙍', '🙎', '🙅', '🙆', '💁', '🙋', '🧏',
+            '🤦', '🤷', '💫', '🌟', '✨', '⚡', '🔥', '💥', '💯', '💢', '💨', '💦', '🫧', '💬', '💭', '💤', '🎶', '🎵', '🔥', '❤️',
+            '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '🤎', '💔', '❣️', '💕', '💞', '💓', '💗', '💖', '💘', '💝', '🧡', '💛', '💚'
+        ];
+
+        // Confirmation Modal elements
+        const confirmationModalOverlay = document.getElementById('confirmation-modal-overlay');
+        const confirmationModalTitle = document.getElementById('confirmation-modal-title');
+        const confirmationModalMessage = document.getElementById('confirmation-modal-message');
+        const confirmActionButton = document.getElementById('confirm-action-button');
+        const cancelActionButton = document.getElementById('cancel-action-button');
+        let onConfirmCallback = null; // Stores the function to call on confirmation
+
+        /**
+         * Shows a custom confirmation modal.
+         * @param {string} message - The message to display in the modal.
+         * @param {function} onConfirm - The callback function to execute if confirmed.
+         * @param {string} [title='Confirmación'] - Optional title for the modal.
+         */
+        function showConfirmationModal(message, onConfirm, title = 'Confirmación') {
+            confirmationModalTitle.textContent = title;
+            confirmationModalMessage.textContent = message;
+            onConfirmCallback = onConfirm; // Store the callback
+            confirmationModalOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        /**
+         * Hides the custom confirmation modal.
+         */
+        function hideConfirmationModal() {
+            confirmationModalOverlay.classList.remove('show');
+            document.body.style.overflow = ''; // Enable scrolling
+            onConfirmCallback = null; // Clear the callback
+        }
+
+        // Event listeners for confirmation modal buttons
+        confirmActionButton.addEventListener('click', () => {
+            if (onConfirmCallback) {
+                onConfirmCallback();
+            }
+            hideConfirmationModal();
+        });
+
+        cancelActionButton.addEventListener('click', () => {
+            hideConfirmationModal();
+        });
 
         /**
          * Updates the Firebase connection status indicator on the page.
@@ -941,7 +1269,6 @@
          * Shows the authentication modal (login/register form).
          */
         function showAuthModal() {
-            console.log("Ejecutando showAuthModal()...");
             authModalTitle.textContent = 'Bienvenido al Foro de Byte';
             authModalDescription.textContent = 'Inicia sesión o regístrate para participar.';
             authForm.classList.remove('hidden');
@@ -949,7 +1276,7 @@
             authEmailInput.value = ''; // Clear email input
             authPasswordInput.value = ''; // Clear password input
             profileNameInput.value = ''; // Clear profile name input
-            profileAvatarUpload.value = ''; // Clear file input
+            profileAvatarUrlInput.value = ''; // Clear URL input for avatar
             authEmailErrorMessage.classList.add('hidden');
             authPasswordErrorMessage.classList.add('hidden');
             authGeneralErrorMessage.classList.add('hidden');
@@ -957,20 +1284,16 @@
             profileAvatarErrorMessage.classList.add('hidden'); // Clear profile errors
             authModalOverlay.classList.add('show');
             document.body.style.overflow = 'hidden'; // Prevent scrolling
-            console.log("Estado de authModalOverlay.classList:", authModalOverlay.classList);
-            console.log("Estado de authForm.classList:", authForm.classList);
-            console.log("Estado de profileFormContainer.classList:", profileFormContainer.classList);
         }
 
         /**
          * Shows the profile creation form (after successful registration).
          */
         function showProfileForm() {
-            console.log("Ejecutando showProfileForm()...");
             authModalTitle.textContent = 'Completa tu Perfil';
             authModalDescription.textContent = 'Para participar en la comunidad, por favor, dinos tu nombre y sube una foto de perfil.';
             authForm.classList.add('hidden');
-            
+
             profileFormContainer.classList.remove('hidden');
             profileFormContainer.style.display = 'block'; // Explicitly set display
             profileFormContainer.style.visibility = 'visible'; // Explicitly set visibility
@@ -981,32 +1304,53 @@
             profileAvatarErrorMessage.classList.add('hidden');
             authModalOverlay.classList.add('show');
             document.body.style.overflow = 'hidden'; // Prevent scrolling
-            console.log("Estado de authModalOverlay.classList (en showProfileForm):", authModalOverlay.classList);
-            console.log("Estado de authForm.classList (en showProfileForm):", authForm.classList);
-            console.log("Estado de profileFormContainer.classList (en showProfileForm):", profileFormContainer.classList);
-            console.log("profileFormContainer offsetHeight:", profileFormContainer.offsetHeight);
-            console.log("profileFormContainer offsetWidth:", profileFormContainer.offsetWidth);
         }
 
         /**
          * Hides the authentication/profile modal.
          */
         function hideAuthModal() {
-            console.log("Ejecutando hideAuthModal()...");
             authModalOverlay.classList.remove('show');
             document.body.style.overflow = ''; // Enable scrolling
             // Clear form fields
             authEmailInput.value = '';
             authPasswordInput.value = '';
             profileNameInput.value = '';
-            profileAvatarUpload.value = '';
-            
+            profileAvatarUrlInput.value = ''; // Clear URL input for avatar
+
             // Remove temporary debugging styles
             profileFormContainer.style.border = '';
             profileFormContainer.style.backgroundColor = '';
-
-            console.log("Estado de authModalOverlay.classList (en hideAuthModal):", authModalOverlay.classList);
         }
+
+        /**
+         * Shows the chat modal.
+         */
+        function showChatModal() {
+            // Check if Firebase is ready and user is authenticated with a profile
+            if (!isFirebaseReady || !userId || userName === 'Usuario Anónimo') {
+                showConfirmationModal("Debes completar tu perfil y asegurar la conexión a Firebase para usar el chat.", () => {}, "Error de Chat");
+                return;
+            }
+            if (isUserBanned) {
+                showConfirmationModal("No puedes usar el chat porque estás baneado del foro.", () => {}, "Acceso Denegado");
+                return;
+            }
+            chatModalOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            renderEmojiPicker();
+        }
+
+        /**
+         * Hides the chat modal.
+         */
+        function hideChatModal() {
+            chatModalOverlay.classList.remove('show');
+            document.body.style.overflow = ''; // Enable scrolling
+            hideChatWindow();
+            emojiPickerContainer.style.display = 'none'; // Hide emoji picker
+        }
+
 
         /**
          * Updates the user's presence in Firestore.
@@ -1021,7 +1365,6 @@
                         userAvatar: userAvatar,
                         email: userEmail
                     }, { merge: true });
-                    // console.log("Presencia actualizada para:", userName);
                 } catch (error) {
                     console.error("Error al actualizar presencia:", error);
                 }
@@ -1039,16 +1382,49 @@
             } else {
                 noOnlineUsersMessage.classList.add('hidden');
                 onlineUsers.forEach(user => {
+                    const isAdmin = user.id === ADMIN_UID;
+                    const nameClass = isAdmin ? 'text-red-500 font-bold' : '';
+                    const adminBadgeHtml = isAdmin ? '<span class="admin-badge">Admin</span>' : '';
+
                     const userItem = document.createElement('li');
                     userItem.className = 'online-user-item';
                     userItem.innerHTML = `
                         <img src="${user.userAvatar || 'https://placehold.co/40x40/00FFFF/0A0A1A?text=U'}" alt="Avatar de ${user.userName}" class="online-user-avatar">
-                        <span>${user.userName}</span>
+                        <span class="${nameClass}">${user.userName} ${adminBadgeHtml}</span>
                     `;
                     onlineUsersList.appendChild(userItem);
                 });
             }
         }
+
+        /**
+         * Renders the list of online users in the chat sidebar.
+         * @param {Array} onlineUsers - Array of user objects.
+         */
+        function renderOnlineUsersForChat(onlineUsers) {
+            chatOnlineUsersList.innerHTML = '';
+            const filteredUsers = onlineUsers.filter(user => user.id !== userId); // Exclude self
+
+            if (filteredUsers.length === 0) {
+                chatOnlineUsersList.innerHTML = '<p class="text-gray-400 text-sm">Nadie más en línea.</p>';
+            } else {
+                filteredUsers.forEach(user => {
+                    const isAdmin = user.id === ADMIN_UID;
+                    const nameClass = isAdmin ? '!text-red-500 font-bold' : 'text-byte-text-light';
+                    const adminBadgeHtml = isAdmin ? '<span class="admin-badge">Admin</span>' : '';
+
+                    const userItem = document.createElement('li');
+                    userItem.className = 'flex items-center p-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors';
+                    userItem.innerHTML = `
+                        <img src="${user.userAvatar || 'https://placehold.co/40x40/00FFFF/0A0A1A?text=U'}" alt="Avatar" class="w-8 h-8 rounded-full mr-2 border-2 border-whatsapp-green">
+                        <span class="${nameClass}">${user.userName} ${adminBadgeHtml}</span>
+                    `;
+                    userItem.addEventListener('click', () => startChat(user.id, user.userName, user.userAvatar));
+                    chatOnlineUsersList.appendChild(userItem);
+                });
+            }
+        }
+
 
         /**
          * Listens for real-time updates to online users.
@@ -1064,23 +1440,417 @@
                 const onlineUsers = snapshot.docs
                     .map(doc => {
                         const data = doc.data();
-                        // Firestore Timestamp objects need to be converted
                         const lastSeenMs = data.lastSeen ? data.lastSeen.toDate().getTime() : 0;
                         return { id: doc.id, ...data, lastSeenMs: lastSeenMs };
                     })
-                    .filter(user => (now - user.lastSeenMs) < OFFLINE_THRESHOLD) // Filter users seen recently
-                    .sort((a, b) => a.userName.localeCompare(b.userName)); // Sort alphabetically
-                
+                    .filter(user => (now - user.lastSeenMs) < OFFLINE_THRESHOLD)
+                    .sort((a, b) => a.userName.localeCompare(b.userName));
+
                 renderOnlineUsers(onlineUsers);
             }, (error) => {
                 console.error("Error listening to online users:", error);
             });
         }
 
+        /**
+         * Listens for real-time updates to online users for the chat sidebar.
+         */
+        function listenForOnlineUsersForChat() {
+            if (!db || !userId) {
+                console.error("Firestore not initialized or user not authenticated for online users for chat.");
+                return;
+            }
+            if (unsubscribeFromOnlineUsersForChat) {
+                unsubscribeFromOnlineUsersForChat();
+            }
+
+            const presenceCollectionRef = collection(db, `artifacts/${appId}/public/data/usersPresence`);
+            unsubscribeFromOnlineUsersForChat = onSnapshot(presenceCollectionRef, (snapshot) => {
+                const now = Date.now();
+                const onlineUsers = snapshot.docs
+                    .map(doc => {
+                        const data = doc.data();
+                        const lastSeenMs = data.lastSeen ? data.lastSeen.toDate().getTime() : 0;
+                        return { id: doc.id, ...data, lastSeenMs: lastSeenMs };
+                    })
+                    .filter(user => (now - user.lastSeenMs) < OFFLINE_THRESHOLD)
+                    .sort((a, b) => a.userName.localeCompare(b.userName));
+
+                renderOnlineUsersForChat(onlineUsers);
+            }, (error) => {
+                console.error("Error listening to online users for chat:", error);
+            });
+        }
+
+        /**
+         * Generates a consistent chat ID between two users.
+         * @param {string} user1Id - The ID of the first user.
+         * @param {string} user2Id - The ID of the second user.
+         * @returns {string} The combined chat ID.
+         */
+        function getChatId(user1Id, user2Id) {
+            return user1Id < user2Id ? `${user1Id}_${user2Id}` : `${user2Id}_${user1Id}`;
+        }
+
+        /**
+         * Displays the chat window for a specific conversation.
+         */
+        function showChatWindow() {
+            noChatSelectedView.style.display = 'none';
+            chatWindowArea.style.display = 'flex';
+        }
+
+        /**
+         * Hides the chat window and shows the "no chat selected" message.
+         */
+        function hideChatWindow() {
+            chatWindowArea.style.display = 'none';
+            noChatSelectedView.style.display = 'flex';
+            messagesDisplay.innerHTML = '<p class="text-gray-400 text-center">Envía un mensaje para empezar la conversación.</p>';
+            chatMessageInput.value = '';
+            chatPartnerName.textContent = 'Selecciona un chat';
+            chatPartnerAvatar.src = 'https://placehold.co/40x40/00FFFF/0A0A1A?text=U';
+            chatMessageInput.disabled = false; // Ensure input is enabled by default
+            sendChatMessageButton.disabled = false; // Ensure button is enabled by default
+            isChatReadOnly = false; // Reset read-only status
+        }
+
+        /**
+         * Starts a new chat or opens an existing one.
+         * @param {string} partnerId - The ID of the chat partner.
+         * @param {string} partnerName - The name of the chat partner.
+         * @param {string} partnerAvatar - The avatar URL of the chat partner.
+         * @param {boolean} readOnly - If true, the chat will be in read-only mode (for admin monitoring).
+         */
+        async function startChat(partnerId, partnerName, partnerAvatar, readOnly = false) {
+            if (partnerId === userId && !readOnly) {
+                showConfirmationModal("No puedes chatear contigo mismo en modo normal.", () => {}, "Error de Chat");
+                return;
+            }
+            if (!userId) {
+                showConfirmationModal("Debes iniciar sesión para chatear.", () => {}, "Error de Chat");
+                return;
+            }
+            if (isUserBanned && !readOnly) { // Banned users cannot start/participate in chats
+                showConfirmationModal("No puedes usar el chat porque estás baneado del foro.", () => {}, "Acceso Denegado");
+                return;
+            }
+
+            activeChatId = getChatId(userId, partnerId);
+            activeChatPartnerId = partnerId;
+            activeChatPartnerName = partnerName;
+            activeChatPartnerAvatar = partnerAvatar;
+            isChatReadOnly = readOnly; // Set the read-only flag
+
+            chatPartnerName.textContent = partnerName;
+            chatPartnerAvatar.src = partnerAvatar || 'https://placehold.co/40x40/00FFFF/0A0A1A?text=' + partnerName.substring(0, 1).toUpperCase();
+            showChatWindow();
+            messagesDisplay.innerHTML = ''; // Clear previous messages
+
+            // Enable/disable input and send button based on readOnly flag and banned status
+            const disableChatInput = readOnly || isUserBanned;
+            chatMessageInput.disabled = disableChatInput;
+            sendChatMessageButton.disabled = disableChatInput;
+            emojiPickerButton.disabled = disableChatInput;
+
+            if (readOnly) {
+                chatMessageInput.placeholder = "Modo de solo lectura (chat de administrador)";
+            } else if (isUserBanned) {
+                chatMessageInput.placeholder = "Estás baneado y no puedes enviar mensajes.";
+            }
+            else {
+                chatMessageInput.placeholder = "Escribe tu mensaje...";
+            }
+
+            const chatRef = doc(db, `artifacts/${appId}/public/data/chats`, activeChatId);
+
+            // Check if chat document exists
+            const chatSnap = await getDoc(chatRef);
+            if (!chatSnap.exists() && !readOnly) { // Only create if not read-only
+                // Create new chat document
+                await setDoc(chatRef, {
+                    participants: [userId, partnerId],
+                    createdAt: serverTimestamp(),
+                    lastMessage: {
+                        text: '¡Inicia la conversación!',
+                        timestamp: serverTimestamp(),
+                        senderId: 'system'
+                    }
+                });
+            }
+
+            // Subscribe to messages for this chat
+            listenForMessages(activeChatId);
+        }
+
+        /**
+         * Views a chat in read-only mode for admins.
+         * @param {string} chatId - The ID of the chat to view.
+         * @param {Array<string>} participantNames - Array of participant names for display.
+         * @param {Array<string>} participantAvatars - Array of participant avatars for display.
+         */
+        async function viewChatAsAdmin(chatId, participantNames, participantAvatars) {
+            if (!userId || userId !== ADMIN_UID) {
+                showConfirmationModal("Acceso denegado. Solo administradores pueden ver otros chats.", () => {}, "Permiso Denegado");
+                return;
+            }
+
+            activeChatId = chatId;
+            chatPartnerName.textContent = `Chat entre: ${participantNames.join(' & ')}`;
+            chatPartnerAvatar.src = participantAvatars[0] || 'https://placehold.co/40x40/00FFFF/0A0A1A?text=👥';
+
+            showChatWindow();
+            messagesDisplay.innerHTML = ''; // Clear previous messages
+
+            // Set to read-only mode
+            isChatReadOnly = true;
+            chatMessageInput.disabled = true;
+            sendChatMessageButton.disabled = true;
+            emojiPickerButton.disabled = true;
+            chatMessageInput.placeholder = "Modo de solo lectura (chat de administrador)";
+
+            // Subscribe to messages for this chat
+            listenForMessages(activeChatId);
+        }
+
+
+        /**
+         * Listens for real-time messages in the active chat.
+         * @param {string} chatId - The ID of the active chat.
+         */
+        function listenForMessages(chatId) {
+            if (unsubscribeFromMessages) {
+                unsubscribeFromMessages(); // Unsubscribe from previous chat's messages
+            }
+
+            const messagesCollectionRef = collection(db, `artifacts/${appId}/public/data/chats`, chatId, 'messages');
+            const q = query(messagesCollectionRef, orderBy('timestamp', 'asc')); // Order messages by timestamp
+
+            unsubscribeFromMessages = onSnapshot(q, async (snapshot) => {
+                messagesDisplay.innerHTML = ''; // Clear current messages
+                if (snapshot.empty) {
+                    messagesDisplay.innerHTML = '<p class="text-gray-400 text-center">Sé el primero en enviar un mensaje.</p>';
+                } else {
+                    for (const docSnapshot of snapshot.docs) {
+                        const message = docSnapshot.data();
+                        const messageElement = document.createElement('div');
+                        messageElement.className = `flex items-start ${message.senderId === userId ? 'justify-end' : 'justify-start'}`; // Align messages
+
+                        let senderAvatarSrc = 'https://placehold.co/40x40/00FFFF/0A0A1A?text=U';
+                        if (message.senderId === userId) {
+                            senderAvatarSrc = userAvatar;
+                        } else if (message.senderId === activeChatPartnerId) {
+                            senderAvatarSrc = activeChatPartnerAvatar;
+                        } else {
+                            const senderProfileRef = doc(db, `artifacts/${appId}/users/${message.senderId}/userProfiles`, 'userProfile');
+                            const senderProfileSnap = await getDoc(senderProfileRef);
+                            if (senderProfileSnap.exists()) {
+                                senderAvatarSrc = senderProfileSnap.data().avatar || senderAvatarSrc;
+                            }
+                        }
+
+                        messageElement.innerHTML = `
+                            <div class="flex ${message.senderId === userId ? 'flex-row-reverse' : 'flex-row'} items-start">
+                                <img src="${senderAvatarSrc}"
+                                     alt="Avatar" class="w-8 h-8 rounded-full ${message.senderId === userId ? 'ml-2' : 'mr-2'} border-2 border-gray-600">
+                                <div class="p-3 rounded-xl ${message.senderId === userId ? 'bg-byte-accent-cyan text-byte-dark-bg' : 'bg-gray-700 text-white'} max-w-[75%] shadow-md">
+                                    <p class="font-semibold text-sm ${message.senderId === userId ? 'text-byte-dark-bg' : 'text-byte-accent-cyan'}">${message.senderId === userId ? 'Tú' : message.senderName}</p>
+                                    <p class="text-sm break-words">${message.text}</p>
+                                    <span class="text-xs ${message.senderId === userId ? 'text-gray-700' : 'text-gray-400'} block text-right">${new Date(message.timestamp.seconds * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                </div>
+                            </div>
+                        `;
+                        messagesDisplay.appendChild(messageElement);
+                    }
+                    messagesDisplay.scrollTop = messagesDisplay.scrollHeight; // Scroll to bottom
+                }
+            }, (error) => {
+                console.error("Error listening to messages:", error);
+                messagesDisplay.innerHTML = '<p class="text-red-400 text-center">Error al cargar mensajes.</p>';
+            });
+        }
+
+        /**
+         * Sends a message in the active chat.
+         */
+        async function sendMessage() {
+            if (!activeChatId || !userId || isChatReadOnly || isUserBanned) {
+                console.error("No hay chat activo, usuario no autenticado, chat en modo de solo lectura o usuario baneado para enviar mensaje.");
+                return;
+            }
+
+            const messageText = chatMessageInput.value.trim();
+            if (messageText === '') return;
+
+            try {
+                const messagesCollectionRef = collection(db, `artifacts/${appId}/public/data/chats`, activeChatId, 'messages');
+                await addDoc(messagesCollectionRef, {
+                    senderId: userId,
+                    senderName: userName,
+                    text: messageText,
+                    timestamp: serverTimestamp()
+                });
+
+                const chatRef = doc(db, `artifacts/${appId}/public/data/chats`, activeChatId);
+                await updateDoc(chatRef, {
+                    lastMessage: {
+                        text: messageText,
+                        timestamp: serverTimestamp(),
+                        senderId: userId
+                    }
+                });
+
+                chatMessageInput.value = ''; // Clear input
+                messagesDisplay.scrollTop = messagesDisplay.scrollHeight; // Scroll to bottom
+            } catch (error) {
+                console.error("Error sending message:", error);
+            }
+        }
+
+        /**
+         * Listens for the current user's active chats and renders them in the sidebar.
+         */
+        function listenForMyChats() {
+            if (!db || !userId) {
+                console.error("Firestore not initialized or user not authenticated for active chats.");
+                return;
+            }
+            if (unsubscribeFromMyChats) {
+                unsubscribeFromMyChats();
+            }
+
+            const chatsCollectionRef = collection(db, `artifacts/${appId}/public/data/chats`);
+            const q = query(chatsCollectionRef, where('participants', 'array-contains', userId));
+
+            unsubscribeFromMyChats = onSnapshot(q, async (snapshot) => {
+                myActiveChatsList.innerHTML = '';
+                if (snapshot.empty) {
+                    myActiveChatsList.innerHTML = '<p class="text-gray-400 text-sm">No hay chats activos aún.</p>';
+                } else {
+                    let activeChats = [];
+                    for (const docSnapshot of snapshot.docs) {
+                        const chat = docSnapshot.data();
+                        const chatParticipants = chat.participants;
+                        const partnerId = chatParticipants.find(id => id !== userId);
+
+                        const partnerProfileRef = doc(db, `artifacts/${appId}/users/${partnerId}/userProfiles`, 'userProfile');
+                        const partnerProfileSnap = await getDoc(partnerProfileRef);
+                        const partnerData = partnerProfileSnap.exists() ? partnerProfileSnap.data() : { name: 'Usuario Desconocido', avatar: 'https://placehold.co/40x40/00FFFF/0A0A1A?text=U' };
+
+                        activeChats.push({
+                            id: docSnapshot.id,
+                            partnerId: partnerId,
+                            partnerName: partnerData.name,
+                            partnerAvatar: partnerData.avatar,
+                            lastMessageText: chat.lastMessage ? chat.lastMessage.text : '',
+                            lastMessageTimestamp: chat.lastMessage ? chat.lastMessage.timestamp : null
+                        });
+                    }
+
+                    activeChats.sort((a, b) => {
+                        if (!a.lastMessageTimestamp) return 1;
+                        if (!b.lastMessageTimestamp) return -1;
+                        return b.lastMessageTimestamp.toDate().getTime() - a.lastMessageTimestamp.toDate().getTime();
+                    });
+
+                    activeChats.forEach(chat => {
+                        const chatItem = document.createElement('li');
+                        chatItem.className = `flex items-center p-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors ${activeChatId === chat.id ? 'bg-gray-700' : ''}`;
+                        chatItem.innerHTML = `
+                            <img src="${chat.partnerAvatar}" alt="Avatar" class="w-8 h-8 rounded-full mr-2 border-2 border-blue-400">
+                            <div>
+                                <span class="text-byte-text-light font-semibold">${chat.partnerName}</span>
+                                <p class="text-gray-400 text-xs truncate">${chat.lastMessageText}</p>
+                            </div>
+                        `;
+                        chatItem.addEventListener('click', () => startChat(chat.partnerId, chat.partnerName, chat.partnerAvatar));
+                        myActiveChatsList.appendChild(chatItem);
+                    });
+                }
+            }, (error) => {
+                console.error("Error listening to active chats:", error);
+            });
+        }
+
+        /**
+         * Listens for all chats (for admin monitoring) and renders them.
+         */
+        async function listenForAdminChats() {
+            if (!db || userId !== ADMIN_UID) {
+                adminChatMonitoringSection.style.display = 'none';
+                return;
+            }
+            adminChatMonitoringSection.style.display = 'block';
+
+            if (unsubscribeFromAdminChats) {
+                unsubscribeFromAdminChats();
+            }
+
+            const chatsCollectionRef = collection(db, `artifacts/${appId}/public/data/chats`);
+            const q = query(chatsCollectionRef, orderBy('createdAt', 'desc'));
+
+            unsubscribeFromAdminChats = onSnapshot(q, async (snapshot) => {
+                adminChatsList.innerHTML = '';
+                if (snapshot.empty) {
+                    adminChatsList.innerHTML = '<p class="text-gray-400 text-sm">No hay chats para monitorear.</p>';
+                } else {
+                    for (const docSnapshot of snapshot.docs) {
+                        const chat = docSnapshot.data();
+                        const participants = chat.participants;
+                        let participantNames = [];
+                        let participantAvatars = [];
+
+                        for (const participantId of participants) {
+                            const profileRef = doc(db, `artifacts/${appId}/users/${participantId}/userProfiles`, 'userProfile');
+                            const profileSnap = await getDoc(profileRef);
+                            if (profileSnap.exists()) {
+                                const profileData = profileSnap.data();
+                                participantNames.push(profileData.name || 'Usuario Desconocido');
+                                participantAvatars.push(profileData.avatar || 'https://placehold.co/40x40/00FFFF/0A0A1A?text=U');
+                            } else {
+                                participantNames.push('Usuario Desconocido');
+                                participantAvatars.push('https://placehold.co/40x40/00FFFF/0A0A1A?text=U');
+                            }
+                        }
+
+                        const chatItem = document.createElement('li');
+                        chatItem.className = `flex items-center p-2 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors ${activeChatId === docSnapshot.id ? 'bg-gray-700' : ''}`;
+                        chatItem.innerHTML = `
+                            <img src="${participantAvatars[0]}" alt="Avatar" class="w-8 h-8 rounded-full mr-2 border-2 border-red-500">
+                            <div>
+                                <span class="text-red-500 font-semibold">Chat: ${participantNames.join(' & ')}</span>
+                                <p class="text-gray-400 text-xs truncate">Último: ${chat.lastMessage ? chat.lastMessage.text : 'N/A'}</p>
+                            </div>
+                        `;
+                        chatItem.addEventListener('click', () => viewChatAsAdmin(docSnapshot.id, participantNames, participantAvatars));
+                        adminChatsList.appendChild(chatItem);
+                    }
+                }
+            }, (error) => {
+                console.error("Error listening to admin chats:", error);
+            });
+        }
+
+        /**
+         * Checks if a user is currently banned.
+         * @param {string} uid - The user ID to check.
+         * @returns {Promise<boolean>} True if the user is banned, false otherwise.
+         */
+        async function checkIfUserIsBanned(uid) {
+            if (!db) return false;
+            const bannedUserRef = doc(db, `artifacts/${appId}/public/data/bannedUsers`, uid);
+            try {
+                const bannedUserSnap = await getDoc(bannedUserRef);
+                return bannedUserSnap.exists();
+            } catch (error) {
+                console.error("Error checking banned status:", error);
+                return false;
+            }
+        }
 
         // Initialize Firebase and Authentication
         async function initializeFirebase() {
-            updateFirebaseStatus(false); // Set to connecting initially
+            updateFirebaseStatus(false);
             try {
                 if (Object.keys(firebaseConfig).length === 0) {
                     console.error("Firebase config is missing. Please ensure firebaseConfig is provided.");
@@ -1093,21 +1863,22 @@
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                // Authenticate user
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         userId = user.uid;
                         console.log("Authenticated user ID:", userId);
-                        console.log("Usuario autenticado, comprobando perfil...");
+
+                        // Check banned status immediately upon authentication
+                        isUserBanned = await checkIfUserIsBanned(userId);
+                        console.log(`User ${userId} is banned: ${isUserBanned}`);
 
                         // Start presence tracking
-                        if (presenceInterval) clearInterval(presenceInterval); // Clear any existing interval
+                        if (presenceInterval) clearInterval(presenceInterval);
                         presenceInterval = setInterval(updateUserPresence, PRESENCE_UPDATE_INTERVAL);
-                        updateUserPresence(); // Initial update
+                        updateUserPresence();
 
                         // Check for user profile
                         const userProfileRef = doc(db, `artifacts/${appId}/users/${userId}/userProfiles`, 'userProfile');
-                        console.log("Attempting to get user profile from path:", userProfileRef.path);
                         const userProfileSnap = await getDoc(userProfileRef);
 
                         if (userProfileSnap.exists()) {
@@ -1115,48 +1886,87 @@
                             const profileData = userProfileSnap.data();
                             userName = profileData.name;
                             userEmail = profileData.email;
-                            userAvatar = profileData.avatar || 'https://placehold.co/48x48/00FFFF/0A0A1A?text=' + userName.substring(0, 1).toUpperCase(); // Use stored avatar or default
-                            userInfoBar.textContent = `Conectado como: ${userName} (ID: ${userId.substring(0, 8)}...)`;
+                            userAvatar = profileData.avatar || 'https://placehold.co/48x48/00FFFF/0A0A1A?text=' + userName.substring(0, 1).toUpperCase();
+
+                            let statusText = `Conectado como: ${userName} (ID: ${userId.substring(0, 8)}...)`;
+                            if (isUserBanned) {
+                                statusText += ' <span class="banned-badge">BANEADO</span>';
+                                submitPostButton.disabled = true; // Disable posting for banned users
+                                postTextInput.disabled = true;
+                                postImageUrlInput.disabled = true;
+                                postVideoUrlInput.disabled = true;
+                            } else {
+                                submitPostButton.disabled = false; // Enable post button
+                                postTextInput.disabled = false;
+                                postImageUrlInput.disabled = false;
+                                postVideoUrlInput.disabled = false;
+                            }
+                            userInfoBar.innerHTML = statusText;
                             loginButton.textContent = 'Cerrar Sesión';
-                            submitPostButton.disabled = false; // Enable post button
-                            updateFirebaseStatus(true); // Firebase connected after successful auth and profile check
-                            listenForPosts(); // Start listening for posts after profile is loaded
-                            listenForOnlineUsers(); // Start listening for online users
-                            hideAuthModal(); // Hide modal if user is authenticated and has a profile
+
+                            isFirebaseReady = true;
+                            updateFirebaseStatus(true);
+
+                            listenForPosts();
+                            listenForOnlineUsers();
+                            listenForOnlineUsersForChat();
+                            listenForMyChats();
+                            listenForAdminChats();
+
+                            hideAuthModal();
                         } else {
-                            console.log("Perfil no encontrado, mostrando formulario de perfil.");
-                            // No profile found, prompt user to create one
-                            userName = `Usuario: ${user.email ? user.email.split('@')[0] : userId.substring(0, 8)}...`; // Use email part or UID
+                            userName = `Usuario: ${user.email ? user.email.split('@')[0] : userId.substring(0, 8)}...`;
                             userEmail = user.email || '';
                             userInfoBar.textContent = `Conectado como: ${userName} (completa tu perfil)`;
-                            loginButton.textContent = 'Cerrar Sesión';
-                            submitPostButton.disabled = true; // Disable until profile is created
-                            showProfileForm(); // Show profile creation form
-                            updateFirebaseStatus(true); // Still connected to auth, just profile missing
+                            submitPostButton.disabled = true;
+                            postTextInput.disabled = true; // Disable post inputs until profile is created
+                            postImageUrlInput.disabled = true;
+                            postVideoUrlInput.disabled = true;
+                            showProfileForm();
+                            isFirebaseReady = true;
+                            updateFirebaseStatus(true);
                         }
                     } else {
                         userId = null;
                         userName = 'Usuario Anónimo';
                         userEmail = '';
-                        userAvatar = 'https://placehold.co/48x48/00FFFF/0A0A1A?text=U'; // Reset avatar
+                        userAvatar = 'https://placehold.co/48x48/00FFFF/0A0A1A?text=U';
+                        isUserBanned = false; // Reset banned status
                         userInfoBar.textContent = "No conectado";
-                        loginButton.textContent = 'Iniciar Sesión'; // Change button text
-                        submitPostButton.disabled = true; // Disable post button
-                        console.log("No user authenticated.");
-                        // Clear posts if not authenticated
+                        loginButton.textContent = 'Iniciar Sesión';
+                        submitPostButton.disabled = true;
+                        postTextInput.disabled = true; // Disable post inputs
+                        postImageUrlInput.disabled = true;
+                        postVideoUrlInput.disabled = true;
+
                         forumPostsContainer.innerHTML = '<h2 class="text-xl sm:text-2xl font-semibold text-center mb-6 text-byte-accent-cyan">Últimas Publicaciones</h2>';
-                        updateFirebaseStatus(false); // Not connected if no user
-                        showAuthModal(); // Show auth modal if not authenticated
-                        if (presenceInterval) clearInterval(presenceInterval); // Stop presence tracking
-                        // Optional: Clear user's presence from Firestore on explicit sign out
-                        if (db && userId) { // Check if db is initialized and userId was set
+                        isFirebaseReady = false;
+                        updateFirebaseStatus(false);
+                        showAuthModal();
+                        if (presenceInterval) clearInterval(presenceInterval);
+                        if (db && userId) {
                             const presenceRef = doc(db, `artifacts/${appId}/public/data/usersPresence`, userId);
                             try {
                                 await deleteDoc(presenceRef);
-                                console.log("Presencia de usuario eliminada al cerrar sesión.");
                             } catch (error) {
                                 console.error("Error al eliminar presencia al cerrar sesión:", error);
                             }
+                        }
+                        if (unsubscribeFromMessages) {
+                            unsubscribeFromMessages();
+                            unsubscribeFromMessages = null;
+                        }
+                        if (unsubscribeFromMyChats) {
+                            unsubscribeFromMyChats();
+                            unsubscribeFromMyChats = null;
+                        }
+                        if (unsubscribeFromOnlineUsersForChat) {
+                            unsubscribeFromOnlineUsersForChat();
+                            unsubscribeFromOnlineUsersForChat = null;
+                        }
+                        if (unsubscribeFromAdminChats) {
+                            unsubscribeFromAdminChats();
+                            unsubscribeFromAdminChats = null;
                         }
                     }
                 });
@@ -1168,18 +1978,15 @@
             }
         }
 
-        // Handle login/logout button click (now acts as a toggle for auth modal or sign out)
+        // Handle login/logout button click
         loginButton.addEventListener('click', async () => {
             if (auth.currentUser) {
-                // If logged in, sign out
                 try {
                     await signOut(auth);
-                    console.log("User signed out.");
                 } catch (error) {
                     console.error("Error signing out:", error);
                 }
             } else {
-                // If not logged in, show the auth modal
                 showAuthModal();
             }
         });
@@ -1196,10 +2003,18 @@
                 return;
             }
 
+            // Prevent registration if email is linked to a banned user
+            const isEmailBanned = await checkIfUserIsBanned(email); // This check is not reliable for email, only UID.
+                                                                    // A more robust banning system would involve storing banned emails.
+                                                                    // For now, banning is by UID.
+            if (isEmailBanned) {
+                authGeneralErrorMessage.textContent = "Este correo electrónico está asociado a una cuenta baneada.";
+                authGeneralErrorMessage.classList.remove('hidden');
+                return;
+            }
+
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                console.log("User registered:", userCredential.user.uid);
-                // onAuthStateChanged will handle showing the profile form
             } catch (error) {
                 handleAuthError(error);
             }
@@ -1218,8 +2033,7 @@
 
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                console.log("User logged in:", userCredential.user.uid);
-                // onAuthStateChanged will handle hiding the modal and loading profile
+                // After successful login, onAuthStateChanged will handle the banned check
             } catch (error) {
                 handleAuthError(error);
             }
@@ -1240,7 +2054,7 @@
                 await sendPasswordResetEmail(auth, email);
                 authGeneralErrorMessage.textContent = "Se ha enviado un correo de restablecimiento de contraseña a tu dirección.";
                 authGeneralErrorMessage.classList.remove('hidden');
-                authGeneralErrorMessage.style.color = '#25D366'; // Green for success
+                authGeneralErrorMessage.style.color = '#25D366';
             } catch (error) {
                 handleAuthError(error);
             }
@@ -1250,7 +2064,7 @@
             authEmailErrorMessage.classList.add('hidden');
             authPasswordErrorMessage.classList.add('hidden');
             authGeneralErrorMessage.classList.add('hidden');
-            authGeneralErrorMessage.style.color = '#FF6347'; // Reset to red for errors
+            authGeneralErrorMessage.style.color = '#FF6347';
         }
 
         function handleAuthError(error) {
@@ -1273,10 +2087,6 @@
                     authGeneralErrorMessage.textContent = "Correo electrónico o contraseña incorrectos.";
                     authGeneralErrorMessage.classList.remove('hidden');
                     break;
-                case 'auth/missing-password':
-                    authPasswordErrorMessage.textContent = "Por favor, ingresa tu contraseña.";
-                    authPasswordErrorMessage.classList.remove('hidden');
-                    break;
                 case 'auth/network-request-failed':
                     authGeneralErrorMessage.textContent = "Error de red. Por favor, verifica tu conexión.";
                     authGeneralErrorMessage.classList.remove('hidden');
@@ -1289,7 +2099,6 @@
         }
 
         // --- Profile Form Logic ---
-        // Function for basic name validation (non-AI)
         function validateName(name) {
             if (!name || name.trim() === '') {
                 return "El nombre no puede estar vacío.";
@@ -1301,15 +2110,14 @@
             if (alphanumeric.length / name.length < 0.5) {
                 return "El nombre parece ser inválido. Por favor, usa un nombre real.";
             }
-            return null; // No error
+            return null;
         }
 
-        // Handle profile form submission
         profileForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const name = profileNameInput.value.trim();
-            const avatarFile = profileAvatarUpload.files[0];
-            let avatarUrl = null;
+            const avatarUrlInput = document.getElementById('profile-avatar-url');
+            let avatarUrl = avatarUrlInput.value.trim();
 
             profileNameErrorMessage.classList.add('hidden');
             profileAvatarErrorMessage.classList.add('hidden');
@@ -1321,10 +2129,14 @@
                 return;
             }
 
-            if (!avatarFile) {
-                profileAvatarErrorMessage.textContent = "Por favor, sube una foto de perfil. Es obligatoria.";
+            if (avatarUrl && !/\.(jpeg|jpg|gif|png|webp|avif)$/i.test(avatarUrl.toLowerCase())) {
+                profileAvatarErrorMessage.textContent = "Por favor, ingresa una URL de imagen válida para tu avatar (terminada en .jpg, .png, etc.).";
                 profileAvatarErrorMessage.classList.remove('hidden');
                 return;
+            }
+
+            if (!avatarUrl) {
+                avatarUrl = 'https://placehold.co/48x48/00FFFF/0A0A1A?text=' + name.substring(0, 1).toUpperCase();
             }
 
             if (!userId) {
@@ -1332,37 +2144,33 @@
                 return;
             }
 
-            // Handle avatar file upload (simulated to Data URL)
-            const reader = new FileReader();
-            reader.onload = async (e) => {
-                avatarUrl = e.target.result; // Data URL
-                await saveProfileToFirestore(name, auth.currentUser.email, avatarUrl); // Use current user's email
-            };
-            reader.readAsDataURL(avatarFile);
+            await saveProfileToFirestore(name, auth.currentUser.email, avatarUrl);
         });
 
         async function saveProfileToFirestore(name, email, avatarUrl) {
             try {
                 const userProfileRef = doc(db, `artifacts/${appId}/users/${userId}/userProfiles`, 'userProfile');
-                console.log("Attempting to save profile to path:", userProfileRef.path);
                 await setDoc(userProfileRef, {
                     name: name,
                     email: email,
-                    avatar: avatarUrl, // Save the avatar URL
-                    createdAt: new Date()
+                    avatar: avatarUrl,
+                    createdAt: serverTimestamp()
                 }, { merge: true });
 
                 userName = name;
                 userEmail = email;
-                userAvatar = avatarUrl; // Update global avatar
-                userInfoBar.textContent = `Conectado como: ${userName} (ID: ${userId.substring(0, 8)}...)`;
-                submitPostButton.disabled = false; // Enable post button
-                hideAuthModal(); // Hide the modal after profile is saved
-                listenForPosts(); // Start listening for posts now that profile is ready
-                console.log("Perfil de usuario guardado con éxito.");
-                console.log("userName después de guardar perfil:", userName);
-                console.log("userId después de guardar perfil:", userId);
-                updateFirebaseStatus(true); // Confirm connected after profile save
+                userAvatar = avatarUrl;
+                userInfoBar.innerHTML = `Conectado como: ${userName} (ID: ${userId.substring(0, 8)}...)`; // Use innerHTML for badge
+                submitPostButton.disabled = false;
+                postTextInput.disabled = false;
+                postImageUrlInput.disabled = false;
+                postVideoUrlInput.disabled = false;
+                hideAuthModal();
+                listenForPosts();
+                updateFirebaseStatus(true);
+                listenForOnlineUsersForChat();
+                listenForMyChats();
+                listenForAdminChats();
             } catch (e) {
                 console.error("Error al guardar el perfil: ", e);
                 updateFirebaseStatus(false);
@@ -1370,37 +2178,172 @@
         }
 
 
-        // Array to store forum posts (will be populated from Firestore)
         let forumPosts = [];
 
         const forumPostsContainer = document.getElementById('forum-posts-container');
         const newPostForm = document.getElementById('new-post-form');
         const postTextInput = document.getElementById('post-text');
-        const postImageUpload = document.getElementById('post-image-upload');
+        const postImageUrlInput = document.getElementById('post-image-url');
+        const postVideoUrlInput = document.getElementById('post-video-url');
+
+
+        /**
+         * Generates the appropriate HTML for embedding a video based on its URL.
+         * Supports YouTube, Vimeo, and direct video file links.
+         * @param {string} url - The URL of the video.
+         * @returns {string} The HTML string for embedding the video.
+         */
+        function getEmbedHtml(url) {
+            if (!url) return '';
+
+            // YouTube
+            const youtubeMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:m\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=|embed\/|v\/|)([\w-]{11})(?:\S+)?/);
+            if (youtubeMatch && youtubeMatch[1]) {
+                const videoId = youtubeMatch[1];
+                return `<div class="aspect-w-16 aspect-h-9 mb-4">
+                            <iframe class="w-full h-auto rounded-lg shadow-md"
+                                    src="https://www.youtube.com/embed/${videoId}"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>`;
+            }
+
+            // Vimeo
+            const vimeoMatch = url.match(/(?:https?:\/\/)?(?:www\.)?(?:player\.)?vimeo\.com\/(?:video\/|channels\/\w+\/|groups\/\w+\/videos\/|album\/\d+\/video\/|)(\d+)(?:\S+)?/);
+            if (vimeoMatch && vimeoMatch[1]) {
+                const videoId = vimeoMatch[1];
+                return `<div class="aspect-w-16 aspect-h-9 mb-4">
+                            <iframe class="w-full h-auto rounded-lg shadow-md"
+                                    src="https://player.vimeo.com/video/${videoId}"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen; picture-in-picture"
+                                    allowfullscreen></iframe>
+                        </div>`;
+            }
+
+            // Direct video file (MP4, WebM, Ogg)
+            if (/\.(mp4|webm|ogg)$/i.test(url)) {
+                return `<video controls class="w-full h-auto rounded-lg shadow-md mb-4" onerror="this.onerror=null; this.src='https://placehold.co/600x300/FF0000/FFFFFF?text=Error+al+cargar+video';">
+                            <source src="${url}" type="video/${url.split('.').pop().toLowerCase()}">
+                            Tu navegador no soporta el tag de video.
+                        </video>`;
+            }
+
+            return `<p class="text-red-400 mb-4 text-center">URL de video no reconocida o formato no soportado: <a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">Ver video</a></p>`;
+        }
+
+
+        /**
+         * Attaches event listeners to reaction buttons and comment inputs/buttons.
+         * This function needs to be called after posts are rendered to ensure elements exist.
+         */
+        function attachEventListeners() {
+            document.querySelectorAll('.reaction-button').forEach(button => {
+                button.onclick = null;
+                button.onclick = (event) => {
+                    const postId = event.currentTarget.closest('.post-card').dataset.postId;
+                    const reactionType = event.currentTarget.dataset.reactionType;
+                    toggleReaction(postId, reactionType);
+                };
+            });
+
+            document.querySelectorAll('.comment-button').forEach(button => {
+                button.onclick = null;
+                button.onclick = (event) => {
+                    const postId = event.currentTarget.dataset.postId;
+                    const commentInput = event.currentTarget.previousElementSibling;
+                    if (commentInput && commentInput.value.trim() !== '') {
+                        addComment(postId, commentInput.value.trim());
+                        commentInput.value = '';
+                    }
+                };
+            });
+
+            document.querySelectorAll('.comment-input').forEach(input => {
+                input.disabled = !(userId && userName !== 'Usuario Anónimo' && !isUserBanned);
+            });
+            document.querySelectorAll('.comment-button').forEach(button => {
+                button.disabled = !(userId && userName !== 'Usuario Anónimo' && !isUserBanned);
+            });
+
+            // Admin action buttons
+            if (userId === ADMIN_UID) {
+                document.querySelectorAll('.delete-post-button').forEach(button => {
+                    button.onclick = null;
+                    button.onclick = (event) => {
+                        const postId = event.currentTarget.dataset.postId;
+                        showConfirmationModal("¿Estás seguro de que quieres eliminar esta publicación? Esta acción es irreversible.", () => deletePost(postId), "Eliminar Publicación");
+                    };
+                });
+
+                document.querySelectorAll('.delete-comment-button').forEach(button => {
+                    button.onclick = null;
+                    button.onclick = (event) => {
+                        const postId = event.currentTarget.dataset.postId;
+                        const commentIndex = parseInt(event.currentTarget.dataset.commentIndex);
+                        showConfirmationModal("¿Estás seguro de que quieres eliminar este comentario? Esta acción es irreversible.", () => deleteComment(postId, commentIndex), "Eliminar Comentario");
+                    };
+                });
+
+                document.querySelectorAll('.ban-user-button').forEach(button => {
+                    button.onclick = null;
+                    button.onclick = async (event) => {
+                        const userIdToBan = event.currentTarget.dataset.userId;
+                        const userNameToBan = event.currentTarget.dataset.userName;
+                        const isCurrentlyBanned = await checkIfUserIsBanned(userIdToBan);
+                        const action = isCurrentlyBanned ? "desbanear" : "banear";
+                        const message = `¿Estás seguro de que quieres ${action} a ${userNameToBan} (ID: ${userIdToBan.substring(0, 8)}...)?`;
+                        showConfirmationModal(message, () => toggleBanUser(userIdToBan, userNameToBan, isCurrentlyBanned), `${action.charAt(0).toUpperCase() + action.slice(1)} Usuario`);
+                    };
+                });
+            }
+        }
+
 
         // Function to render all posts
-        function renderPosts() {
-            forumPostsContainer.innerHTML = '<h2 class="text-xl sm:text-2xl font-semibold text-center mb-6 text-byte-accent-cyan">Últimas Publicaciones</h2>'; // Clear and re-add title
+        async function renderPosts() {
+            forumPostsContainer.innerHTML = '<h2 class="text-xl sm:text-2xl font-semibold text-center mb-6 text-byte-accent-cyan">Últimas Publicaciones</h2>';
             if (forumPosts.length === 0) {
                 forumPostsContainer.innerHTML += '<p class="text-center text-gray-400">No hay publicaciones aún. ¡Sé el primero en publicar!</p>';
             }
-            forumPosts.forEach(post => {
+            for (const post of forumPosts) {
                 const postElement = document.createElement('div');
                 postElement.className = 'post-card';
-                postElement.setAttribute('data-post-id', post.id); // Firestore doc ID
+                postElement.setAttribute('data-post-id', post.id);
 
-                let postImageHtml = '';
-                if (post.image) {
-                    postImageHtml = `<img src="${post.image}" alt="Imagen de la publicación" class="post-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/FF0000/FFFFFF?text=Error+al+cargar+imagen';">`;
-                }
-
-                // Determine if the author is an admin
                 const isAdmin = post.authorId === ADMIN_UID;
                 const adminBadgeHtml = isAdmin ? '<span class="admin-badge">Admin</span>' : '';
 
-                // Ensure reactions object exists and has default values
+                let mediaHtml = '';
+                if (post.image) {
+                    mediaHtml += `<img src="${post.image}" alt="Imagen de la publicación" class="post-image" onerror="this.onerror=null; this.src='https://placehold.co/600x300/FF0000/FFFFFF?text=Error+al+cargar+imagen';">`;
+                }
+                if (post.video) {
+                    mediaHtml += getEmbedHtml(post.video);
+                }
+
                 const reactions = post.reactions || { like: 0, love: 0, haha: 0 };
                 const userReaction = post.userReactions ? post.userReactions[userId] : null;
+
+                // Admin action buttons for post
+                let adminPostActionsHtml = '';
+                if (userId === ADMIN_UID) {
+                    const isAuthorBanned = await checkIfUserIsBanned(post.authorId);
+                    const banButtonText = isAuthorBanned ? 'Desbanear' : 'Banear';
+                    const banButtonClass = isAuthorBanned ? 'bg-green-600 hover:bg-green-700' : 'bg-purple-600 hover:bg-purple-700'; // Green for unban, purple for ban
+
+                    adminPostActionsHtml = `
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <button class="admin-action-button delete-post-button" data-post-id="${post.id}" title="Eliminar Publicación">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="admin-action-button ban-user-button ${banButtonClass}" data-user-id="${post.authorId}" data-user-name="${post.authorName}" title="${banButtonText} Usuario">
+                                <i class="fas fa-ban"></i> ${banButtonText}
+                            </button>
+                        </div>
+                    `;
+                }
 
                 postElement.innerHTML = `
                     <div class="post-header">
@@ -1409,13 +2352,15 @@
                             <p class="post-author">
                                 ${post.authorName || 'Usuario Desconocido'}
                                 ${adminBadgeHtml}
+                                ${post.authorId && await checkIfUserIsBanned(post.authorId) ? '<span class="banned-badge">BANEADO</span>' : ''}
                             </p>
                             <p class="post-timestamp">${new Date(post.timestamp.seconds * 1000).toLocaleString()}</p>
                             <p class="text-xs text-gray-500">ID: ${post.authorId ? post.authorId.substring(0, 8) + '...' : 'N/A'}</p>
                         </div>
+                        ${adminPostActionsHtml}
                     </div>
                     <p class="post-content">${post.content}</p>
-                    ${postImageHtml}
+                    ${mediaHtml}
                     <div class="post-actions">
                         <button class="reaction-button ${userReaction === 'like' ? 'active' : ''}" data-reaction-type="like">
                             <i class="fas fa-thumbs-up"></i> Me gusta <span class="reaction-count">${reactions.like || 0}</span>
@@ -1429,24 +2374,30 @@
                     </div>
                     <div class="comment-section">
                         <div class="comment-input-container">
-                            <input type="text" placeholder="Escribe un comentario..." class="comment-input" data-post-id="${post.id}" ${userId && userName !== 'Usuario Anónimo' ? '' : 'disabled'}>
-                            <button class="comment-button" data-post-id="${post.id}" ${userId && userName !== 'Usuario Anónimo' ? '' : 'disabled'}>Comentar</button>
+                            <input type="text" placeholder="Escribe un comentario..." class="comment-input" data-post-id="${post.id}" ${userId && userName !== 'Usuario Anónimo' && !isUserBanned ? '' : 'disabled'}>
+                            <button class="comment-button" data-post-id="${post.id}" ${userId && userName !== 'Usuario Anónimo' && !isUserBanned ? '' : 'disabled'}>Comentar</button>
                         </div>
                         <ul class="comment-list">
-                            ${(post.comments || []).map(comment => `
+                            ${(post.comments || []).map((comment, index) => `
                                 <li class="comment-item">
-                                    <p class="comment-author">${comment.authorName || 'Usuario Desconocido'}</p>
-                                    <p class="comment-text">${comment.text}</p>
-                                    <p class="text-xs text-gray-500">${new Date(comment.timestamp.seconds * 1000).toLocaleString()}</p>
+                                    <div class="comment-content-wrapper">
+                                        <p class="comment-author">${comment.authorName || 'Usuario Desconocido'}</p>
+                                        <p class="comment-text">${comment.text}</p>
+                                        <p class="text-xs text-gray-500">${new Date(comment.timestamp.seconds * 1000).toLocaleString()}</p>
+                                    </div>
+                                    ${userId === ADMIN_UID ? `
+                                        <button class="admin-action-button delete-comment-button" data-post-id="${post.id}" data-comment-index="${index}" title="Eliminar Comentario">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    ` : ''}
                                 </li>
                             `).join('')}
                         </ul>
                     </div>
                 `;
                 forumPostsContainer.appendChild(postElement);
-            });
+            }
 
-            // Re-attach event listeners after rendering
             attachEventListeners();
         }
 
@@ -1458,20 +2409,18 @@
                 return;
             }
             const postsCollectionRef = collection(db, `artifacts/${appId}/public/data/forumPosts`);
-            console.log("Attempting to listen to posts from path:", postsCollectionRef.path);
-            
+
             onSnapshot(postsCollectionRef, (snapshot) => {
                 forumPosts = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data()
                 }));
-                // Sort in memory instead of Firestore query
                 forumPosts.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
                 renderPosts();
-                updateFirebaseStatus(true); // Confirm connected after successful data fetch
+                updateFirebaseStatus(true);
             }, (error) => {
                 console.error("Error listening to posts:", error);
-                updateFirebaseStatus(false); // Set to disconnected on error
+                updateFirebaseStatus(false);
             });
         }
 
@@ -1479,53 +2428,66 @@
         newPostForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             if (!userId || userName === 'Usuario Anónimo') {
-                console.log("Debes completar tu perfil para publicar.");
+                showConfirmationModal("Debes completar tu perfil para publicar.", () => {}, "Error de Publicación");
+                return;
+            }
+            if (isUserBanned) {
+                showConfirmationModal("No puedes crear publicaciones porque estás baneado del foro.", () => {}, "Acceso Denegado");
                 return;
             }
 
             const content = postTextInput.value.trim();
-            const imageFile = postImageUpload.files[0];
-            let imageUrl = null;
+            const imageUrl = postImageUrlInput.value.trim();
+            const videoUrl = postVideoUrlInput.value.trim();
 
-            if (imageFile) {
-                imageUrl = URL.createObjectURL(imageFile);
-                console.warn("La carga de imágenes es simulada. En una aplicación real, usa Firebase Storage.");
+            if (imageUrl && !/\.(jpeg|jpg|gif|png|webp|avif)$/i.test(imageUrl.toLowerCase())) {
+                showConfirmationModal("Por favor, ingresa una URL de imagen válida (terminada en .jpg, .png, .gif, etc.).", () => {}, "URL Inválida");
+                return;
             }
 
-            if (content || imageUrl) {
+            if (videoUrl && !/(youtube\.com|youtu\.be|vimeo\.com|\.mp4|\.webm|\.ogg)/i.test(videoUrl)) {
+                showConfirmationModal("Por favor, ingresa una URL de video válida (YouTube, Vimeo, o enlace directo a .mp4, .webm, .ogg).", () => {}, "URL Inválida");
+                return;
+            }
+
+            if (content || imageUrl || videoUrl) {
                 try {
                     const postsCollectionRef = collection(db, `artifacts/${appId}/public/data/forumPosts`);
-                    console.log("Attempting to add post to path:", postsCollectionRef.path);
                     await addDoc(postsCollectionRef, {
                         authorId: userId,
-                        authorName: userName, // Use the authenticated user's name
-                        authorEmail: userEmail, // Store user's email
-                        authorAvatar: userAvatar, // Use the user's actual avatar
-                        timestamp: new Date(),
+                        authorName: userName,
+                        authorEmail: userEmail,
+                        authorAvatar: userAvatar,
+                        timestamp: serverTimestamp(),
                         content: content,
                         image: imageUrl,
-                        reactions: { like: 0, love: 0, haha: 0 }, // Initialize reactions
-                        userReactions: {} // To store which user reacted with what
+                        video: videoUrl,
+                        reactions: { like: 0, love: 0, haha: 0 },
+                        userReactions: {}
                     });
                     postTextInput.value = '';
-                    postImageUpload.value = ''; // Clear file input
-                    console.log("Publicación añadida con éxito.");
+                    postImageUrlInput.value = '';
+                    postVideoUrlInput.value = '';
                 } catch (e) {
                     console.error("Error al añadir la publicación: ", e);
+                    showConfirmationModal(`Error al añadir la publicación: ${e.message}`, () => {}, "Error");
                 }
             } else {
-                console.log('No se puede publicar un post vacío.');
+                showConfirmationModal('No se puede publicar un post vacío.', () => {}, "Publicación Vacía");
             }
         });
 
         // Function to handle reactions in Firestore
         async function toggleReaction(postId, reactionType) {
             if (!userId || userName === 'Usuario Anónimo') {
-                console.log("Debes completar tu perfil para reaccionar.");
+                showConfirmationModal("Debes completar tu perfil para reaccionar.", () => {}, "Error de Reacción");
+                return;
+            }
+            if (isUserBanned) {
+                showConfirmationModal("No puedes reaccionar porque estás baneado del foro.", () => {}, "Acceso Denegado");
                 return;
             }
             const postRef = doc(db, `artifacts/${appId}/public/data/forumPosts`, postId);
-            console.log("Attempting to update reaction on post path:", postRef.path);
 
             try {
                 const postSnapshot = await getDoc(postRef);
@@ -1543,60 +2505,174 @@
                 let updates = {};
 
                 if (previousReaction === reactionType) {
-                    // User is un-reacting
-                    updates[`reactions.${reactionType}`] = (currentReactions[reactionType] || 0) - 1;
+                    updates[`reactions.${reactionType}`] = Math.max(0, (currentReactions[reactionType] || 0) - 1);
                     const newUserReactions = { ...currentUserReactions };
                     delete newUserReactions[userId];
                     updates.userReactions = newUserReactions;
                 } else {
-                    // User is reacting or changing reaction
                     if (previousReaction) {
-                        // Decrement previous reaction count
-                        updates[`reactions.${previousReaction}`] = (currentReactions[previousReaction] || 0) - 1;
+                        updates[`reactions.${previousReaction}`] = Math.max(0, (currentReactions[previousReaction] || 0) - 1);
                     }
-                    // Increment new reaction count
                     updates[`reactions.${reactionType}`] = (currentReactions[reactionType] || 0) + 1;
-                    updates[`userReactions.${userId}`] = reactionType; // Set user's new reaction
+                    updates[`userReactions.${userId}`] = reactionType;
                 }
 
                 await updateDoc(postRef, updates);
-                console.log("Reacción actualizada con éxito.");
 
             } catch (e) {
                 console.error("Error al actualizar la reacción: ", e);
+                showConfirmationModal(`Error al actualizar la reacción: ${e.message}`, () => {}, "Error");
             }
         }
 
         // Function to add comments to Firestore
         async function addComment(postId, commentText) {
             if (!userId || userName === 'Usuario Anónimo') {
-                console.log("Debes completar tu perfil para comentar.");
+                showConfirmationModal("Debes completar tu perfil para comentar.", () => {}, "Error de Comentario");
+                return;
+            }
+            if (isUserBanned) {
+                showConfirmationModal("No puedes comentar porque estás baneado del foro.", () => {}, "Acceso Denegado");
                 return;
             }
             if (commentText.trim() === '') return;
 
             const postRef = doc(db, `artifacts/${appId}/public/data/forumPosts`, postId);
-            console.log("Attempting to add comment to post path:", postRef.path);
             const newComment = {
                 authorId: userId,
                 authorName: userName,
                 text: commentText.trim(),
-                timestamp: new Date()
+                timestamp: serverTimestamp()
             };
 
             try {
                 await updateDoc(postRef, {
                     comments: arrayUnion(newComment)
                 });
-                console.log("Comentario añadido con éxito.");
             } catch (e) {
                 console.error("Error al añadir el comentario: ", e);
+                showConfirmationModal(`Error al añadir el comentario: ${e.message}`, () => {}, "Error");
             }
         }
 
+        /**
+         * Admin function to delete a post.
+         * @param {string} postId - The ID of the post to delete.
+         */
+        async function deletePost(postId) {
+            if (userId !== ADMIN_UID) {
+                showConfirmationModal("Acceso denegado. Solo los administradores pueden eliminar publicaciones.", () => {}, "Permiso Denegado");
+                return;
+            }
+            const postRef = doc(db, `artifacts/${appId}/public/data/forumPosts`, postId);
+            try {
+                await deleteDoc(postRef);
+                console.log(`Publicación ${postId} eliminada con éxito.`);
+            } catch (error) {
+                console.error(`Error al eliminar la publicación ${postId}:`, error);
+                showConfirmationModal(`Error al eliminar la publicación: ${error.message}`, () => {}, "Error");
+            }
+        }
+
+        /**
+         * Admin function to delete a specific comment from a post.
+         * @param {string} postId - The ID of the post containing the comment.
+         * @param {number} commentIndex - The index of the comment in the comments array.
+         */
+        async function deleteComment(postId, commentIndex) {
+            if (userId !== ADMIN_UID) {
+                showConfirmationModal("Acceso denegado. Solo los administradores pueden eliminar comentarios.", () => {}, "Permiso Denegado");
+                return;
+            }
+            const postRef = doc(db, `artifacts/${appId}/public/data/forumPosts`, postId);
+            try {
+                const postSnap = await getDoc(postRef);
+                if (postSnap.exists()) {
+                    const postData = postSnap.data();
+                    const comments = postData.comments || [];
+                    if (commentIndex >= 0 && commentIndex < comments.length) {
+                        const updatedComments = comments.filter((_, idx) => idx !== commentIndex);
+                        await updateDoc(postRef, { comments: updatedComments });
+                        console.log(`Comentario ${commentIndex} de la publicación ${postId} eliminado con éxito.`);
+                    } else {
+                        console.warn(`Índice de comentario inválido: ${commentIndex}`);
+                    }
+                } else {
+                    console.warn(`Publicación no encontrada: ${postId}`);
+                }
+            } catch (error) {
+                console.error(`Error al eliminar el comentario de la publicación ${postId}:`, error);
+                showConfirmationModal(`Error al eliminar el comentario: ${error.message}`, () => {}, "Error");
+            }
+        }
+
+        /**
+         * Admin function to toggle ban status for a user.
+         * @param {string} targetUserId - The ID of the user to ban/unban.
+         * @param {string} targetUserName - The name of the user (for UI).
+         * @param {boolean} isCurrentlyBanned - True if the user is currently banned.
+         */
+        async function toggleBanUser(targetUserId, targetUserName, isCurrentlyBanned) {
+            if (userId !== ADMIN_UID) {
+                showConfirmationModal("Acceso denegado. Solo los administradores pueden banear/desbanear usuarios.", () => {}, "Permiso Denegado");
+                return;
+            }
+            if (targetUserId === ADMIN_UID) {
+                showConfirmationModal("No puedes banear al administrador principal.", () => {}, "Acción No Permitida");
+                return;
+            }
+
+            const bannedUserRef = doc(db, `artifacts/${appId}/public/data/bannedUsers`, targetUserId);
+            try {
+                if (isCurrentlyBanned) {
+                    await deleteDoc(bannedUserRef);
+                    console.log(`Usuario ${targetUserName} (${targetUserId}) desbaneado con éxito.`);
+                    showConfirmationModal(`Usuario ${targetUserName} ha sido desbaneado.`, () => {}, "Usuario Desbaneado");
+                } else {
+                    await setDoc(bannedUserRef, {
+                        bannedBy: userId,
+                        bannedByName: userName,
+                        bannedAt: serverTimestamp(),
+                        userId: targetUserId,
+                        userName: targetUserName
+                    });
+                    console.log(`Usuario ${targetUserName} (${targetUserId}) baneado con éxito.`);
+                    showConfirmationModal(`Usuario ${targetUserName} ha sido baneado.`, () => {}, "Usuario Baneado");
+                }
+            } catch (error) {
+                console.error(`Error al ${isCurrentlyBanned ? 'desbanear' : 'banear'} usuario ${targetUserId}:`, error);
+                showConfirmationModal(`Error al ${isCurrentlyBanned ? 'desbanear' : 'banear'} usuario: ${error.message}`, () => {}, "Error");
+            }
+        }
+
+        // --- Emoji Picker Logic ---
+        function renderEmojiPicker() {
+            emojiPickerContainer.innerHTML = '';
+            emojis.forEach(emoji => {
+                const button = document.createElement('button');
+                button.className = 'emoji-button';
+                button.textContent = emoji;
+                button.addEventListener('click', () => {
+                    chatMessageInput.value += emoji;
+                    emojiPickerContainer.style.display = 'none';
+                    chatMessageInput.focus();
+                });
+                emojiPickerContainer.appendChild(button);
+            });
+        }
+
+        function toggleEmojiPicker() {
+            if (emojiPickerContainer.style.display === 'grid') {
+                emojiPickerContainer.style.display = 'none';
+            } else {
+                emojiPickerContainer.style.display = 'grid';
+            }
+        }
+
+
         // Initial setup on DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
-            initializeFirebase(); // Initialize Firebase and authentication
+            initializeFirebase();
 
             const scrollToTopButton = document.getElementById('scroll-to-top-button');
             const mainHeader = document.getElementById('main-header');
@@ -1624,6 +2700,17 @@
                     behavior: 'smooth'
                 });
             });
+
+            openChatButton.addEventListener('click', showChatModal);
+            closeChatModalButton.addEventListener('click', hideChatModal);
+            sendChatMessageButton.addEventListener('click', sendMessage);
+            chatMessageInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            emojiPickerButton.addEventListener('click', toggleEmojiPicker);
         });
     </script>
 </body>
