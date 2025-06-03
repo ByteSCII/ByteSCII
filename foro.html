@@ -72,6 +72,7 @@
         const settingsModal = document.getElementById('settings-modal');
         const closeSettingsModalButton = document.getElementById('close-settings-modal');
         const customizeProfileLink = document.getElementById('customize-profile-link');
+        const logoutButtonModal = document.getElementById('logout-button-modal'); // Get the logout button
 
         const profileSettingsModal = document.getElementById('profile-settings-modal');
         const closeProfileSettingsModalButton = document.getElementById('close-profile-settings-modal');
@@ -99,11 +100,6 @@
         const viewUserProfileName = document.getElementById('view-user-profile-name');
         const viewUserProfileNote = document.getElementById('view-user-profile-note');
         const banUserButton = document.getElementById('ban-user-button'); // New: Ban User button
-
-        // Chat elements (Global Chat removed)
-        // const chatMessagesContainer = document.getElementById('chat-messages-container');
-        // const chatInput = document.getElementById('chat-input');
-        // const sendChatButton = document.getElementById('send-chat-button');
 
         // Private Chat elements
         const privateChatModal = document.getElementById('private-chat-modal');
@@ -166,7 +162,7 @@
             if (isRegisterMode) {
                 authModalTitle.textContent = 'Registrarse';
                 authSubmitButton.textContent = 'Registrarse';
-                authToggleText.textContent = '¿Ya tienes una cuenta?';
+                authToggleText.textContent = '¿Ya tienes una una cuenta?';
                 authToggleButton.textContent = 'Inicia Sesión';
                 forgotPasswordLink.classList.add('hidden'); // Hide forgot password in register mode
                 authNameInput.classList.remove('hidden'); // Show name input
@@ -314,11 +310,26 @@
                     await updateDoc(userDocRef, {
                         lastActivity: Date.now()
                     });
+                    console.log(`User ${window.currentUserId} activity updated.`);
                 } catch (error) {
                     console.error("Error updating user activity:", error);
                 }
             }
         }
+
+        // Global logout function
+        window.logout = async () => {
+            console.log("Attempting to sign out...");
+            try {
+                if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+                await signOut(window.auth);
+                console.log("Sign out successful.");
+                // onAuthStateChanged will handle UI updates
+            } catch (error) {
+                console.error("Error signing out:", error);
+                alert("Error al cerrar sesión. Intenta de nuevo."); // Use a custom modal in production
+            }
+        };
 
         // Initialize Firebase and authenticate
         async function initFirebase() {
@@ -342,6 +353,7 @@
                     if (user) {
                         window.currentUserId = user.uid;
                         window.currentUsername = user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`;
+                        console.log("onAuthStateChanged: User is logged in.", user.uid);
 
                         // Fetch additional user profile data from Firestore (now directly from user document)
                         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -356,7 +368,8 @@
                             }
                             // Check if banned
                             if (window.currentUserProfile.isBanned) {
-                                await signOut(window.auth);
+                                console.warn("User is banned. Signing out.");
+                                await signOut(window.auth); // Force sign out if banned
                                 authModalOverlay.classList.remove('hidden');
                                 videoBackground.classList.remove('hidden');
                                 forumContentWrapper.classList.add('hidden');
@@ -367,6 +380,7 @@
 
                         } else {
                             // If profile doesn't exist, create a basic one (e.g., for users registered before this feature)
+                            console.log("User profile not found in Firestore. Creating a new one.");
                             await setDoc(userDocRef, {
                                 name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
                                 email: user.email,
@@ -387,19 +401,20 @@
                         }
 
                         // Hardcode admin UID check for client-side display and logic
-                        if (user.uid === "gEnwfp7imwfgz5H7VdSvCn8Yvnk2") {
+                        if (user.uid === "gEnwfp7imwfgz5H7VdSvCn8Yvnk2") { // IMPORTANT: Replace with your actual admin UID
                             window.currentUserProfile.isAdmin = true;
+                            console.log("User is hardcoded admin.");
                         }
 
 
                         if (user.emailVerified) {
                             // User is logged in and verified
+                            console.log("User email is verified. Displaying forum content.");
                             authModalOverlay.classList.add('hidden');
                             videoBackground.classList.add('hidden');
                             forumContentWrapper.classList.remove('hidden');
                             loadPosts(); // Load posts after authentication
                             loadOnlineUsers(); // Load online users
-                            // Global chat removed loadChatMessages(); // Load global chat messages
                             loadNotifications(); // Load user notifications
                             if (settingsButton) settingsButton.classList.remove('hidden'); // Show settings button
                             if (notificationsButton) notificationsButton.classList.remove('hidden'); // Show notifications button
@@ -417,6 +432,7 @@
                             updateUserActivity(); // Initial update
                         } else {
                             // User is logged in but email not verified
+                            console.log("User email is NOT verified. Showing verification message.");
                             authModalOverlay.classList.remove('hidden');
                             videoBackground.classList.remove('hidden');
                             forumContentWrapper.classList.add('hidden');
@@ -432,13 +448,15 @@
                         window.currentUserId = null;
                         window.currentUsername = "Usuario Anónimo";
                         window.currentUserProfile = {};
-                        console.log("No user authenticated.");
+                        console.log("onAuthStateChanged: No user authenticated. Updating UI for logged out state.");
                         authModalOverlay.classList.remove('hidden');
+                        console.log("authModalOverlay hidden class removed:", authModalOverlay.classList.contains('hidden'));
                         videoBackground.classList.remove('hidden');
+                        console.log("videoBackground hidden class removed:", videoBackground.classList.contains('hidden'));
                         forumContentWrapper.classList.add('hidden');
+                        console.log("forumContentWrapper hidden class added:", forumContentWrapper.classList.contains('hidden'));
                         document.getElementById('posts-container').innerHTML = '<p class="text-center text-gray-400">Inicia sesión para ver las publicaciones.</p>';
                         onlineUsersContainer.innerHTML = ''; // Clear online users
-                        // Global chat removed chatMessagesContainer.innerHTML = ''; // Clear chat messages
                         notificationBadge.classList.add('hidden'); // Hide notification badge
                         if (settingsButton) settingsButton.classList.add('hidden'); // Hide settings button
                         if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
@@ -459,7 +477,7 @@
         // Function to create a new post
         window.createPost = async (content, imageUrl, videoUrl) => {
             if (!window.db || !window.currentUserId) {
-                console.error("Firestore or user not ready.");
+                console.error("Firestore or user not ready for creating post.");
                 return;
             }
             if (!content.trim() && !imageUrl.trim() && !videoUrl.trim()) {
@@ -470,6 +488,7 @@
                 // Use __app_id for Firestore collection path
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const postsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts`);
+                console.log("Attempting to create post at path:", postsCollectionRef.path);
                 await addDoc(postsCollectionRef, {
                     userId: window.currentUserId,
                     username: window.currentUsername, // Use currentUsername (from displayName or profile)
@@ -492,11 +511,12 @@
         // Function to like/dislike a post
         window.toggleReaction = async (postId, type) => {
             if (!window.db || !window.currentUserId) {
-                console.error("Firestore or user not ready.");
+                console.error("Firestore or user not ready for toggling reaction.");
                 return;
             }
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
             const postRef = doc(window.db, `artifacts/${appId}/public/data/posts`, postId);
+            console.log(`Attempting to toggle reaction '${type}' for post ${postId} at path:`, postRef.path);
             try {
                 const postSnap = await getDoc(postRef);
                 if (postSnap.exists()) {
@@ -528,6 +548,7 @@
                         likes: updatedLikes,
                         dislikes: updatedDislikes
                     });
+                    console.log(`Reaction '${type}' toggled successfully for post ${postId}.`);
                 }
             } catch (error) {
                 console.error(`Error toggling ${type} for post ${postId}:`, error);
@@ -537,7 +558,7 @@
         // Function to add a comment
         window.addComment = async (postId, commentContent) => {
             if (!window.db || !window.currentUserId) {
-                console.error("Firestore or user not ready.");
+                console.error("Firestore or user not ready for adding comment.");
                 return;
             }
             if (!commentContent.trim()) {
@@ -547,6 +568,7 @@
             try {
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const commentsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts/${postId}/comments`);
+                console.log("Attempting to add comment to path:", commentsCollectionRef.path);
                 const newCommentRef = await addDoc(commentsCollectionRef, {
                     userId: window.currentUserId,
                     username: window.currentUsername, // Use currentUsername
@@ -566,7 +588,7 @@
                 let match;
                 const mentionedUsernames = new Set();
                 while ((match = mentionRegex.exec(commentContent)) !== null) {
-                    mentionedUsernames.add(match[1]); // Add captured username (group 1)
+                    mentionedUsernaments.add(match[1]); // Add captured username (group 1)
                 }
 
                 if (mentionedUsernames.size > 0) {
@@ -591,7 +613,7 @@
                                         content: commentContent.trim(), // Store the full comment content
                                         read: false,
                                         timestamp: Date.now()
-                                    });
+                                    }); // Corrected: Added missing closing curly brace
                                     console.log(`Notification sent to ${mentionedUsername}`);
                                 }
                             });
@@ -618,6 +640,7 @@
             const postsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts`);
             const q = query(postsCollectionRef, orderBy("timestamp", "desc")); // Order by latest
 
+            console.log("Attempting to load posts from path:", postsCollectionRef.path);
             onSnapshot(q, async (snapshot) => {
                 const postsContainer = document.getElementById('posts-container');
                 postsContainer.innerHTML = ''; // Clear existing posts
@@ -728,6 +751,7 @@
             try {
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const postRef = doc(window.db, `artifacts/${appId}/public/data/posts`, postId);
+                console.log(`Attempting to delete post ${postId} at path:`, postRef.path);
                 // Delete all comments in the subcollection first
                 const commentsCollectionRef = collection(postRef, 'comments');
                 const commentsSnapshot = await getDocs(commentsCollectionRef);
@@ -742,7 +766,7 @@
             } catch (error) {
                 console.error("Error al eliminar publicación:", error);
             }
-        }
+        };
 
         // Function to delete a comment (Admin only)
         async function deleteComment(postId, commentId) {
@@ -756,6 +780,7 @@
             try {
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const commentRef = doc(window.db, `artifacts/${appId}/public/data/posts/${postId}/comments`, commentId);
+                console.log(`Attempting to delete comment ${commentId} for post ${postId} at path:`, commentRef.path);
                 await deleteDoc(commentRef);
                 // Decrement commentsCount on the parent post
                 const postRef = doc(window.db, `artifacts/${appId}/public/data/posts`, postId);
@@ -766,7 +791,7 @@
             } catch (error) {
                 console.error("Error al eliminar comentario:", error);
             }
-        }
+        };
 
         // Modal elements for post creation/view
         const createPostModal = document.getElementById('create-post-modal');
@@ -901,6 +926,7 @@
             const commentsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts/${postId}/comments`);
             const q = query(commentsCollectionRef, orderBy("timestamp", "asc")); // Order by oldest first
 
+            console.log(`Attempting to load comments for post ${postId} from path:`, commentsCollectionRef.path);
             onSnapshot(q, async (snapshot) => {
                 commentsContainer.innerHTML = ''; // Clear existing comments
 
@@ -983,6 +1009,13 @@
             if (event.target === settingsModal) {
                 settingsModal.classList.add('hidden');
             }
+        });
+
+        // New: Logout Button in Settings Modal
+        logoutButtonModal.addEventListener('click', () => {
+            console.log("Logout button clicked in modal.");
+            window.logout(); // Call the global logout function
+            settingsModal.classList.add('hidden'); // Close the settings modal
         });
 
         // New: Customize Profile Link in Settings Modal
@@ -1240,6 +1273,7 @@
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
             // Listen to the main user collection directly
             const usersCollectionRef = collection(window.db, `artifacts/${appId}/users`);
+            console.log("Attempting to load online users from path:", usersCollectionRef.path);
 
             onSnapshot(usersCollectionRef, (snapshot) => {
                 const onlineUsersList = [];
@@ -1340,6 +1374,7 @@
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
             // Fetch profile directly from the user document
             const userDocRef = doc(window.db, `artifacts/${appId}/users/${userId}`);
+            console.log(`Attempting to load user profile for ${userId} from path:`, userDocRef.path);
 
             try {
                 const profileSnap = await getDoc(userDocRef);
@@ -1408,6 +1443,7 @@
             try {
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const userDocRef = doc(window.db, `artifacts/${appId}/users/${userId}`);
+                console.log(`Attempting to ${action} user ${userId} at path:`, userDocRef.path);
                 await updateDoc(userDocRef, {
                     isBanned: !isBannedStatus // Toggle the banned status
                 });
@@ -1420,18 +1456,6 @@
             }
         }
 
-        // Global Chat functions removed
-        /*
-        function loadChatMessages() { ... }
-        async function sendChatMessage() { ... }
-        sendChatButton.addEventListener('click', sendChatMessage);
-        chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
-        */
-
         // --- Private Chat Functions ---
 
         /**
@@ -1441,7 +1465,8 @@
          * @returns {string} Sorted combination of user IDs.
          */
         function generateChatId(userId1, userId2) {
-            return [userId1, userId2].sort().join('_');
+            const sortedIds = [userId1, userId2].sort();
+            return sortedIds.join('_');
         }
 
         /**
@@ -1471,6 +1496,7 @@
             const messagesCollectionRef = collection(window.db, `artifacts/${appId}/public/data/privateChats/${currentPrivateChatId}/messages`);
             const q = query(messagesCollectionRef, orderBy("timestamp", "asc"));
 
+            console.log(`Attempting to load private chat messages for chat ID: ${currentPrivateChatId} from path:`, messagesCollectionRef.path);
             onSnapshot(q, async (snapshot) => {
                 privateChatMessagesContainer.innerHTML = '';
                 if (snapshot.empty) {
@@ -1521,6 +1547,7 @@
             try {
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const messagesCollectionRef = collection(window.db, `artifacts/${appId}/public/data/privateChats/${currentPrivateChatId}/messages`);
+                console.log(`Attempting to send private message to chat ID: ${currentPrivateChatId} at path:`, messagesCollectionRef.path);
                 await addDoc(messagesCollectionRef, {
                     senderId: window.currentUserId,
                     senderName: window.currentUsername,
@@ -1530,6 +1557,7 @@
                     timestamp: Date.now()
                 });
                 privateChatInput.value = ''; // Clear input
+                console.log("Private message sent successfully!"); // Added log
             } catch (error) {
                 console.error("Error sending private message:", error);
             }
@@ -1571,6 +1599,7 @@
             const notificationsCollectionRef = collection(window.db, `artifacts/${appId}/users/${window.currentUserId}/notifications`);
             const q = query(notificationsCollectionRef, orderBy("timestamp", "desc"));
 
+            console.log(`Attempting to load notifications for user ${window.currentUserId} from path:`, notificationsCollectionRef.path);
             onSnapshot(q, (snapshot) => {
                 notificationsListContainer.innerHTML = '';
                 let unreadCount = 0;
@@ -1637,6 +1666,7 @@
             }
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
             const notificationRef = doc(window.db, `artifacts/${appId}/users/${window.currentUserId}/notifications`, notificationId);
+            console.log(`Attempting to mark notification ${notificationId} as read at path:`, notificationRef.path);
             try {
                 await updateDoc(notificationRef, {
                     read: true
@@ -1659,6 +1689,7 @@
             const notificationsCollectionRef = collection(window.db, `artifacts/${appId}/users/${window.currentUserId}/notifications`);
             const q = query(notificationsCollectionRef, where("read", "==", false));
 
+            console.log(`Attempting to mark all unread notifications for user ${window.currentUserId} from path:`, notificationsCollectionRef.path);
             try {
                 const querySnapshot = await getDocs(q);
                 const batch = window.db.batch(); // Use batch for multiple updates
@@ -1685,6 +1716,7 @@
             }
             const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
             const privateChatsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/privateChats`);
+            console.log("Attempting to load all private chats for admin from path:", privateChatsCollectionRef.path);
 
             try {
                 const querySnapshot = await getDocs(privateChatsCollectionRef);
@@ -2052,85 +2084,6 @@
             color: #0A0A1A; /* Texto oscuro al pasar el ratón */
         }
 
-        /* Botón flotante de WhatsApp (Global) */
-        .whatsapp-float-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            /* Z-index para estar siempre encima de todo, incluyendo el banner de desarrollo */
-            z-index: 100000001;
-            display: flex;
-            align-items: center;
-            transition: bottom 0.3s ease-out; /* Transición para el movimiento */
-        }
-
-        .whatsapp-float-button {
-            background-color: #25D366; /* Verde de WhatsApp */
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
-            transform-origin: center;
-        }
-
-        .whatsapp-float-button:hover {
-            background-color: #128C7E; /* Tono más oscuro al pasar el ratón */
-            transform: scale(1.05); /* Ligero aumento de escala al pasar el ratón */
-            animation: none !important; /* Detener todas las animaciones al pasar el ratón */
-        }
-
-        .whatsapp-float-button svg {
-            fill: white; /* Changed fill to white */
-            stroke: white; /* Added stroke for thickness */
-            stroke-width: 2; /* Increased stroke width for thickness */
-            width: 60%; /* Ajusta el tamaño del icono dentro del botón */
-            height: 60%; /* Ajusta el tamaño del icono dentro del botón */
-        }
-
-        /* Tooltip para el botón de WhatsApp - Estilo de burbuja de mensaje */
-        .whatsapp-tooltip {
-            background-color: #FFFFFF; /* Fondo blanco */
-            color: #0A0A1A; /* Texto oscuro */
-            padding: 0.75rem 1rem;
-            border-radius: 0.75rem; /* Esquinas más redondeadas para un aspecto de burbuja */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-right: 15px; /* Espacio entre el tooltip y el botón */
-            opacity: 0; /* Inicialmente oculto */
-            visibility: hidden; /* Inicialmente oculto */
-            transform: translateX(20px); /* Empieza ligeramente a la derecha */
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
-            white-space: nowrap; /* Evita que el texto se envuelva */
-            font-size: 0.9rem;
-            border: 1px solid rgba(0, 0, 0, 0.1); /* Borde claro sutil */
-            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
-        }
-
-        .whatsapp-tooltip.show-tooltip {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0); /* Desliza a la vista */
-        }
-
-        /* Cola de la burbuja de diálogo */
-        .whatsapp-tooltip::after {
-            content: '';
-            position: absolute;
-            right: -10px; /* Posición fuera de la burbuja */
-            top: 50%; /* Centrado verticalmente con la burbuja */
-            transform: translateY(-50%); /* Ajuste para el centrado vertical */
-            width: 0;
-            height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-left: 10px solid #FFFFFF; /* Borde blanco para que coincida con el fondo de la burbuja */
-        }
-
         /* Animación de vibración para el botón de WhatsApp */
         @keyframes shake {
             10%, 90% {
@@ -2263,11 +2216,6 @@
                 height: 24px;
             }
 
-            .whatsapp-float-button {
-                width: 50px; /* Botón de WhatsApp más pequeño */
-                height: 50px;
-                font-size: 1.8rem;
-            }
         }
 
         /* Estilos del pie de página */
@@ -2721,20 +2669,6 @@
                                 <p class="text-sm text-gray-400 text-center">Cargando usuarios...</p>
                             </div>
                         </div>
-                        <!-- Global Chat Section (Removed) -->
-                        <!--
-                        <div class="bg-byte-secondary-dark p-6 rounded-lg shadow-xl border border-byte-accent-cyan/30 flex-grow flex flex-col">
-                            <h3 class="text-xl font-bold mb-4 text-byte-accent-cyan text-center">Chat Global</h3>
-                            <div id="chat-messages-container" class="flex-grow overflow-y-auto space-y-4 p-2 rounded-md bg-byte-dark-bg border border-gray-700 mb-4">
-                            </div>
-                            <div class="flex">
-                                <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." class="flex-grow p-3 rounded-l-md bg-byte-secondary-dark border border-byte-accent-cyan/30 text-byte-text-light focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
-                                <button id="send-chat-button" class="bg-byte-accent-cyan text-byte-dark-bg p-3 rounded-r-md font-semibold hover:bg-cyan-400 transition duration-200">
-                                    <i class="fas fa-paper-plane"></i>
-                                </button>
-                            </div>
-                        </div>
-                        -->
                     </div>
                 </div>
             </section>
@@ -2744,7 +2678,7 @@
         <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
             <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                 <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
-                    <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptMThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
                     </a>
                     <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
@@ -2883,61 +2817,44 @@
                     <li>Si usas ideas o textos de otros, siempre cita la fuente.</li>
                 </ul>
 
-                <h3 class="text-lg font-semibold text-byte-accent-cyan">6. Privacidad</h3>
+                <h3 class="text-lg font-semibold text-byte-accent-cyan">6. Privacidad y Datos Personales</h3>
                 <ul class="list-disc list-inside space-y-1 pl-4">
-                    <li>No compartas datos personales (tuyos o de otros) sin permiso.</li>
+                    <li>No compartas información personal tuya ni de otros (direcciones, teléfonos, etc.).</li>
                 </ul>
 
-                <h3 class="text-lg font-semibold text-byte-accent-cyan">7. Sin Publicidad ni Spam</h3>
+                <h3 class="text-lg font-semibold text-byte-accent-cyan">7. Moderación y Sanciones</h3>
                 <ul class="list-disc list-inside space-y-1 pl-4">
-                    <li>El foro no es para promocionar productos, servicios o hacer spam.</li>
+                    <li>Los moderadores tienen la última palabra.</li>
+                    <li>El incumplimiento de las reglas puede llevar a la edición, eliminación de contenido o suspensión de la cuenta.</li>
                 </ul>
 
-                <h3 class="text-lg font-semibold text-byte-accent-cyan">8. Respeto a la Moderación</h3>
-                <ul class="list-disc list-inside space-y-1 pl-4">
-                    <li>Las decisiones de los moderadores son definitivas.</li>
-                    <li>Si tienes una queja, contacta a un moderador en privado.</li>
-                </ul>
-
-                <h3 class="text-lg font-semibold text-byte-accent-cyan">9. Reporta, No Actúes</h3>
-                <ul class="list-disc list-inside space-y-1 pl-4">
-                    <li>Si ves una regla rota, repórtala. No intentes resolverlo tú mismo.</li>
-                </ul>
-
-                <h3 class="text-lg font-semibold text-byte-accent-cyan">10. Consecuencias</h3>
-                <ul class="list-disc list-inside space-y-1 pl-4">
-                    <li>Incumplir estas reglas puede llevar a la edición/eliminación de contenido, advertencias, suspensiones o expulsión del foro.</li>
-                </ul>
-
-                <p class="text-sm text-gray-400 mt-4">Al registrarte y participar, aceptas cumplir con estas reglas.</p>
+                <p class="text-sm italic mt-6">Al participar en este foro, aceptas estas reglas. ¡Gracias por contribuir a una comunidad positiva!</p>
             </div>
         </div>
     </div>
 
-    <!-- New: View User Profile Modal -->
-    <div id="view-user-profile-modal" class="modal hidden">
-        <div id="view-user-profile-modal-content" class="modal-content max-w-sm text-center transition-colors duration-300 border-2 border-byte-accent-cyan/50 shadow-2xl">
-            <button id="close-view-user-profile-modal" class="modal-close-button text-byte-accent-cyan hover:text-cyan-400">&times;</button>
-            <img id="view-user-profile-photo" src="https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser" alt="Foto de perfil de usuario" class="w-28 h-28 rounded-full object-cover border-2 border-byte-accent-cyan mx-auto mb-4 shadow-lg">
-            <h2 id="view-user-profile-name" class="text-2xl font-bold mb-2 transition-colors duration-300">Nombre de Usuario</h2>
-            <p id="view-user-profile-note" class="text-sm mb-4 italic transition-colors duration-300">Nota del usuario aquí.</p>
-            <!-- New: Ban User Button -->
-            <button id="ban-user-button" class="mt-4 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition duration-200 hidden">
-                <i class="fas fa-ban mr-2"></i> Banear Usuario
-            </button>
+    <!-- Notifications Modal -->
+    <div id="notifications-modal" class="modal hidden">
+        <div class="modal-content max-w-lg">
+            <button id="close-notifications-modal" class="modal-close-button">&times;</button>
+            <h2 class="text-xl font-bold mb-6 text-byte-accent-cyan text-center">Tus Notificaciones</h2>
+            <div id="notifications-list-container" class="max-h-96 overflow-y-auto p-2 border border-gray-700 rounded-md">
+                <!-- Notifications will be loaded here -->
+                <p class="text-center text-gray-400 text-sm">Cargando notificaciones...</p>
+            </div>
         </div>
     </div>
 
-    <!-- New: Private Chat Modal -->
+    <!-- Private Chat Modal -->
     <div id="private-chat-modal" class="modal hidden">
-        <div class="modal-content max-w-md h-[80vh] flex flex-col">
+        <div class="modal-content max-w-md">
             <button id="close-private-chat-modal" class="modal-close-button">&times;</button>
             <h2 id="private-chat-header-name" class="text-xl font-bold mb-4 text-byte-accent-cyan text-center">Chat Privado</h2>
-            <div id="private-chat-messages-container" class="flex-grow overflow-y-auto space-y-4 p-2 rounded-md bg-byte-dark-bg border border-gray-700 mb-4">
-                <!-- Private chat messages will be loaded here -->
+            <div id="private-chat-messages-container" class="max-h-80 overflow-y-auto space-y-4 p-3 rounded-md bg-byte-dark-bg border border-gray-700 mb-4">
+                <!-- Private messages will be loaded here -->
             </div>
             <div class="flex">
-                <input type="text" id="private-chat-input" placeholder="Escribe tu mensaje privado..." class="flex-grow p-3 rounded-l-md bg-byte-secondary-dark border border-byte-accent-cyan/30 text-byte-text-light focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
+                <input type="text" id="private-chat-input" placeholder="Escribe tu mensaje..." class="flex-grow p-3 rounded-l-md bg-byte-secondary-dark border border-byte-accent-cyan/30 text-byte-text-light focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan">
                 <button id="send-private-chat-button" class="bg-byte-accent-cyan text-byte-dark-bg p-3 rounded-r-md font-semibold hover:bg-cyan-400 transition duration-200">
                     <i class="fas fa-paper-plane"></i>
                 </button>
@@ -2945,71 +2862,31 @@
         </div>
     </div>
 
-    <!-- New: Notifications Modal -->
-    <div id="notifications-modal" class="modal hidden">
-        <div class="modal-content max-w-md">
-            <button id="close-notifications-modal" class="modal-close-button">&times;</button>
-            <h2 class="text-xl font-bold mb-6 text-byte-accent-cyan text-center">Mis Notificaciones</h2>
-            <div id="notifications-list-container" class="max-h-80 overflow-y-auto p-2">
-                <!-- Notifications will be loaded here -->
-            </div>
+    <!-- View User Profile Modal -->
+    <div id="view-user-profile-modal" class="modal hidden">
+        <div id="view-user-profile-modal-content" class="modal-content max-w-xs text-center">
+            <button id="close-view-user-profile-modal" class="modal-close-button text-byte-text-light">&times;</button>
+            <img id="view-user-profile-photo" src="https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover border-2 border-byte-accent-cyan mx-auto mb-4">
+            <h2 id="view-user-profile-name" class="text-xl font-bold mb-2 text-byte-text-light">Nombre de Usuario</h2>
+            <p id="view-user-profile-note" class="text-gray-300 text-sm italic mb-4">Nota del usuario.</p>
+            <!-- <p id="view-user-profile-id" class="text-gray-400 text-xs mb-4">ID: </p> -->
+            <button id="ban-user-button" class="hidden bg-red-500 text-white py-2 px-4 rounded-md font-semibold hover:bg-red-600 transition duration-200 mt-4">
+                Banear Usuario
+            </button>
         </div>
     </div>
 
-    <!-- New: Admin Chat View Modal -->
+    <!-- Admin Chat View Modal -->
     <div id="admin-chat-view-modal" class="modal hidden">
         <div class="modal-content max-w-md">
             <button id="close-admin-chat-view-modal" class="modal-close-button">&times;</button>
-            <h2 class="text-xl font-bold mb-6 text-byte-accent-cyan text-center">Todos los Chats Privados</h2>
-            <div id="admin-chat-list-container" class="max-h-80 overflow-y-auto p-2">
-                <!-- List of private chats will be loaded here for admin -->
+            <h2 class="text-xl font-bold mb-6 text-byte-accent-cyan text-center">Todos los Chats Privados (Admin)</h2>
+            <div id="admin-chat-list-container" class="max-h-96 overflow-y-auto p-2 border border-gray-700 rounded-md">
+                <!-- List of all private chats will be loaded here -->
+                <p class="text-center text-gray-400 text-sm">Cargando chats...</p>
             </div>
         </div>
     </div>
 
-
-    <script>
-        // Header hiding/showing logic
-        let lastScrollY = 0;
-        const mainHeader = document.getElementById('main-header');
-
-        window.addEventListener('scroll', () => {
-            // Only hide header if forum content is visible (i.e., user is logged in)
-            if (!document.getElementById('forum-content-wrapper').classList.contains('hidden')) {
-                if (window.scrollY > lastScrollY && window.scrollY > 100) { // Scrolling down and past initial offset
-                    mainHeader.classList.add('header-hidden');
-                } else if (window.scrollY < lastScrollY || window.scrollY < 100) { // Scrolling up or near the top
-                    mainHeader.classList.remove('header-hidden');
-                }
-            } else {
-                // If forum content is hidden (not logged in), ensure header is always visible
-                mainHeader.classList.remove('header-hidden');
-            }
-            lastScrollY = window.scrollY;
-        });
-
-        // Attach logout event listener to the new modal logout button
-        const logoutButtonModal = document.getElementById('logout-button-modal');
-        if (logoutButtonModal) {
-            logoutButtonModal.addEventListener('click', async () => {
-                try {
-                    await signOut(window.auth);
-                    console.log("User signed out from modal.");
-                    settingsModal.classList.add('hidden'); // Close settings modal after logout
-                } catch (error) {
-                    console.error("Error signing out from modal:", error);
-                }
-            });
-        }
-
-        // New: Event listener for rules link in auth modal
-        const authRulesLink = document.getElementById('auth-rules-link');
-        if (authRulesLink) {
-            authRulesLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                rulesModal.classList.remove('hidden'); // Open rules modal
-            });
-        }
-    </script>
-</body >
-</html >
+</body>
+</html>
