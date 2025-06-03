@@ -671,9 +671,6 @@
             }
         }
 
-    </style>
-
-    <style>
         /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
         img {
             pointer-events: none;
@@ -682,6 +679,137 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
+        }
+
+        /* Estilos para el carrusel de métodos de pago */
+        @keyframes scroll-carousel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        :root {
+            --speed: 60s; /* Velocidad inicial del carrusel en segundos */
+        }
+
+        .animate-scroll-carousel {
+            animation: scroll-carousel var(--speed) linear infinite;
+        }
+
+        .payment-card {
+            background-color: #1A202C;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            border-radius: 1.5rem;
+            width: 160px;
+            height: 160px;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 15px 45px rgba(0, 255, 255, 0.3);
+            border-color: #00FFFF;
+        }
+
+        .payment-card span {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: #F9FAFB;
+        }
+
+        @media (max-width: 768px) {
+            .payment-card {
+                width: 120px;
+                height: 120px;
+                padding: 0.8rem;
+            }
+            .payment-card span {
+                font-size: 0.75rem;
+            }
+        }
+
+        .carousel-wrapper {
+            position: relative;
+        }
+
+        /* Estilos para las flechas de navegación */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 255, 255, 0.15); /* Cian semi-transparente */
+            color: white;
+            border-radius: 50%; /* Circular */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0; /* Oculto por defecto */
+            pointer-events: none; /* No interactivo cuando está oculto */
+            transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            z-index: 10; /* Asegura que las flechas estén por encima de los elementos del carrusel */
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 255, 255, 0.3); /* Más opaco al pasar el ratón */
+            transform: translateY(-50%) scale(1.1); /* Ligero aumento de escala al pasar el ratón */
+        }
+
+        .arrow-left {
+            left: 10px;
+        }
+
+        .arrow-right {
+            right: 10px;
+        }
+
+        /* Mostrar flechas al pasar el ratón sobre el contenedor del carrusel (solo en escritorio) */
+        .carousel-wrapper:hover .arrow {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Ocultar flechas en móvil */
+        @media (max-width: 768px) {
+            .arrow {
+                display: none;
+            }
+        }
+
+        /* Estilos para animaciones de carrusel */
+        @keyframes slide-carousel {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        .animate-slide-carousel {
+            animation: slide-carousel 30s linear infinite;
+        }
+        .hover\:pause-animation:hover {
+            animation-play-state: paused;
+        }
+        @keyframes bounce-custom {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .hover\:animate-bounce-custom:hover {
+            animation: bounce-custom 0.6s ease-in-out;
         }
     </style>
 
@@ -761,7 +889,7 @@
                     </li>
                     <li>
                         <a href="foro.html" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect">
-                            <span class="nav-menu-text-stroke-cyan">Comunidad de Byte</span>
+                            <span class="nav-menu-text-stroke-cyan">Foro de Byte</span>
                         </a>
                     </li>
                 </ul>
@@ -847,7 +975,7 @@
             </li>
             <li>
                 <a href="foro.html" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect">
-                    <span class="nav-menu-text-stroke-cyan">Comunidad de Byte</span>
+                    <span class="nav-menu-text-stroke-cyan">Foro de Byte</span>
                 </a>
             </li>
             <li>
@@ -862,7 +990,7 @@
     <main class="flex-grow">
         <section id="inicio" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
             <video autoplay loop muted playsinline preload="auto"
-                   class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+                    class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
                 <!--
                     Atributos importantes para la reproducción automática de videos de fondo:
                     - autoplay: Inicia la reproducción del video automáticamente.
@@ -1009,141 +1137,6 @@
             </div>
         </section>
 
-        <style>
-            @keyframes scroll-carousel {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-50%); }
-            }
-
-            :root {
-                --speed: 60s; /* Velocidad inicial del carrusel en segundos */
-            }
-
-            .animate-scroll-carousel {
-                animation: scroll-carousel var(--speed) linear infinite;
-            }
-
-            .payment-card {
-                background-color: #1A202C;
-                border: 1px solid rgba(0, 255, 255, 0.4);
-                border-radius: 1.5rem;
-                width: 160px;
-                height: 160px;
-                flex-shrink: 0;
-                box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
-                padding: 1.2rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s ease;
-            }
-
-            .payment-card:hover {
-                transform: scale(1.07);
-                box-shadow: 0 15px 45px rgba(0, 255, 255, 0.3);
-                border-color: #00FFFF;
-            }
-
-            .payment-card span {
-                margin-top: 0.75rem;
-                font-size: 0.95rem;
-                color: #F9FAFB;
-            }
-
-            @media (max-width: 768px) {
-                .payment-card {
-                    width: 120px;
-                    height: 120px;
-                    padding: 0.8rem;
-                }
-                .payment-card span {
-                    font-size: 0.75rem;
-                }
-            }
-
-            .carousel-wrapper {
-                position: relative;
-            }
-
-            /* Estilos para las flechas de navegación */
-            .arrow {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 40px;
-                height: 40px;
-                background-color: rgba(0, 255, 255, 0.15); /* Cian semi-transparente */
-                color: white;
-                border-radius: 50%; /* Circular */
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                opacity: 0; /* Oculto por defecto */
-                pointer-events: none; /* No interactivo cuando está oculto */
-                transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-                border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
-                z-index: 10; /* Asegura que las flechas estén por encima de los elementos del carrusel */
-            }
-
-            .arrow:hover {
-                background-color: rgba(0, 255, 255, 0.3); /* Más opaco al pasar el ratón */
-                transform: translateY(-50%) scale(1.1); /* Ligero aumento de escala al pasar el ratón */
-            }
-
-            .arrow-left {
-                left: 10px;
-            }
-
-            .arrow-right {
-                right: 10px;
-            }
-
-            /* Mostrar flechas al pasar el ratón sobre el contenedor del carrusel (solo en escritorio) */
-            .carousel-wrapper:hover .arrow {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-            /* Ocultar flechas en móvil */
-            @media (max-width: 768px) {
-                .arrow {
-                    display: none;
-                }
-            }
-        </style>
-
-        <style>
-            @keyframes slide-carousel {
-                0% {
-                    transform: translateX(0);
-                }
-                100% {
-                    transform: translateX(-50%);
-                }
-            }
-            .animate-slide-carousel {
-                animation: slide-carousel 30s linear infinite;
-            }
-            .hover\:pause-animation:hover {
-                animation-play-state: paused;
-            }
-            @keyframes bounce-custom {
-                0%, 100% {
-                    transform: translateY(0);
-                }
-                50% {
-                    transform: translateY(-10px);
-                }
-            }
-            .hover\:animate-bounce-custom:hover {
-                animation: bounce-custom 0.6s ease-in-out;
-            }
-
-        </style>
-
-
         <section id="contacto" class="contact-section text-byte-text-light pt-10 pb-14 lg:pt-8 lg:pb-12">
             <div class="container mx-auto px-4 relative z-10 max-w-screen-lg lg:px-0">
                 <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Conéctate con Byte</h2>
@@ -1190,249 +1183,6 @@
                 </div>
             </div>
         </section>
-
-
-    <script>
-        // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
-        /*
-        AOS.init({
-            once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
-            mirror: false, // No animar al desplazarse hacia arriba
-            offset: 100, // Desplazamiento (en px) desde el punto de activación original
-            duration: 800, // Duración de la animación (en ms)
-            easing: 'ease-out-cubic', // Función de temporización para la animación
-        });
-        */
-
-        window.addEventListener('load', () => {
-            // Lógica para menús desplegables de escritorio
-            document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
-                    const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
-                    const dropdownMenu = document.getElementById(dropdownId);
-                    const arrowIcon = this.querySelector('.js-arrow-icon');
-
-                    // Cierra otros menús desplegables de escritorio abiertos
-                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                        if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                            menu.classList.add('hidden');
-                            const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                            if (otherButton) {
-                                // Eliminar la animación de rebote y la rotación al cerrar otros menús
-                                otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
-                            }
-                        }
-                    });
-
-                    // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
-                    dropdownMenu.classList.toggle('hidden');
-                    if (!dropdownMenu.classList.Contains('hidden')) {
-                        arrowIcon.classList.add('arrow-active');
-                    } else {
-                        arrowIcon.classList.remove('arrow-active');
-                    }
-                });
-            });
-
-            // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
-            document.addEventListener('click', function(event) {
-                // Si el clic no fue dentro de un botón desplegable o un menú desplegable
-                if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
-                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                        menu.classList.add('hidden'); // Oculta el menú
-                        const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
-                        if (button) {
-                            // Restaura la orientación de la flecha y elimina la animación al cerrar
-                            button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
-                        }
-                    });
-                }
-            });
-
-            // Lógica para el menú móvil y sus desplegables
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            // Definición de estilos para el texto del menú móvil (plateado y cian)
-            const mobileMenuSilverStyles = {
-                color: '#E0E0E0',
-                webkitTextStrokeColor: '#A0A0A0',
-                textShadow: '0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2)'
-            };
-
-            const mobileMenuCyanStyles = {
-                color: '#00FFFF',
-                webkitTextStrokeColor: '#00BFFF',
-                textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
-            };
-
-            // Inicializar Tone.js Synth
-            let synth = null; // Inicializar a null
-
-            // Función para aplicar estilos al texto del menú móvil
-            function applyMobileMenuTextStyles(element, styles) {
-                element.style.color = styles.color;
-                element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
-                element.style.textShadow = styles.textShadow;
-            }
-
-            if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', async () => { // Hacer la función asíncrona
-                    mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
-                    const icon = mobileMenuButton.querySelector('svg path');
-                    // Cambia el icono de hamburguesa a 'X' y viceversa
-                    if (mobileMenu.classList.contains('hidden')) {
-                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
-                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
-                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
-                        });
-                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
-                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
-                            button.classList.remove('mobile-menu-link-active');
-                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                            // También ocultar cualquier submenú abierto
-                            const dropdownId = button.dataset.dropdownIdMobile;
-                            const dropdownMenu = document.getElementById(dropdownId);
-                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
-                                dropdownMenu.classList.add('hidden');
-                            }
-                        });
-                    } else {
-                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
-
-                        // Asegurar que el contexto de audio de Tone.js se inicie/reproduzca con la interacción del usuario
-                        if (Tone.context.state !== 'running') {
-                            try {
-                                await Tone.start(); // Iniciar el contexto de audio
-                                console.log('Audio context started successfully.');
-                            } catch (e) {
-                                console.error('Error al iniciar el contexto de audio:', e);
-                            }
-                        }
-
-                        // Inicializar el sintetizador solo una vez, después de que el contexto de audio esté funcionando
-                        if (!synth) {
-                            try {
-                                synth = new Tone.Synth().toDestination();
-                            } catch (e) {
-                                console.error("Error al inicializar Tone.js Synth:", e);
-                            }
-                        }
-
-                        // Reproducir sonido si el sintetizador está disponible
-                        if (synth) {
-                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
-                        }
-                    }
-                });
-
-                document.addEventListener('click', function(event) {
-                    const isClickInsideMobileMenu = mobileMenu.contains(event.target);
-                    const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
-
-                    if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden'); // Oculta el menú
-                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
-                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
-                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
-                        });
-                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
-                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
-                            button.classList.remove('mobile-menu-link-active');
-                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                            // También ocultar cualquier submenú abierto
-                            const dropdownId = button.dataset.dropdownIdMobile;
-                            const dropdownMenu = document.getElementById(dropdownId);
-                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
-                                dropdownMenu.classList.add('hidden');
-                            }
-                        });
-                    }
-                });
-
-                // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
-                document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
-                    button.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
-                        const dropdownId = this.dataset.dropdownIdMobile;
-                        const dropdownMenu = document.getElementById(dropdownId);
-                        const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
-                        const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
-
-                        // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
-                        document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
-                            if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
-                                menu.classList.add('hidden');
-                                const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
-                                if (otherButton) {
-                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
-                                    otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                                    // Eliminar la clase activa del otro enlace
-                                    otherButton.classList.remove('mobile-menu-link-active');
-                                    const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
-                                    if (otherCategoryTextSpan) {
-                                        applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
-                                    }
-                                }
-                            }
-                        });
-
-                        dropdownMenu.classList.toggle('hidden');
-                        if (!dropdownMenu.classList.Contains('hidden')) {
-                            arrowIcon.classList.add('arrow-active');
-                            // Añadir la clase activa al enlace actual
-                            this.classList.add('mobile-menu-link-active');
-                            // Si el menú se está abriendo, aplica estilos cian
-                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
-                        } else {
-                            arrowIcon.classList.remove('arrow-active');
-                            // Eliminar la clase activa del enlace actual
-                            this.classList.remove('mobile-menu-link-active');
-                            // Si el menú se está cerrando, aplica estilos plateados
-                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
-                        }
-                    });
-                });
-            }
-
-            // Lógica para deshabilitar enlaces con la clase 'disabled-link'
-            document.querySelectorAll('a.disabled-link').forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Previene la acción predeterminada del enlace
-                    event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
-                });
-            });
-
-            // Lógica para el texto dinámico en la sección de inicio
-            const heroHeadingElement = document.getElementById('hero-heading-text');
-            const heroHeadings = [
-                "Nosotros convertimos sueños en realidades digitales",
-                "¿Qué esperas para convertir tus sueños en realidad?"
-            ];
-            let currentHeadingIndex = 0;
-
-            function updateHeroHeading() {
-                // Aplica la animación de salida
-                heroHeadingElement.classList.remove('text-flip-in');
-                heroHeadingElement.classList.add('text-flip-out');
-
-                // Después de la mitad de la animación de salida, cambia el texto
-                setTimeout(() => {
-                    currentHeadingIndex = (currentHeadingIndex + 1) % heroHeadings.length;
-                    heroHeadingElement.textContent = heroHeadings[currentHeadingIndex];
-
-                    // Remueve la animación de salida y aplica la de entrada
-                    heroHeadingElement.classList.remove('text-flip-out');
-                    heroHeadingElement.classList.add('text-flip-in');
-                }, 400); // La mitad de la duración de text-flip-out (0.8s / 2 = 0.4s)
-            }
-
-            // Inicia el cambio de texto cada 9 segundos
-            setInterval(updateHeroHeading, 9000); // Cambia el texto cada 9 segundos
-        });
-    </script>
     </main>
 
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
@@ -1474,15 +1224,15 @@
             <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
         </p>
         <button id="accept-cookies-button" class="bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
-                                                 shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
+                                                     shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
             Aceptar
         </button>
         <p class="mt-2 text-xs text-gray-400">© 2025 Byte. Todos los derechos reservados.</p>
     </div>
 
     <script type="text/javascript">
+        // Integración del chatbot
         (function() {
-            // Create and append the chat-bot element
             var chatBotEl = document.createElement('chat-bot');
             chatBotEl.setAttribute('platform_id', 'c53f3ecc-023b-4e9b-9289-d92fc39e8fd6');
             chatBotEl.setAttribute('user_id', 'df3ac4f2-1102-4134-9692-f88cb8c4461d');
@@ -1495,7 +1245,6 @@
 
             document.body.appendChild(chatBotEl);
 
-            // Dynamically load the external script
             var cs = document.createElement('script');
             cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
             document.body.appendChild(cs);
@@ -1707,6 +1456,250 @@
                     }, 500); // 0.5 segundos de retraso
                 });
             }
+        });
+    </script>
+
+    <script>
+        // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
+        /*
+        AOS.init({
+            once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
+            mirror: false, // No animar al desplazarse hacia arriba
+            offset: 100, // Desplazamiento (en px) desde el punto de activación original
+            duration: 800, // Duración de la animación (en ms)
+            easing: 'ease-out-cubic', // Función de temporización para la animación
+        });
+        */
+    </script>
+
+    <script>
+        // Lógica para menús desplegables de escritorio
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
+                    const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
+                    const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = this.querySelector('.js-arrow-icon');
+
+                    // Cierra otros menús desplegables de escritorio abiertos
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                            menu.classList.add('hidden');
+                            const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                            if (otherButton) {
+                                // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
+                            }
+                        }
+                    });
+
+                    // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
+                    dropdownMenu.classList.toggle('hidden');
+                    if (!dropdownMenu.classList.contains('hidden')) { // Corregido: .classList.Contains a .classList.contains
+                        arrowIcon.classList.add('arrow-active');
+                    } else {
+                        arrowIcon.classList.remove('arrow-active');
+                    }
+                });
+            });
+
+            // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+            document.addEventListener('click', function(event) {
+                // Si el clic no fue dentro de un botón desplegable o un menú desplegable
+                if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        menu.classList.add('hidden'); // Oculta el menú
+                        const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (button) {
+                            // Restaura la orientación de la flecha y elimina la animación al cerrar
+                            button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
+                        }
+                    });
+                }
+            });
+
+            // Lógica para el menú móvil y sus desplegables
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Definición de estilos para el texto del menú móvil (plateado y cian)
+            const mobileMenuSilverStyles = {
+                color: '#E0E0E0',
+                webkitTextStrokeColor: '#A0A0A0',
+                textShadow: '0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2)'
+            };
+
+            const mobileMenuCyanStyles = {
+                color: '#00FFFF',
+                webkitTextStrokeColor: '#00BFFF',
+                textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
+            };
+
+            // Inicializar Tone.js Synth
+            let synth = null; // Inicializar a null
+
+            // Función para aplicar estilos al texto del menú móvil
+            function applyMobileMenuTextStyles(element, styles) {
+                element.style.color = styles.color;
+                element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
+                element.style.textShadow = styles.textShadow;
+            }
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', async () => { // Hacer la función asíncrona
+                    mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
+                    const icon = mobileMenuButton.querySelector('svg path');
+                    // Cambia el icono de hamburguesa a 'X' y viceversa
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
+                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                            button.classList.remove('mobile-menu-link-active');
+                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                            // También ocultar cualquier submenú abierto
+                            const dropdownId = button.dataset.dropdownIdMobile;
+                            const dropdownMenu = document.getElementById(dropdownId);
+                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                                dropdownMenu.classList.add('hidden');
+                            }
+                        });
+                    } else {
+                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+
+                        // Asegurar que el contexto de audio de Tone.js se inicie/reproduzca con la interacción del usuario
+                        if (Tone.context.state !== 'running') {
+                            try {
+                                await Tone.start(); // Iniciar el contexto de audio
+                                console.log('Audio context started successfully.');
+                            } catch (e) {
+                                console.error('Error al iniciar el contexto de audio:', e);
+                            }
+                        }
+
+                        // Inicializar el sintetizador solo una vez, después de que el contexto de audio esté funcionando
+                        if (!synth) {
+                            try {
+                                synth = new Tone.Synth().toDestination();
+                            } catch (e) {
+                                console.error("Error al inicializar Tone.js Synth:", e);
+                            }
+                        }
+
+                        // Reproducir sonido si el sintetizador está disponible
+                        if (synth) {
+                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                        }
+                    }
+                });
+
+                document.addEventListener('click', function(event) {
+                    const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+                    const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
+
+                    if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden'); // Oculta el menú
+                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
+                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                            button.classList.remove('mobile-menu-link-active');
+                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                            // También ocultar cualquier submenú abierto
+                            const dropdownId = button.dataset.dropdownIdMobile;
+                            const dropdownMenu = document.getElementById(dropdownId);
+                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                                dropdownMenu.classList.add('hidden');
+                            }
+                        });
+                    }
+                });
+
+                // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
+                document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
+                        const dropdownId = this.dataset.dropdownIdMobile;
+                        const dropdownMenu = document.getElementById(dropdownId);
+                        const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
+                        const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
+
+                        // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
+                        document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
+                            if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                                menu.classList.add('hidden');
+                                const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                                if (otherButton) {
+                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                    otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                                    // Eliminar la clase activa del otro enlace
+                                    otherButton.classList.remove('mobile-menu-link-active');
+                                    const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
+                                    if (otherCategoryTextSpan) {
+                                        applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
+                                    }
+                                }
+                            }
+                        });
+
+                        dropdownMenu.classList.toggle('hidden');
+                        if (!dropdownMenu.classList.contains('hidden')) { // Corregido: .classList.Contains a .classList.contains
+                            arrowIcon.classList.add('arrow-active');
+                            // Añadir la clase activa al enlace actual
+                            this.classList.add('mobile-menu-link-active');
+                            // Si el menú se está abriendo, aplica estilos cian
+                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
+                        } else {
+                            arrowIcon.classList.remove('arrow-active');
+                            // Eliminar la clase activa del enlace actual
+                            this.classList.remove('mobile-menu-link-active');
+                            // Si el menú se está cerrando, aplica estilos plateados
+                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
+                        }
+                    });
+                });
+            }
+
+            // Lógica para deshabilitar enlaces con la clase 'disabled-link'
+            document.querySelectorAll('a.disabled-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción predeterminada del enlace
+                    event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
+                });
+            });
+
+            // Lógica para el texto dinámico en la sección de inicio
+            const heroHeadingElement = document.getElementById('hero-heading-text');
+            const heroHeadings = [
+                "Nosotros convertimos sueños en realidades digitales",
+                "¿Qué esperas para convertir tus sueños en realidad?"
+            ];
+            let currentHeadingIndex = 0;
+
+            function updateHeroHeading() {
+                // Aplica la animación de salida
+                heroHeadingElement.classList.remove('text-flip-in');
+                heroHeadingElement.classList.add('text-flip-out');
+
+                // Después de la mitad de la animación de salida, cambia el texto
+                setTimeout(() => {
+                    currentHeadingIndex = (currentHeadingIndex + 1) % heroHeadings.length;
+                    heroHeadingElement.textContent = heroHeadings[currentHeadingIndex];
+
+                    // Remueve la animación de salida y aplica la de entrada
+                    heroHeadingElement.classList.remove('text-flip-out');
+                    heroHeadingElement.classList.add('text-flip-in');
+                }, 400); // La mitad de la duración de text-flip-out (0.8s / 2 = 0.4s)
+            }
+
+            // Inicia el cambio de texto cada 9 segundos
+            setInterval(updateHeroHeading, 9000); // Cambia el texto cada 9 segundos
         });
     </script>
 </body>
