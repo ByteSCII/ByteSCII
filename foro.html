@@ -618,7 +618,7 @@
             const postsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts`);
             const q = query(postsCollectionRef, orderBy("timestamp", "desc")); // Order by latest
 
-            onSnapshot(q, async (snapshot) => { // Added async here for getDoc inside loop
+            onSnapshot(q, async (snapshot) => {
                 const postsContainer = document.getElementById('posts-container');
                 postsContainer.innerHTML = ''; // Clear existing posts
 
@@ -627,9 +627,9 @@
                     return;
                 }
 
-                for (const doc of snapshot.docs) { // Changed to for...of for async/await
-                    const post = doc.data();
-                    const postId = doc.id;
+                for (const postDoc of snapshot.docs) { // Renamed 'doc' to 'postDoc'
+                    const post = postDoc.data();
+                    const postId = postDoc.id;
                     const userDisplayName = post.username || `Usuario_${post.userId.substring(0, 6)}`;
                     const userPhoto = post.userPhotoURL || "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser";
                     const imageUrl = post.imageUrl || '';
@@ -901,7 +901,7 @@
             const commentsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts/${postId}/comments`);
             const q = query(commentsCollectionRef, orderBy("timestamp", "asc")); // Order by oldest first
 
-            onSnapshot(q, async (snapshot) => { // Added async here for getDoc inside loop
+            onSnapshot(q, async (snapshot) => {
                 commentsContainer.innerHTML = ''; // Clear existing comments
 
                 if (snapshot.empty) {
@@ -909,8 +909,8 @@
                     return;
                 }
 
-                for (const doc of snapshot.docs) { // Changed to for...of for async/await
-                    const comment = doc.data();
+                for (const commentDoc of snapshot.docs) { // Renamed 'doc' to 'commentDoc'
+                    const comment = commentDoc.data();
                     const userDisplayName = comment.username || `Usuario_${comment.userId.substring(0, 6)}`;
                     const userPhoto = comment.userPhotoURL || "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser";
 
@@ -931,7 +931,7 @@
                                 <p class="${usernameClass}">${userDisplayName} ${adminTag}</p>
                                 <p class="text-xs text-gray-500">${new Date(comment.timestamp).toLocaleString()}</p>
                             </div>
-                            ${window.currentUserProfile.isAdmin ? `<button class="ml-auto text-red-500 hover:text-red-700 delete-comment-button" data-post-id="${postId}" data-comment-id="${doc.id}"><i class="fas fa-trash"></i></button>` : ''}
+                            ${window.currentUserProfile.isAdmin ? `<button class="ml-auto text-red-500 hover:text-red-700 delete-comment-button" data-post-id="${postId}" data-comment-id="${commentDoc.id}"><i class="fas fa-trash"></i></button>` : ''}
                         </div>
                         <p class="text-byte-text-light text-sm">${comment.content}</p>
                     `;
