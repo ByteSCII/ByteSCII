@@ -238,6 +238,7 @@
 
                     await sendEmailVerification(user);
                     showAuthMessage("Registro exitoso. Por favor, verifica tu correo electrónico.", false);
+                    window.location.reload(); // Reload page on successful registration
 
                 } else {
                     // Check if user is banned before signing in
@@ -255,6 +256,7 @@
                     }
 
                     await signInWithEmailAndPassword(window.auth, email, password);
+                    window.location.reload(); // Reload page on successful login
                 }
             } catch (error) {
                 console.error("Authentication error:", error);
