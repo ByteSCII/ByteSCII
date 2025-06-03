@@ -33,7 +33,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, signOut, sendPasswordResetEmail, updateProfile, updateEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, updateDoc, doc, arrayUnion, arrayRemove, getDoc, setDoc, where, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, updateDoc, doc, arrayUnion, arrayRemove, getDoc, setDoc, where, getDocs, deleteDoc, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Global Firebase variables
         window.firebaseApp = null;
@@ -228,7 +228,6 @@
                         createdAt: Date.now(),
                         last_name_change_timestamp: Date.now(),
                         last_email_change_timestamp: Date.now(),
-                        last_phone_change_timestamp: Date.now(),
                         date_of_birth: '', // Initialize date of birth
                         note: '', // Initialize note
                         profileColor: '#00FFFF', // Default profile color
@@ -356,12 +355,13 @@
                         console.log("onAuthStateChanged: User is logged in.", user.uid);
 
                         // Force reload user data to get the latest email verification status
+                        // This helps when a user verifies email in a separate tab/process and then logs in.
                         if (!user.emailVerified) {
                             console.log("User email not yet verified. Reloading user data...");
                             try {
                                 await user.reload();
                                 // Update the user object with the reloaded data
-                                user = window.auth.currentUser;
+                                user = window.auth.currentUser; // Get the reloaded user object
                                 console.log("User data reloaded. New emailVerified status:", user.emailVerified);
                             } catch (reloadError) {
                                 console.error("Error reloading user data:", reloadError);
@@ -653,9 +653,10 @@
             const postsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/posts`);
             const q = query(postsCollectionRef, orderBy("timestamp", "desc")); // Order by latest
 
+            const postsContainer = document.getElementById('posts-container'); // Moved declaration outside
+
             console.log("Attempting to load posts from path:", postsCollectionRef.path);
             onSnapshot(q, async (snapshot) => {
-                const postsContainer = document.getElementById('posts-container');
                 postsContainer.innerHTML = ''; // Clear existing posts
 
                 if (snapshot.empty) {
@@ -758,6 +759,7 @@
                 console.error("No autorizado para eliminar publicaciones o Firestore/usuario no listo.");
                 return;
             }
+            // Using a custom modal/confirmation in production is recommended instead of `confirm`
             if (!confirm("¿Estás seguro de que quieres eliminar esta publicación y todos sus comentarios?")) {
                 return; // User cancelled
             }
@@ -765,16 +767,21 @@
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                 const postRef = doc(window.db, `artifacts/${appId}/public/data/posts`, postId);
                 console.log(`Attempting to delete post ${postId} at path:`, postRef.path);
+
+                // Create a batch to delete comments and then the post
+                const batch = writeBatch(window.db); // Correct usage of writeBatch
+
                 // Delete all comments in the subcollection first
                 const commentsCollectionRef = collection(postRef, 'comments');
                 const commentsSnapshot = await getDocs(commentsCollectionRef);
-                const batch = window.db.batch();
                 commentsSnapshot.forEach(commentDoc => {
                     batch.delete(commentDoc.ref);
                 });
-                await batch.commit();
+                
                 // Then delete the post itself
-                await deleteDoc(postRef);
+                batch.delete(postRef);
+
+                await batch.commit(); // Commit the batch operation
                 console.log(`Publicación ${postId} eliminada exitosamente.`);
             } catch (error) {
                 console.error("Error al eliminar publicación:", error);
@@ -787,6 +794,7 @@
                 console.error("No autorizado para eliminar comentarios o Firestore/usuario no listo.");
                 return;
             }
+            // Using a custom modal/confirmation in production is recommended instead of `confirm`
             if (!confirm("¿Estás seguro de que quieres eliminar este comentario?")) {
                 return; // User cancelled
             }
@@ -1450,6 +1458,7 @@
                 return;
             }
             const action = isBannedStatus ? "desbanear" : "banear";
+            // Using a custom modal/confirmation in production is recommended instead of `confirm`
             if (!confirm(`¿Estás seguro de que quieres ${action} a este usuario?`)) {
                 return; // User cancelled
             }
@@ -1705,7 +1714,7 @@
             console.log(`Attempting to mark all unread notifications for user ${window.currentUserId} from path:`, notificationsCollectionRef.path);
             try {
                 const querySnapshot = await getDocs(q);
-                const batch = window.db.batch(); // Use batch for multiple updates
+                const batch = writeBatch(window.db); // Correct usage of writeBatch
                 querySnapshot.forEach((doc) => {
                     batch.update(doc.ref, { read: true });
                 });
