@@ -355,6 +355,19 @@
                         window.currentUsername = user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`;
                         console.log("onAuthStateChanged: User is logged in.", user.uid);
 
+                        // Force reload user data to get the latest email verification status
+                        if (!user.emailVerified) {
+                            console.log("User email not yet verified. Reloading user data...");
+                            try {
+                                await user.reload();
+                                // Update the user object with the reloaded data
+                                user = window.auth.currentUser;
+                                console.log("User data reloaded. New emailVerified status:", user.emailVerified);
+                            } catch (reloadError) {
+                                console.error("Error reloading user data:", reloadError);
+                            }
+                        }
+
                         // Fetch additional user profile data from Firestore (now directly from user document)
                         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
                         const userDocRef = doc(window.db, `artifacts/${appId}/users/${user.uid}`);
@@ -588,7 +601,7 @@
                 let match;
                 const mentionedUsernames = new Set();
                 while ((match = mentionRegex.exec(commentContent)) !== null) {
-                    mentionedUsernaments.add(match[1]); // Add captured username (group 1)
+                    mentionedUsernames.add(match[1]); // Add captured username (group 1)
                 }
 
                 if (mentionedUsernames.size > 0) {
@@ -613,7 +626,7 @@
                                         content: commentContent.trim(), // Store the full comment content
                                         read: false,
                                         timestamp: Date.now()
-                                    }); // Corrected: Added missing closing curly brace
+                                    });
                                     console.log(`Notification sent to ${mentionedUsername}`);
                                 }
                             });
