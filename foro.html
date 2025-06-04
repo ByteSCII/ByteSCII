@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Foro de Byte – Registro / Login</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Foro de Byte</title>
   <!-- TailwindCSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Configuración personalizada de Tailwind (idéntica a index.html)
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
             heading: ['Montserrat', 'sans-serif'],
-            navigation: ['Montserrat', 'sans-serif'],
           },
           colors: {
             'byte-dark-bg': '#0A0A1A',
@@ -27,7 +24,226 @@
       }
     }
   </script>
-  <!-- Firebase App (modular) -->
+  <style>
+    .overlay-bg { background-color: rgba(0,0,0,0.7); }
+    .fullscreen { position: fixed; top:0; left:0; width:100%; height:100%; }
+    .fade-in { animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity:0; transform: translateY(-10px);} to {opacity:1; transform:translateY(0);} }
+  </style>
+</head>
+<body class="bg-byte-dark-bg text-byte-text-light overflow-hidden relative">
+
+  <!-- Video de fondo -->
+  <video autoplay loop muted playsinline class="fullscreen object-cover -z-10">
+    <source src="./images/fondo.mp4" type="video/mp4">
+    Tu navegador no soporta la etiqueta de video.
+  </video>
+
+  <!-- Botón Volver al inicio -->
+  <a href="index.html" class="fixed top-4 left-4 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full shadow-lg hover:bg-yellow-600 transition animate-bounce">
+    Volver al inicio
+  </a>
+
+  <!-- Contenedor de autenticación -->
+  <div id="auth-container" class="flex items-center justify-center min-h-screen px-4">
+    <div class="bg-byte-secondary-dark bg-opacity-90 p-6 sm:p-8 rounded-lg w-full max-w-md fade-in">
+
+      <!-- Login -->
+      <div id="login-container">
+        <h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Inicia Sesión</h2>
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label for="login-email" class="block mb-1">Correo Electrónico</label>
+            <input type="email" id="login-email" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+          </div>
+          <div>
+            <label for="login-password" class="block mb-1">Contraseña</label>
+            <input type="password" id="login-password" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+          </div>
+          <button type="submit" class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition">Entrar</button>
+        </form>
+        <p class="mt-4 text-center">¿No tienes cuenta? 
+          <button id="toggle-to-register" class="text-byte-accent-cyan hover:underline">Regístrate</button>
+        </p>
+      </div>
+
+      <!-- Registro -->
+      <div id="register-container" class="hidden">
+        <h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Regístrate</h2>
+        <!-- Reglas editables -->
+        <div id="rules-section" class="mb-4">
+          <div class="max-h-40 overflow-auto p-2 bg-byte-dark-bg rounded mb-2" id="rules-text-display">
+            <!-- Texto de reglas cargado dinámicamente -->
+          </div>
+          <label class="inline-flex items-center">
+            <input type="checkbox" id="accept-rules" class="form-checkbox h-5 w-5 text-byte-accent-cyan" />
+            <span class="ml-2 text-byte-text-light">He leído y acepto las reglas</span>
+          </label>
+        </div>
+        <form id="register-form" class="space-y-4">
+          <input type="text" id="register-name" placeholder="Nombre completo" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+          <input type="email" id="register-email" placeholder="Correo electrónico" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+          <input type="password" id="register-password" placeholder="Contraseña" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+          <p id="password-strength-text" class="text-sm text-white"></p>
+          <input type="password" id="register-confirm-password" placeholder="Confirmar contraseña" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+          <div>
+            <label for="profile-bio" class="block mb-1">Biografía (opcional)</label>
+            <textarea id="profile-bio" class="w-full p-2 rounded bg-byte-dark-bg text-white" rows="2" placeholder="Escribe algo sobre ti..."></textarea>
+          </div>
+          <div>
+            <label for="profile-avatar" class="block mb-1">Avatar (imagen)</label>
+            <input type="file" id="profile-avatar" accept="image/*" class="w-full text-gray-300">
+          </div>
+          <!-- Checkboxes privacidad -->
+          <div>
+            <span class="text-byte-text-light">Información pública:</span>
+            <div class="space-x-2 mt-1">
+              <label class="inline-flex items-center">
+                <input type="checkbox" id="public-role" class="form-checkbox h-5 w-5 text-byte-accent-cyan"/>
+                <span class="ml-1 text-gray-300">Mostrar rol</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="checkbox" id="public-email" class="form-checkbox h-5 w-5 text-byte-accent-cyan"/>
+                <span class="ml-1 text-gray-300">Mostrar correo</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="checkbox" id="public-bio" class="form-checkbox h-5 w-5 text-byte-accent-cyan"/>
+                <span class="ml-1 text-gray-300">Mostrar biografía</span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" id="register-btn" class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition disabled:opacity-50" disabled>Crear cuenta</button>
+        </form>
+        <p class="mt-4 text-center">¿Ya tienes cuenta? 
+          <button id="toggle-to-login" class="text-byte-accent-cyan hover:underline">Inicia Sesión</button>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Contenedor principal del Foro -->
+  <div id="forum-container" class="hidden flex h-screen fade-in">
+
+    <!-- Sidebar izquierdo: Usuarios conectados, solicitudes y panel admin -->
+    <aside class="w-64 bg-byte-secondary-dark p-4 overflow-auto">
+      <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Conectados</h3>
+      <ul id="users-list" class="space-y-2 mb-4"></ul>
+
+      <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Solicitudes</h3>
+      <ul id="requests-list" class="space-y-2 mb-4"></ul>
+
+      <!-- Panel Admin -->
+      <div id="admin-panel" class="hidden">
+        <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Panel Admin</h3>
+
+        <!-- Editar reglas -->
+        <div class="mb-4">
+          <label class="block font-bold mb-1">Editar Reglas</label>
+          <textarea id="edit-rules-text" class="w-full p-2 rounded bg-byte-dark-bg text-white h-24"></textarea>
+          <button id="save-rules-btn" class="mt-2 w-full bg-green-500 text-white py-1 rounded hover:bg-green-600">Guardar Reglas</button>
+        </div>
+
+        <!-- Crear roles -->
+        <div class="mb-4">
+          <label class="block font-bold mb-1">Crear Nuevo Rol</label>
+          <input type="text" id="new-role-name" class="w-full p-2 rounded bg-byte-dark-bg text-white" placeholder="Nombre del rol">
+          <button id="create-role-btn" class="mt-2 w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600">Crear Rol</button>
+        </div>
+
+        <!-- Lista de usuarios para promover o banear -->
+        <h4 class="font-bold mb-2">Gestionar Usuarios</h4>
+        <ul id="ban-list" class="space-y-2"></ul>
+      </div>
+    </aside>
+
+    <!-- Área central: Publicaciones -->
+    <main class="flex-1 flex flex-col">
+      <!-- Header con bienvenida, rol, notificaciones, perfil -->
+      <header class="bg-byte-dark-bg py-4 px-6 flex justify-between items-center border-b border-byte-accent-cyan">
+        <div class="flex items-center space-x-4">
+          <h1 id="welcome-text" class="text-xl font-heading font-bold text-byte-accent-cyan"></h1>
+          <span id="role-tag" class="ml-2 bg-gray-500 text-white text-xs font-bold px-2 py-1 rounded"></span>
+          <button id="profile-btn" class="bg-byte-accent-cyan text-black px-2 py-1 rounded hover:bg-cyan-400">Perfil</button>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button id="send-notif-btn" class="hidden bg-yellow-500 text-black px-2 py-1 rounded hover:bg-yellow-600">Enviar Notif.</button>
+          <div class="relative">
+            <button id="notifications-btn" class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-byte-text-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405M19 13V8a7 7 0 10-14 0v5l-1.405 1.405M6 17h12" />
+              </svg>
+              <span id="notif-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full px-1">0</span>
+            </button>
+            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-byte-secondary-dark border border-byte-accent-cyan rounded shadow-lg overflow-auto max-h-64 z-50">
+              <ul id="notifications-list"></ul>
+            </div>
+          </div>
+          <button id="logout-btn" class="text-red-500 hover:underline">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <!-- Formulario publicación con archivos -->
+      <div class="p-4 border-b border-byte-accent-cyan">
+        <form id="post-form" class="flex space-x-2" enctype="multipart/form-data">
+          <textarea id="post-input" rows="2" class="flex-grow p-2 rounded bg-byte-dark-bg text-white" placeholder="¿Qué estás pensando?" required></textarea>
+          <input type="file" id="post-media" accept="image/*,video/*" class="text-gray-300">
+          <button type="submit" class="bg-byte-accent-cyan text-black px-4 py-2 rounded">Publicar</button>
+        </form>
+      </div>
+
+      <!-- Lista de publicaciones -->
+      <div id="posts-list" class="p-4 overflow-auto flex-1 space-y-4"></div>
+    </main>
+
+    <!-- Sidebar derecho: Chat privado -->
+    <aside class="w-80 bg-byte-secondary-dark p-4 flex flex-col">
+      <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Chat Privado</h3>
+      <ul id="conversations-list" class="space-y-2 mb-4 flex-1 overflow-auto"></ul>
+      <div id="chat-box" class="hidden flex flex-col border-t border-byte-accent-cyan pt-2">
+        <div id="chat-messages" class="flex-1 overflow-auto mb-2 space-y-2"></div>
+        <form id="message-form" class="flex space-x-2">
+          <input type="text" id="message-input" class="flex-grow p-2 rounded bg-byte-dark-bg text-white" placeholder="Escribe un mensaje..." required />
+          <button type="submit" class="bg-byte-accent-cyan text-black px-4 py-2 rounded">Enviar</button>
+        </form>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Modal perfil de usuario -->
+  <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
+    <div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
+      <div class="flex justify-between items-center mb-4">
+        <h2 id="profile-name" class="text-xl font-bold text-byte-accent-cyan"></h2>
+        <button id="close-profile" class="text-gray-400 hover:text-white">&times;</button>
+      </div>
+      <p id="profile-role" class="text-gray-300 mb-1"></p>
+      <p id="profile-email" class="text-gray-300 mb-1"></p>
+      <p id="profile-bio" class="text-gray-300 mb-1"></p>
+      <div id="profile-media" class="mt-2"></div>
+    </div>
+  </div>
+
+  <!-- Modal enviar notificación -->
+  <div id="notif-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
+    <div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
+      <h2 class="text-xl font-bold text-byte-accent-cyan mb-4">Enviar Notificación</h2>
+      <form id="notif-form" class="space-y-4">
+        <div>
+          <label for="notif-user" class="block mb-1">Usuario (UID)</label>
+          <input type="text" id="notif-user" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
+        </div>
+        <div>
+          <label for="notif-content" class="block mb-1">Contenido</label>
+          <textarea id="notif-content" class="w-full p-2 rounded bg-byte-dark-bg text-white" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="w-full bg-byte-accent-cyan text-black py-2 rounded hover:bg-cyan-400">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Firebase SDK y lógica -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import {
@@ -36,45 +252,133 @@
       sendEmailVerification,
       signInWithEmailAndPassword,
       onAuthStateChanged,
-      updateProfile
+      updateProfile,
+      signOut
     } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
     import {
       getFirestore,
       doc,
-      setDoc
+      setDoc,
+      addDoc,
+      collection,
+      query,
+      orderBy,
+      onSnapshot,
+      updateDoc,
+      serverTimestamp,
+      getDoc,
+      getDocs,
+      deleteDoc,
+      where
     } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+    import {
+      getStorage,
+      ref as sRef,
+      uploadBytes,
+      getDownloadURL
+    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
 
-    // Tu configuración de Firebase
+    // Configuración Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCYpAKjzz-rUBlZYkaEPiZMawfAM8-nQ3Y",
       authDomain: "byteweb-13a12.firebaseapp.com",
       projectId: "byteweb-13a12",
-      storageBucket: "byteweb-13a12.firebasestorage.app",
+      storageBucket: "byteweb-13a12.appspot.com",
       messagingSenderId: "827941655623",
       appId: "1:827941655623:web:887b7a5220fd416eeccd62"
     };
-
-    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
-    // Elementos
-    const registerForm = document.getElementById('register-form');
-    const loginForm = document.getElementById('login-form');
-    const toggleToLogin = document.getElementById('toggle-to-login');
-    const toggleToRegister = document.getElementById('toggle-to-register');
+    // Elementos DOM
+    const authContainer = document.getElementById('auth-container');
+    const forumContainer = document.getElementById('forum-container');
+    const loginContainer = document.getElementById('login-container');
+    const registerContainer = document.getElementById('register-container');
+    const acceptRules = document.getElementById('accept-rules');
+    const registerBtn = document.getElementById('register-btn');
+    const publicRole = document.getElementById('public-role');
+    const publicEmail = document.getElementById('public-email');
+    const publicBio = document.getElementById('public-bio');
+    const usersList = document.getElementById('users-list');
+    const requestsList = document.getElementById('requests-list');
+    const banList = document.getElementById('ban-list');
+    const conversationsList = document.getElementById('conversations-list');
+    const chatBox = document.getElementById('chat-box');
+    const chatMessages = document.getElementById('chat-messages');
+    const notificationsBtn = document.getElementById('notifications-btn');
+    const notificationsDropdown = document.getElementById('notifications-dropdown');
+    const notificationsList = document.getElementById('notifications-list');
+    const notifCount = document.getElementById('notif-count');
+    const postForm = document.getElementById('post-form');
+    const postInput = document.getElementById('post-input');
+    const postMedia = document.getElementById('post-media');
+    const postsList = document.getElementById('posts-list');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const logoutBtn = document.getElementById('logout-btn');
+    const welcomeText = document.getElementById('welcome-text');
+    const roleTag = document.getElementById('role-tag');
+    const adminTag = document.getElementById('admin-tag');
+    const profileModal = document.getElementById('profile-modal');
+    const profileName = document.getElementById('profile-name');
+    const profileEmail = document.getElementById('profile-email');
+    const profileRole = document.getElementById('profile-role');
+    const profileBio = document.getElementById('profile-bio');
+    const profileMedia = document.getElementById('profile-media');
+    const closeProfile = document.getElementById('close-profile');
+    const adminPanel = document.getElementById('admin-panel');
+    const editRulesText = document.getElementById('edit-rules-text');
+    const saveRulesBtn = document.getElementById('save-rules-btn');
+    const newRoleName = document.getElementById('new-role-name');
+    const createRoleBtn = document.getElementById('create-role-btn');
+    const sendNotifBtn = document.getElementById('send-notif-btn');
+    const notifModal = document.getElementById('notif-modal');
+    const notifForm = document.getElementById('notif-form');
+    const notifUser = document.getElementById('notif-user');
+    const notifContent = document.getElementById('notif-content');
 
-    // Cambio de vista entre registro y login
-    toggleToLogin.addEventListener('click', () => {
-      document.getElementById('register-container').classList.add('hidden');
-      document.getElementById('login-container').classList.remove('hidden');
+    let currentUser = null;
+    let currentUserData = null;
+    let currentChatUser = null;
+    let isAdmin = false;
+    let userRoles = [];
+
+    // Cargar roles al inicio
+    async function loadRoles() {
+      const rolesSnapshot = await getDocs(collection(db, 'roles'));
+      userRoles = [];
+      rolesSnapshot.forEach(docSnap => userRoles.push(docSnap.data().name));
+    }
+    loadRoles();
+
+    // Cargar reglas
+    async function loadRules() {
+      const rulesDoc = await getDoc(doc(db, 'settings', 'business_rules'));
+      if (rulesDoc.exists()) {
+        const text = rulesDoc.data().text;
+        document.getElementById('rules-text-display').textContent = text;
+        editRulesText.value = text;
+      }
+    }
+    loadRules();
+
+    // Habilitar botón de registro al aceptar reglas
+    acceptRules.addEventListener('change', () => {
+      registerBtn.disabled = !acceptRules.checked;
     });
 
-    toggleToRegister.addEventListener('click', () => {
-      document.getElementById('login-container').classList.add('hidden');
-      document.getElementById('register-container').classList.remove('hidden');
-    });
+    // Toggle UI
+    document.getElementById('toggle-to-register').onclick = () => {
+      loginContainer.classList.add('hidden');
+      registerContainer.classList.remove('hidden');
+    };
+    document.getElementById('toggle-to-login').onclick = () => {
+      registerContainer.classList.add('hidden');
+      loginContainer.classList.remove('hidden');
+    };
 
     // Medidor de contraseña
     const passwordInput = document.getElementById('register-password');
@@ -88,57 +392,67 @@
       if (/[^A-Za-z0-9]/.test(val)) strength++;
       if (strength <= 1) {
         passwordStrengthText.textContent = 'Débil';
-        passwordStrengthText.className = 'text-red-500';
-      } else if (strength == 2 || strength == 3) {
+        passwordStrengthText.className = 'text-red-500 text-sm';
+      } else if (strength <= 3) {
         passwordStrengthText.textContent = 'Medio';
-        passwordStrengthText.className = 'text-yellow-400';
+        passwordStrengthText.className = 'text-yellow-400 text-sm';
       } else {
         passwordStrengthText.textContent = 'Fuerte';
-        passwordStrengthText.className = 'text-green-500';
+        passwordStrengthText.className = 'text-green-500 text-sm';
       }
     });
 
     // Registro
-    registerForm.addEventListener('submit', async (e) => {
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('register-name').value.trim();
       const email = document.getElementById('register-email').value.trim();
       const password = document.getElementById('register-password').value;
       const confirmPassword = document.getElementById('register-confirm-password').value;
-      const role = document.getElementById('register-role').value;
-
-      if (!name || !email || !password || !confirmPassword || !role) {
-        alert('Por favor, completa todos los campos.');
+      const bio = document.getElementById('profile-bio').value.trim();
+      const avatarFile = document.getElementById('profile-avatar').files[0];
+      if (!name || !email || !password || !confirmPassword) {
+        alert('Completa todos los campos.');
         return;
       }
       if (password !== confirmPassword) {
         alert('Las contraseñas no coinciden.');
         return;
       }
-
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        // Enviar verificación de email
         await sendEmailVerification(user);
-        // Actualizar displayName
         await updateProfile(user, { displayName: name });
-        // Guardar datos adicionales en Firestore
+        let avatarURL = '';
+        if (avatarFile) {
+          const storageRef = sRef(storage, `avatars/${user.uid}`);
+          await uploadBytes(storageRef, avatarFile);
+          avatarURL = await getDownloadURL(storageRef);
+        }
         await setDoc(doc(db, 'users', user.uid), {
-          name: name,
-          email: email,
-          role: role,
-          userId: user.uid
+          name,
+          email,
+          role: 'Cliente',
+          userId: user.uid,
+          online: false,
+          banned: false,
+          publicRole: publicRole.checked,
+          publicEmail: publicEmail.checked,
+          publicBio: publicBio.checked,
+          bio,
+          avatarURL
         });
-        alert('Registro exitoso! Revisa tu correo para verificar tu cuenta.');
-        registerForm.reset();
+        alert('Registro exitoso! Verifica tu correo.');
+        registerContainer.classList.add('hidden');
+        loginContainer.classList.remove('hidden');
       } catch (error) {
-        alert('Error en registro: ' + error.message);
+        alert('Error: ' + error.message);
       }
     });
 
     // Login
-    loginForm.addEventListener('submit', async (e) => {
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
@@ -146,99 +460,566 @@
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         if (!user.emailVerified) {
-          alert('Por favor, verifica tu correo antes de iniciar sesión.');
+          alert('Verifica tu correo antes de iniciar sesión.');
           await sendEmailVerification(user);
           return;
         }
-        alert('Inicio de sesión exitoso! Bienvenido ' + user.displayName);
-        // Aquí redirigir a la página principal del foro o cargar la interfaz
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const data = userDoc.data();
+        if (data.banned) {
+          alert('Has sido baneado.');
+          await signOut(auth);
+          return;
+        }
+        currentUser = user;
+        currentUserData = data;
+        isAdmin = (data.role === 'Admin');
+        await updateDoc(doc(db, 'users', user.uid), { online: true });
+        welcomeText.textContent = data.name;
+        roleTag.textContent = data.role;
+        if (isAdmin) {
+          adminTag.classList.remove('hidden');
+          adminPanel.classList.remove('hidden');
+          sendNotifBtn.classList.remove('hidden');
+        }
+        authContainer.classList.add('hidden');
+        forumContainer.classList.remove('hidden');
+        setupForum();
       } catch (error) {
-        alert('Error en inicio de sesión: ' + error.message);
+        alert('Error: ' + error.message);
       }
     });
 
-    // Mantener sesión activa (opcional)
-    onAuthStateChanged(auth, (user) => {
+    // Estado auth
+    onAuthStateChanged(auth, async (user) => {
       if (user && user.emailVerified) {
-        // Redirigir si está autenticado y verificado
-        // window.location.href = 'foro-main.html';
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        const data = userDoc.data();
+        if (data.banned) {
+          await signOut(auth);
+          return;
+        }
+        currentUser = user;
+        currentUserData = data;
+        isAdmin = (data.role === 'Admin');
+        await updateDoc(doc(db, 'users', user.uid), { online: true });
+        welcomeText.textContent = data.name;
+        roleTag.textContent = data.role;
+        if (isAdmin) {
+          adminTag.classList.remove('hidden');
+          adminPanel.classList.remove('hidden');
+          sendNotifBtn.classList.remove('hidden');
+        }
+        authContainer.classList.add('hidden');
+        forumContainer.classList.remove('hidden');
+        setupForum();
+      } else {
+        if (currentUser) {
+          await updateDoc(doc(db, 'users', currentUser.uid), { online: false });
+          currentUser = null;
+          currentUserData = null;
+          isAdmin = false;
+        }
+        forumContainer.classList.add('hidden');
+        authContainer.classList.remove('hidden');
+        adminTag.classList.add('hidden');
+        adminPanel.classList.add('hidden');
+        sendNotifBtn.classList.add('hidden');
       }
     });
-  </script>
 
-  <style>
-    /* Estilo para overlay negro semitransparente */
-    .overlay-bg {
-      background-color: rgba(0, 0, 0, 0.7);
+    // Logout
+    logoutBtn.onclick = async () => {
+      if (currentUser) {
+        await updateDoc(doc(db, 'users', currentUser.uid), { online: false });
+        await signOut(auth);
+      }
+    };
+
+    // Setup foro
+    async function setupForum() {
+      await loadRoles();
+      loadUsers();
+      loadRequests();
+      loadBanList();
+      loadPosts();
+      loadNotifications();
+      loadConversations();
+      loadRules(); // refresh rules display
     }
-  </style>
-</head>
-<body class="bg-byte-dark-bg h-screen overflow-hidden">
 
-  <!-- Video de fondo -->
-  <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover">
-    <source src="./images/fondo.mp4" type="video/mp4">
-    Tu navegador no soporta la etiqueta de video.
-  </video>
+    // Load users
+    function loadUsers() {
+      const q = query(collection(db, 'users'));
+      onSnapshot(q, (snapshot) => {
+        usersList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          if (data.online && data.userId !== currentUser.uid) {
+            const li = document.createElement('li');
+            li.className = 'flex justify-between items-center';
+            let userInfo = data.name;
+            if (data.publicRole) userInfo += ` (${data.role})`;
+            li.innerHTML = `
+              <span class="cursor-pointer text-byte-accent-cyan view-profile-btn" data-id="${data.userId}">${userInfo}</span>
+              <div class="flex space-x-1">
+                <button data-id="${data.userId}" class="send-request-btn bg-byte-accent-cyan text-black px-2 py-1 rounded text-sm">Chat</button>
+                ${isAdmin ? `<select data-id="${data.userId}" class="role-select bg-byte-dark-bg text-white px-2 py-1 rounded text-sm"></select><button data-id="${data.userId}" class="ban-btn bg-red-500 text-white px-2 py-1 rounded text-sm">Banear</button>` : ''}
+              </div>
+            `;
+            usersList.appendChild(li);
+            li.querySelector('.send-request-btn').onclick = () => sendRequest(data.userId);
+            li.querySelector('.view-profile-btn').onclick = () => viewProfile(data.userId);
+            if (isAdmin) {
+              const selectElem = li.querySelector('.role-select');
+              userRoles.forEach(r => {
+                const opt = document.createElement('option');
+                opt.value = r;
+                opt.textContent = r;
+                if (r === data.role) opt.selected = true;
+                selectElem.appendChild(opt);
+              });
+              selectElem.onchange = async (e) => {
+                await updateDoc(doc(db, 'users', data.userId), { role: e.target.value });
+                if (data.userId === currentUser.uid) roleTag.textContent = e.target.value;
+              };
+              li.querySelector('.ban-btn').onclick = () => banUser(data.userId);
+            }
+          }
+        });
+      });
+    }
 
-  <!-- Contenedor central -->
-  <div class="relative z-10 flex items-center justify-center h-full">
-    <div class="bg-byte-secondary-dark overlay-bg p-8 rounded-lg max-w-md w-full">
+    // View profile
+    async function viewProfile(userId) {
+      const userDoc = await getDoc(doc(db, 'users', userId));
+      const data = userDoc.data();
+      profileName.textContent = data.name;
+      profileRole.textContent = data.publicRole ? `Rol: ${data.role}` : '';
+      profileEmail.textContent = data.publicEmail ? `Correo: ${data.email}` : '';
+      profileBio.textContent = data.publicBio ? `Bio: ${data.bio}` : '';
+      profileMedia.innerHTML = '';
+      if (data.avatarURL) {
+        const img = document.createElement('img');
+        img.src = data.avatarURL;
+        img.alt = "Avatar";
+        img.className = 'w-24 h-24 object-cover rounded mb-2';
+        profileMedia.appendChild(img);
+      }
+      profileModal.classList.remove('hidden');
+    }
+    closeProfile.onclick = () => profileModal.classList.add('hidden');
 
-      <!-- Registro -->
-      <div id="register-container">
-        <h2 class="text-2xl font-bold mb-4 text-byte-accent-cyan font-heading text-center">Regístrate</h2>
-        <form id="register-form" class="space-y-4">
-          <div>
-            <label for="register-name" class="block mb-1 text-byte-text-light">Nombre Completo</label>
-            <input type="text" id="register-name" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-          </div>
-          <div>
-            <label for="register-email" class="block mb-1 text-byte-text-light">Correo Electrónico</label>
-            <input type="email" id="register-email" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-          </div>
-          <div>
-            <label for="register-password" class="block mb-1 text-byte-text-light">Contraseña</label>
-            <input type="password" id="register-password" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-            <p id="password-strength-text" class="mt-1 text-sm"></p>
-          </div>
-          <div>
-            <label for="register-confirm-password" class="block mb-1 text-byte-text-light">Confirmar Contraseña</label>
-            <input type="password" id="register-confirm-password" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-          </div>
-          <div>
-            <label for="register-role" class="block mb-1 text-byte-text-light">Selecciona tu Rol</label>
-            <select id="register-role" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-              <option value="">-- Selecciona --</option>
-              <option value="Instructor">Instructor</option>
-              <option value="Aprendiz">Aprendiz</option>
-              <option value="Cliente">Cliente</option>
-            </select>
-          </div>
-          <button type="submit" class="w-full bg-byte-accent-cyan text-byte-dark-bg font-bold py-2 rounded hover:bg-cyan-400 transition">Crear Cuenta</button>
-        </form>
-        <p class="mt-4 text-center text-byte-text-light">¿Ya tienes cuenta? <button id="toggle-to-login" class="text-byte-accent-cyan hover:underline">Inicia Sesión</button></p>
-      </div>
+    // Ban user
+    async function banUser(userId) {
+      if (confirm('¿Seguro que quieres banear a este usuario?')) { 
+        await updateDoc(doc(db, 'users', userId), { banned: true, online: false }); 
+      }
+    }
 
-      <!-- Login -->
-      <div id="login-container" class="hidden">
-        <h2 class="text-2xl font-bold mb-4 text-byte-accent-cyan font-heading text-center">Inicia Sesión</h2>
-        <form id="login-form" class="space-y-4">
-          <div>
-            <label for="login-email" class="block mb-1 text-byte-text-light">Correo Electrónico</label>
-            <input type="email" id="login-email" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-          </div>
-          <div>
-            <label for="login-password" class="block mb-1 text-byte-text-light">Contraseña</label>
-            <input type="password" id="login-password" class="w-full p-2 rounded bg-byte-dark-bg text-byte-text-light" required>
-          </div>
-          <button type="submit" class="w-full bg-byte-accent-cyan text-byte-dark-bg font-bold py-2 rounded hover:bg-cyan-400 transition">Entrar</button>
-        </form>
-        <p class="mt-4 text-center text-byte-text-light">¿No tienes cuenta? <button id="toggle-to-register" class="text-byte-accent-cyan hover:underline">Regístrate</button></p>
-      </div>
+    // Load roles for selects
+    async function loadRoles() {
+      const rolesSnapshot = await getDocs(collection(db, 'roles'));
+      userRoles = [];
+      rolesSnapshot.forEach(docSnap => userRoles.push(docSnap.data().name));
+    }
 
-    </div>
-  </div>
+    // Create new role
+    createRoleBtn.onclick = async () => {
+      const name = newRoleName.value.trim();
+      if (!name) return;
+      await addDoc(collection(db, 'roles'), { name });
+      newRoleName.value = '';
+      await loadRoles();
+      loadUsers();
+    };
 
+    // Load ban list
+    function loadBanList() {
+      if (!isAdmin) return;
+      const q = query(collection(db, 'users'));
+      onSnapshot(q, (snapshot) => {
+        banList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          if (data.userId !== currentUser.uid) {
+            const li = document.createElement('li');
+            li.className = 'flex justify-between items-center';
+            li.innerHTML = `
+              <span>${data.name} (${data.role}) ${data.banned ? '- Baneado' : ''}</span>
+              ${data.banned ? `<button data-id="${data.userId}" class="unban-btn bg-green-500 text-white px-2 py-1 rounded text-sm">Desbanear</button>` : `<button data-id="${data.userId}" class="ban-btn bg-red-500 text-white px-2 py-1 rounded text-sm">Banear</button>`}
+            `;
+            banList.appendChild(li);
+            if (data.banned) {
+              li.querySelector('.unban-btn').onclick = async () => {
+                await updateDoc(doc(db, 'users', data.userId), { banned: false });
+              };
+            } else {
+              li.querySelector('.ban-btn').onclick = () => banUser(data.userId);
+            }
+          }
+        });
+      });
+    }
+
+    // Load requests
+    function loadRequests() {
+      const q = query(collection(db, 'message_requests'), orderBy('timestamp', 'desc'));
+      onSnapshot(q, (snapshot) => {
+        requestsList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data(), id = docSnap.id;
+          if (data.recipientId === currentUser.uid && data.status === 'pending') {
+            const li = document.createElement('li');
+            li.className = 'flex justify-between items-center';
+            li.innerHTML = `
+              <span>Solicitud de <strong>${data.senderId}</strong></span>
+              <div>
+                <button data-id="${id}" data-sender="${data.senderId}" class="accept-request-btn bg-green-500 px-2 py-1 rounded text-white text-sm mr-1">Aceptar</button>
+                <button data-id="${id}" class="decline-request-btn bg-red-500 px-2 py-1 rounded text-white text-sm">Rechazar</button>
+              </div>
+            `;
+            requestsList.appendChild(li);
+            li.querySelector('.accept-request-btn').onclick = (e) => acceptRequest(e.target.dataset.id, e.target.dataset.sender);
+            li.querySelector('.decline-request-btn').onclick = (e) => declineRequest(e.target.dataset.id);
+          }
+        });
+      });
+    }
+
+    async function acceptRequest(requestId, senderId) {
+      await updateDoc(doc(db, 'message_requests', requestId), { status: 'accepted' });
+      openChat(senderId);
+    }
+    async function declineRequest(requestId) {
+      await deleteDoc(doc(db, 'message_requests', requestId));
+    }
+
+    // Load conversations
+    function loadConversations() {
+      const q1 = query(collection(db, 'message_requests'));
+      onSnapshot(q1, (snapshot) => {
+        conversationsList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const data = docSnap.data();
+          if ((data.senderId === currentUser.uid || data.recipientId === currentUser.uid) && data.status === 'accepted') {
+            const otherId = (data.senderId === currentUser.uid) ? data.recipientId : data.senderId;
+            const li = document.createElement('li');
+            li.className = 'p-2 bg-byte-dark-bg rounded cursor-pointer hover:bg-byte-secondary-dark';
+            li.textContent = 'Chat con ' + otherId;
+            li.onclick = () => openChat(otherId);
+            conversationsList.appendChild(li);
+          }
+        });
+      });
+    }
+
+    // Open chat
+    function openChat(otherId) {
+      currentChatUser = otherId;
+      chatBox.classList.remove('hidden');
+      chatMessages.innerHTML = '';
+      const chatQuery = query(collection(db, 'messages'), orderBy('timestamp'));
+      onSnapshot(chatQuery, (snapshot) => {
+        chatMessages.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const m = docSnap.data();
+          if ((m.senderId === currentUser.uid && m.receiverId === otherId) ||
+              (m.senderId === otherId && m.receiverId === currentUser.uid) || isAdmin) {
+            const div = document.createElement('div');
+            div.className = m.senderId === currentUser.uid ? 'text-right' : 'text-left';
+            div.innerHTML = `
+              <span class="block inline-block px-3 py-1 rounded ${m.senderId === currentUser.uid ? 'bg-byte-accent-cyan text-black' : 'bg-byte-secondary-dark text-white'}">
+                ${m.content}
+              </span>
+            `;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+          }
+        });
+      });
+    }
+
+    // Send message
+    messageForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const content = messageInput.value.trim();
+      if (!content || !currentChatUser) return;
+      await addDoc(collection(db, 'messages'), {
+        senderId: currentUser.uid,
+        receiverId: currentChatUser,
+        content,
+        timestamp: serverTimestamp()
+      });
+      messageInput.value = '';
+    };
+
+    // Create post with media
+    postForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const content = postInput.value.trim();
+      if (!content && !postMedia.files.length) return;
+      // IA verific: reject if "mal"
+      if (/\bmal\b/i.test(content)) {
+        alert('Contenido no permitido.');
+        return;
+      }
+      const postRef = await addDoc(collection(db, 'posts'), {
+        userId: currentUser.uid,
+        userName: currentUserData.name,
+        role: currentUserData.role,
+        content,
+        timestamp: serverTimestamp(),
+        likes: 0,
+        media: []
+      });
+      // Subir media si existe
+      if (postMedia.files.length) {
+        const file = postMedia.files[0];
+        // IA check nombre
+        if (/\bmal\b/i.test(file.name)) {
+          alert('Archivo no permitido.');
+        } else {
+          const storageRef = sRef(storage, `posts/${postRef.id}/${file.name}`);
+          await uploadBytes(storageRef, file);
+          const url = await getDownloadURL(storageRef);
+          await updateDoc(postRef, { media: [url] });
+        }
+      }
+      postInput.value = '';
+      postMedia.value = '';
+    });
+
+    // Load posts
+    function loadPosts() {
+      const postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
+      onSnapshot(postsQuery, (snapshot) => {
+        postsList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const post = docSnap.data(), postId = docSnap.id;
+          const postDiv = document.createElement('div');
+          postDiv.className = 'bg-byte-secondary-dark p-4 rounded fade-in';
+          let deleteBtnHTML = '';
+          if (isAdmin || post.userId === currentUser.uid) {
+            deleteBtnHTML = `<button data-id="${postId}" class="delete-post-btn text-red-500 text-sm">Borrar</button>`;
+          }
+          let roleLabel = post.role ? `<span class="text-xs text-gray-400">(${post.role})</span>` : '';
+          let mediaHTML = '';
+          if (post.media && post.media.length) {
+            post.media.forEach(url => {
+              if (url.match(/\.(mp4|webm)$/i)) {
+                mediaHTML += `<video src="${url}" controls class="max-w-full rounded mb-2"></video>`;
+              } else {
+                mediaHTML += `<img src="${url}" class="max-w-full rounded mb-2">`;
+              }
+            });
+          }
+          postDiv.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+              <span class="font-bold text-byte-accent-cyan view-profile-btn cursor-pointer" data-id="${post.userId}">${post.userName}</span>${roleLabel}
+              <span class="text-gray-400 text-xs">${post.timestamp ? new Date(post.timestamp.seconds*1000).toLocaleString() : ''}</span>
+            </div>
+            <p class="text-white mb-2">${post.content}</p>
+            ${mediaHTML}
+            <div class="flex items-center space-x-4">
+              <button data-id="${postId}" class="like-btn flex items-center space-x-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-byte-accent-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-3 3m0 0l-3-3m3 3V3" />
+                </svg>
+                <span class="like-count">${post.likes}</span>
+              </button>
+              <button data-id="${postId}" class="comment-toggle-btn text-byte-accent-cyan text-sm">Comentarios</button>
+              ${deleteBtnHTML}
+            </div>
+            <div id="comments-${postId}" class="mt-2 hidden">
+              <div id="comments-list-${postId}" class="mb-2 space-y-1"></div>
+              <form data-id="${postId}" class="comment-form flex space-x-2">
+                <input type="text" placeholder="Comentario..." class="flex-grow p-2 rounded bg-byte-dark-bg text-white comment-input" required />
+                <button type="submit" class="bg-byte-accent-cyan text-black px-3 py-1 rounded text-sm">Enviar</button>
+              </form>
+            </div>
+          `;
+          postsList.appendChild(postDiv);
+
+          // profile link
+          postDiv.querySelector('.view-profile-btn').onclick = () => viewProfile(post.userId);
+
+          // delete
+          if (deleteBtnHTML) {
+            postDiv.querySelector('.delete-post-btn').onclick = async () => {
+              if (confirm('¿Eliminar esta publicación?')) {
+                await deleteDoc(doc(db, 'posts', postId));
+              }
+            };
+          }
+
+          // like
+          postDiv.querySelector('.like-btn').onclick = async () => {
+            await updateDoc(doc(db, 'posts', postId), { likes: post.likes + 1 });
+            if (currentUser.uid !== post.userId) {
+              await addDoc(collection(db, 'notifications'), {
+                userId: post.userId,
+                content: `${currentUserData.name} le gustó tu publicación.`,
+                timestamp: serverTimestamp(),
+                read: false
+              });
+            }
+          };
+
+          // toggle comments
+          const commentToggleBtn = postDiv.querySelector('.comment-toggle-btn');
+          const commentsContainer = postDiv.querySelector(`#comments-${postId}`);
+          commentToggleBtn.onclick = () => {
+            commentsContainer.classList.toggle('hidden');
+            if (!commentsContainer.classList.contains('hidden')) {
+              loadComments(postId);
+            }
+          };
+
+          // submit comment
+          postDiv.querySelector('.comment-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const commentInput = e.target.querySelector('.comment-input');
+            const text = commentInput.value.trim();
+            if (!text) return;
+            // IA check
+            if (/\bmal\b/i.test(text)) {
+              alert('Contenido no permitido.');
+              return;
+            }
+            await addDoc(collection(db, 'posts', postId, 'comments'), {
+              userId: currentUser.uid,
+              userName: currentUserData.name,
+              role: currentUserData.role,
+              content: text,
+              timestamp: serverTimestamp()
+            });
+            if (currentUser.uid !== post.userId) {
+              await addDoc(collection(db, 'notifications'), {
+                userId: post.userId,
+                content: `${currentUserData.name} comentó tu publicación.`,
+                timestamp: serverTimestamp(),
+                read: false
+              });
+            }
+            commentInput.value = '';
+          };
+        });
+      });
+    }
+
+    // load comments
+    function loadComments(postId) {
+      const commentsQuery = query(collection(db, 'posts', postId, 'comments'), orderBy('timestamp', 'asc'));
+      onSnapshot(commentsQuery, (snapshot) => {
+        const commentsList = document.getElementById(`comments-list-${postId}`);
+        commentsList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const c = docSnap.data();
+          const div = document.createElement('div');
+          div.className = 'bg-byte-dark-bg p-2 rounded flex justify-between fade-in';
+          let deleteCommentBtn = '';
+          if (isAdmin || c.userId === currentUser.uid) {
+            deleteCommentBtn = `<button data-id="${docSnap.id}" data-post="${postId}" class="delete-comment-btn text-red-500 text-xs ml-2">Borrar</button>`;
+          }
+          let commenterInfo = c.userName;
+          if (c.publicRole) commenterInfo += ` (${c.role})`;
+          div.innerHTML = `
+            <div>
+              <span class="font-bold text-byte-accent-cyan view-profile-btn cursor-pointer" data-id="${c.userId}">${commenterInfo}:</span>
+              <span class="ml-2 text-white">${c.content}</span>
+              <span class="text-gray-400 text-xs ml-2">(${c.timestamp ? new Date(c.timestamp.seconds*1000).toLocaleTimeString() : ''})</span>
+            </div>
+            ${deleteCommentBtn}
+          `;
+          commentsList.appendChild(div);
+
+          div.querySelector('.view-profile-btn').onclick = () => viewProfile(c.userId);
+
+          if (deleteCommentBtn) {
+            div.querySelector('.delete-comment-btn').onclick = async (e) => {
+              const commentId = e.target.dataset.id;
+              const parentPost = e.target.dataset.post;
+              if (confirm('¿Eliminar este comentario?')) {
+                await deleteDoc(doc(db, 'posts', parentPost, 'comments', commentId));
+              }
+            };
+          }
+        });
+      });
+    }
+
+    // load notifications
+    function loadNotifications() {
+      const notifQuery = query(collection(db, 'notifications'), orderBy('timestamp', 'desc'));
+      onSnapshot(notifQuery, (snapshot) => {
+        let count = 0;
+        notificationsList.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const n = docSnap.data();
+          if (n.userId === currentUser.uid) {
+            if (!n.read) count++;
+            const li = document.createElement('li');
+            li.className = 'p-2 hover:bg-byte-dark-bg';
+            li.textContent = n.content + ' - ' + new Date(n.timestamp.seconds*1000).toLocaleString();
+            notificationsList.appendChild(li);
+          }
+        });
+        notifCount.textContent = count;
+      });
+
+      notificationsBtn.onclick = () => {
+        notificationsDropdown.classList.toggle('hidden');
+        (async () => {
+          const snapshot = await getDocs(collection(db, 'notifications'));
+          snapshot.forEach(async (docSnap) => {
+            const n = docSnap.data();
+            if (n.userId === currentUser.uid && !n.read) {
+              await updateDoc(doc(db, 'notifications', docSnap.id), { read: true });
+            }
+          });
+        })();
+      };
+    }
+
+    // upload and send notifications (admin)
+    sendNotifBtn.onclick = () => {
+      notifModal.classList.remove('hidden');
+    };
+    notifForm.onsubmit = async (e) => {
+      e.preventDefault();
+      const uid = notifUser.value.trim();
+      const content = notifContent.value.trim();
+      if (!uid || !content) return;
+      await addDoc(collection(db, 'notifications'), {
+        userId: uid,
+        content,
+        timestamp: serverTimestamp(),
+        read: false
+      });
+      notifModal.classList.add('hidden');
+      notifUser.value = '';
+      notifContent.value = '';
+    };
+
+    // Load rules for editing
+    async function loadRules() {
+      const rulesDoc = await getDoc(doc(db, 'settings', 'business_rules'));
+      if (rulesDoc.exists()) {
+        const text = rulesDoc.data().text;
+        document.getElementById('rules-text-display').textContent = text;
+        editRulesText.value = text;
+      }
+    }
+
+    // Save rules (admin)
+    saveRulesBtn.onclick = async () => {
+      const text = editRulesText.value.trim();
+      if (!text) return;
+      await setDoc(doc(db, 'settings', 'business_rules'), { text });
+      document.getElementById('rules-text-display').textContent = text;
+    };
+
+  </script>
 </body>
 </html>
