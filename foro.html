@@ -618,11 +618,7 @@
     }
 
     // Load roles for selects
-    async function loadRoles() {
-      const rolesSnapshot = await getDocs(collection(db, 'roles'));
-      userRoles = [];
-      rolesSnapshot.forEach(docSnap => userRoles.push(docSnap.data().name));
-    }
+    
 
     // Create new role
     createRoleBtn.onclick = async () => {
