@@ -61,11 +61,29 @@
         let activityTimer; // Timer for updating user activity
 
         // Variables para las funciones de desuscripción de Firestore
-        let unsubscribePosts = null;
-        let unsubscribeOnlineUsers = null;
-        let unsubscribeNotifications = null;
-        let unsubscribeComments = null; // For the currently viewed post's comments
-        let unsubscribeAdminChats = null; // For admin chat view
+        // Almacenamos las funciones de desuscripción aquí para poder llamarlas cuando sea necesario.
+        const firestoreUnsubscribes = {
+            posts: null,
+            onlineUsers: null,
+            notifications: null,
+            comments: null, // For the currently viewed post's comments
+            adminChats: null // For admin chat view
+        };
+
+        /**
+         * Centraliza la lógica para desuscribirse de todos los listeners de Firestore.
+         * Esto es crucial para evitar errores de permisos cuando el estado de autenticación cambia.
+         */
+        function clearAllFirestoreListeners() {
+            console.log("Clearing all Firestore listeners...");
+            for (const key in firestoreUnsubscribes) {
+                if (firestoreUnsubscribes[key]) {
+                    firestoreUnsubscribes[key](); // Llama a la función de desuscripción
+                    firestoreUnsubscribes[key] = null; // Limpia la referencia
+                    console.log(`Listener '${key}' unsubscribed.`);
+                }
+            }
+        }
 
 
         // UI Elements
@@ -262,7 +280,7 @@
 
                     await sendEmailVerification(user);
                     showAuthMessage("Registro exitoso. Por favor, verifica tu correo electrónico.", false);
-                    window.location.reload(); // Reload page on successful registration
+                    // NO window.location.reload() aquí. onAuthStateChanged se encargará.
 
                 } else {
                     // Check if user is banned before signing in
@@ -280,7 +298,7 @@
                     }
 
                     await signInWithEmailAndPassword(window.auth, email, password);
-                    window.location.reload(); // Reload page on successful login
+                    // NO window.location.reload() aquí. onAuthStateChanged se encargará.
                 }
             } catch (error) {
                 console.error("Authentication error:", error);
@@ -347,13 +365,7 @@
             console.log("Attempting to sign out...");
             try {
                 if (activityTimer) clearInterval(activityTimer); // Stop activity updates
-                
-                // Unsubscribe from all active listeners
-                if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
-                if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
-                if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
-                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
-                if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
+                clearAllFirestoreListeners(); // Desuscribe todos los listeners al cerrar sesión
 
                 await signOut(window.auth);
                 // Clear global user state variables after successful sign out
@@ -389,6 +401,8 @@
                 // Listen for auth state changes
                 onAuthStateChanged(window.auth, async (user) => {
                     console.log("onAuthStateChanged triggered. User object:", user);
+                    clearAllFirestoreListeners(); // Siempre limpia los listeners al cambiar el estado de autenticación
+
                     if (user) {
                         window.currentUserId = user.uid;
                         window.currentUsername = user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`;
@@ -462,16 +476,15 @@
                                 }
                             } catch (profileError) {
                                 console.error("Error fetching or creating user profile:", profileError);
-                                // If there's an error fetching profile, it might be due to permissions.
-                                // Force sign out to prevent the app from being stuck in a bad state.
-                                // await signOut(window.auth); // <--- COMENTADO TEMPORALMENTE PARA DEPURACIÓN
+                                // Si hay un error al cargar el perfil, forzar el cierre de sesión para evitar un estado inconsistente.
+                                await signOut(window.auth);
                                 showAuthMessage("Error al cargar tu perfil. Por favor, intenta iniciar sesión de nuevo.", true);
-                                return; // Stop further execution
+                                return; // Detener la ejecución posterior
                             }
                         } else {
-                            console.warn("Firestore DB or user UID not available for profile fetch. Skipping profile load.");
-                            // Potentially sign out or show a message if this state is unexpected after a successful login
-                            // For now, just log and continue, as the user might be anonymous or in a transition state.
+                            console.warn("Firestore DB o UID de usuario no disponible para la obtención del perfil. Saltando la carga del perfil.");
+                            // Si esto ocurre después de un login exitoso, podría indicar un problema.
+                            // Por ahora, solo loguear y continuar, ya que el usuario podría ser anónimo o estar en un estado de transición.
                         }
 
 
@@ -491,12 +504,10 @@
                             forumContentWrapper.classList.remove('hidden');
                             
                             // Start listeners only if not already active
-                            console.log("Attempting to start posts listener...");
-                            if (!unsubscribePosts) unsubscribePosts = loadPosts();
-                            console.log("Attempting to start online users listener...");
-                            if (!unsubscribeOnlineUsers) unsubscribeOnlineUsers = loadOnlineUsers();
-                            console.log("Attempting to start notifications listener...");
-                            if (!unsubscribeNotifications) unsubscribeNotifications = loadNotifications();
+                            // Asignamos el resultado de onSnapshot a las variables de desuscripción
+                            firestoreUnsubscribes.posts = loadPosts();
+                            firestoreUnsubscribes.onlineUsers = loadOnlineUsers();
+                            firestoreUnsubscribes.notifications = loadNotifications();
 
                             if (settingsButton) settingsButton.classList.remove('hidden'); // Show settings button
                             if (notificationsButton) notificationsButton.classList.remove('hidden'); // Show notifications button
@@ -523,13 +534,6 @@
                             if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
                             if (adminChatViewButton) adminChatViewButton.classList.add('hidden'); // Hide admin chat view button
                             if (activityTimer) clearInterval(activityTimer); // Stop activity updates
-
-                            // Unsubscribe from all active listeners if email not verified
-                            if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
-                            if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
-                            if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
-                            if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
-                            if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
                         }
 
                     } else {
@@ -548,13 +552,6 @@
                         if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
                         if (adminChatViewButton) adminChatViewButton.classList.add('hidden'); // Hide admin chat view button
                         if (activityTimer) clearInterval(activityTimer); // Stop activity updates
-
-                        // Unsubscribe from all active listeners when user logs out
-                        if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
-                        if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
-                        if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
-                        if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
-                        if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
                     }
                 });
             } catch (error) {
@@ -564,13 +561,7 @@
                 videoBackground.classList.remove('hidden');
                 forumContentWrapper.classList.add('hidden');
                 if (activityTimer) clearInterval(activityTimer); // Stop activity updates
-
-                // Unsubscribe from all active listeners on initialization error
-                if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
-                if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
-                if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
-                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
-                if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
+                clearAllFirestoreListeners(); // Limpia listeners en caso de error de inicialización
             }
         }
 
@@ -1005,9 +996,9 @@
                         </div>
                     `;
                 viewPostModal.classList.remove('hidden');
-                // Unsubscribe from previous comments listener if active
-                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
-                unsubscribeComments = loadComments(postId); // Load comments for this post
+                // Desuscribirse del listener de comentarios anterior si está activo
+                if (firestoreUnsubscribes.comments) { firestoreUnsubscribes.comments(); firestoreUnsubscribes.comments = null; }
+                firestoreUnsubscribes.comments = loadComments(postId); // Cargar comentarios para esta publicación
             } else {
                 console.error("Post not found.");
             }
@@ -1018,14 +1009,14 @@
             viewPostModal.classList.add('hidden');
             commentsContainer.innerHTML = ''; // Clear comments when closing
             currentViewedPostId = null;
-            if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; } // Unsubscribe comments
+            if (firestoreUnsubscribes.comments) { firestoreUnsubscribes.comments(); firestoreUnsubscribes.comments = null; } // Desuscribir comentarios
         });
 
         // Close view post modal when clicking outside
         viewPostModal.addEventListener('click', (event) => {
             if (event.target === viewPostModal) {
                 viewPostModal.classList.add('hidden');
-                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; } // Unsubscribe comments
+                if (firestoreUnsubscribes.comments) { firestoreUnsubscribes.comments(); firestoreUnsubscribes.comments = null; } // Desuscribir comentarios
             }
         });
 
@@ -1360,7 +1351,7 @@
             adminChatViewButton.addEventListener('click', () => {
                 if (window.currentUserProfile.isAdmin) {
                     adminChatViewModal.classList.remove('hidden');
-                    if (!unsubscribeAdminChats) unsubscribeAdminChats = loadAllPrivateChatsForAdmin();
+                    if (!firestoreUnsubscribes.adminChats) firestoreUnsubscribes.adminChats = loadAllPrivateChatsForAdmin();
                 } else {
                     alert("No tienes permisos de administrador para ver todos los chats.");
                 }
@@ -1369,13 +1360,13 @@
 
         closeAdminChatViewModalButton.addEventListener('click', () => {
             adminChatViewModal.classList.add('hidden');
-            if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
+            if (firestoreUnsubscribes.adminChats) { firestoreUnsubscribes.adminChats(); firestoreUnsubscribes.adminChats = null; }
         });
 
         adminChatViewModal.addEventListener('click', (event) => {
             if (event.target === adminChatViewModal) {
                 adminChatViewModal.classList.add('hidden');
-                if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
+                if (firestoreUnsubscribes.adminChats) { firestoreUnsubscribes.adminChats(); firestoreUnsubscribes.adminChats = null; }
             }
         });
 
