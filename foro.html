@@ -46,7 +46,7 @@
 
   <!-- Contenedor de autenticación -->
   <div id="auth-container" class="flex items-center justify-center min-h-screen px-4">
-    <div class="bg-byte-secondary-dark bg-opacity-90 p-6 sm:p-8 rounded-lg w-full max-w-md fade-in">
+    <div class="bg-byte-secondary-dark bg-opacity-80 p-4 sm:p-8 rounded-lg w-full max-w-sm sm:max-w-md fade-in backdrop-blur">
 
       <!-- Login -->
       <div id="login-container">
@@ -123,10 +123,10 @@
   </div>
 
   <!-- Contenedor principal del Foro -->
-  <div id="forum-container" class="hidden flex h-screen fade-in">
+  <div id="forum-container" class="hidden flex flex-col sm:flex-row h-screen fade-in">
 
     <!-- Sidebar izquierdo: Usuarios conectados, solicitudes y panel admin -->
-    <aside class="w-64 bg-byte-secondary-dark p-4 overflow-auto">
+    <aside class="w-full sm:w-64 bg-byte-secondary-dark p-4 overflow-auto sm:block hidden">
       <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Conectados</h3>
       <ul id="users-list" class="space-y-2 mb-4"></ul>
 
@@ -197,7 +197,7 @@
     </main>
 
     <!-- Sidebar derecho: Chat privado -->
-    <aside class="w-80 bg-byte-secondary-dark p-4 flex flex-col">
+    <aside class="w-full sm:w-80 bg-byte-secondary-dark p-4 flex flex-col sm:block hidden">
       <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Chat Privado</h3>
       <ul id="conversations-list" class="space-y-2 mb-4 flex-1 overflow-auto"></ul>
       <div id="chat-box" class="hidden flex flex-col border-t border-byte-accent-cyan pt-2">
