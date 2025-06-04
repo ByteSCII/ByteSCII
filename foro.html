@@ -60,6 +60,14 @@
         window.currentUserProfile = {}; // Store additional user profile data
         let activityTimer; // Timer for updating user activity
 
+        // Variables para las funciones de desuscripción de Firestore
+        let unsubscribePosts = null;
+        let unsubscribeOnlineUsers = null;
+        let unsubscribeNotifications = null;
+        let unsubscribeComments = null; // For the currently viewed post's comments
+        let unsubscribeAdminChats = null; // For admin chat view
+
+
         // UI Elements
         const authModalOverlay = document.getElementById('auth-modal-overlay');
         const authModalTitle = document.getElementById('auth-modal-title');
@@ -339,6 +347,14 @@
             console.log("Attempting to sign out...");
             try {
                 if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+                
+                // Unsubscribe from all active listeners
+                if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
+                if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
+                if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
+                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
+                if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
+
                 await signOut(window.auth);
                 // Clear global user state variables after successful sign out
                 window.currentUserId = null;
@@ -473,9 +489,12 @@
                             authModalOverlay.classList.add('hidden');
                             videoBackground.classList.add('hidden');
                             forumContentWrapper.classList.remove('hidden');
-                            loadPosts(); // Load posts after authentication
-                            loadOnlineUsers(); // Load online users
-                            loadNotifications(); // Load user notifications
+                            
+                            // Start listeners only if not already active
+                            if (!unsubscribePosts) unsubscribePosts = loadPosts();
+                            if (!unsubscribeOnlineUsers) unsubscribeOnlineUsers = loadOnlineUsers();
+                            if (!unsubscribeNotifications) unsubscribeNotifications = loadNotifications();
+
                             if (settingsButton) settingsButton.classList.remove('hidden'); // Show settings button
                             if (notificationsButton) notificationsButton.classList.remove('hidden'); // Show notifications button
                             if (adminChatViewButton) { // Show admin chat view button if admin
@@ -501,6 +520,13 @@
                             if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
                             if (adminChatViewButton) adminChatViewButton.classList.add('hidden'); // Hide admin chat view button
                             if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+
+                            // Unsubscribe from all active listeners if email not verified
+                            if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
+                            if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
+                            if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
+                            if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
+                            if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
                         }
 
                     } else {
@@ -519,6 +545,13 @@
                         if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
                         if (adminChatViewButton) adminChatViewButton.classList.add('hidden'); // Hide admin chat view button
                         if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+
+                        // Unsubscribe from all active listeners when user logs out
+                        if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
+                        if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
+                        if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
+                        if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
+                        if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
                     }
                 });
             } catch (error) {
@@ -528,6 +561,13 @@
                 videoBackground.classList.remove('hidden');
                 forumContentWrapper.classList.add('hidden');
                 if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+
+                // Unsubscribe from all active listeners on initialization error
+                if (unsubscribePosts) { unsubscribePosts(); unsubscribePosts = null; }
+                if (unsubscribeOnlineUsers) { unsubscribeOnlineUsers(); unsubscribeOnlineUsers = null; }
+                if (unsubscribeNotifications) { unsubscribeNotifications(); unsubscribeNotifications = null; }
+                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
+                if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
             }
         }
 
@@ -700,7 +740,7 @@
             const postsContainer = document.getElementById('posts-container'); // Moved declaration outside
 
             console.log("Attempting to load posts from path:", postsCollectionRef.path);
-            onSnapshot(q, async (snapshot) => {
+            const unsubscribe = onSnapshot(q, async (snapshot) => {
                 postsContainer.innerHTML = ''; // Clear existing posts
 
                 if (snapshot.empty) {
@@ -795,6 +835,7 @@
                 console.error("Error fetching posts:", error);
                 postsContainer.innerHTML = '<p class="text-center text-red-400">Error al cargar las publicaciones.</p>';
             });
+            return unsubscribe; // Return the unsubscribe function
         };
 
         // Function to delete a post (Admin only)
@@ -961,7 +1002,9 @@
                         </div>
                     `;
                 viewPostModal.classList.remove('hidden');
-                loadComments(postId); // Load comments for this post
+                // Unsubscribe from previous comments listener if active
+                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; }
+                unsubscribeComments = loadComments(postId); // Load comments for this post
             } else {
                 console.error("Post not found.");
             }
@@ -972,12 +1015,14 @@
             viewPostModal.classList.add('hidden');
             commentsContainer.innerHTML = ''; // Clear comments when closing
             currentViewedPostId = null;
+            if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; } // Unsubscribe comments
         });
 
         // Close view post modal when clicking outside
         viewPostModal.addEventListener('click', (event) => {
             if (event.target === viewPostModal) {
                 viewPostModal.classList.add('hidden');
+                if (unsubscribeComments) { unsubscribeComments(); unsubscribeComments = null; } // Unsubscribe comments
             }
         });
 
@@ -992,7 +1037,7 @@
             const q = query(commentsCollectionRef, orderBy("timestamp", "asc")); // Order by oldest first
 
             console.log(`Attempting to load comments for post ${postId} from path:`, commentsCollectionRef.path);
-            onSnapshot(q, async (snapshot) => {
+            const unsubscribe = onSnapshot(q, async (snapshot) => {
                 commentsContainer.innerHTML = ''; // Clear existing comments
 
                 if (snapshot.empty) {
@@ -1042,6 +1087,7 @@
                 console.error("Error fetching comments:", error);
                 commentsContainer.innerHTML = '<p class="text-center text-red-400 text-sm">Error al cargar los comentarios.</p>';
             });
+            return unsubscribe; // Return the unsubscribe function
         }
 
         // Add comment button click
@@ -1311,7 +1357,7 @@
             adminChatViewButton.addEventListener('click', () => {
                 if (window.currentUserProfile.isAdmin) {
                     adminChatViewModal.classList.remove('hidden');
-                    loadAllPrivateChatsForAdmin();
+                    if (!unsubscribeAdminChats) unsubscribeAdminChats = loadAllPrivateChatsForAdmin();
                 } else {
                     alert("No tienes permisos de administrador para ver todos los chats.");
                 }
@@ -1320,11 +1366,13 @@
 
         closeAdminChatViewModalButton.addEventListener('click', () => {
             adminChatViewModal.classList.add('hidden');
+            if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
         });
 
         adminChatViewModal.addEventListener('click', (event) => {
             if (event.target === adminChatViewModal) {
                 adminChatViewModal.classList.add('hidden');
+                if (unsubscribeAdminChats) { unsubscribeAdminChats(); unsubscribeAdminChats = null; }
             }
         });
 
@@ -1340,7 +1388,7 @@
             const usersCollectionRef = collection(window.db, `artifacts/${appId}/users`);
             console.log("Attempting to load online users from path:", usersCollectionRef.path);
 
-            onSnapshot(usersCollectionRef, (snapshot) => {
+            const unsubscribe = onSnapshot(usersCollectionRef, (snapshot) => {
                 const onlineUsersList = [];
                 const now = Date.now();
 
@@ -1365,6 +1413,7 @@
                 console.error("Error fetching online users:", error);
                 onlineUsersContainer.innerHTML = '<p class="text-sm text-red-400 text-center">Error al cargar usuarios en línea.</p>';
             });
+            return unsubscribe; // Return the unsubscribe function
         }
 
         function renderOnlineUsers(users) {
@@ -1657,7 +1706,7 @@
          * Loads and displays notifications for the current user.
          */
         function loadNotifications() {
-            if (!window.db || !window.currentUserId) {
+            if (!window.db) {
                 console.error("Firestore or user not ready for notifications.");
                 return;
             }
@@ -1666,7 +1715,7 @@
             const q = query(notificationsCollectionRef, orderBy("timestamp", "desc"));
 
             console.log(`Attempting to load notifications for user ${window.currentUserId} from path:`, notificationsCollectionRef.path);
-            onSnapshot(q, (snapshot) => {
+            const unsubscribe = onSnapshot(q, (snapshot) => {
                 notificationsListContainer.innerHTML = '';
                 let unreadCount = 0;
 
@@ -1719,6 +1768,7 @@
                 notificationsListContainer.innerHTML = '<p class="text-center text-red-400 text-sm">Error al cargar las notificaciones.</p>';
                 notificationBadge.classList.add('hidden');
             });
+            return unsubscribe; // Return the unsubscribe function
         }
 
         /**
@@ -1774,7 +1824,7 @@
         /**
          * Loads and displays all private chat IDs for an admin.
          */
-        async function loadAllPrivateChatsForAdmin() {
+        function loadAllPrivateChatsForAdmin() {
             if (!window.db || !window.currentUserProfile.isAdmin) {
                 console.error("No autorizado para ver todos los chats o Firestore/usuario no listo.");
                 adminChatListContainer.innerHTML = '<p class="text-center text-red-400 text-sm">No tienes permisos para ver todos los chats.</p>';
@@ -1784,8 +1834,7 @@
             const privateChatsCollectionRef = collection(window.db, `artifacts/${appId}/public/data/privateChats`);
             console.log("Attempting to load all private chats for admin from path:", privateChatsCollectionRef.path);
 
-            try {
-                const querySnapshot = await getDocs(privateChatsCollectionRef);
+            const unsubscribe = onSnapshot(privateChatsCollectionRef, async (querySnapshot) => {
                 adminChatListContainer.innerHTML = '';
                 if (querySnapshot.empty) {
                     adminChatListContainer.innerHTML = '<p class="text-center text-gray-400 text-sm">No hay chats privados creados aún.</p>';
@@ -1840,10 +1889,11 @@
                     });
                 });
 
-            } catch (error) {
+            }, (error) => {
                 console.error("Error fetching all private chats for admin:", error);
                 adminChatListContainer.innerHTML = '<p class="text-center text-red-400 text-sm">Error al cargar la lista de chats.</p>';
-            }
+            });
+            return unsubscribe; // Return the unsubscribe function
         }
 
 
