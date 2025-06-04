@@ -34,7 +34,8 @@
 <body class="bg-byte-dark-bg text-byte-text-light overflow-hidden relative">
 
   <!-- Video de fondo -->
-  <video autoplay loop muted playsinline class="fullscreen object-cover -z-10">
+  <div class="absolute inset-0 bg-black bg-opacity-60 z-0"></div>
+<video autoplay loop muted playsinline class="fullscreen object-cover -z-10">
     <source src="./images/fondo.mp4" type="video/mp4">
     Tu navegador no soporta la etiqueta de video.
   </video>
@@ -126,7 +127,7 @@
   <div id="forum-container" class="hidden flex flex-col sm:flex-row h-screen fade-in">
 
     <!-- Sidebar izquierdo: Usuarios conectados, solicitudes y panel admin -->
-    <aside class="w-full sm:w-64 bg-byte-secondary-dark p-4 overflow-auto sm:block hidden">
+    <aside id="users-aside" class="fixed sm:relative sm:block hidden top-0 left-0 w-64 h-full bg-byte-secondary-dark p-4 z-40 sm:z-0 shadow-xl transform sm:transform-none -translate-x-full transition-transform duration-300">
       <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Conectados</h3>
       <ul id="users-list" class="space-y-2 mb-4"></ul>
 
@@ -184,7 +185,7 @@
       </header>
 
       <!-- Formulario publicación con archivos -->
-      <div class="p-4 border-b border-byte-accent-cyan">
+      <div class="p-4 border-b border-byte-accent-cyan sm:flex-row flex-col flex space-y-2 sm:space-y-0 sm:space-x-2 items-stretch">
         <form id="post-form" class="flex space-x-2" enctype="multipart/form-data">
           <textarea id="post-input" rows="2" class="flex-grow p-2 rounded bg-byte-dark-bg text-white" placeholder="¿Qué estás pensando?" required></textarea>
           <input type="file" id="post-media" accept="image/*,video/*" class="text-gray-300">
@@ -197,7 +198,7 @@
     </main>
 
     <!-- Sidebar derecho: Chat privado -->
-    <aside class="w-full sm:w-80 bg-byte-secondary-dark p-4 flex flex-col sm:block hidden">
+    <aside id="chat-aside" class="fixed sm:relative sm:block hidden top-0 right-0 w-80 h-full bg-byte-secondary-dark p-4 flex flex-col z-40 sm:z-0 shadow-xl transform sm:transform-none translate-x-full transition-transform duration-300">
       <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Chat Privado</h3>
       <ul id="conversations-list" class="space-y-2 mb-4 flex-1 overflow-auto"></ul>
       <div id="chat-box" class="hidden flex flex-col border-t border-byte-accent-cyan pt-2">
@@ -1010,5 +1011,28 @@
     };
 
   </script>
+
+<!-- Botones móviles flotantes -->
+<div class="sm:hidden fixed bottom-4 left-4 z-50 space-y-2">
+  <button id="toggle-users-btn" class="bg-cyan-500 text-black font-bold px-4 py-2 rounded shadow">Usuarios</button>
+  <button id="toggle-chat-btn" class="bg-blue-500 text-white font-bold px-4 py-2 rounded shadow">Chat</button>
+</div>
+
 </body>
+
+<script>
+  const usersAside = document.getElementById('users-aside');
+  const chatAside = document.getElementById('chat-aside');
+  const toggleUsersBtn = document.getElementById('toggle-users-btn');
+  const toggleChatBtn = document.getElementById('toggle-chat-btn');
+
+  toggleUsersBtn?.addEventListener('click', () => {
+    usersAside.classList.toggle('-translate-x-full');
+  });
+
+  toggleChatBtn?.addEventListener('click', () => {
+    chatAside.classList.toggle('translate-x-full');
+  });
+</script>
+
 </html>
