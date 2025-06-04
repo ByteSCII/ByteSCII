@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Foro de Byte</title>
-  <!-- TailwindCSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Foro de Byte</title>
+<!-- TailwindCSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
     tailwind.config = {
       theme: {
         extend: {
@@ -24,233 +25,215 @@
       }
     }
   </script>
-  <style>
+<style>
     .overlay-bg { background-color: rgba(0,0,0,0.7); }
     .fullscreen { position: fixed; top:0; left:0; width:100%; height:100%; }
     .fade-in { animation: fadeIn 0.5s ease-in-out; }
     @keyframes fadeIn { from { opacity:0; transform: translateY(-10px);} to {opacity:1; transform:translateY(0);} }
   </style>
-</head>
-
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/><style>body { font-family: 'Inter', sans-serif; }</style><style>
+@media (max-width: 640px) {
+  .feed-card { padding: 1rem; border-radius: 1rem; }
+}
+.shadow-xl { box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+</style></head>
 <!-- Mensaje de confirmación -->
-<div id="correo-verif-msg" class="hidden fixed top-4 inset-x-4 z-50 bg-green-500 text-black text-center py-3 rounded shadow-lg">
+<div class="hidden fixed top-6 inset-x-6 z-50 bg-emerald-400 text-black text-sm text-center py-3 rounded-lg shadow-lg font-medium" id="correo-verif-msg">
   Se ha enviado un correo de verificación. Por favor, revisa tu bandeja de entrada.
 </div>
-
-<body class="bg-byte-dark-bg text-byte-text-light overflow-hidden relative">
-
-  <!-- Video de fondo -->
-  <video autoplay loop muted playsinline class="fullscreen object-cover -z-10">
-    <source src="./images/fondo.mp4" type="video/mp4">
+<body class="bg-gradient-to-b from-[#0a0f1f] via-[#101625] to-[#0a0f1f] text-white font-sans relative min-h-screen">
+<!-- Video de fondo -->
+<video autoplay="" class="fullscreen object-cover -z-10" loop="" muted="" playsinline="">
+<source src="./images/fondo.mp4" type="video/mp4"/>
     Tu navegador no soporta la etiqueta de video.
   </video>
-
-  <!-- Botón Volver al inicio -->
-  <a href="index.html" class="fixed top-4 left-4 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full shadow-lg hover:bg-yellow-600 transition animate-bounce">
+<!-- Botón Volver al inicio -->
+<a class="fixed top-4 left-4 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full shadow-lg hover:bg-yellow-600 transition animate-bounce" href="index.html">
     Volver al inicio
   </a>
-
-  <!-- Contenedor de autenticación -->
-  <div id="auth-container" class="flex items-center justify-center min-h-screen px-4">
-    <div class="bg-byte-secondary-dark bg-opacity-80 p-4 sm:p-8 rounded-lg w-full max-w-sm sm:max-w-md fade-in backdrop-blur">
-
-      <!-- Login -->
-      <div id="login-container">
-        <h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Inicia Sesión</h2>
-        <form id="login-form" class="space-y-4">
-          <div>
-            <label for="login-email" class="block mb-1">Correo Electrónico</label>
-            <input type="email" id="login-email" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-          </div>
-          <div>
-            <label for="login-password" class="block mb-1">Contraseña</label>
-            <input type="password" id="login-password" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-          </div>
-          <button type="submit" class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition">Entrar</button>
-        </form>
-        <p class="mt-4 text-center">¿No tienes cuenta? 
-          <button id="toggle-to-register" class="text-byte-accent-cyan hover:underline">Regístrate</button>
-        </p>
-      </div>
-
-      <!-- Registro -->
-      <div id="register-container" class="hidden">
-        <h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Regístrate</h2>
-        <!-- Reglas editables -->
-        <div id="rules-section" class="mb-4">
-          <div class="max-h-40 overflow-auto p-2 bg-byte-dark-bg rounded mb-2" id="rules-text-display">
-            <!-- Texto de reglas cargado dinámicamente -->
-          </div>
-          <label class="inline-flex items-center">
-            <input type="checkbox" id="accept-rules" class="form-checkbox h-5 w-5 text-byte-accent-cyan" />
-            <span class="ml-2 text-byte-text-light">He leído y acepto las reglas</span>
-          </label>
-        </div>
-        <form id="register-form" class="space-y-4">
-          <input type="text" id="register-name" placeholder="Nombre completo" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-          <input type="email" id="register-email" placeholder="Correo electrónico" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-          <input type="password" id="register-password" placeholder="Contraseña" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-          <p id="password-strength-text" class="text-sm text-white"></p>
-          <input type="password" id="register-confirm-password" placeholder="Confirmar contraseña" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-          <div>
-            <label for="profile-bio" class="block mb-1">Biografía (opcional)</label>
-            <textarea id="profile-bio" class="w-full p-2 rounded bg-byte-dark-bg text-white" rows="2" placeholder="Escribe algo sobre ti..."></textarea>
-          </div>
-          <div>
-            <label for="profile-avatar" class="block mb-1">Avatar (imagen)</label>
-            <input type="file" id="profile-avatar" accept="image/*" class="w-full text-gray-300">
-          </div>
-          <!-- Checkboxes privacidad -->
-          <div>
-            <span class="text-byte-text-light">Información pública:</span>
-            <div class="space-x-2 mt-1">
-              <label class="inline-flex items-center">
-                <input type="checkbox" id="public-role" class="form-checkbox h-5 w-5 text-byte-accent-cyan"/>
-                <span class="ml-1 text-gray-300">Mostrar rol</span>
-              </label>
-              <label class="inline-flex items-center">
-                <input type="checkbox" id="public-email" class="form-checkbox h-5 w-5 text-byte-accent-cyan"/>
-                <span class="ml-1 text-gray-300">Mostrar correo</span>
-              </label>
-              <label class="inline-flex items-center">
-                <input type="checkbox" id="public-bio" class="form-checkbox h-5 w-5 text-byte-accent-cyan"/>
-                <span class="ml-1 text-gray-300">Mostrar biografía</span>
-              </label>
-            </div>
-          </div>
-          <button type="submit" id="register-btn" class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition disabled:opacity-50" disabled>Crear cuenta</button>
-        </form>
-        <p class="mt-4 text-center">¿Ya tienes cuenta? 
-          <button id="toggle-to-login" class="text-byte-accent-cyan hover:underline">Inicia Sesión</button>
-        </p>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Contenedor principal del Foro -->
-  <div id="forum-container" class="hidden flex flex-col h-screen overflow-y-auto fade-in space-y-4 p-2">
-
-    <!-- Sidebar izquierdo: Usuarios conectados, solicitudes y panel admin -->
-    <aside id="users-aside" class="fixed sm:relative sm:block hidden top-0 left-0 w-64 h-full bg-byte-secondary-dark p-4 z-40 sm:z-0 shadow-xl transform sm:transform-none -translate-x-full transition-transform duration-300">
-      <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Conectados</h3>
-      <ul id="users-list" class="space-y-2 mb-4"></ul>
-
-      <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Solicitudes</h3>
-      <ul id="requests-list" class="space-y-2 mb-4"></ul>
-
-      <!-- Panel Admin -->
-      <div id="admin-panel" class="hidden">
-        <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Panel Admin</h3>
-
-        <!-- Editar reglas -->
-        <div class="mb-4">
-          <label class="block font-bold mb-1">Editar Reglas</label>
-          <textarea id="edit-rules-text" class="w-full p-2 rounded bg-byte-dark-bg text-white h-24"></textarea>
-          <button id="save-rules-btn" class="mt-2 w-full bg-green-500 text-white py-1 rounded hover:bg-green-600">Guardar Reglas</button>
-        </div>
-
-        <!-- Crear roles -->
-        <div class="mb-4">
-          <label class="block font-bold mb-1">Crear Nuevo Rol</label>
-          <input type="text" id="new-role-name" class="w-full p-2 rounded bg-byte-dark-bg text-white" placeholder="Nombre del rol">
-          <button id="create-role-btn" class="mt-2 w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600">Crear Rol</button>
-        </div>
-
-        <!-- Lista de usuarios para promover o banear -->
-        <h4 class="font-bold mb-2">Gestionar Usuarios</h4>
-        <ul id="ban-list" class="space-y-2"></ul>
-      </div>
-    </aside>
-
-    <!-- Área central: Publicaciones -->
-    <main class="flex-1 flex flex-col">
-      <!-- Header con bienvenida, rol, notificaciones, perfil -->
-      <header class="bg-byte-dark-bg py-4 px-6 flex justify-between items-center border-b border-byte-accent-cyan">
-        <div class="flex items-center space-x-4">
-          <h1 id="welcome-text" class="text-xl font-heading font-bold text-byte-accent-cyan"></h1>
-          <span id="role-tag" class="ml-2 bg-gray-500 text-white text-xs font-bold px-2 py-1 rounded"></span>
-          <button id="profile-btn" class="bg-byte-accent-cyan text-black px-2 py-1 rounded hover:bg-cyan-400">Perfil</button>
-        </div>
-        <div class="flex items-center space-x-4">
-          <button id="send-notif-btn" class="hidden bg-yellow-500 text-black px-2 py-1 rounded hover:bg-yellow-600">Enviar Notif.</button>
-          <div class="relative">
-            <button id="notifications-btn" class="relative">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-byte-text-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405M19 13V8a7 7 0 10-14 0v5l-1.405 1.405M6 17h12" />
-              </svg>
-              <span id="notif-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full px-1">0</span>
-            </button>
-            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-byte-secondary-dark border border-byte-accent-cyan rounded shadow-lg overflow-auto max-h-64 z-50">
-              <ul id="notifications-list"></ul>
-            </div>
-          </div>
-          <button id="logout-btn" class="text-red-500 hover:underline">Cerrar sesión</button>
-        </div>
-      </header>
-
-      <!-- Formulario publicación con archivos -->
-      <div class="bg-[#1A2238] p-4 rounded-lg shadow-md flex flex-col space-y-2">
-        <form id="post-form" class="flex space-x-2" enctype="multipart/form-data">
-          <textarea id="post-input" rows="2" class="flex-grow p-2 rounded bg-byte-dark-bg text-white" placeholder="¿Qué estás pensando?" required></textarea>
-          <input type="file" id="post-media" accept="image/*,video/*" class="text-gray-300">
-          <button type="submit" class="bg-byte-accent-cyan text-black px-4 py-2 rounded">Publicar</button>
-        </form>
-      </div>
-
-      <!-- Lista de publicaciones -->
-      <div id="posts-list" class="p-4 overflow-auto flex-1 space-y-4"></div>
-    </main>
-
-    <!-- Sidebar derecho: Chat privado -->
-    <aside id="chat-aside" class="fixed sm:relative sm:block hidden top-0 right-0 w-80 h-full bg-byte-secondary-dark p-4 flex flex-col z-40 sm:z-0 shadow-xl transform sm:transform-none translate-x-full transition-transform duration-300">
-      <h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Chat Privado</h3>
-      <ul id="conversations-list" class="space-y-2 mb-4 flex-1 overflow-auto"></ul>
-      <div id="chat-box" class="hidden flex flex-col border-t border-byte-accent-cyan pt-2">
-        <div id="chat-messages" class="flex-1 overflow-auto mb-2 space-y-2"></div>
-        <form id="message-form" class="flex space-x-2">
-          <input type="text" id="message-input" class="flex-grow p-2 rounded bg-byte-dark-bg text-white" placeholder="Escribe un mensaje..." required />
-          <button type="submit" class="bg-byte-accent-cyan text-black px-4 py-2 rounded">Enviar</button>
-        </form>
-      </div>
-    </aside>
-
-  </div>
-
-  <!-- Modal perfil de usuario -->
-  <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
-    <div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
-      <div class="flex justify-between items-center mb-4">
-        <h2 id="profile-name" class="text-xl font-bold text-byte-accent-cyan"></h2>
-        <button id="close-profile" class="text-gray-400 hover:text-white">&times;</button>
-      </div>
-      <p id="profile-role" class="text-gray-300 mb-1"></p>
-      <p id="profile-email" class="text-gray-300 mb-1"></p>
-      <p id="profile-bio" class="text-gray-300 mb-1"></p>
-      <div id="profile-media" class="mt-2"></div>
-    </div>
-  </div>
-
-  <!-- Modal enviar notificación -->
-  <div id="notif-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden">
-    <div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
-      <h2 class="text-xl font-bold text-byte-accent-cyan mb-4">Enviar Notificación</h2>
-      <form id="notif-form" class="space-y-4">
-        <div>
-          <label for="notif-user" class="block mb-1">Usuario (UID)</label>
-          <input type="text" id="notif-user" class="w-full p-2 rounded bg-byte-dark-bg text-white" required>
-        </div>
-        <div>
-          <label for="notif-content" class="block mb-1">Contenido</label>
-          <textarea id="notif-content" class="w-full p-2 rounded bg-byte-dark-bg text-white" rows="3" required></textarea>
-        </div>
-        <button type="submit" class="w-full bg-byte-accent-cyan text-black py-2 rounded hover:bg-cyan-400">Enviar</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Firebase SDK y lógica -->
-  <script type="module">
+<!-- Contenedor de autenticación -->
+<div class="flex items-center justify-center min-h-screen px-4" id="auth-container">
+<div class="bg-byte-secondary-dark bg-opacity-80 p-4 sm:p-8 rounded-lg w-full max-w-sm sm:max-w-md fade-in backdrop-blur">
+<!-- Login -->
+<div id="login-container">
+<h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Inicia Sesión</h2>
+<form class="space-y-4" id="login-form">
+<div>
+<label class="block mb-1" for="login-email">Correo Electrónico</label>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="login-email" required="" type="email"/>
+</div>
+<div>
+<label class="block mb-1" for="login-password">Contraseña</label>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="login-password" required="" type="password"/>
+</div>
+<button class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition" type="submit">Entrar</button>
+</form>
+<p class="mt-4 text-center">¿No tienes cuenta? 
+          <button class="text-byte-accent-cyan hover:underline" id="toggle-to-register">Regístrate</button>
+</p>
+</div>
+<!-- Registro -->
+<div class="hidden" id="register-container">
+<h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Regístrate</h2>
+<!-- Reglas editables -->
+<div class="mb-4" id="rules-section">
+<div class="max-h-40 overflow-auto p-2 bg-byte-dark-bg rounded mb-2" id="rules-text-display">
+<!-- Texto de reglas cargado dinámicamente -->
+</div>
+<label class="inline-flex items-center">
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="accept-rules" type="checkbox"/>
+<span class="ml-2 text-byte-text-light">He leído y acepto las reglas</span>
+</label>
+</div>
+<form class="space-y-4" id="register-form">
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-name" placeholder="Nombre completo" required="" type="text"/>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-email" placeholder="Correo electrónico" required="" type="email"/>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-password" placeholder="Contraseña" required="" type="password"/>
+<p class="text-sm text-white" id="password-strength-text"></p>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-confirm-password" placeholder="Confirmar contraseña" required="" type="password"/>
+<div>
+<label class="block mb-1" for="profile-bio">Biografía (opcional)</label>
+<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="profile-bio" placeholder="Escribe algo sobre ti..." rows="2"></textarea>
+</div>
+<div>
+<label class="block mb-1" for="profile-avatar">Avatar (imagen)</label>
+<input accept="image/*" class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="profile-avatar" type="file"/>
+</div>
+<!-- Checkboxes privacidad -->
+<div>
+<span class="text-byte-text-light">Información pública:</span>
+<div class="space-x-2 mt-1">
+<label class="inline-flex items-center">
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="public-role" type="checkbox"/>
+<span class="ml-1 text-gray-300">Mostrar rol</span>
+</label>
+<label class="inline-flex items-center">
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="public-email" type="checkbox"/>
+<span class="ml-1 text-gray-300">Mostrar correo</span>
+</label>
+<label class="inline-flex items-center">
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="public-bio" type="checkbox"/>
+<span class="ml-1 text-gray-300">Mostrar biografía</span>
+</label>
+</div>
+</div>
+<button class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition disabled:opacity-50" disabled="" id="register-btn" type="submit">Crear cuenta</button>
+</form>
+<p class="mt-4 text-center">¿Ya tienes cuenta? 
+          <button class="text-byte-accent-cyan hover:underline" id="toggle-to-login">Inicia Sesión</button>
+</p>
+</div>
+</div>
+</div>
+<!-- Contenedor principal del Foro -->
+<div class="hidden flex flex-col gap-4 fade-in max-w-3xl mx-auto px-4 py-6" id="forum-container">
+<!-- Sidebar izquierdo: Usuarios conectados, solicitudes y panel admin -->
+<aside class="fixed sm:relative sm:block hidden top-0 left-0 w-64 h-full bg-byte-secondary-dark p-4 z-40 sm:z-0 shadow-xl transform sm:transform-none -translate-x-full transition-transform duration-300" id="users-aside">
+<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Conectados</h3>
+<ul class="space-y-2 mb-4" id="users-list"></ul>
+<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Solicitudes</h3>
+<ul class="space-y-2 mb-4" id="requests-list"></ul>
+<!-- Panel Admin -->
+<div class="hidden" id="admin-panel">
+<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Panel Admin</h3>
+<!-- Editar reglas -->
+<div class="mb-4">
+<label class="block font-bold mb-1">Editar Reglas</label>
+<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="edit-rules-text"></textarea>
+<button class="mt-2 w-full bg-green-500 text-white py-1 rounded hover:bg-green-600" id="save-rules-btn">Guardar Reglas</button>
+</div>
+<!-- Crear roles -->
+<div class="mb-4">
+<label class="block font-bold mb-1">Crear Nuevo Rol</label>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="new-role-name" placeholder="Nombre del rol" type="text"/>
+<button class="mt-2 w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600" id="create-role-btn">Crear Rol</button>
+</div>
+<!-- Lista de usuarios para promover o banear -->
+<h4 class="font-bold mb-2">Gestionar Usuarios</h4>
+<ul class="space-y-2" id="ban-list"></ul>
+</div>
+</aside>
+<!-- Área central: Publicaciones -->
+<main class="flex-1 flex flex-col">
+<!-- Header con bienvenida, rol, notificaciones, perfil -->
+<header class="bg-byte-dark-bg py-4 px-6 flex justify-between items-center border-b border-byte-accent-cyan">
+<div class="flex items-center space-x-4">
+<h1 class="text-xl font-heading font-bold text-byte-accent-cyan" id="welcome-text"></h1>
+<span class="ml-2 bg-gray-500 text-white text-xs font-bold px-2 py-1 rounded" id="role-tag"></span>
+<button class="bg-byte-accent-cyan text-black px-2 py-1 rounded hover:bg-cyan-400" id="profile-btn">Perfil</button>
+</div>
+<div class="flex items-center space-x-4">
+<button class="hidden bg-yellow-500 text-black px-2 py-1 rounded hover:bg-yellow-600" id="send-notif-btn">Enviar Notif.</button>
+<div class="relative">
+<button class="relative" id="notifications-btn">
+<svg class="w-6 h-6 text-byte-text-light" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 17h5l-1.405-1.405M19 13V8a7 7 0 10-14 0v5l-1.405 1.405M6 17h12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full px-1" id="notif-count">0</span>
+</button>
+<div class="hidden absolute right-0 mt-2 w-64 bg-byte-secondary-dark border border-byte-accent-cyan rounded shadow-lg overflow-auto max-h-64 z-50" id="notifications-dropdown">
+<ul id="notifications-list"></ul>
+</div>
+</div>
+<button class="text-red-500 hover:underline" id="logout-btn">Cerrar sesión</button>
+</div>
+</header>
+<!-- Formulario publicación con archivos -->
+<div class="bg-white/5 backdrop-blur-lg rounded-2xl shadow-xl p-6 flex flex-col space-y-3 w-full max-w-md mx-auto">
+<form class="flex space-x-2" enctype="multipart/form-data" id="post-form">
+<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="post-input" placeholder="¿Qué estás pensando?" required="" rows="2"></textarea>
+<input accept="image/*,video/*" class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="post-media" type="file"/>
+<button class="bg-byte-accent-cyan text-black px-4 py-2 rounded" type="submit">Publicar</button>
+</form>
+</div>
+<!-- Lista de publicaciones -->
+<div class="p-4 overflow-auto flex-1 space-y-4" id="posts-list"></div>
+</main>
+<!-- Sidebar derecho: Chat privado -->
+<aside class="fixed sm:relative sm:block hidden top-0 right-0 w-80 h-full bg-byte-secondary-dark p-4 flex flex-col z-40 sm:z-0 shadow-xl transform sm:transform-none translate-x-full transition-transform duration-300" id="chat-aside">
+<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Chat Privado</h3>
+<ul class="space-y-2 mb-4 flex-1 overflow-auto" id="conversations-list"></ul>
+<div class="hidden flex flex-col border-t border-byte-accent-cyan pt-2" id="chat-box">
+<div class="flex-1 overflow-auto mb-2 space-y-2" id="chat-messages"></div>
+<form class="flex space-x-2" id="message-form">
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="message-input" placeholder="Escribe un mensaje..." required="" type="text"/>
+<button class="bg-byte-accent-cyan text-black px-4 py-2 rounded" type="submit">Enviar</button>
+</form>
+</div>
+</aside>
+</div>
+<!-- Modal perfil de usuario -->
+<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden" id="profile-modal">
+<div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
+<div class="flex justify-between items-center mb-4">
+<h2 class="text-xl font-bold text-byte-accent-cyan" id="profile-name"></h2>
+<button class="text-gray-400 hover:text-white" id="close-profile">×</button>
+</div>
+<p class="text-gray-300 mb-1" id="profile-role"></p>
+<p class="text-gray-300 mb-1" id="profile-email"></p>
+<p class="text-gray-300 mb-1" id="profile-bio"></p>
+<div class="mt-2" id="profile-media"></div>
+</div>
+</div>
+<!-- Modal enviar notificación -->
+<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden" id="notif-modal">
+<div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
+<h2 class="text-xl font-bold text-byte-accent-cyan mb-4">Enviar Notificación</h2>
+<form class="space-y-4" id="notif-form">
+<div>
+<label class="block mb-1" for="notif-user">Usuario (UID)</label>
+<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="notif-user" required="" type="text"/>
+</div>
+<div>
+<label class="block mb-1" for="notif-content">Contenido</label>
+<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="notif-content" required="" rows="3"></textarea>
+</div>
+<button class="w-full bg-byte-accent-cyan text-black py-2 rounded hover:bg-cyan-400" type="submit">Enviar</button>
+</form>
+</div>
+</div>
+<!-- Firebase SDK y lógica -->
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
     import {
       getAuth,
@@ -1018,38 +1001,81 @@ return;
     };
 
   </script>
-
 <!-- Botones móviles flotantes -->
 <div class="sm:hidden fixed bottom-4 left-4 z-50 space-y-2">
-  <button id="toggle-users-btn" class="bg-cyan-500 text-black font-bold px-4 py-2 rounded shadow">Usuarios</button>
-  <button id="toggle-chat-btn" class="bg-blue-500 text-white font-bold px-4 py-2 rounded shadow">Chat</button>
+<button class="bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold px-4 py-2 rounded-xl shadow" id="toggle-users-btn">Usuarios</button>
+<button class="bg-blue-500 text-white font-bold px-4 py-2 rounded shadow" id="toggle-chat-btn">Chat</button>
 </div>
-
-
 <!-- Modal de perfil -->
-<div id="perfil-modal" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center">
-  <div class="bg-[#1A2238] p-6 rounded-lg w-11/12 max-w-md">
-    <h2 class="text-xl font-bold mb-4">Perfil</h2>
-    <div id="perfil-info" class="space-y-2 text-sm">
-      <!-- info del perfil se carga por JS -->
-    </div>
-    <button onclick="document.getElementById('perfil-modal').classList.add('hidden')" class="mt-4 w-full bg-cyan-500 text-black font-bold px-4 py-2 rounded shadow">Cerrar</button>
-  </div>
+<div class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center" id="perfil-modal">
+<div class="bg-[#1A2238] p-6 rounded-lg w-11/12 max-w-md">
+<h2 class="text-xl font-bold mb-4">Perfil</h2>
+<div class="space-y-2 text-sm" id="perfil-info">
+<!-- Portada y avatar -->
+<div class="relative">
+<div class="h-24 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-t-lg"></div>
+<img class="w-16 h-16 rounded-full border-4 border-[#1A2238] absolute -bottom-8 left-1/2 transform -translate-x-1/2" src="https://ui-avatars.com/api/?name=Admin&amp;background=0D8ABC&amp;color=fff&amp;rounded=true&amp;size=64"/>
 </div>
-
+<div class="mt-10 text-center space-y-1">
+<h3 class="text-lg font-bold">Admin</h3>
+<p class="text-sm text-white/70">Rol: Administrador</p>
+</div>
+<!-- Estadísticas -->
+<div class="flex justify-around text-sm mt-4">
+<div class="text-center">
+<div class="font-bold text-white">124</div>
+<div class="text-white/60">Publicaciones</div>
+</div>
+<div class="text-center">
+<div class="font-bold text-white">302</div>
+<div class="text-white/60">Comentarios</div>
+</div>
+<div class="text-center">
+<div class="font-bold text-white">12</div>
+<div class="text-white/60">Roles creados</div>
+</div>
+</div>
+</div>
+<button class="bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold px-4 py-2 rounded-xl shadow" onclick="document.getElementById('perfil-modal').classList.add('hidden')">Cerrar</button>
+</div>
+</div>
 <!-- Modal de notificaciones -->
-<div id="notificaciones-modal" class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center">
-  <div class="bg-[#1A2238] p-6 rounded-lg w-11/12 max-w-md">
-    <h2 class="text-xl font-bold mb-4">Notificaciones</h2>
-    <ul id="notificaciones-lista" class="space-y-2 text-sm">
-      <!-- notificaciones se cargan dinámicamente -->
-    </ul>
-    <button onclick="document.getElementById('notificaciones-modal').classList.add('hidden')" class="mt-4 w-full bg-cyan-500 text-black font-bold px-4 py-2 rounded shadow">Cerrar</button>
-  </div>
+<div class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center" id="notificaciones-modal">
+<div class="bg-[#1A2238] p-6 rounded-lg w-11/12 max-w-md">
+<h2 class="text-xl font-bold mb-4">Notificaciones</h2>
+<ul class="space-y-2 text-sm" id="notificaciones-lista">
+<!-- notificaciones se cargan dinámicamente -->
+</ul>
+<button class="bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold px-4 py-2 rounded-xl shadow" onclick="document.getElementById('notificaciones-modal').classList.add('hidden')">Cerrar</button>
 </div>
-
+</div>
+<!-- Barra de navegación inferior -->
+<nav class="fixed bottom-0 inset-x-0 z-50 bg-white/10 backdrop-blur-md border-t border-white/10 flex justify-around items-center text-sm text-white py-2 sm:hidden">
+<button class="flex flex-col items-center gap-1" id="nav-feed">
+<span>📰</span>
+<span>Muro</span>
+</button>
+<button class="flex flex-col items-center gap-1" id="nav-profile">
+<span>👤</span>
+<span>Perfil</span>
+</button>
+<button class="flex flex-col items-center gap-1" id="nav-notif">
+<span>🔔</span>
+<span>Alertas</span>
+</button>
+</nav>
+<script>
+document.getElementById('nav-profile')?.addEventListener('click', () => {
+  document.getElementById('perfil-modal')?.classList.remove('hidden');
+});
+document.getElementById('nav-notif')?.addEventListener('click', () => {
+  document.getElementById('notificaciones-modal')?.classList.remove('hidden');
+});
+document.getElementById('nav-feed')?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
 </body>
-
 <script>
   const usersAside = document.getElementById('users-aside');
   const chatAside = document.getElementById('chat-aside');
@@ -1064,8 +1090,6 @@ return;
     chatAside.classList.toggle('translate-x-full');
   });
 </script>
-
-
 <script>
   document.getElementById('perfil-btn')?.addEventListener('click', () => {
     document.getElementById('perfil-modal').classList.remove('hidden');
@@ -1075,8 +1099,6 @@ return;
     document.getElementById('notificaciones-modal').classList.remove('hidden');
   });
 </script>
-
-
 <script>
   function mostrarMensajeVerificacionCorreo() {
     const msg = document.getElementById('correo-verif-msg');
@@ -1086,5 +1108,4 @@ return;
     }
   }
 </script>
-
 </html>
