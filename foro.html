@@ -408,110 +408,99 @@
                         window.currentUsername = user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`;
                         console.log("User is logged in. UID:", user.uid);
 
-                        // Force reload user data to get the latest email verification status
-                        // This helps when a user verifies email in a separate tab/process and then logs in.
-                        if (!user.emailVerified) {
-                            console.log("User email not yet verified. Reloading user data...");
-                            try {
-                                await user.reload();
-                                // Update the user object with the reloaded data
-                                user = window.auth.currentUser; // Get the reloaded user object
-                                console.log("User data reloaded. New emailVerified status:", user.emailVerified);
-                            } catch (reloadError) {
-                                console.error("Error reloading user data:", reloadError);
-                            }
-                        }
-
-                        // Fetch additional user profile data from Firestore (now directly from user document)
-                        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-                        console.log("App ID being used for Firestore:", appId); // Log the appId HERE
-                        
-                        // Add explicit checks for window.db and user.uid before attempting Firestore operation
-                        if (window.db && user && user.uid) {
-                            const userDocRef = doc(window.db, `artifacts/${appId}/users/${user.uid}`);
-                            console.log("Attempting to fetch user profile from path:", userDocRef.path); // Log the path HERE
-                            try {
-                                const profileSnap = await getDoc(userDocRef);
-
-                                if (profileSnap.exists()) {
-                                    window.currentUserProfile = profileSnap.data();
-                                    console.log("User profile exists in Firestore. Data:", window.currentUserProfile);
-                                    // Update currentUsername with Firestore name if available and different
-                                    if (window.currentUserProfile.name) {
-                                        window.currentUsername = window.currentUserProfile.name;
+                        // Use a Promise.all to ensure both reload and profile fetch complete before UI update
+                        await Promise.all([
+                            (async () => {
+                                if (!user.emailVerified) {
+                                    console.log("User email not yet verified. Attempting to reload user data...");
+                                    try {
+                                        await user.reload();
+                                        user = window.auth.currentUser; // Get the reloaded user object
+                                        console.log("User data reloaded. New emailVerified status:", user.emailVerified);
+                                    } catch (reloadError) {
+                                        console.error("Error reloading user data:", reloadError);
                                     }
-                                    // Check if banned
-                                    if (window.currentUserProfile.isBanned) {
-                                        console.warn("User is banned. Signing out.");
-                                        await signOut(window.auth); // Force sign out if banned
-                                        authModalOverlay.classList.remove('hidden');
-                                        videoBackground.classList.remove('hidden');
-                                        forumContentWrapper.classList.add('hidden');
-                                        showAuthMessage("Tu cuenta ha sido baneada del foro. Contacta a un administrador para más información.", true);
-                                        if (activityTimer) clearInterval(activityTimer);
-                                        return; // Stop further execution
-                                    }
-
-                                } else {
-                                    // If profile doesn't exist, create a basic one (e.g., for users registered before this feature)
-                                    console.log("User profile NOT found in Firestore for UID:", user.uid, ". Creating a new one.");
-                                    await setDoc(userDocRef, {
-                                        name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
-                                        email: user.email,
-                                        phone: '',
-                                        photoURL: "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser",
-                                        createdAt: Date.now(),
-                                        last_name_change_timestamp: Date.now(),
-                                        last_email_change_timestamp: Date.now(),
-                                        last_phone_change_timestamp: Date.now(),
-                                        date_of_birth: '',
-                                        note: '', // Initialize note
-                                        profileColor: '#00FFFF', // Default profile color
-                                        lastActivity: Date.now(), // Initialize last activity
-                                        isAdmin: false, // Default to not admin
-                                        isBanned: false // Default to not banned
-                                    });
-                                    window.currentUserProfile = (await getDoc(userDocRef)).data(); // Fetch the newly created profile
-                                    console.log("New user profile created. Data:", window.currentUserProfile);
                                 }
-                            } catch (profileError) {
-                                console.error("Error fetching or creating user profile:", profileError);
-                                // Si hay un error al cargar el perfil, forzar el cierre de sesión para evitar un estado inconsistente.
-                                await signOut(window.auth);
-                                showAuthMessage("Error al cargar tu perfil. Por favor, intenta iniciar sesión de nuevo.", true);
-                                return; // Detener la ejecución posterior
-                            }
-                        } else {
-                            console.warn("Firestore DB o UID de usuario no disponible para la obtención del perfil. Saltando la carga del perfil.");
-                            // Si esto ocurre después de un login exitoso, podría indicar un problema.
-                            // Por ahora, solo loguear y continuar, ya que el usuario podría ser anónimo o estar en un estado de transición.
-                        }
+                            })(),
+                            (async () => {
+                                const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+                                if (window.db && user && user.uid) {
+                                    const userDocRef = doc(window.db, `artifacts/${appId}/users/${user.uid}`);
+                                    console.log("Attempting to fetch user profile from path:", userDocRef.path);
+                                    try {
+                                        const profileSnap = await getDoc(userDocRef);
+                                        if (profileSnap.exists()) {
+                                            window.currentUserProfile = profileSnap.data();
+                                            console.log("User profile exists in Firestore. Data:", window.currentUserProfile);
+                                            if (window.currentUserProfile.name) {
+                                                window.currentUsername = window.currentUserProfile.name;
+                                            }
+                                            if (window.currentUserProfile.isBanned) {
+                                                console.warn("User is banned. Signing out.");
+                                                await signOut(window.auth);
+                                                // No need to set UI here, onAuthStateChanged will be triggered again with user = null
+                                                return; // Exit this async function early if banned
+                                            }
+                                        } else {
+                                            console.log("User profile NOT found in Firestore for UID:", user.uid, ". Creating a new one.");
+                                            await setDoc(userDocRef, {
+                                                name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
+                                                email: user.email,
+                                                phone: '',
+                                                photoURL: "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser",
+                                                createdAt: Date.now(),
+                                                last_name_change_timestamp: Date.now(),
+                                                last_email_change_timestamp: Date.now(),
+                                                last_phone_change_timestamp: Date.now(),
+                                                date_of_birth: '',
+                                                note: '',
+                                                profileColor: '#00FFFF',
+                                                lastActivity: Date.now(),
+                                                isAdmin: false,
+                                                isBanned: false
+                                            });
+                                            window.currentUserProfile = (await getDoc(userDocRef)).data();
+                                            console.log("New user profile created. Data:", window.currentUserProfile);
+                                        }
+                                    } catch (profileError) {
+                                        console.error("Error fetching or creating user profile:", profileError);
+                                        await signOut(window.auth);
+                                        showAuthMessage("Error al cargar tu perfil. Por favor, intenta iniciar sesión de nuevo.", true);
+                                        return; // Detener la ejecución posterior
+                                    }
+                                } else {
+                                    console.warn("Firestore DB o UID de usuario no disponible para la obtención del perfil. Saltando la carga del perfil.");
+                                }
+                            })()
+                        ]);
 
+                        // Re-check user object after potential reload/sign out due to ban
+                        user = window.auth.currentUser;
+                        if (!user || window.currentUserProfile.isBanned) {
+                            // If user is now null (due to sign out) or marked as banned, let the outer else block handle UI.
+                            // The onAuthStateChanged will be triggered again with user = null.
+                            return;
+                        }
 
                         // Hardcode admin UID check for client-side display and logic
-                        // IMPORTANT: Replace "gEnwfp7imwfgz5H7VdSvCn8Yvnk2" with your actual admin UID
                         if (user.uid === "gEnwfp7imwfgz5H7VdSvCn8Yvnk2") {
                             window.currentUserProfile.isAdmin = true;
                             console.log("User is hardcoded admin.");
                         }
 
-
                         if (user.emailVerified) {
-                            // User is logged in and verified
                             console.log("User email is verified. Displaying forum content and starting listeners.");
                             authModalOverlay.classList.add('hidden');
                             videoBackground.classList.add('hidden');
                             forumContentWrapper.classList.remove('hidden');
                             
-                            // Start listeners only if not already active
-                            // Asignamos el resultado de onSnapshot a las variables de desuscripción
                             firestoreUnsubscribes.posts = loadPosts();
                             firestoreUnsubscribes.onlineUsers = loadOnlineUsers();
                             firestoreUnsubscribes.notifications = loadNotifications();
 
-                            if (settingsButton) settingsButton.classList.remove('hidden'); // Show settings button
-                            if (notificationsButton) notificationsButton.classList.remove('hidden'); // Show notifications button
-                            if (adminChatViewButton) { // Show admin chat view button if admin
+                            if (settingsButton) settingsButton.classList.remove('hidden');
+                            if (notificationsButton) notificationsButton.classList.remove('hidden');
+                            if (adminChatViewButton) {
                                 if (window.currentUserProfile.isAdmin) {
                                     adminChatViewButton.classList.remove('hidden');
                                 } else {
@@ -519,21 +508,19 @@
                                 }
                             }
 
-                            // Start periodic activity update
                             if (activityTimer) clearInterval(activityTimer);
-                            activityTimer = setInterval(updateUserActivity, 30 * 1000); // Update every 30 seconds
-                            updateUserActivity(); // Initial update
+                            activityTimer = setInterval(updateUserActivity, 30 * 1000);
+                            updateUserActivity();
                         } else {
-                            // User is logged in but email not verified
                             console.log("User email is NOT verified. Showing verification message.");
                             authModalOverlay.classList.remove('hidden');
                             videoBackground.classList.remove('hidden');
                             forumContentWrapper.classList.add('hidden');
                             showAuthMessage("Por favor, verifica tu correo electrónico para acceder al foro. Revisa tu bandeja de entrada o spam.", false);
-                            if (settingsButton) settingsButton.classList.add('hidden'); // Hide settings button
-                            if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
-                            if (adminChatViewButton) adminChatViewButton.classList.add('hidden'); // Hide admin chat view button
-                            if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+                            if (settingsButton) settingsButton.classList.add('hidden');
+                            if (notificationsButton) notificationsButton.classList.add('hidden');
+                            if (adminChatViewButton) adminChatViewButton.classList.add('hidden');
+                            if (activityTimer) clearInterval(activityTimer);
                         }
 
                     } else {
@@ -546,12 +533,12 @@
                         videoBackground.classList.remove('hidden');
                         forumContentWrapper.classList.add('hidden');
                         document.getElementById('posts-container').innerHTML = '<p class="text-center text-gray-400">Inicia sesión para ver las publicaciones.</p>';
-                        onlineUsersContainer.innerHTML = ''; // Clear online users
-                        notificationBadge.classList.add('hidden'); // Hide notification badge
-                        if (settingsButton) settingsButton.classList.add('hidden'); // Hide settings button
-                        if (notificationsButton) notificationsButton.classList.add('hidden'); // Hide notifications button
-                        if (adminChatViewButton) adminChatViewButton.classList.add('hidden'); // Hide admin chat view button
-                        if (activityTimer) clearInterval(activityTimer); // Stop activity updates
+                        onlineUsersContainer.innerHTML = '';
+                        notificationBadge.classList.add('hidden');
+                        if (settingsButton) settingsButton.classList.add('hidden');
+                        if (notificationsButton) notificationsButton.classList.add('hidden');
+                        if (adminChatViewButton) adminChatViewButton.classList.add('hidden');
+                        if (activityTimer) clearInterval(activityTimer);
                     }
                 });
             } catch (error) {
