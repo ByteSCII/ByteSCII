@@ -1,1111 +1,1706 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Foro de Byte</title>
-<!-- TailwindCSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            heading: ['Montserrat', 'sans-serif'],
-          },
-          colors: {
-            'byte-dark-bg': '#0A0A1A',
-            'byte-accent-cyan': '#00FFFF',
-            'byte-text-light': '#F9FAFB',
-            'byte-secondary-dark': '#1A202C',
-          }
-        }
-      }
-    }
-  </script>
-<style>
-    .overlay-bg { background-color: rgba(0,0,0,0.7); }
-    .fullscreen { position: fixed; top:0; left:0; width:100%; height:100%; }
-    .fade-in { animation: fadeIn 0.5s ease-in-out; }
-    @keyframes fadeIn { from { opacity:0; transform: translateY(-10px);} to {opacity:1; transform:translateY(0);} }
-  </style>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/><style>body { font-family: 'Inter', sans-serif; }</style><style>
-@media (max-width: 640px) {
-  .feed-card { padding: 1rem; border-radius: 1rem; }
-}
-.shadow-xl { box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
-</style></head>
-<!-- Mensaje de confirmación -->
-<div class="hidden fixed top-6 inset-x-6 z-50 bg-emerald-400 text-black text-sm text-center py-3 rounded-lg shadow-lg font-medium" id="correo-verif-msg">
-  Se ha enviado un correo de verificación. Por favor, revisa tu bandeja de entrada.
-</div>
-<body class="bg-gradient-to-b from-[#0a0f1f] via-[#101625] to-[#0a0f1f] text-white font-sans relative min-h-screen">
-<!-- Video de fondo -->
-<video autoplay="" class="fullscreen object-cover -z-10" loop="" muted="" playsinline="">
-<source src="./images/fondo.mp4" type="video/mp4"/>
-    Tu navegador no soporta la etiqueta de video.
-  </video>
-<!-- Botón Volver al inicio -->
-<a class="fixed top-4 left-4 bg-yellow-500 text-black font-bold py-2 px-4 rounded-full shadow-lg hover:bg-yellow-600 transition animate-bounce" href="index.html">
-    Volver al inicio
-  </a>
-<!-- Contenedor de autenticación -->
-<div class="flex items-center justify-center min-h-screen px-4" id="auth-container">
-<div class="bg-byte-secondary-dark bg-opacity-80 p-4 sm:p-8 rounded-lg w-full max-w-sm sm:max-w-md fade-in backdrop-blur">
-<!-- Login -->
-<div id="login-container">
-<h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Inicia Sesión</h2>
-<form class="space-y-4" id="login-form">
-<div>
-<label class="block mb-1" for="login-email">Correo Electrónico</label>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="login-email" required="" type="email"/>
-</div>
-<div>
-<label class="block mb-1" for="login-password">Contraseña</label>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="login-password" required="" type="password"/>
-</div>
-<button class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition" type="submit">Entrar</button>
-</form>
-<p class="mt-4 text-center">¿No tienes cuenta? 
-          <button class="text-byte-accent-cyan hover:underline" id="toggle-to-register">Regístrate</button>
-</p>
-</div>
-<!-- Registro -->
-<div class="hidden" id="register-container">
-<h2 class="text-2xl font-heading font-bold mb-4 text-byte-accent-cyan text-center">Regístrate</h2>
-<!-- Reglas editables -->
-<div class="mb-4" id="rules-section">
-<div class="max-h-40 overflow-auto p-2 bg-byte-dark-bg rounded mb-2" id="rules-text-display">
-<!-- Texto de reglas cargado dinámicamente -->
-</div>
-<label class="inline-flex items-center">
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="accept-rules" type="checkbox"/>
-<span class="ml-2 text-byte-text-light">He leído y acepto las reglas</span>
-</label>
-</div>
-<form class="space-y-4" id="register-form">
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-name" placeholder="Nombre completo" required="" type="text"/>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-email" placeholder="Correo electrónico" required="" type="email"/>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-password" placeholder="Contraseña" required="" type="password"/>
-<p class="text-sm text-white" id="password-strength-text"></p>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="register-confirm-password" placeholder="Confirmar contraseña" required="" type="password"/>
-<div>
-<label class="block mb-1" for="profile-bio">Biografía (opcional)</label>
-<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="profile-bio" placeholder="Escribe algo sobre ti..." rows="2"></textarea>
-</div>
-<div>
-<label class="block mb-1" for="profile-avatar">Avatar (imagen)</label>
-<input accept="image/*" class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="profile-avatar" type="file"/>
-</div>
-<!-- Checkboxes privacidad -->
-<div>
-<span class="text-byte-text-light">Información pública:</span>
-<div class="space-x-2 mt-1">
-<label class="inline-flex items-center">
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="public-role" type="checkbox"/>
-<span class="ml-1 text-gray-300">Mostrar rol</span>
-</label>
-<label class="inline-flex items-center">
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="public-email" type="checkbox"/>
-<span class="ml-1 text-gray-300">Mostrar correo</span>
-</label>
-<label class="inline-flex items-center">
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="public-bio" type="checkbox"/>
-<span class="ml-1 text-gray-300">Mostrar biografía</span>
-</label>
-</div>
-</div>
-<button class="w-full bg-byte-accent-cyan text-black font-bold py-2 rounded hover:bg-cyan-400 transition disabled:opacity-50" disabled="" id="register-btn" type="submit">Crear cuenta</button>
-</form>
-<p class="mt-4 text-center">¿Ya tienes cuenta? 
-          <button class="text-byte-accent-cyan hover:underline" id="toggle-to-login">Inicia Sesión</button>
-</p>
-</div>
-</div>
-</div>
-<!-- Contenedor principal del Foro -->
-<div class="hidden flex flex-col gap-4 fade-in max-w-3xl mx-auto px-4 py-6" id="forum-container">
-<!-- Sidebar izquierdo: Usuarios conectados, solicitudes y panel admin -->
-<aside class="fixed sm:relative sm:block hidden top-0 left-0 w-64 h-full bg-byte-secondary-dark p-4 z-40 sm:z-0 shadow-xl transform sm:transform-none -translate-x-full transition-transform duration-300" id="users-aside">
-<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Conectados</h3>
-<ul class="space-y-2 mb-4" id="users-list"></ul>
-<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Solicitudes</h3>
-<ul class="space-y-2 mb-4" id="requests-list"></ul>
-<!-- Panel Admin -->
-<div class="hidden" id="admin-panel">
-<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Panel Admin</h3>
-<!-- Editar reglas -->
-<div class="mb-4">
-<label class="block font-bold mb-1">Editar Reglas</label>
-<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="edit-rules-text"></textarea>
-<button class="mt-2 w-full bg-green-500 text-white py-1 rounded hover:bg-green-600" id="save-rules-btn">Guardar Reglas</button>
-</div>
-<!-- Crear roles -->
-<div class="mb-4">
-<label class="block font-bold mb-1">Crear Nuevo Rol</label>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="new-role-name" placeholder="Nombre del rol" type="text"/>
-<button class="mt-2 w-full bg-blue-500 text-white py-1 rounded hover:bg-blue-600" id="create-role-btn">Crear Rol</button>
-</div>
-<!-- Lista de usuarios para promover o banear -->
-<h4 class="font-bold mb-2">Gestionar Usuarios</h4>
-<ul class="space-y-2" id="ban-list"></ul>
-</div>
-</aside>
-<!-- Área central: Publicaciones -->
-<main class="flex-1 flex flex-col">
-<!-- Header con bienvenida, rol, notificaciones, perfil -->
-<header class="bg-byte-dark-bg py-4 px-6 flex justify-between items-center border-b border-byte-accent-cyan">
-<div class="flex items-center space-x-4">
-<h1 class="text-xl font-heading font-bold text-byte-accent-cyan" id="welcome-text"></h1>
-<span class="ml-2 bg-gray-500 text-white text-xs font-bold px-2 py-1 rounded" id="role-tag"></span>
-<button class="bg-byte-accent-cyan text-black px-2 py-1 rounded hover:bg-cyan-400" id="profile-btn">Perfil</button>
-</div>
-<div class="flex items-center space-x-4">
-<button class="hidden bg-yellow-500 text-black px-2 py-1 rounded hover:bg-yellow-600" id="send-notif-btn">Enviar Notif.</button>
-<div class="relative">
-<button class="relative" id="notifications-btn">
-<svg class="w-6 h-6 text-byte-text-light" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M15 17h5l-1.405-1.405M19 13V8a7 7 0 10-14 0v5l-1.405 1.405M6 17h12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-</svg>
-<span class="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full px-1" id="notif-count">0</span>
-</button>
-<div class="hidden absolute right-0 mt-2 w-64 bg-byte-secondary-dark border border-byte-accent-cyan rounded shadow-lg overflow-auto max-h-64 z-50" id="notifications-dropdown">
-<ul id="notifications-list"></ul>
-</div>
-</div>
-<button class="text-red-500 hover:underline" id="logout-btn">Cerrar sesión</button>
-</div>
-</header>
-<!-- Formulario publicación con archivos -->
-<div class="bg-white/5 backdrop-blur-lg rounded-2xl shadow-xl p-6 flex flex-col space-y-3 w-full max-w-md mx-auto">
-<form class="flex space-x-2" enctype="multipart/form-data" id="post-form">
-<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="post-input" placeholder="¿Qué estás pensando?" required="" rows="2"></textarea>
-<input accept="image/*,video/*" class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="post-media" type="file"/>
-<button class="bg-byte-accent-cyan text-black px-4 py-2 rounded" type="submit">Publicar</button>
-</form>
-</div>
-<!-- Lista de publicaciones -->
-<div class="p-4 overflow-auto flex-1 space-y-4" id="posts-list"></div>
-</main>
-<!-- Sidebar derecho: Chat privado -->
-<aside class="fixed sm:relative sm:block hidden top-0 right-0 w-80 h-full bg-byte-secondary-dark p-4 flex flex-col z-40 sm:z-0 shadow-xl transform sm:transform-none translate-x-full transition-transform duration-300" id="chat-aside">
-<h3 class="text-lg font-bold font-heading text-byte-accent-cyan mb-2">Chat Privado</h3>
-<ul class="space-y-2 mb-4 flex-1 overflow-auto" id="conversations-list"></ul>
-<div class="hidden flex flex-col border-t border-byte-accent-cyan pt-2" id="chat-box">
-<div class="flex-1 overflow-auto mb-2 space-y-2" id="chat-messages"></div>
-<form class="flex space-x-2" id="message-form">
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="message-input" placeholder="Escribe un mensaje..." required="" type="text"/>
-<button class="bg-byte-accent-cyan text-black px-4 py-2 rounded" type="submit">Enviar</button>
-</form>
-</div>
-</aside>
-</div>
-<!-- Modal perfil de usuario -->
-<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden" id="profile-modal">
-<div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
-<div class="flex justify-between items-center mb-4">
-<h2 class="text-xl font-bold text-byte-accent-cyan" id="profile-name"></h2>
-<button class="text-gray-400 hover:text-white" id="close-profile">×</button>
-</div>
-<p class="text-gray-300 mb-1" id="profile-role"></p>
-<p class="text-gray-300 mb-1" id="profile-email"></p>
-<p class="text-gray-300 mb-1" id="profile-bio"></p>
-<div class="mt-2" id="profile-media"></div>
-</div>
-</div>
-<!-- Modal enviar notificación -->
-<div class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden" id="notif-modal">
-<div class="bg-byte-secondary-dark p-6 rounded-lg w-full max-w-sm fade-in">
-<h2 class="text-xl font-bold text-byte-accent-cyan mb-4">Enviar Notificación</h2>
-<form class="space-y-4" id="notif-form">
-<div>
-<label class="block mb-1" for="notif-user">Usuario (UID)</label>
-<input class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="notif-user" required="" type="text"/>
-</div>
-<div>
-<label class="block mb-1" for="notif-content">Contenido</label>
-<textarea class="bg-white/10 border border-white/20 text-white px-3 py-2 rounded w-full placeholder-white/60 focus:outline-none" id="notif-content" required="" rows="3"></textarea>
-</div>
-<button class="w-full bg-byte-accent-cyan text-black py-2 rounded hover:bg-cyan-400" type="submit">Enviar</button>
-</form>
-</div>
-</div>
-<!-- Firebase SDK y lógica -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      sendEmailVerification,
-      signInWithEmailAndPassword,
-      onAuthStateChanged,
-      updateProfile,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      addDoc,
-      collection,
-      query,
-      orderBy,
-      onSnapshot,
-      updateDoc,
-      serverTimestamp,
-      getDoc,
-      getDocs,
-      deleteDoc,
-      where
-    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-    import {
-      getStorage,
-      ref as sRef,
-      uploadBytes,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte - Tu visión nuestra misión</title>
 
-    // Configuración Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyCYpAKjzz-rUBlZYkaEPiZMawfAM8-nQ3Y",
-      authDomain: "byteweb-13a12.firebaseapp.com",
-      projectId: "byteweb-13a12",
-      storageBucket: "byteweb-13a12.appspot.com",
-      messagingSenderId: "827941655623",
-      appId: "1:827941655623:web:887b7a5220fd416eeccd62"
-    };
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-
-    // Elementos DOM
-    const authContainer = document.getElementById('auth-container');
-    const forumContainer = document.getElementById('forum-container');
-    const loginContainer = document.getElementById('login-container');
-    const registerContainer = document.getElementById('register-container');
-    const acceptRules = document.getElementById('accept-rules');
-    const registerBtn = document.getElementById('register-btn');
-    const publicRole = document.getElementById('public-role');
-    const publicEmail = document.getElementById('public-email');
-    const publicBio = document.getElementById('public-bio');
-    const usersList = document.getElementById('users-list');
-    const requestsList = document.getElementById('requests-list');
-    const banList = document.getElementById('ban-list');
-    const conversationsList = document.getElementById('conversations-list');
-    const chatBox = document.getElementById('chat-box');
-    const chatMessages = document.getElementById('chat-messages');
-    const notificationsBtn = document.getElementById('notifications-btn');
-    const notificationsDropdown = document.getElementById('notifications-dropdown');
-    const notificationsList = document.getElementById('notifications-list');
-    const notifCount = document.getElementById('notif-count');
-    const postForm = document.getElementById('post-form');
-    const postInput = document.getElementById('post-input');
-    const postMedia = document.getElementById('post-media');
-    const postsList = document.getElementById('posts-list');
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.getElementById('message-input');
-    const logoutBtn = document.getElementById('logout-btn');
-    const welcomeText = document.getElementById('welcome-text');
-    const roleTag = document.getElementById('role-tag');
-    const adminTag = document.getElementById('admin-tag');
-    const profileModal = document.getElementById('profile-modal');
-    const profileName = document.getElementById('profile-name');
-    const profileEmail = document.getElementById('profile-email');
-    const profileRole = document.getElementById('profile-role');
-    const profileBio = document.getElementById('profile-bio');
-    const profileMedia = document.getElementById('profile-media');
-    const closeProfile = document.getElementById('close-profile');
-    const adminPanel = document.getElementById('admin-panel');
-    const editRulesText = document.getElementById('edit-rules-text');
-    const saveRulesBtn = document.getElementById('save-rules-btn');
-    const newRoleName = document.getElementById('new-role-name');
-    const createRoleBtn = document.getElementById('create-role-btn');
-    const sendNotifBtn = document.getElementById('send-notif-btn');
-    const notifModal = document.getElementById('notif-modal');
-    const notifForm = document.getElementById('notif-form');
-    const notifUser = document.getElementById('notif-user');
-    const notifContent = document.getElementById('notif-content');
-
-    let currentUser = null;
-    let currentUserData = null;
-    let currentChatUser = null;
-    let isAdmin = false;
-    let userRoles = [];
-
-    // Cargar roles al inicio
-    async function loadRoles() {
-      const rolesSnapshot = await getDocs(collection(db, 'roles'));
-      userRoles = [];
-      rolesSnapshot.forEach(docSnap => userRoles.push(docSnap.data().name));
-    }
-    loadRoles();
-
-    // Cargar reglas
-    async function loadRules() {
-      const rulesDoc = await getDoc(doc(db, 'settings', 'business_rules'));
-      if (rulesDoc.exists()) {
-        const text = rulesDoc.data().text;
-        document.getElementById('rules-text-display').textContent = text;
-        editRulesText.value = text;
-      }
-    }
-    loadRules();
-
-    // Habilitar botón de registro al aceptar reglas
-    acceptRules.addEventListener('change', () => {
-      registerBtn.disabled = !acceptRules.checked;
-    });
-
-    // Toggle UI
-    document.getElementById('toggle-to-register').onclick = () => {
-      loginContainer.classList.add('hidden');
-      registerContainer.classList.remove('hidden');
-    };
-    document.getElementById('toggle-to-login').onclick = () => {
-      registerContainer.classList.add('hidden');
-      loginContainer.classList.remove('hidden');
-    };
-
-    // Medidor de contraseña
-    const passwordInput = document.getElementById('register-password');
-    const passwordStrengthText = document.getElementById('password-strength-text');
-    passwordInput.addEventListener('input', () => {
-      const val = passwordInput.value;
-      let strength = 0;
-      if (val.length >= 8) strength++;
-      if (/[A-Z]/.test(val)) strength++;
-      if (/[0-9]/.test(val)) strength++;
-      if (/[^A-Za-z0-9]/.test(val)) strength++;
-      if (strength <= 1) {
-        passwordStrengthText.textContent = 'Débil';
-        passwordStrengthText.className = 'text-red-500 text-sm';
-      } else if (strength <= 3) {
-        passwordStrengthText.textContent = 'Medio';
-        passwordStrengthText.className = 'text-yellow-400 text-sm';
-      } else {
-        passwordStrengthText.textContent = 'Fuerte';
-        passwordStrengthText.className = 'text-green-500 text-sm';
-      }
-    });
-
-    // Registro
-    document.getElementById('register-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = document.getElementById('register-name').value.trim();
-      const email = document.getElementById('register-email').value.trim();
-      const password = document.getElementById('register-password').value;
-      const confirmPassword = document.getElementById('register-confirm-password').value;
-      const bio = document.getElementById('profile-bio').value.trim();
-      const avatarFile = document.getElementById('profile-avatar').files[0];
-      if (!name || !email || !password || !confirmPassword) {
-        alert('Completa todos los campos.');
-        return;
-      }
-      if (password !== confirmPassword) {
-        alert('Las contraseñas no coinciden.');
-        return;
-      }
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        await sendEmailVerification(user);
-        mostrarMensajeVerificacionCorreo();
-await updateProfile(user, { displayName: name });
-        let avatarURL = '';
-        if (avatarFile) {
-          const storageRef = sRef(storage, `avatars/${user.uid}`);
-          await uploadBytes(storageRef, avatarFile);
-          avatarURL = await getDownloadURL(storageRef);
-        }
-        await setDoc(doc(db, 'users', user.uid), {
-          name,
-          email,
-          role: 'Cliente',
-          userId: user.uid,
-          online: false,
-          banned: false,
-          publicRole: publicRole.checked,
-          publicEmail: publicEmail.checked,
-          publicBio: publicBio.checked,
-          bio,
-          avatarURL
-        });
-        alert('Registro exitoso! Verifica tu correo.');
-        registerContainer.classList.add('hidden');
-        loginContainer.classList.remove('hidden');
-      } catch (error) {
-        alert('Error: ' + error.message);
-      }
-    });
-
-    // Login
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value;
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        if (!user.emailVerified) {
-          alert('Verifica tu correo antes de iniciar sesión.');
-          await sendEmailVerification(user);
-          mostrarMensajeVerificacionCorreo();
-return;
-        }
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-        const data = userDoc.data();
-        if (data.banned) {
-          alert('Has sido baneado.');
-          await signOut(auth);
-          return;
-        }
-        currentUser = user;
-        currentUserData = data;
-        isAdmin = (data.role === 'Admin');
-        await updateDoc(doc(db, 'users', user.uid), { online: true });
-        welcomeText.textContent = data.name;
-        roleTag.textContent = data.role;
-        if (isAdmin) {
-          adminTag.classList.remove('hidden');
-          adminPanel.classList.remove('hidden');
-          sendNotifBtn.classList.remove('hidden');
-        }
-        authContainer.classList.add('hidden');
-        forumContainer.classList.remove('hidden');
-        setupForum();
-      } catch (error) {
-        alert('Error: ' + error.message);
-      }
-    });
-
-    // Estado auth
-    onAuthStateChanged(auth, async (user) => {
-      if (user && user.emailVerified) {
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-        const data = userDoc.data();
-        if (data.banned) {
-          await signOut(auth);
-          return;
-        }
-        currentUser = user;
-        currentUserData = data;
-        isAdmin = (data.role === 'Admin');
-        await updateDoc(doc(db, 'users', user.uid), { online: true });
-        welcomeText.textContent = data.name;
-        roleTag.textContent = data.role;
-        if (isAdmin) {
-          adminTag.classList.remove('hidden');
-          adminPanel.classList.remove('hidden');
-          sendNotifBtn.classList.remove('hidden');
-        }
-        authContainer.classList.add('hidden');
-        forumContainer.classList.remove('hidden');
-        setupForum();
-      } else {
-        if (currentUser) {
-          await updateDoc(doc(db, 'users', currentUser.uid), { online: false });
-          currentUser = null;
-          currentUserData = null;
-          isAdmin = false;
-        }
-        forumContainer.classList.add('hidden');
-        authContainer.classList.remove('hidden');
-        adminTag.classList.add('hidden');
-        adminPanel.classList.add('hidden');
-        sendNotifBtn.classList.add('hidden');
-      }
-    });
-
-    // Logout
-    logoutBtn.onclick = async () => {
-      if (currentUser) {
-        await updateDoc(doc(db, 'users', currentUser.uid), { online: false });
-        await signOut(auth);
-      }
-    };
-
-    // Setup foro
-    async function setupForum() {
-      await loadRoles();
-      loadUsers();
-      loadRequests();
-      loadBanList();
-      loadPosts();
-      loadNotifications();
-      loadConversations();
-      loadRules(); // refresh rules display
-    }
-
-    // Load users
-    function loadUsers() {
-      const q = query(collection(db, 'users'));
-      onSnapshot(q, (snapshot) => {
-        usersList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          if (data.online && data.userId !== currentUser.uid) {
-            const li = document.createElement('li');
-            li.className = 'flex justify-between items-center';
-            let userInfo = data.name;
-            if (data.publicRole) userInfo += ` (${data.role})`;
-            li.innerHTML = `
-              <span class="cursor-pointer text-byte-accent-cyan view-profile-btn" data-id="${data.userId}">${userInfo}</span>
-              <div class="flex space-x-1">
-                <button data-id="${data.userId}" class="send-request-btn bg-byte-accent-cyan text-black px-2 py-1 rounded text-sm">Chat</button>
-                ${isAdmin ? `<select data-id="${data.userId}" class="role-select bg-byte-dark-bg text-white px-2 py-1 rounded text-sm"></select><button data-id="${data.userId}" class="ban-btn bg-red-500 text-white px-2 py-1 rounded text-sm">Banear</button>` : ''}
-              </div>
-            `;
-            usersList.appendChild(li);
-            li.querySelector('.send-request-btn').onclick = () => sendRequest(data.userId);
-            li.querySelector('.view-profile-btn').onclick = () => viewProfile(data.userId);
-            if (isAdmin) {
-              const selectElem = li.querySelector('.role-select');
-              userRoles.forEach(r => {
-                const opt = document.createElement('option');
-                opt.value = r;
-                opt.textContent = r;
-                if (r === data.role) opt.selected = true;
-                selectElem.appendChild(opt);
-              });
-              selectElem.onchange = async (e) => {
-                await updateDoc(doc(db, 'users', data.userId), { role: e.target.value });
-                if (data.userId === currentUser.uid) roleTag.textContent = e.target.value;
-              };
-              li.querySelector('.ban-btn').onclick = () => banUser(data.userId);
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta name="description" content="Byte - Métodos de pago seguros, atención al cliente y soluciones digitales confiables.">
+    <meta name="keywords" content="Byte, pagos seguros, tecnología, atención al cliente, soluciones digitales, Venezuela">
+    <meta name="author" content="Byte">
+    <meta property="og:title" content="Byte - Tecnología y confianza">
+    <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script>
+        // Configuración personalizada de Tailwind CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A', // Fondo oscuro principal
+                        'byte-accent-cyan': '#00FFFF', // Cian eléctrico para acentos
+                        'byte-light-bg': '#F8FAFC', // Fondo claro (si se usa)
+                        'byte-text-dark': '#374151', // Texto oscuro (si se usa)
+                        'byte-text-light': '#F9FAFB', // Texto claro
+                        'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario (para desplegables)
+                        'whatsapp-green': '#25D366', // Color oficial de WhatsApp
+                        'whatsapp-dark-green': '#128C7E', // Tono más oscuro para hover de WhatsApp
+                    }
+                }
             }
-          }
-        });
-      });
-    }
-
-    // View profile
-    async function viewProfile(userId) {
-      const userDoc = await getDoc(doc(db, 'users', userId));
-      const data = userDoc.data();
-      profileName.textContent = data.name;
-      profileRole.textContent = data.publicRole ? `Rol: ${data.role}` : '';
-      profileEmail.textContent = data.publicEmail ? `Correo: ${data.email}` : '';
-      profileBio.textContent = data.publicBio ? `Bio: ${data.bio}` : '';
-      profileMedia.innerHTML = '';
-      if (data.avatarURL) {
-        const img = document.createElement('img');
-        img.src = data.avatarURL;
-        img.alt = "Avatar";
-        img.className = 'w-24 h-24 object-cover rounded mb-2';
-        profileMedia.appendChild(img);
-      }
-      profileModal.classList.remove('hidden');
-    }
-    closeProfile.onclick = () => profileModal.classList.add('hidden');
-
-    // Ban user
-    async function banUser(userId) {
-      if (confirm('¿Seguro que quieres banear a este usuario?')) { 
-        await updateDoc(doc(db, 'users', userId), { banned: true, online: false }); 
-      }
-    }
-
-    // Load roles for selects
-    
-
-    // Create new role
-    createRoleBtn.onclick = async () => {
-      const name = newRoleName.value.trim();
-      if (!name) return;
-      await addDoc(collection(db, 'roles'), { name });
-      newRoleName.value = '';
-      await loadRoles();
-      loadUsers();
-    };
-
-    // Load ban list
-    function loadBanList() {
-      if (!isAdmin) return;
-      const q = query(collection(db, 'users'));
-      onSnapshot(q, (snapshot) => {
-        banList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          if (data.userId !== currentUser.uid) {
-            const li = document.createElement('li');
-            li.className = 'flex justify-between items-center';
-            li.innerHTML = `
-              <span>${data.name} (${data.role}) ${data.banned ? '- Baneado' : ''}</span>
-              ${data.banned ? `<button data-id="${data.userId}" class="unban-btn bg-green-500 text-white px-2 py-1 rounded text-sm">Desbanear</button>` : `<button data-id="${data.userId}" class="ban-btn bg-red-500 text-white px-2 py-1 rounded text-sm">Banear</button>`}
-            `;
-            banList.appendChild(li);
-            if (data.banned) {
-              li.querySelector('.unban-btn').onclick = async () => {
-                await updateDoc(doc(db, 'users', data.userId), { banned: false });
-              };
-            } else {
-              li.querySelector('.ban-btn').onclick = () => banUser(data.userId);
-            }
-          }
-        });
-      });
-    }
-
-    // Load requests
-    function loadRequests() {
-      const q = query(collection(db, 'message_requests'), orderBy('timestamp', 'desc'));
-      onSnapshot(q, (snapshot) => {
-        requestsList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data(), id = docSnap.id;
-          if (data.recipientId === currentUser.uid && data.status === 'pending') {
-            const li = document.createElement('li');
-            li.className = 'flex justify-between items-center';
-            li.innerHTML = `
-              <span>Solicitud de <strong>${data.senderId}</strong></span>
-              <div>
-                <button data-id="${id}" data-sender="${data.senderId}" class="accept-request-btn bg-green-500 px-2 py-1 rounded text-white text-sm mr-1">Aceptar</button>
-                <button data-id="${id}" class="decline-request-btn bg-red-500 px-2 py-1 rounded text-white text-sm">Rechazar</button>
-              </div>
-            `;
-            requestsList.appendChild(li);
-            li.querySelector('.accept-request-btn').onclick = (e) => acceptRequest(e.target.dataset.id, e.target.dataset.sender);
-            li.querySelector('.decline-request-btn').onclick = (e) => declineRequest(e.target.dataset.id);
-          }
-        });
-      });
-    }
-
-    async function acceptRequest(requestId, senderId) {
-      await updateDoc(doc(db, 'message_requests', requestId), { status: 'accepted' });
-      openChat(senderId);
-    }
-    async function declineRequest(requestId) {
-      await deleteDoc(doc(db, 'message_requests', requestId));
-    }
-
-    // Load conversations
-    function loadConversations() {
-      const q1 = query(collection(db, 'message_requests'));
-      onSnapshot(q1, (snapshot) => {
-        conversationsList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const data = docSnap.data();
-          if ((data.senderId === currentUser.uid || data.recipientId === currentUser.uid) && data.status === 'accepted') {
-            const otherId = (data.senderId === currentUser.uid) ? data.recipientId : data.senderId;
-            const li = document.createElement('li');
-            li.className = 'p-2 bg-byte-dark-bg rounded cursor-pointer hover:bg-byte-secondary-dark';
-            li.textContent = 'Chat con ' + otherId;
-            li.onclick = () => openChat(otherId);
-            conversationsList.appendChild(li);
-          }
-        });
-      });
-    }
-
-    // Open chat
-    function openChat(otherId) {
-      currentChatUser = otherId;
-      chatBox.classList.remove('hidden');
-      chatMessages.innerHTML = '';
-      const chatQuery = query(collection(db, 'messages'), orderBy('timestamp'));
-      onSnapshot(chatQuery, (snapshot) => {
-        chatMessages.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const m = docSnap.data();
-          if ((m.senderId === currentUser.uid && m.receiverId === otherId) ||
-              (m.senderId === otherId && m.receiverId === currentUser.uid) || isAdmin) {
-            const div = document.createElement('div');
-            div.className = m.senderId === currentUser.uid ? 'text-right' : 'text-left';
-            div.innerHTML = `
-              <span class="block inline-block px-3 py-1 rounded ${m.senderId === currentUser.uid ? 'bg-byte-accent-cyan text-black' : 'bg-byte-secondary-dark text-white'}">
-                ${m.content}
-              </span>
-            `;
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-          }
-        });
-      });
-    }
-
-    // Send message
-    messageForm.onsubmit = async (e) => {
-      e.preventDefault();
-      const content = messageInput.value.trim();
-      if (!content || !currentChatUser) return;
-      await addDoc(collection(db, 'messages'), {
-        senderId: currentUser.uid,
-        receiverId: currentChatUser,
-        content,
-        timestamp: serverTimestamp()
-      });
-      messageInput.value = '';
-    };
-
-    // Create post with media
-    postForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const content = postInput.value.trim();
-      if (!content && !postMedia.files.length) return;
-      // IA verific: reject if "mal"
-      if (/\bmal\b/i.test(content)) {
-        alert('Contenido no permitido.');
-        return;
-      }
-      const postRef = await addDoc(collection(db, 'posts'), {
-        userId: currentUser.uid,
-        userName: currentUserData.name,
-        role: currentUserData.role,
-        content,
-        timestamp: serverTimestamp(),
-        likes: 0,
-        media: []
-      });
-      // Subir media si existe
-      if (postMedia.files.length) {
-        const file = postMedia.files[0];
-        // IA check nombre
-        if (/\bmal\b/i.test(file.name)) {
-          alert('Archivo no permitido.');
-        } else {
-          const storageRef = sRef(storage, `posts/${postRef.id}/${file.name}`);
-          await uploadBytes(storageRef, file);
-          const url = await getDownloadURL(storageRef);
-          await updateDoc(postRef, { media: [url] });
         }
-      }
-      postInput.value = '';
-      postMedia.value = '';
-    });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
-    // Load posts
-    function loadPosts() {
-      const postsQuery = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
-      onSnapshot(postsQuery, (snapshot) => {
-        postsList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const post = docSnap.data(), postId = docSnap.id;
-          const postDiv = document.createElement('div');
-          postDiv.className = 'bg-byte-secondary-dark p-4 rounded fade-in';
-          let deleteBtnHTML = '';
-          if (isAdmin || post.userId === currentUser.uid) {
-            deleteBtnHTML = `<button data-id="${postId}" class="delete-post-btn text-red-500 text-sm">Borrar</button>`;
-          }
-          let roleLabel = post.role ? `<span class="text-xs text-gray-400">(${post.role})</span>` : '';
-          let mediaHTML = '';
-          if (post.media && post.media.length) {
-            post.media.forEach(url => {
-              if (url.match(/\.(mp4|webm)$/i)) {
-                mediaHTML += ``;
-              } else {
-                mediaHTML += `<img src="${url}" class="max-w-full rounded mb-2">`;
-              }
-            });
-          }
-          postDiv.innerHTML = `
-            <div class="flex justify-between items-center mb-2">
-              <span class="font-bold text-byte-accent-cyan view-profile-btn cursor-pointer" data-id="${post.userId}">${post.userName}</span>${roleLabel}
-              <span class="text-gray-400 text-xs">${post.timestamp ? new Date(post.timestamp.seconds*1000).toLocaleString() : ''}</span>
+    <style>
+        /* Box-Sizing universal para un modelo de caja consistente */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Estilos base para HTML y Body */
+        html {
+            height: 100%; /* Asegura que HTML tenga altura completa */
+            width: 100%; /* Asegura que HTML tenga ancho completo */
+        }
+        body {
+            min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
+            width: 100%; /* Asegura que el body ocupe el ancho completo */
+            overflow-x: hidden; /* Previene el scroll horizontal no deseado */
+            background-color: #0A0A1A; /* Color de fondo oscuro principal */
+            font-family: 'Inter', sans-serif; /* Fuente principal */
+            color: #F9FAFB; /* Color de texto principal */
+            margin: 0;
+            padding: 0;
+            /* Deshabilita la selección de texto para una experiencia más similar a una aplicación */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Estilos para encabezados (h1-h6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif; /* Fuente para encabezados */
+            color: #00FFFF; /* Cian eléctrico para acentos */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para un efecto de brillo */
+        }
+
+        /* Estilo de contorno de texto */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF; /* Contorno cian para navegadores WebKit */
+            text-stroke: 1.5px #00FFFF; /* Contorno cian estándar */
+            color: #FFFFFF; /* Color de relleno del texto */
+            text-shadow: none; /* Asegura que no haya sombras de texto que interfieran */
+        }
+
+        /* Animación "Fall-in" al hacer scroll para AOS (se mantiene la definición pero no se usará si AOS.init se elimina) */
+        @keyframes fall-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Clase aplicada por AOS.js para animar elementos (se mantiene la definición pero no se usará si AOS.init se elimina) */
+        .aos-animate {
+            animation-name: fall-in;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Estilos para el texto del menú de navegación con contorno cian */
+        /* Fuente Montserrat aplicada directamente aquí para asegurar su visualización */
+        .nav-menu-text-stroke-cyan {
+            color: #E0E0E0; /* Color base plateado para el texto */
+            -webkit-text-stroke-width: 0.7px; /* Contorno cian más delgado para texto pequeño */
+            -webkit-text-stroke-color: #A0A0A0; /* Contorno gris más oscuro para efecto plateado */
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Sombra para profundidad */
+            transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            font-family: 'Montserrat', sans-serif; /* APLICADO DIRECTAMENTE AQUÍ */
+        }
+
+        /* Efecto de brillo y elevación en los enlaces del menú al pasar el ratón */
+        .menu-link-hover-effect { /* Nueva clase para efectos hover */
+            position: relative;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .menu-link-hover-effect::before {
+            content: '';
+            position: absolute;
+            bottom: -5px; /* Posición de la línea debajo del texto */
+            left: 0; /* Comienza desde el inicio del texto */
+            width: 0; /* La línea comienza con ancho cero */
+            height: 3px; /* Grosor de la línea */
+            background-color: #00FFFF; /* Color cian */
+            border-radius: 2px;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición para el ancho y la opacidad */
+            opacity: 0; /* Inicialmente invisible */
+        }
+        .menu-link-hover-effect:hover::before {
+            width: 100%; /* La línea se expande al 100% del ancho del elemento padre */
+            opacity: 1; /* Se vuelve visible */
+            background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
+        }
+        .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
+            color: #00FFFF; /* Cian eléctrico al pasar el ratón */
+            -webkit-text-stroke-color: #00BFFF; /* Cian más oscuro para el contorno al pasar el ratón */
+            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Brillo intenso al pasar el ratón */
+        }
+        .menu-link-hover-effect:hover {
+            transform: translateY(-5px); /* Eleva el enlace ligeramente más para un "salto" notable */
+        }
+
+        /* Animación de rebote sutil para el icono de flecha */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        /* Clase para activar la rotación y el rebote de la flecha */
+        .js-arrow-icon.arrow-active, .js-arrow-icon-mobile.arrow-active {
+            transform: rotate(180deg);
+            animation: bounce-subtle 0.5s ease-in-out infinite alternate;
+        }
+
+        /* Estilos de las tarjetas de servicio */
+        .service-card {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Gradiente sutil para el fondo */
+            border-radius: 1rem; /* Esquinas más redondeadas */
+            padding: 2rem; /* Relleno reducido */
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color de acento */
+            transition: all 0.3s ease-in-out; /* Transición suave para todos los cambios */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño al pasar el ratón */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+            border-color: #00FFFF; /* Borde más visible al pasar el ratón */
+        }
+
+        .service-card .icon {
+            font-size: 3.5rem; /* Tamaño de icono reducido */
+            margin-bottom: 1rem; /* Margen reducido */
+            /* Eliminado: color: #00FFFF; */ /* Eliminado el color cian para los iconos de servicio */
+            /* Eliminado: text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); */ /* Eliminado el brillo para los iconos de servicio */
+            color: #E0E0E0; /* Color gris claro para los iconos de servicio (blanco y negro) */
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transición para el hover del icono */
+        }
+        .service-card:hover .icon {
+            transform: rotate(10deg) scale(1.1); /* Efecto de rotación y escala al pasar el ratón */
+            color: #FFFFFF; /* Blanco puro al pasar el ratón para un contraste más fuerte */
+        }
+
+        .service-card h3 {
+            color: #F9FAFB; /* Texto del título más claro */
+            font-size: 1.5rem; /* Tamaño del título reducido */
+            margin-bottom: 0.75rem; /* Margen reducido */
+            font-weight: 700; /* Más negrita */
+        }
+
+        .service-card p {
+            color: #CBD5E0; /* Texto de párrafo más suave */
+            font-size: 0.95rem; /* Tamaño de párrafo reducido */
+            line-height: 1.6;
+        }
+
+        /* Estilos específicos para las tarjetas de servicio en pantallas pequeñas (celulares) */
+        @media (max-width: 768px) { /* Para pantallas de hasta 768px (md breakpoint) */
+            .service-card {
+                padding: 1.2rem; /* Reduce el padding para hacer las tarjetas más compactas */
+            }
+            .service-card .icon {
+                font-size: 2.8rem; /* Reduce el tamaño del icono */
+                margin-bottom: 0.8rem;
+            }
+            .service-card h3 {
+                font-size: 1.3rem; /* Reduce el tamaño del título */
+                margin-bottom: 0.6rem;
+            }
+            .service-card p {
+                font-size: 0.85rem; /* Reduce el tamaño del párrafo */
+            }
+        }
+
+
+        /* Estilos específicos de la sección de contacto */
+        .contact-section {
+            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Gradiente de fondo */
+            padding: 4rem 0; /* Relleno reducido */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate-gradient 20s linear infinite; /* Animación de rotación para el fondo */
+            z-index: 0;
+        }
+
+        @keyframes rotate-gradient {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 1;
+            background: rgba(10, 10, 26, 0.85); /* Fondo semi-transparente para el contenido */
+            border-radius: 1.5rem;
+            padding: 2.5rem; /* Relleno reducido */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
+        }
+
+        /* Ajuste de relleno para tarjetas de contacto - AHORA MANEJADO EN HTML CON TAILWIND */
+        .contact-form-card,
+        .contact-info-card {
+            background: #1A202C; /* Fondo oscuro para tarjetas internas */
+            /* el padding se moverá a HTML */
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+        .contact-form-card:hover, .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .contact-form-card input,
+        .contact-form-card textarea {
+            background-color: #0A0A1A; /* Usar el color de fondo primario */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
+            color: #F9FAFB; /* Color de texto claro */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .contact-form-card input::placeholder,
+        .contact-form-card textarea::placeholder {
+            color: #b0b0b0; /* Color del placeholder */
+        }
+        .contact-form-card input:focus,
+        .contact-form-card textarea:focus {
+            border-color: #00FFFF; /* Cian al enfocar */
+            box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
+        }
+        .social-icon-link {
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+            color: #F9FAFB; /* Color de icono predeterminado */
+        }
+        .social-icon-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            color: #00FFFF; /* Cian al pasar el ratón */
+        }
+        .map-container {
+            overflow: hidden;
+            border-radius: 1rem;
+            margin-top: 2rem; /* Margen reducido */
+            width: 100%;
+            /* Altura del mapa - AHORA CONTROLADA POR TAILWIND EN HTML */
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Estilo de enlace deshabilitado */
+        .disabled-link {
+            opacity: 0.6; /* Opacidad reducida para indicar deshabilitado */
+            cursor: not-allowed; /* Cursor de "no permitido" */
+        }
+
+        /* Estilos del menú desplegable de escritorio */
+        .js-dropdown-menu {
+            position: absolute;
+            top: 100%; /* Justo debajo del botón padre */
+            left: 50%;
+            transform: translateX(-50%);
+            /* min-width: 180px; Ajustado via Tailwind classes */
+            background-color: #1A202C; /* Color oscuro secundario */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            overflow: hidden; /* Para que las esquinas redondeadas funcionen bien con los elementos */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
+        }
+
+        /* Hover de subcategoría en verde aqua para escritorio */
+        .js-dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1.25rem;
+            color: #F9FAFB; /* Color de texto claro */
+            text-align: center; /* Centrar texto en el desplegable */
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .js-dropdown-menu a:hover {
+            background-color: #00FFFF; /* Cian eléctrico para el fondo */
+            color: #0A0A1A; /* Texto oscuro al pasar el ratón */
+        }
+
+        /* Botón flotante de WhatsApp (Global) */
+        .whatsapp-float-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            /* Z-index para estar siempre encima de todo, incluyendo el banner de desarrollo */
+            z-index: 100000001;
+            display: flex;
+            align-items: center;
+            transition: bottom 0.3s ease-out; /* Transición para el movimiento */
+        }
+
+        .whatsapp-float-button {
+            background-color: #25D366; /* Verde de WhatsApp */
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+            transform-origin: center;
+        }
+
+        .whatsapp-float-button:hover {
+            background-color: #128C7E; /* Tono más oscuro al pasar el ratón */
+            transform: scale(1.05); /* Ligero aumento de escala al pasar el ratón */
+            animation: none !important; /* Detener todas las animaciones al pasar el ratón */
+        }
+
+        .whatsapp-float-button svg {
+            fill: white; /* Changed fill to white */
+            stroke: white; /* Added stroke for thickness */
+            stroke-width: 2; /* Increased stroke width for thickness */
+            width: 60%; /* Ajusta el tamaño del icono dentro del botón */
+            height: 60%; /* Ajusta el tamaño del icono dentro del botón */
+        }
+
+        /* Tooltip para el botón de WhatsApp - Estilo de burbuja de mensaje */
+        .whatsapp-tooltip {
+            background-color: #FFFFFF; /* Fondo blanco */
+            color: #0A0A1A; /* Texto oscuro */
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem; /* Esquinas más redondeadas para un aspecto de burbuja */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-right: 15px; /* Espacio entre el tooltip y el botón */
+            opacity: 0; /* Inicialmente oculto */
+            visibility: hidden; /* Inicialmente oculto */
+            transform: translateX(20px); /* Empieza ligeramente a la derecha */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
+            white-space: nowrap; /* Evita que el texto se envuelva */
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Borde claro sutil */
+            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
+        }
+
+        .whatsapp-tooltip.show-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0); /* Desliza a la vista */
+        }
+
+        /* Cola de la burbuja de diálogo */
+        .whatsapp-tooltip::after {
+            content: '';
+            position: absolute;
+            right: -10px; /* Posición fuera de la burbuja */
+            top: 50%; /* Centrado verticalmente con la burbuja */
+            transform: translateY(-50%); /* Ajuste para el centrado vertical */
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #FFFFFF; /* Borde blanco para que coincida con el fondo de la burbuja */
+        }
+
+        /* Animación de vibración para el botón de WhatsApp */
+        @keyframes shake {
+            10%, 90% {
+                transform: translate3d(-1px, 0, 0);
+            }
+            20%, 80% {
+                transform: translate3d(2px, 0, 0);
+            }
+            30%, 50%, 70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+            40%, 60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+
+        /* Animación de brillo de pulso para el botón de WhatsApp */
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Estilos del menú desplegable móvil */
+        .js-dropdown-menu-mobile {
+            background-color: #1A202C; /* Color oscuro secundario */
+            border-radius: 0.5rem;
+            margin-top: 0.5rem; /* Espacio entre el enlace padre y el submenú */
+            padding: 0.5rem 0; /* Relleno dentro del desplegable */
+            position: relative; /* Necesario para el centrado absoluto */
+            left: 50%; /* Centrado horizontal */
+            transform: translateX(-50%); /* Centrado horizontal */
+            width: 90%; /* Ajustar el ancho para que no sea fijo a 40 y sea más adaptable */
+            max-width: 200px; /* Ancho máximo para evitar que sea demasiado grande */
+        }
+
+        /* Hover de subcategoría en verde aqua para móvil */
+        .js-dropdown-menu-mobile a {
+            padding: 0.75rem 1.5rem; /* Indentar sub-elementos */
+            text-align: center; /* CENTRADO DE SUBCATEGORÍAS EN MÓVIL */
+            border-radius: 0; /* Eliminar bordes redondeados para elementos individuales */
+        }
+
+        .js-dropdown-menu-mobile a:hover {
+            background-color: #00FFFF; /* Cian eléctrico para el fondo */
+            color: #0A0A1A; /* Texto oscuro al pasar el ratón */
+        }
+
+        /* Nuevo estilo para enlaces de menú móvil activos (subrayado y color de texto) */
+        .mobile-menu-link-active::before {
+            width: 100% !important; /* Fuerza el ancho a 100% */
+            opacity: 1 !important; /* Fuerza la visibilidad */
+            background-color: #00FFFF !important; /* Asegura el color cian */
+        }
+
+        .mobile-menu-link-active {
+            transform: translateY(-5px) !important; /* Eleva el enlace */
+        }
+
+        /* --- Estilos para reducción de tamaño en PC y pantallas grandes --- */
+        @media (min-width: 1024px) { /* Ajusta este breakpoint según sea necesario (lg en Tailwind) */
+            .header-nav-item {
+                font-size: 0.95rem; /* Fuente más pequeña para enlaces de navegación */
+            }
+
+            .main-cta-button {
+                padding: 0.6rem 1.5rem; /* Relleno de botón ligeramente más pequeño */
+                font-size: 0.9rem; /* Fuente más pequeña para el botón CTA */
+            }
+
+            .hero-section-padding {
+                padding-top: 6rem; /* Ajusta el relleno superior para la sección hero */
+                padding-bottom: 6rem; /* Ajusta el relleno inferior para la sección hero */
+            }
+
+            .hero-heading {
+                font-size: 3.5rem; /* Encabezado más pequeño para la sección hero */
+            }
+
+            .hero-subheading {
+                font-size: 1.1rem; /* Subencabezado más pequeño para la sección hero */
+            }
+
+            .section-heading {
+                font-size: 2.5rem; /* Encabezados de sección generales más pequeños */
+            }
+
+            .service-card {
+                padding: 1.5rem; /* Relleno más pequeño para tarjetas de servicio */
+            }
+
+            .service-card .icon {
+                font-size: 3rem; /* Tamaño de icono más pequeño en tarjetas de servicio */
+            }
+
+            .service-card h3 {
+                font-size: 1.3rem; /* Título más pequeño en tarjetas de servicio */
+            }
+
+            .service-card p {
+                font-size: 0.85rem; /* Texto de párrafo más pequeño en tarjetas de servicio */
+            }
+
+            .contact-section {
+                padding: 3rem 0; /* Relleno más pequeño para la sección de contacto */
+            }
+
+            .contact-content {
+                padding: 2rem; /* Relleno más pequeño para la tarjeta de contenido de contacto */
+            }
+
+            .contact-form-card,
+            .contact-info-card {
+                padding: 1.5rem; /* Relleno más pequeño para tarjetas de contacto internas */
+            }
+
+            .contact-form-card input,
+            .contact-form-card textarea {
+                font-size: 0.8rem; /* Fuente más pequeña para campos de formulario */
+            }
+
+            .social-icon-link svg {
+                width: 24px; /* Iconos sociales más pequeños */
+                height: 24px;
+            }
+
+            .whatsapp-float-button {
+                width: 50px; /* Botón de WhatsApp más pequeño */
+                height: 50px;
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Estilos del pie de página */
+        .footer {
+            background-color: #1A202C; /* Fondo oscuro secundario */
+            color: #F9FAFB; /* Texto claro */
+            padding: 2rem 0; /* Relleno para el pie de página */
+            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Borde superior cian sutil */
+        }
+
+        .footer a {
+            color: #00FFFF; /* Cian para enlaces */
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00BFFF; /* Cian más oscuro al pasar el ratón */
+        }
+
+        .footer-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem; /* Fuente más grande para encabezados */
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #00FFFF; /* Color cian para encabezados */
+        }
+
+        .footer-link-item {
+            margin-bottom: 0.5rem; /* Espacio entre elementos de la lista */
+        }
+
+        .footer-social-icon {
+            font-size: 1.75rem; /* Tamaño de los iconos sociales */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            color: #00FFFF; /* Cian al pasar el ratón */
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Animación para la imagen del icono de precios */
+        @keyframes rotate-3d {
+            /* Modificado para rotar solo en el eje Y */
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .price-icon-animated {
+            animation: rotate-3d 12s linear infinite; /* Animación de rotación 3D, más lenta */
+            transform-style: preserve-3d; /* Necesario para que la rotación 3D funcione */
+        }
+
+
+        /* Animación de giro para el texto del encabezado */
+        @keyframes text-flip-out {
+            0% {
+                opacity: 1;
+                transform: rotateY(0deg);
+            }
+            50% {
+                opacity: 0;
+                transform: rotateY(90deg);
+            }
+            100% {
+                opacity: 0;
+                transform: rotateY(180deg);
+            }
+        }
+
+        @keyframes text-flip-in {
+            0% {
+                opacity: 0;
+                transform: rotateY(-90deg);
+            }
+            50% {
+                opacity: 0;
+                transform: rotateY(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateY(0deg);
+            }
+        }
+
+        .text-flip-out {
+            animation: text-flip-out 0.8s ease-in-out forwards;
+        }
+
+        .text-flip-in {
+            animation: text-flip-in 0.8s ease-in-out forwards;
+        }
+
+        /* Estilos para asegurar que el h1 mantenga su altura y centrado */
+        #hero-heading-text {
+            height: 8rem; /* Altura fija para acomodar el texto más largo en varias líneas */
+            display: flex; /* Habilitar flexbox */
+            align-items: center; /* Centrar verticalmente el contenido */
+            justify-content: center; /* Centrar horizontalmente el contenido */
+            perspective: 1000px; /* Necesario para la animación 3D de giro */
+        }
+
+        /* Ajustes para pantallas más pequeñas si el texto se desborda */
+        @media (max-width: 768px) {
+            #hero-heading-text {
+                height: 7rem; /* Altura fija para pantallas móviles */
+            }
+        }
+
+        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        img {
+            pointer-events: none;
+        }
+        p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Estilos para el carrusel de métodos de pago */
+        @keyframes scroll-carousel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        :root {
+            --speed: 60s; /* Velocidad inicial del carrusel en segundos */
+        }
+
+        .animate-scroll-carousel {
+            animation: scroll-carousel var(--speed) linear infinite;
+        }
+
+        .payment-card {
+            background-color: #1A202C;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            border-radius: 1.5rem;
+            width: 160px;
+            height: 160px;
+            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .payment-card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 15px 45px rgba(0, 255, 255, 0.3);
+            border-color: #00FFFF;
+        }
+
+        .payment-card span {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            color: #F9FAFB;
+        }
+
+        @media (max-width: 768px) {
+            .payment-card {
+                width: 120px;
+                height: 120px;
+                padding: 0.8rem;
+            }
+            .payment-card span {
+                font-size: 0.75rem;
+            }
+        }
+
+        .carousel-wrapper {
+            position: relative;
+        }
+
+        /* Estilos para las flechas de navegación */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 255, 255, 0.15); /* Cian semi-transparente */
+            color: white;
+            border-radius: 50%; /* Circular */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0; /* Oculto por defecto */
+            pointer-events: none; /* No interactivo cuando está oculto */
+            transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            z-index: 10; /* Asegura que las flechas estén por encima de los elementos del carrusel */
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 255, 255, 0.3); /* Más opaco al pasar el ratón */
+            transform: translateY(-50%) scale(1.1); /* Ligero aumento de escala al pasar el ratón */
+        }
+
+        .arrow-left {
+            left: 10px;
+        }
+
+        .arrow-right {
+            right: 10px;
+        }
+
+        /* Mostrar flechas al pasar el ratón sobre el contenedor del carrusel (solo en escritorio) */
+        .carousel-wrapper:hover .arrow {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Ocultar flechas en móvil */
+        @media (max-width: 768px) {
+            .arrow {
+                display: none;
+            }
+        }
+
+        /* Estilos para animaciones de carrusel */
+        @keyframes slide-carousel {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+        .animate-slide-carousel {
+            animation: slide-carousel 30s linear infinite;
+        }
+        .hover\:pause-animation:hover {
+            animation-play-state: paused;
+        }
+        @keyframes bounce-custom {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .hover\:animate-bounce-custom:hover {
+            animation: bounce-custom 0.6s ease-in-out;
+        }
+    </style>
+
+</head>
+<body>
+
+    <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
+            <div class="flex items-center justify-start ml-0">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
             </div>
-            <p class="text-white mb-2">${post.content}</p>
-            ${mediaHTML}
-            <div class="flex items-center space-x-4">
-              <button data-id="${postId}" class="like-btn flex items-center space-x-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-byte-accent-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 9l-3 3m0 0l-3-3m3 3V3" />
+
+            <nav class="hidden sm:flex justify-end flex-grow">
+                <ul class="flex space-x-6 items-center">
+                    <li class="relative group">
+                        <a href="#servicios" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
+                            <span class="nav-menu-text-stroke-cyan">Servicios</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-servicios" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="diseñoweb.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de paginas web</a>
+                            <a href="tiendasvirtuales.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                            <a href="servicioseo.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                            <a href="diseñografico.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#portafolio" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-portafolio">
+                            <span class="nav-menu-text-stroke-cyan">Portafolio</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-portafolio" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de paginas web</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#proceso" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                            <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-eventos">
+                            <span class="nav-menu-text-stroke-cyan">Eventos</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-eventos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Próximos</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Realizados</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
+                        <a href="#reseñas" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-reseñas">
+                            <span class="nav-menu-text-stroke-cyan">Reseñas</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-reseñas" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="foro.html" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect">
+                            <span class="nav-menu-text-stroke-cyan">Foro de Byte</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <a href="#contacto" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                ¡Empecemos tu proyecto!
+            </a>
+
+            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
-                <span class="like-count">${post.likes}</span>
-              </button>
-              <button data-id="${postId}" class="comment-toggle-btn text-byte-accent-cyan text-sm">Comentarios</button>
-              ${deleteBtnHTML}
+            </button>
+        </div>
+    </header>
+
+    <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
+        <ul class="flex flex-col space-y-4 text-center">
+            <li>
+                <a href="#servicios" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Servicios</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-servicios-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="diseñoweb.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de paginas web</a>
+                    <a href="tiendasvirtuales.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                    <a href="servicioseo.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                    <a href="diseñografico.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
+                </div>
+            </li>
+            <li>
+                <a href="#portafolio" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-portafolio-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Portafolio</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-portafolio-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño personalizado de paginas web</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño de tiendas virtuales</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">SEO</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Diseño gráfico</a>
+                </div>
+            </li>
+            <li>
+                <a href="#proceso" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Historia</a>
+                </div>
+            </li>
+            <li>
+                <a href="#eventos" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-eventos-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Eventos</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-eventos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Próximos</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Realizados</a>
+                </div>
+            </li>
+            <li>
+                <a href="#reseñas" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-reseñas-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Reseñas</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-reseñas-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="reseñas.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Deja tu Reseña</a>
+                </div>
+            </li>
+            <li>
+                <a href="foro.html" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect">
+                    <span class="nav-menu-text-stroke-cyan">Foro de Byte</span>
+                </a>
+            </li>
+            <li>
+                <a href="#contacto" class="block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm main-cta-button">
+                    ¡Empecemos tu proyecto!
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="flex-grow">
+        <section id="inicio" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
+            <video autoplay loop muted playsinline preload="auto"
+                    class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+                <!--
+                    Atributos importantes para la reproducción automática de videos de fondo:
+                    - autoplay: Inicia la reproducción del video automáticamente.
+                    - loop: Reproduce el video en un bucle continuo.
+                    - muted: Silencia el video. Es crucial para que el autoplay funcione en la mayoría de los navegadores, ya que muchos bloquean la reproducción automática con sonido.
+                    - playsinline: Permite que el video se reproduzca en línea en iOS, en lugar de ir a pantalla completa automáticamente.
+                    - preload="auto": Sugiere al navegador que cargue el video completo tan pronto como sea posible.
+                -->
+                <source src="./images/fondo.mp4" type="video/mp4">
+                Tu navegador no soporta la etiqueta de video.
+            </video>
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <h1 id="hero-heading-text" class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading">
+                    Nosotros convertimos sueños en realidades digitales
+                </h1>
+                <p class="text-base md:text-xl lg:text-lg mb-8 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading">
+                    Transformamos tus ideas en experiencias digitales cautivadoras y funcionales.
+                </p>
+                <a href="#contacto" class="inline-block bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                             shadow-xl hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                    ¡Hablemos de tu proyecto!
+                </a>
             </div>
-            <div id="comments-${postId}" class="mt-2 hidden">
-              <div id="comments-list-${postId}" class="mb-2 space-y-1"></div>
-              <form data-id="${postId}" class="comment-form flex space-x-2">
-                <input type="text" placeholder="Comentario..." class="flex-grow p-2 rounded bg-byte-dark-bg text-white comment-input" required />
-                <button type="submit" class="bg-byte-accent-cyan text-black px-3 py-1 rounded text-sm">Enviar</button>
-              </form>
+        </section>
+
+        <section id="servicios" class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Nuestros Servicios Innovadores</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-4 w-full">
+                    <a href="diseñoweb.html" class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-desktop"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño personalizado de paginas web</h3>
+                        <p class="text-xs lg:text-sm">Creamos sitios web únicos y visualmente impresionantes, diseñados a medida para reflejar la identidad de tu marca y cautivar a tu audiencia desde el primer clic.</p>
+                    </a>
+                    <a href="tiendasvirtuales.html" class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño de tiendas virtuales</h3>
+                        <p class="text-xs lg:text-sm">Construimos tiendas online robustas, seguras y optimizadas para la conversión, transformando visitantes en clientes leales y maximizando tus ventas.</p>
+                    </a>
+                    <a href="servicioseo.html" class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">SEO</h3>
+                        <p class="text-xs lg:text-sm">Impulsamos tu visibilidad en los motores de búsqueda para atraer tráfico cualificado y generar resultados medibles.</p>
+                    </a>
+                    <a href="diseñografico.html" class="service-card">
+                        <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-palette"></i></div>
+                        <h3 class="text-lg lg:text-base font-bold mb-2">Diseño gráfico</h3>
+                        <p class="text-xs lg:text-sm">Creamos diseños visuales impactantes que comunican tu mensaje de manera efectiva y refuerzan la identidad de tu marca.</p>
+                    </a>
+                </div>
             </div>
-          `;
-          postsList.appendChild(postDiv);
+        </section>
 
-          // profile link
-          postDiv.querySelector('.view-profile-btn').onclick = () => viewProfile(post.userId);
-
-          // delete
-          if (deleteBtnHTML) {
-            postDiv.querySelector('.delete-post-btn').onclick = async () => {
-              if (confirm('¿Eliminar esta publicación?')) {
-                await deleteDoc(doc(db, 'posts', postId));
-              }
-            };
-          }
-
-          // like
-          postDiv.querySelector('.like-btn').onclick = async () => {
-            await updateDoc(doc(db, 'posts', postId), { likes: post.likes + 1 });
-            if (currentUser.uid !== post.userId) {
-              await addDoc(collection(db, 'notifications'), {
-                userId: post.userId,
-                content: `${currentUserData.name} le gustó tu publicación.`,
-                timestamp: serverTimestamp(),
-                read: false
-              });
-            }
-          };
-
-          // toggle comments
-          const commentToggleBtn = postDiv.querySelector('.comment-toggle-btn');
-          const commentsContainer = postDiv.querySelector(`#comments-${postId}`);
-          commentToggleBtn.onclick = () => {
-            commentsContainer.classList.toggle('hidden');
-            if (!commentsContainer.classList.contains('hidden')) {
-              loadComments(postId);
-            }
-          };
-
-          // submit comment
-          postDiv.querySelector('.comment-form').onsubmit = async (e) => {
-            e.preventDefault();
-            const commentInput = e.target.querySelector('.comment-input');
-            const text = commentInput.value.trim();
-            if (!text) return;
-            // IA check
-            if (/\bmal\b/i.test(text)) {
-              alert('Contenido no permitido.');
-              return;
-            }
-            await addDoc(collection(db, 'posts', postId, 'comments'), {
-              userId: currentUser.uid,
-              userName: currentUserData.name,
-              role: currentUserData.role,
-              content: text,
-              timestamp: serverTimestamp()
-            });
-            if (currentUser.uid !== post.userId) {
-              await addDoc(collection(db, 'notifications'), {
-                userId: post.userId,
-                content: `${currentUserData.name} comentó tu publicación.`,
-                timestamp: serverTimestamp(),
-                read: false
-              });
-            }
-            commentInput.value = '';
-          };
-        });
-      });
-    }
-
-    // load comments
-    function loadComments(postId) {
-      const commentsQuery = query(collection(db, 'posts', postId, 'comments'), orderBy('timestamp', 'asc'));
-      onSnapshot(commentsQuery, (snapshot) => {
-        const commentsList = document.getElementById(`comments-list-${postId}`);
-        commentsList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const c = docSnap.data();
-          const div = document.createElement('div');
-          div.className = 'bg-byte-dark-bg p-2 rounded flex justify-between fade-in';
-          let deleteCommentBtn = '';
-          if (isAdmin || c.userId === currentUser.uid) {
-            deleteCommentBtn = `<button data-id="${docSnap.id}" data-post="${postId}" class="delete-comment-btn text-red-500 text-xs ml-2">Borrar</button>`;
-          }
-          let commenterInfo = c.userName;
-          if (c.publicRole) commenterInfo += ` (${c.role})`;
-          div.innerHTML = `
-            <div>
-              <span class="font-bold text-byte-accent-cyan view-profile-btn cursor-pointer" data-id="${c.userId}">${commenterInfo}:</span>
-              <span class="ml-2 text-white">${c.content}</span>
-              <span class="text-gray-400 text-xs ml-2">(${c.timestamp ? new Date(c.timestamp.seconds*1000).toLocaleTimeString() : ''})</span>
+        <section id="precios" class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold mb-8 section-heading text-stroke-cyan">Tenemos los Mejores Precios del Mercado</h2>
+                <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+                    <div class="lg:w-1/2 flex justify-center items-center">
+                        <img src="./images/precios.ico" alt="Icono de Mejores Precios" class="w-48 h-48 object-contain rounded-lg shadow-lg bg-byte-secondary-dark price-icon-animated">
+                    </div>
+                    <div class="lg:w-1/2 text-center lg:text-left">
+                        <p class="text-lg lg:text-base text-byte-text-light leading-relaxed mb-4">
+                            En Byte, creemos firmemente que la calidad y la accesibilidad deben ir de la mano. Por eso, nos esforzamos por ofrecerte las soluciones digitales más innovadoras y efectivas a los precios más competitivos del mercado. Nuestro compromiso es brindarte un valor excepcional, asegurando que cada inversión en tu proyecto digital se traduzca en resultados tangibles y duraderos.
+                        </p>
+                        <p class="text-base lg:text-sm text-byte-text-light opacity-80">
+                            Analizamos constantemente el mercado para ajustar nuestras tarifas y garantizar que obtengas el máximo retorno por tu dinero. Con Byte, no solo adquieres un servicio, sino una asociación estratégica que impulsa tu crecimiento digital sin comprometer tu presupuesto. ¡Descubre cómo podemos hacer realidad tus ideas con la mejor relación calidad-precio!
+                        </p>
+                    </div>
+                </div>
             </div>
-            ${deleteCommentBtn}
-          `;
-          commentsList.appendChild(div);
+        </section>
 
-          div.querySelector('.view-profile-btn').onclick = () => viewProfile(c.userId);
 
-          if (deleteCommentBtn) {
-            div.querySelector('.delete-comment-btn').onclick = async (e) => {
-              const commentId = e.target.dataset.id;
-              const parentPost = e.target.dataset.post;
-              if (confirm('¿Eliminar este comentario?')) {
-                await deleteDoc(doc(db, 'posts', parentPost, 'comments', commentId));
-              }
-            };
-          }
-        });
-      });
-    }
+        <section id="metodos-pago" class="py-16 text-center bg-byte-dark-bg text-byte-text-light">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-extrabold text-cyan-400 mb-4">Múltiples Métodos de Pago</h2>
+                <p class="text-lg text-gray-300 mb-8">
+                    Nuestra prioridad es la satisfacción de nuestros clientes. Por eso ofrecemos métodos de pago seguros, rápidos y variados para tu comodidad.
+                </p>
+                <div class="carousel-wrapper overflow-hidden relative">
+                    <button id="carousel-arrow-left" class="arrow arrow-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
 
-    // load notifications
-    function loadNotifications() {
-      const notifQuery = query(collection(db, 'notifications'), orderBy('timestamp', 'desc'));
-      onSnapshot(notifQuery, (snapshot) => {
-        let count = 0;
-        notificationsList.innerHTML = '';
-        snapshot.forEach((docSnap) => {
-          const n = docSnap.data();
-          if (n.userId === currentUser.uid) {
-            if (!n.read) count++;
-            const li = document.createElement('li');
-            li.className = 'p-2 hover:bg-byte-dark-bg';
-            li.textContent = n.content + ' - ' + new Date(n.timestamp.seconds*1000).toLocaleString();
-            notificationsList.appendChild(li);
-          }
-        });
-        notifCount.textContent = count;
-      });
+                    <div id="carousel" class="flex whitespace-nowrap animate-scroll-carousel gap-6" style="width: max-content;">
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
+                            <span>Visa</span>
+                        </div>
 
-      notificationsBtn.onclick = () => {
-        notificationsDropdown.classList.toggle('hidden');
-        (async () => {
-          const snapshot = await getDocs(collection(db, 'notifications'));
-          snapshot.forEach(async (docSnap) => {
-            const n = docSnap.data();
-            if (n.userId === currentUser.uid && !n.read) {
-              await updateDoc(doc(db, 'notifications', docSnap.id), { read: true });
-            }
-          });
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" class="w-14 h-14 object-contain">
+                            <span>Mastercard</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-14 object-contain">
+                            <span>PayPal</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
+                            <span>Pago Móvil</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
+                            <span>Transferencia</span>
+                        </div>
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain">
+                            <span>Visa</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard" class="w-14 h-14 object-contain">
+                            <span>Mastercard</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="w-14 h-14 object-contain">
+                            <span>PayPal</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
+                            <span>Pago Móvil</span>
+                        </div>
+
+                        <div class="payment-card">
+                            <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
+                            <span>Transferencia</span>
+                        </div>
+                    </div>
+
+                    <button id="carousel-arrow-right" class="arrow arrow-right">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" class="contact-section text-byte-text-light pt-10 pb-14 lg:pt-8 lg:pb-12">
+            <div class="container mx-auto px-4 relative z-10 max-w-screen-lg lg:px-0">
+                <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Conéctate con Byte</h2>
+                <div class="contact-content grid grid-cols-1 lg:grid-cols-2 gap-6 items-start p-4 lg:p-6">
+                    <div class="contact-form-card p-4 lg:p-5 flex flex-col items-center justify-center text-center">
+                        <h3 class="text-xl lg:text-lg font-bold text-center text-byte-accent-cyan mb-5 text-stroke-cyan">Encuéntranos en Redes</h3>
+                        <p class="text-byte-text-light mb-6 text-sm lg:text-base">
+                            Conéctate con nosotros a través de nuestras redes sociales para estar al día con nuestras novedades y proyectos.
+                        </p>
+                        <div class="flex space-x-6">
+                            <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon-link text-whatsapp-green hover:text-whatsapp-dark-green text-4xl lg:text-5xl transition-all duration-300 transform hover:scale-110">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon-link text-pink-500 hover:text-pink-600 text-4xl lg:text-5xl transition-all duration-300 transform hover:scale-110">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card p-4 lg:p-5">
+                        <h3 class="text-xl lg:text-lg font-bold text-center mb-5 text-stroke-cyan">Información de Contacto</h3>
+                        <div class="space-y-3 text-center text-sm lg:text-xs mb-6">
+                            <p class="flex items-center justify-center lg:justify-start text-byte-text-light"><span class="text-byte-accent-cyan mr-2">📍</span> Venezuela, Caracas, Plaza Sucre, Calle Bolivia</p>
+                            <p class="flex items-center justify-center lg:justify-start text-byte-accent-cyan"><span class="text-byte-accent-cyan mr-2">📧</span> Bytewebdesign1@gmail.com</p>
+                            <p class="flex items-center justify-center lg:justify-start text-byte-accent-cyan">📞 +584125646608</p>
+                        </div>
+
+                        <div class="mt-8">
+                            <h3 class="text-xl lg:text-lg font-bold text-center mb-4 text-stroke-cyan">Nuestra Ubicación</h3>
+                            <div class="map-container relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-lg border border-byte-accent-cyan/30">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6183086.239168103!2d-73.56833749999998!3d40.82609490000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5fe7c3070e99%3A0x67a622cd70e4ef2e!2sInstituto%20Gerencial%20de%20Talentos%20-%20Catia(IGT)!5e0!3m2!1ses!2sus!4v1748801811392!5m2!1ses!2sus"
+                                    width="100%"
+                                    height="100%"
+                                    style="border:0;"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    title="Ubicación de Byte en Google Maps">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
+                </a>
+                <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
+            </p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div class="whatsapp-float-container z-[100000001]">
+        <div id="whatsapp-tooltip" class="whatsapp-tooltip">
+            ¡Hola! ¿Necesitas ayuda?
+        </div>
+        <a href="https://wa.me/584125646608" target="_blank" rel="noopener noreferrer" class="whatsapp-float-button" id="whatsapp-float-button" aria-label="Chatear por WhatsApp">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px"><path d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 29.079097 3.1186875 32.88588 4.984375 36.208984 L 2.0371094 46.730469 A 1.0001 1.0001 0 0 0 3.2402344 47.970703 L 14.210938 45.251953 C 17.434629 46.972929 21.092591 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 21.278025 46 17.792121 45.029635 14.761719 43.333984 A 1.0001 1.0001 0 0 0 14.033203 43.236328 L 4.4257812 45.617188 L 7.0019531 36.425781 A 1.0001 1.0001 0 0 0 6.9023438 35.646484 C 5.0606869 32.523592 4 28.890107 4 25 C 4 13.390466 13.390466 4 25 4 z M 16.642578 13 C 16.001539 13 15.086045 13.23849 14.333984 14.048828 C 13.882268 14.535548 12 16.369511 12 19.59375 C 12 22.955271 14.331391 25.855848 14.613281 26.228516 L 14.615234 26.228516 L 14.615234 26.230469 C 14.588494 26.195329 14.973031 26.752191 15.486328 27.419922 C 15.999626 28.087653 16.717405 28.96464 17.619141 29.914062 C 19.422612 31.812909 21.958282 34.007419 25.105469 35.349609 C 26.554789 35.966779 27.698179 36.339417 28.564453 36.611328 C 30.169845 37.115426 31.632073 37.038799 32.730469 36.876953 C 33.55263 36.755876 34.456878 36.361114 35.351562 35.794922 C 36.246248 35.22873 37.12309 34.524722 37.509766 33.455078 C 37.786772 32.688244 37.927591 31.979598 37.978516 31.396484 C 38.003976 31.104927 38.007211 30.847602 37.988281 30.609375 C 37.969311 30.371148 37.989581 30.188664 37.767578 29.824219 C 37.302009 29.059804 36.774753 29.039853 36.224609 28.767578 C 35.918939 28.616297 35.048661 28.191329 34.175781 27.775391 C 33.303883 27.35992 32.54892 26.991953 32.083984 26.826172 C 31.790239 26.720488 31.431556 26.568352 30.914062 26.626953 C 30.396569 26.685553 29.88546 27.058933 29.587891 27.5 C 29.305837 27.918069 28.170387 29.258349 27.824219 29.652344 C 27.819619 29.649544 27.849659 29.663383 27.712891 29.595703 C 27.284761 29.383815 26.761157 29.203652 25.986328 28.794922 C 25.2115 28.386192 24.242255 27.782635 23.181641 26.847656 L 23.181641 26.845703 C 21.603029 25.455949 20.497272 23.711106 20.148438 23.125 C 20.171937 23.09704 20.145643 23.130901 20.195312 23.082031 L 20.197266 23.080078 C 20.553781 22.728924 20.869739 22.309521 21.136719 22.001953 C 21.515257 21.565866 21.68231 21.181437 21.863281 20.822266 C 22.223954 20.10644 22.02313 19.318742 21.814453 18.904297 L 21.814453 18.902344 C 21.828863 18.931014 21.701572 18.650157 21.564453 18.326172 C 21.426943 18.001263 21.251663 17.580039 21.064453 17.130859 C 20.690033 16.232501 20.272027 15.224912 20.023438 14.634766 L 20.023438 14.632812 C 19.730591 13.937684 19.334395 13.436908 18.816406 13.195312 C 18.298417 12.953717 17.840778 13.022402 17.822266 13.021484 L 17.820312 13.021484 C 17.450668 13.004432 17.045038 13 16.642578 13 z M 16.642578 15 C 17.028118 15 17.408214 15.004701 17.726562 15.019531 C 18.054056 15.035851 18.033687 15.037192 17.970703 15.007812 C 17.906713 14.977972 17.993533 14.968282 18.179688 15.410156 C 18.423098 15.98801 18.84317 16.999249 19.21875 17.900391 C 19.40654 18.350961 19.582292 18.773816 19.722656 19.105469 C 19.863021 19.437122 19.939077 19.622295 20.027344 19.798828 L 20.027344 19.800781 L 20.029297 19.802734 C 20.115837 19.973483 20.108185 19.864164 20.078125 19.923828 C 19.867096 20.342656 19.838461 20.445493 19.625 20.691406 C 19.29998 21.065838 18.968453 21.483404 18.792969 21.65625 C 18.639439 21.80707 18.36242 22.042032 18.189453 22.501953 C 18.016221 22.962578 18.097073 23.59457 18.375 24.066406 C 18.745032 24.6946 19.964406 26.679307 21.859375 28.347656 C 23.05276 29.399678 24.164563 30.095933 25.052734 30.564453 C 25.940906 31.032973 26.664301 31.306607 26.826172 31.386719 C 27.210549 31.576953 27.630655 31.72467 28.119141 31.666016 C 28.607627 31.607366 29.02878 31.310979 29.296875 31.007812 L 29.298828 31.005859 C 29.655629 30.601347 30.715848 29.390728 31.224609 28.644531 C 31.246169 28.652131 31.239109 28.646231 31.408203 28.707031 L 31.408203 28.708984 L 31.410156 28.708984 C 31.487356 28.736474 32.454286 29.169267 33.316406 29.580078 C 34.178526 29.990889 35.053561 30.417875 35.337891 30.558594 C 35.748225 30.761674 35.942113 30.893881 35.992188 30.894531 C 35.995572 30.982516 35.998992 31.07786 35.986328 31.222656 C 35.951258 31.624292 35.8439 32.180225 35.628906 32.775391 C 35.523582 33.066746 34.975018 33.667661 34.283203 34.105469 C 33.591388 34.543277 32.749338 34.852514 32.4375 34.898438 C 31.499896 35.036591 30.386672 35.087027 29.164062 34.703125 C 28.316336 34.437036 27.259305 34.092596 25.890625 33.509766 C 23.114812 32.325956 20.755591 30.311513 19.070312 28.537109 C 18.227674 27.649908 17.552562 26.824019 17.072266 26.199219 C 16.592866 25.575584 16.383528 25.251054 16.208984 25.021484 L 16.207031 25.019531 C 15.897202 24.609805 14 21.970851 14 19.59375 C 14 17.077989 15.168497 16.091436 15.800781 15.410156 C 16.132721 15.052495 16.495617 15 16.642578 15 z"/>
+            </svg>
+        </a>
+    </div>
+
+    <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 z-[10000] bg-byte-secondary-dark text-byte-text-light p-4 shadow-lg rounded-t-lg text-center transition-all duration-300 ease-out">
+        <p class="mb-2 text-sm md:text-base">
+            Esta página web utiliza cookies para mejorar tu experiencia y entender qué le interesa a nuestros clientes.
+            Al continuar navegando, aceptas nuestros
+            <a href="#" class="text-byte-accent-cyan hover:underline">Términos de Servicio</a> y
+            <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
+        </p>
+        <button id="accept-cookies-button" class="bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+                                                     shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
+            Aceptar
+        </button>
+        <p class="mt-2 text-xs text-gray-400">© 2025 Byte. Todos los derechos reservados.</p>
+    </div>
+
+    <script type="text/javascript">
+        // Integración del chatbot
+        (function() {
+            var chatBotEl = document.createElement('chat-bot');
+            chatBotEl.setAttribute('platform_id', 'c53f3ecc-023b-4e9b-9289-d92fc39e8fd6');
+            chatBotEl.setAttribute('user_id', 'df3ac4f2-1102-4134-9692-f88cb8c4461d');
+            chatBotEl.setAttribute('chatbot_id', 'c289fafb-ec5e-4124-9fb6-c04fed5f6e37');
+
+            var chatbotLink = document.createElement('a');
+            chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+            chatbotLink.innerHTML = 'chatsimple';
+            chatBotEl.appendChild(chatbotLink);
+
+            document.body.appendChild(chatBotEl);
+
+            var cs = document.createElement('script');
+            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+            document.body.appendChild(cs);
         })();
-      };
-    }
+    </script>
 
-    // upload and send notifications (admin)
-    sendNotifBtn.onclick = () => {
-      notifModal.classList.remove('hidden');
-    };
-    notifForm.onsubmit = async (e) => {
-      e.preventDefault();
-      const uid = notifUser.value.trim();
-      const content = notifContent.value.trim();
-      if (!uid || !content) return;
-      await addDoc(collection(db, 'notifications'), {
-        userId: uid,
-        content,
-        timestamp: serverTimestamp(),
-        read: false
-      });
-      notifModal.classList.add('hidden');
-      notifUser.value = '';
-      notifContent.value = '';
-    };
+    <script>
+        // Variables globales para elementos de WhatsApp
+        const whatsappButton = document.getElementById('whatsapp-float-button');
+        const whatsappTooltip = document.getElementById('whatsapp-tooltip');
+        const whatsappFloatContainer = document.querySelector('.whatsapp-float-container');
+        let initialTooltipTimeout;
+        let animationInterval;
+        let whatsappTooltipEnabled = true; // Bandera para controlar la visibilidad del tooltip y las animaciones
 
-    // Load rules for editing
-    
+        // Variables globales para el banner de cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookiesButton = document.getElementById('accept-cookies-button');
 
-    // Save rules (admin)
-    saveRulesBtn.onclick = async () => {
-      const text = editRulesText.value.trim();
-      if (!text) return;
-      await setDoc(doc(db, 'settings', 'business_rules'), { text });
-      document.getElementById('rules-text-display').textContent = text;
-    };
+        // Variables para el control de velocidad del carrusel
+        const carousel = document.getElementById('carousel');
+        const leftArrow = document.getElementById('carousel-arrow-left');
+        const rightArrow = document.getElementById('carousel-arrow-right');
+        let currentSpeed = 60; // Velocidad inicial en segundos (más alto = más lento)
+        const minSpeed = 10; // Velocidad mínima (más rápido)
+        const maxSpeed = 120; // Velocidad máxima (más lento)
+        const speedStep = 10; // Incremento/decremento de velocidad
 
-  </script>
-<!-- Botones móviles flotantes -->
-<div class="sm:hidden fixed bottom-4 left-4 z-50 space-y-2">
-<button class="bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold px-4 py-2 rounded-xl shadow" id="toggle-users-btn">Usuarios</button>
-<button class="bg-blue-500 text-white font-bold px-4 py-2 rounded shadow" id="toggle-chat-btn">Chat</button>
-</div>
-<!-- Modal de perfil -->
-<div class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center" id="perfil-modal">
-<div class="bg-[#1A2238] p-6 rounded-lg w-11/12 max-w-md">
-<h2 class="text-xl font-bold mb-4">Perfil</h2>
-<div class="space-y-2 text-sm" id="perfil-info">
-<!-- Portada y avatar -->
-<div class="relative">
-<div class="h-24 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-t-lg"></div>
-<img class="w-16 h-16 rounded-full border-4 border-[#1A2238] absolute -bottom-8 left-1/2 transform -translate-x-1/2" src="https://ui-avatars.com/api/?name=Admin&amp;background=0D8ABC&amp;color=fff&amp;rounded=true&amp;size=64"/>
-</div>
-<div class="mt-10 text-center space-y-1">
-<h3 class="text-lg font-bold">Admin</h3>
-<p class="text-sm text-white/70">Rol: Administrador</p>
-</div>
-<!-- Estadísticas -->
-<div class="flex justify-around text-sm mt-4">
-<div class="text-center">
-<div class="font-bold text-white">124</div>
-<div class="text-white/60">Publicaciones</div>
-</div>
-<div class="text-center">
-<div class="font-bold text-white">302</div>
-<div class="text-white/60">Comentarios</div>
-</div>
-<div class="text-center">
-<div class="font-bold text-white">12</div>
-<div class="text-white/60">Roles creados</div>
-</div>
-</div>
-</div>
-<button class="bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold px-4 py-2 rounded-xl shadow" onclick="document.getElementById('perfil-modal').classList.add('hidden')">Cerrar</button>
-</div>
-</div>
-<!-- Modal de notificaciones -->
-<div class="fixed inset-0 z-50 bg-black bg-opacity-70 hidden flex items-center justify-center" id="notificaciones-modal">
-<div class="bg-[#1A2238] p-6 rounded-lg w-11/12 max-w-md">
-<h2 class="text-xl font-bold mb-4">Notificaciones</h2>
-<ul class="space-y-2 text-sm" id="notificaciones-lista">
-<!-- notificaciones se cargan dinámicamente -->
-</ul>
-<button class="bg-emerald-500 hover:bg-emerald-600 transition text-white font-bold px-4 py-2 rounded-xl shadow" onclick="document.getElementById('notificaciones-modal').classList.add('hidden')">Cerrar</button>
-</div>
-</div>
-<!-- Barra de navegación inferior -->
-<nav class="fixed bottom-0 inset-x-0 z-50 bg-white/10 backdrop-blur-md border-t border-white/10 flex justify-around items-center text-sm text-white py-2 sm:hidden">
-<button class="flex flex-col items-center gap-1" id="nav-feed">
-<span>📰</span>
-<span>Muro</span>
-</button>
-<button class="flex flex-col items-center gap-1" id="nav-profile">
-<span>👤</span>
-<span>Perfil</span>
-</button>
-<button class="flex flex-col items-center gap-1" id="nav-notif">
-<span>🔔</span>
-<span>Alertas</span>
-</button>
-</nav>
-<script>
-document.getElementById('nav-profile')?.addEventListener('click', () => {
-  document.getElementById('perfil-modal')?.classList.remove('hidden');
-});
-document.getElementById('nav-notif')?.addEventListener('click', () => {
-  document.getElementById('notificaciones-modal')?.classList.remove('hidden');
-});
-document.getElementById('nav-feed')?.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-</script>
+        // Variables para el control táctil
+        let touchStartX = 0;
+        let touchTimeout; // Para restablecer la velocidad después de un toque
+
+        // Función para actualizar la velocidad del carrusel (modifica la variable CSS)
+        function updateCarouselSpeed() {
+            document.documentElement.style.setProperty('--speed', `${currentSpeed}s`);
+        }
+
+        // Función para mostrar el tooltip de WhatsApp
+        function showTooltip(autoHide = false) {
+            if (whatsappTooltipEnabled) { // Solo mostrar si está habilitado globalmente
+                whatsappTooltip.classList.add('show-tooltip');
+                if (autoHide) {
+                    // Limpiar cualquier timeout de auto-ocultamiento existente para evitar conflictos
+                    if (initialTooltipTimeout) {
+                        clearTimeout(initialTooltipTimeout);
+                    }
+                    initialTooltipTimeout = setTimeout(() => {
+                        hideTooltip();
+                    }, 8000); // Auto-ocultar después de 8 segundos
+                }
+            }
+        }
+
+        // Función para ocultar el tooltip de WhatsApp
+        function hideTooltip() {
+            whatsappTooltip.classList.remove('show-tooltip');
+        }
+
+        // Función para iniciar la secuencia de animaciones de WhatsApp
+        function startWhatsappAnimations() {
+            // Limpiar cualquier animación existente para reiniciar
+            whatsappButton.style.animation = 'none';
+            void whatsappButton.offsetWidth; // Forzar el reflujo
+            whatsappButton.style.animation = ''; // Restablecer la propiedad de animación
+
+            whatsappButton.style.animation = 'pulse-glow 2s forwards';
+
+            setTimeout(() => {
+                whatsappButton.style.animation = 'shake 1s forwards';
+            }, 2000);
+        }
+
+        // Función para gestionar el ciclo de animación de WhatsApp
+        function setupAnimationCycle() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+            }
+            if (whatsappTooltipEnabled) { // Solo iniciar animaciones si está habilitado globalmente
+                startWhatsappAnimations();
+                animationInterval = setInterval(() => {
+                    startWhatsappAnimations();
+                }, 8000);
+            } else {
+                // Si las animaciones están deshabilitadas, asegurar que no haya ninguna animación en ejecución
+                whatsappButton.style.animation = 'none';
+            }
+        }
+
+        // Función para actualizar la posición del botón de WhatsApp según la visibilidad del banner de cookies
+        function updateWhatsappPosition() {
+            const isCookieBannerVisible = !cookieBanner.classList.contains('hidden');
+
+            if (isCookieBannerVisible) {
+                // Si el banner de cookies está visible, elevar según la altura del banner de cookies
+                // Pequeño retraso para asegurar que la altura del banner de cookies se renderice antes del cálculo
+                setTimeout(() => {
+                    const cookieBannerHeight = cookieBanner.offsetHeight;
+                    whatsappFloatContainer.style.bottom = `${cookieBannerHeight + 20}px`;
+                }, 50);
+            } else {
+                // Si ningún banner de cookies está visible, restaurar la posición predeterminada de WhatsApp
+                whatsappFloatContainer.style.bottom = '20px';
+            }
+        }
+
+        // Listeners de eventos para el botón de WhatsApp (fuera de los banners)
+        if (whatsappButton && whatsappTooltip) {
+            whatsappButton.addEventListener('mouseenter', () => {
+                // Cuando se pasa el ratón por encima, detener el ciclo de animación automático
+                clearInterval(animationInterval);
+                whatsappButton.style.animation = 'none'; // Limpiar cualquier animación en curso
+                showTooltip(); // Mostrar tooltip al pasar el ratón (sin auto-ocultar en hover)
+            });
+
+            whatsappButton.addEventListener('mouseleave', () => {
+                // Después de pasar el ratón, reiniciar el ciclo de animación automático
+                hideTooltip();
+                if (whatsappTooltipEnabled) { // Solo reiniciar animaciones si están habilitadas para el ciclo automático
+                    setupAnimationCycle();
+                }
+            });
+        }
+
+        // Lógica principal de carga de página para los banners
+        window.addEventListener('load', () => {
+            const cookieConsentAccepted = localStorage.getItem('cookieConsentAccepted');
+
+            // Inicializar la velocidad del carrusel al cargar
+            updateCarouselSpeed();
+
+            // Si las cookies NO han sido aceptadas
+            if (!cookieConsentAccepted) {
+                cookieBanner.classList.remove('hidden'); // Mostrar el banner de cookies
+                updateWhatsappPosition(); // Ajustar la posición de WhatsApp para el banner de cookies
+
+                whatsappTooltipEnabled = false; // Deshabilitar tooltip y animaciones automáticas
+                hideTooltip(); // Asegurar que el tooltip esté oculto en la carga
+                clearInterval(animationInterval); // Detener cualquier animación predeterminada
+
+                // Al hacer clic en 'Aceptar' del banner de cookies
+                acceptCookiesButton.addEventListener('click', () => {
+                    localStorage.setItem('cookieConsentAccepted', 'true');
+                    cookieBanner.classList.add('hidden'); // Ocultar el banner de cookies
+                    updateWhatsappPosition(); // Reajustar la posición de WhatsApp (irá a 20px por defecto)
+
+                    whatsappTooltipEnabled = true; // Habilitar tooltip y animaciones automáticas
+                    // Mostrar tooltip y comenzar animaciones después de un breve retraso al aceptar cookies
+                    initialTooltipTimeout = setTimeout(() => {
+                        showTooltip(true); // Mostrar y auto-ocultar
+                        setupAnimationCycle();
+                    }, 1000);
+                });
+
+            } else { // Si el consentimiento de cookies YA fue dado
+                cookieBanner.classList.add('hidden'); // Asegurar que el banner de cookies esté oculto
+                updateWhatsappPosition(); // Ajustar la posición de WhatsApp (será 20px)
+
+                whatsappTooltipEnabled = true; // Habilitar tooltip y animaciones automáticas
+                // Mostrar tooltip y comenzar animaciones después de un breve retraso en la carga de la página
+                initialTooltipTimeout = setTimeout(() => {
+                    showTooltip(true); // Mostrar y auto-ocultar
+                    setupAnimationCycle();
+                }, 1000);
+            }
+
+            // Lógica para el control de velocidad del carrusel con flechas (escritorio)
+            if (leftArrow && rightArrow) {
+                leftArrow.addEventListener('click', () => {
+                    currentSpeed = Math.min(maxSpeed, currentSpeed + speedStep);
+                    updateCarouselSpeed();
+                });
+
+                rightArrow.addEventListener('click', () => {
+                    currentSpeed = Math.max(minSpeed, currentSpeed - speedStep);
+                    updateCarouselSpeed();
+                });
+            }
+
+            // Lógica para el control de velocidad del carrusel con deslizamiento (móvil)
+            if (carousel) {
+                carousel.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                    // Limpiar cualquier timeout de restablecimiento de velocidad
+                    if (touchTimeout) {
+                        clearTimeout(touchTimeout);
+                    }
+                });
+
+                carousel.addEventListener('touchmove', (e) => {
+                    const touchCurrentX = e.touches[0].clientX;
+                    const deltaX = touchStartX - touchCurrentX; // Deslizamiento a la izquierda es positivo, a la derecha es negativo
+
+                    if (Math.abs(deltaX) > 5) { // Solo ajustar si hay un movimiento significativo
+                        if (deltaX > 0) { // Deslizando a la izquierda (más rápido)
+                            currentSpeed = Math.max(minSpeed, currentSpeed - speedStep);
+                        } else if (deltaX < 0) { // Deslizando a la derecha (más lento)
+                            currentSpeed = Math.min(maxSpeed, currentSpeed + speedStep);
+                        }
+                        updateCarouselSpeed();
+                        touchStartX = touchCurrentX; // Actualizar touchStartX para movimientos continuos
+                    }
+                });
+
+                carousel.addEventListener('touchend', () => {
+                    // Restablecer la velocidad a la inicial después de un breve retraso
+                    touchTimeout = setTimeout(() => {
+                        currentSpeed = 60; // Restablecer a la velocidad inicial
+                        updateCarouselSpeed();
+                    }, 500); // 0.5 segundos de retraso
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
+        /*
+        AOS.init({
+            once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
+            mirror: false, // No animar al desplazarse hacia arriba
+            offset: 100, // Desplazamiento (en px) desde el punto de activación original
+            duration: 800, // Duración de la animación (en ms)
+            easing: 'ease-out-cubic', // Función de temporización para la animación
+        });
+        */
+    </script>
+
+    <script>
+        // Lógica para menús desplegables de escritorio
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
+                    const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
+                    const dropdownMenu = document.getElementById(dropdownId);
+                    const arrowIcon = this.querySelector('.js-arrow-icon');
+
+                    // Cierra otros menús desplegables de escritorio abiertos
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                            menu.classList.add('hidden');
+                            const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                            if (otherButton) {
+                                // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
+                            }
+                        }
+                    });
+
+                    // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
+                    dropdownMenu.classList.toggle('hidden');
+                    if (!dropdownMenu.classList.contains('hidden')) { // Corregido: .classList.Contains a .classList.contains
+                        arrowIcon.classList.add('arrow-active');
+                    } else {
+                        arrowIcon.classList.remove('arrow-active');
+                    }
+                });
+            });
+
+            // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+            document.addEventListener('click', function(event) {
+                // Si el clic no fue dentro de un botón desplegable o un menú desplegable
+                if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
+                    document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
+                        menu.classList.add('hidden'); // Oculta el menú
+                        const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
+                        if (button) {
+                            // Restaura la orientación de la flecha y elimina la animación al cerrar
+                            button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
+                        }
+                    });
+                }
+            });
+
+            // Lógica para el menú móvil y sus desplegables
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Definición de estilos para el texto del menú móvil (plateado y cian)
+            const mobileMenuSilverStyles = {
+                color: '#E0E0E0',
+                webkitTextStrokeColor: '#A0A0A0',
+                textShadow: '0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2)'
+            };
+
+            const mobileMenuCyanStyles = {
+                color: '#00FFFF',
+                webkitTextStrokeColor: '#00BFFF',
+                textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
+            };
+
+            // Inicializar Tone.js Synth
+            let synth = null; // Inicializar a null
+
+            // Función para aplicar estilos al texto del menú móvil
+            function applyMobileMenuTextStyles(element, styles) {
+                element.style.color = styles.color;
+                element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
+                element.style.textShadow = styles.textShadow;
+            }
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', async () => { // Hacer la función asíncrona
+                    mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
+                    const icon = mobileMenuButton.querySelector('svg path');
+                    // Cambia el icono de hamburguesa a 'X' y viceversa
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
+                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                            button.classList.remove('mobile-menu-link-active');
+                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                            // También ocultar cualquier submenú abierto
+                            const dropdownId = button.dataset.dropdownIdMobile;
+                            const dropdownMenu = document.getElementById(dropdownId);
+                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                                dropdownMenu.classList.add('hidden');
+                            }
+                        });
+                    } else {
+                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+
+                        // Asegurar que el contexto de audio de Tone.js se inicie/reproduzca con la interacción del usuario
+                        if (Tone.context.state !== 'running') {
+                            try {
+                                await Tone.start(); // Iniciar el contexto de audio
+                                console.log('Audio context started successfully.');
+                            } catch (e) {
+                                console.error('Error al iniciar el contexto de audio:', e);
+                            }
+                        }
+
+                        // Inicializar el sintetizador solo una vez, después de que el contexto de audio esté funcionando
+                        if (!synth) {
+                            try {
+                                synth = new Tone.Synth().toDestination();
+                            } catch (e) {
+                                console.error("Error al inicializar Tone.js Synth:", e);
+                            }
+                        }
+
+                        // Reproducir sonido si el sintetizador está disponible
+                        if (synth) {
+                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                        }
+                    }
+                });
+
+                document.addEventListener('click', function(event) {
+                    const isClickInsideMobileMenu = mobileMenu.contains(event.target);
+                    const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
+
+                    if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden'); // Oculta el menú
+                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                        mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
+                            applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
+                        });
+                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                            button.classList.remove('mobile-menu-link-active');
+                            button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                            // También ocultar cualquier submenú abierto
+                            const dropdownId = button.dataset.dropdownIdMobile;
+                            const dropdownMenu = document.getElementById(dropdownId);
+                            if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
+                                dropdownMenu.classList.add('hidden');
+                            }
+                        });
+                    }
+                });
+
+                // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
+                document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
+                        const dropdownId = this.dataset.dropdownIdMobile;
+                        const dropdownMenu = document.getElementById(dropdownId);
+                        const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
+                        const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
+
+                        // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
+                        document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
+                            if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
+                                menu.classList.add('hidden');
+                                const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
+                                if (otherButton) {
+                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                    otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
+                                    // Eliminar la clase activa del otro enlace
+                                    otherButton.classList.remove('mobile-menu-link-active');
+                                    const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
+                                    if (otherCategoryTextSpan) {
+                                        applyMobileMenuTextStyles(otherCategoryTextSpan, mobileMenuSilverStyles);
+                                    }
+                                }
+                            }
+                        });
+
+                        dropdownMenu.classList.toggle('hidden');
+                        if (!dropdownMenu.classList.contains('hidden')) { // Corregido: .classList.Contains a .classList.contains
+                            arrowIcon.classList.add('arrow-active');
+                            // Añadir la clase activa al enlace actual
+                            this.classList.add('mobile-menu-link-active');
+                            // Si el menú se está abriendo, aplica estilos cian
+                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
+                        } else {
+                            arrowIcon.classList.remove('arrow-active');
+                            // Eliminar la clase activa del enlace actual
+                            this.classList.remove('mobile-menu-link-active');
+                            // Si el menú se está cerrando, aplica estilos plateados
+                            applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
+                        }
+                    });
+                });
+            }
+
+            // Lógica para deshabilitar enlaces con la clase 'disabled-link'
+            document.querySelectorAll('a.disabled-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Previene la acción predeterminada del enlace
+                    event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
+                });
+            });
+
+            // Lógica para el texto dinámico en la sección de inicio
+            const heroHeadingElement = document.getElementById('hero-heading-text');
+            const heroHeadings = [
+                "Nosotros convertimos sueños en realidades digitales",
+                "¿Qué esperas para convertir tus sueños en realidad?"
+            ];
+            let currentHeadingIndex = 0;
+
+            function updateHeroHeading() {
+                // Aplica la animación de salida
+                heroHeadingElement.classList.remove('text-flip-in');
+                heroHeadingElement.classList.add('text-flip-out');
+
+                // Después de la mitad de la animación de salida, cambia el texto
+                setTimeout(() => {
+                    currentHeadingIndex = (currentHeadingIndex + 1) % heroHeadings.length;
+                    heroHeadingElement.textContent = heroHeadings[currentHeadingIndex];
+
+                    // Remueve la animación de salida y aplica la de entrada
+                    heroHeadingElement.classList.remove('text-flip-out');
+                    heroHeadingElement.classList.add('text-flip-in');
+                }, 400); // La mitad de la duración de text-flip-out (0.8s / 2 = 0.4s)
+            }
+
+            // Inicia el cambio de texto cada 9 segundos
+            setInterval(updateHeroHeading, 9000); // Cambia el texto cada 9 segundos
+        });
+    </script>
 </body>
-<script>
-  const usersAside = document.getElementById('users-aside');
-  const chatAside = document.getElementById('chat-aside');
-  const toggleUsersBtn = document.getElementById('toggle-users-btn');
-  const toggleChatBtn = document.getElementById('toggle-chat-btn');
-
-  toggleUsersBtn?.addEventListener('click', () => {
-    usersAside.classList.toggle('-translate-x-full');
-  });
-
-  toggleChatBtn?.addEventListener('click', () => {
-    chatAside.classList.toggle('translate-x-full');
-  });
-</script>
-<script>
-  document.getElementById('perfil-btn')?.addEventListener('click', () => {
-    document.getElementById('perfil-modal').classList.remove('hidden');
-  });
-
-  document.getElementById('notif-btn')?.addEventListener('click', () => {
-    document.getElementById('notificaciones-modal').classList.remove('hidden');
-  });
-</script>
-<script>
-  function mostrarMensajeVerificacionCorreo() {
-    const msg = document.getElementById('correo-verif-msg');
-    if (msg) {
-      msg.classList.remove('hidden');
-      setTimeout(() => msg.classList.add('hidden'), 6000);
-    }
-  }
-</script>
 </html>
