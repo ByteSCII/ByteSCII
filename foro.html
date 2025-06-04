@@ -445,7 +445,7 @@
                                         name: user.displayName || user.email || `Usuario_${user.uid.substring(0, 6)}`,
                                         email: user.email,
                                         phone: '',
-                                        photoURL: user.photoURL || "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser",
+                                        photoURL: "https://placehold.co/150x150/0A0A1A/00FFFF?text=ByteUser",
                                         createdAt: Date.now(),
                                         last_name_change_timestamp: Date.now(),
                                         last_email_change_timestamp: Date.now(),
@@ -464,7 +464,7 @@
                                 console.error("Error fetching or creating user profile:", profileError);
                                 // If there's an error fetching profile, it might be due to permissions.
                                 // Force sign out to prevent the app from being stuck in a bad state.
-                                await signOut(window.auth);
+                                // await signOut(window.auth); // <--- COMENTADO TEMPORALMENTE PARA DEPURACIÓN
                                 showAuthMessage("Error al cargar tu perfil. Por favor, intenta iniciar sesión de nuevo.", true);
                                 return; // Stop further execution
                             }
@@ -485,14 +485,17 @@
 
                         if (user.emailVerified) {
                             // User is logged in and verified
-                            console.log("User email is verified. Displaying forum content.");
+                            console.log("User email is verified. Displaying forum content and starting listeners.");
                             authModalOverlay.classList.add('hidden');
                             videoBackground.classList.add('hidden');
                             forumContentWrapper.classList.remove('hidden');
                             
                             // Start listeners only if not already active
+                            console.log("Attempting to start posts listener...");
                             if (!unsubscribePosts) unsubscribePosts = loadPosts();
+                            console.log("Attempting to start online users listener...");
                             if (!unsubscribeOnlineUsers) unsubscribeOnlineUsers = loadOnlineUsers();
+                            console.log("Attempting to start notifications listener...");
                             if (!unsubscribeNotifications) unsubscribeNotifications = loadNotifications();
 
                             if (settingsButton) settingsButton.classList.remove('hidden'); // Show settings button
