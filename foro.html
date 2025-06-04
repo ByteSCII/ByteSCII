@@ -999,13 +999,7 @@
     };
 
     // Load rules for editing
-    async function loadRules() {
-      const rulesDoc = await getDoc(doc(db, 'settings', 'business_rules'));
-      if (rulesDoc.exists()) {
-        const text = rulesDoc.data().text;
-        document.getElementById('rules-text-display').textContent = text;
-        editRulesText.value = text;
-      }
+    
     }
 
     // Save rules (admin)
