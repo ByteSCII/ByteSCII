@@ -41,6 +41,8 @@
                         'red-500': '#EF4444',   /* Tailwind red-500 */
                         'gray-500': '#6B7280',  /* Tailwind gray-500 */
                         'blue-500': '#3B82F6', /* Tailwind blue-500 for likes */
+                        'purple-600': '#9333ea', /* Nuevo color para el botón de reglas */
+                        'purple-700': '#7e22ce', /* Hover de purple-600 */
                     }
                 }
             }
@@ -75,15 +77,16 @@
         /* Estilos para el video de fondo (solo en la sección de autenticación) */
         #video-background {
             position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
+            top: 0;
+            left: 0;
+            min-width: 100vw; /* Usar 100vw y 100vh para cubrir toda la pantalla */
+            min-height: 100vh;
             width: auto;
             height: auto;
             z-index: -1; /* Envía el video al fondo */
             background-size: cover;
             filter: brightness(0.4); /* Oscurece el video para que el contenido sea legible */
+            object-fit: cover; /* Asegura que el video cubra el área sin distorsionarse */
         }
 
         /* Estilos para encabezados (h1-h6) */
@@ -149,7 +152,7 @@
             box-shadow: 0 8px 15px rgba(0, 255, 255, 0.25);
         }
 
-        /* Estilos para el encabezado que se oculta/muestra */
+        /* Estilos para el encabezado - NO SE OCULTA */
         .main-header {
             background-color: #0A0A1A; /* Fondo oscuro */
             color: #F9FAFB; /* Texto claro */
@@ -160,12 +163,7 @@
             left: 0;
             width: 100%;
             z-index: 50; /* Asegura que esté por encima del contenido */
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
-        }
-
-        .main-header.header-hide {
-            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
-            opacity: 0; /* Desvanece */
+            /* Transiciones eliminadas para que no se oculte */
         }
 
         /* Estilos para la sección de autenticación */
@@ -211,6 +209,7 @@
         /* Corregido: Input URL para imagen y video ahora usan este estilo */
         #post-image-url,
         #post-video-url,
+        #post-title, /* Añadido para el título de la publicación */
         textarea {
             background-color: #1A202C !important; /* Fuerza el fondo oscuro de Byte */
             color: #F9FAFB !important; /* Fuerza el color de texto claro de Byte */
@@ -258,9 +257,10 @@
             padding: 1rem;
             margin-bottom: 2rem;
             width: 100%;
-            max-width: 5xl; /* Tailwind max-w-5xl */
+            max-width: 4xl; /* Reducido para PC */
             margin-left: auto; /* Centrar */
             margin-right: auto; /* Centrar */
+            padding-top: 80px; /* Ajustado para la altura del header fijo */
         }
 
         .forum-topic-card {
@@ -461,10 +461,11 @@
             .auth-container, .verification-message, .forum-section {
                 padding: 1.5rem;
             }
+            /* main-header */
             .main-header img {
                 height: 48px; /* Tamaño del logo en móviles, h-12 en Tailwind */
             }
-            .main-header .main-action-button {
+            .main-header .back-to-home-button {
                 padding: 0.5rem 0.75rem; /* Reducir padding del botón */
                 font-size: 0.875rem; /* Reducir tamaño de fuente del botón (text-sm) */
             }
@@ -485,6 +486,24 @@
             .lg\:w-3\/4 {
                 width: 100%; /* Ocupar todo el ancho en móviles */
             }
+            /* Ajuste para la nueva barra de acciones en móvil */
+            #action-bar {
+                position: relative; /* Quitar fixed en móvil */
+                top: auto;
+                left: auto;
+                transform: none;
+                padding-top: 1rem; /* Añadir algo de padding superior */
+                padding-bottom: 1rem; /* Añadir algo de padding inferior */
+                justify-content: center; /* Centrar elementos */
+                flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+            }
+            #action-bar > div {
+                margin-bottom: 0.5rem; /* Espacio entre filas en móvil */
+            }
+            /* Ajustar el padding superior de main para móviles si la action-bar no es fixed */
+            main {
+                padding-top: 90px !important; /* Aproximadamente la altura del header pequeño en móvil */
+            }
         }
         /* Ajustes de botones en la cabecera para todas las resoluciones */
         .header-buttons-group {
@@ -499,6 +518,116 @@
         .header-buttons-group > a:last-child {
             margin-bottom: 0; /* Eliminar margen inferior del último elemento */
         }
+
+        /* Nueva barra de acciones */
+        #action-bar {
+            background-color: #1A202C; /* byte-secondary-dark */
+            color: #F9FAFB;
+            padding: 0.75rem 0; /* Relleno */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center; /* Centrar los botones */
+            align-items: center;
+            gap: 1rem; /* Espacio entre los botones */
+            margin-bottom: 1.5rem; /* Espacio entre la barra de acciones y el formulario de publicación */
+            border-radius: 0.75rem; /* Bordes redondeados */
+        }
+
+        /* Asegurar que el contenido principal tenga un padding superior adecuado para la cabecera fija */
+        main {
+            /* padding-top se ajusta dinámicamente en JS */
+        }
+
+        /* Estilos para comentarios anidados */
+        .nested-comment {
+            margin-left: 20px; /* Indentación para comentarios anidados */
+            border-left: 2px solid rgba(0, 255, 255, 0.2); /* Línea de indentación */
+            padding-left: 10px;
+        }
+
+        /* Estilo para el modal de administrador */
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none; /* Oculto por defecto */
+        }
+
+        .admin-modal-content {
+            background-color: #1A202C;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            max-width: 600px;
+            width: 90%;
+            color: #F9FAFB;
+            position: relative;
+        }
+
+        .admin-modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #F9FAFB;
+            cursor: pointer;
+        }
+        /* Estilos para las notificaciones */
+        #notification-center {
+            position: absolute;
+            top: calc(100% + 10px); /* Debajo del botón de notificaciones */
+            right: 0;
+            background-color: #1A202C; /* Fondo oscuro */
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            min-width: 250px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 70;
+            padding: 0.5rem 0;
+            display: none; /* Oculto por defecto */
+        }
+
+        #notification-center.show {
+            display: block;
+        }
+
+        .notification-item {
+            padding: 0.75rem 1rem;
+            color: #F9FAFB;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            transition: background-color 0.2s ease;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item:hover {
+            background-color: rgba(0, 255, 255, 0.1);
+        }
+
+        .notification-item.unread {
+            background-color: rgba(0, 255, 255, 0.05);
+            font-weight: bold;
+        }
+
+        .notification-item .timestamp {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 0.2rem;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -511,52 +640,16 @@
 
     <header id="main-header" class="main-header">
         <div class="w-full px-4 sm:px-6 md:px-8 flex justify-between items-center">
-            <div class="flex items-center justify-start">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
-            </div>
-
-            <!-- Grupo de botones en el encabezado -->
-            <div class="flex flex-col items-end header-buttons-group">
-                <!-- Mensaje de Bienvenida / Iniciar Sesión / Registrarse -->
-                <div class="flex items-center mb-2">
-                    <span id="welcome-message" class="text-byte-accent-cyan font-semibold text-sm sm:text-base hidden mr-4"></span>
-                    <a id="login-register-link" href="#" class="inline-block main-action-button hidden"
-                                            onclick="showAuthSection(); return false;">
-                        Iniciar Sesión / Registrarse
-                    </a>
-                </div>
-
-                <!-- Volver al inicio, siempre visible y amarillo -->
-                <a href="index.html" class="inline-block back-to-home-button mb-2">
-                    Volver al inicio
-                </a>
-
-                <!-- Contenedor para "Conectados", "Notificaciones" y "Perfil/Ajustes" -->
-                <div class="flex items-center space-x-2">
-                    <!-- Botón para Usuarios Conectados (solo icono) -->
-                    <button id="toggle-online-users-btn" class="icon-action-button hidden">
-                        <i class="fas fa-users"></i>
-                    </button>
-                    <!-- Botón de Notificaciones (solo icono) -->
-                    <button id="notifications-button" class="icon-action-button hidden" onclick="window.showMessage('La sección de notificaciones está en desarrollo.', 'blue');">
-                        <i class="fas fa-bell"></i>
-                    </button>
-                    <!-- Botón de perfil/ajustes con dropdown (imagen de perfil como símbolo) -->
-                    <div id="profile-settings-container" class="relative hidden">
-                        <button id="profile-settings-button" class="profile-button">
-                            <img id="profile-pic-img" src="${DEFAULT_PROFILE_PIC}" alt="Foto de perfil">
-                        </button>
-                        <div id="profile-dropdown-menu" class="profile-dropdown-menu">
-                            <button onclick="window.showMessage('Ajustes de perfil en desarrollo.', 'blue');">Ajustes de Perfil</button>
-                            <button id="logout-button" class="destructive-action-button" onclick="handleLogout()">Cerrar Sesión</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Logo de Byte -->
+            <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
+            <!-- Volver al inicio, siempre visible y amarillo -->
+            <a href="index.html" class="inline-block back-to-home-button">
+                Volver al inicio
+            </a>
         </div>
     </header>
 
-    <main class="flex-grow flex items-center justify-center p-4 md:p-8 relative pt-16"> <!-- Added pt-16 for header spacing -->
+    <main class="flex-grow p-4 md:p-8 relative"> <!-- Padding superior se maneja en .forum-section / JS -->
         <!-- Sección de Autenticación -->
         <div id="auth-section" class="hidden flex flex-col items-center justify-center w-full min-h-[calc(100vh-100px)]">
              <!-- Contenedor principal de autenticación -->
@@ -642,7 +735,7 @@
                         </select>
                     </div>
                     <div>
-                        <label for="profile_pic_url" class="block text-sm font-semibold mb-2">URL de Foto de Perfil:</label>
+                        <label for="profile_pic_url" class="block text-sm font-semibold mb-2">URL de Foto de Perfil (Opcional):</label>
                         <input type="url" id="profile_pic_url" name="profile_pic_url"
                                class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan
                                       text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan"
@@ -680,7 +773,79 @@
 
 
         <!-- Contenido del foro, inicialmente oculto -->
-        <section id="forum-content" class="forum-section hidden max-w-7xl mx-auto"> <!-- Added max-w-7xl and mx-auto -->
+        <section id="forum-content" class="forum-section hidden max-w-4xl mx-auto"> <!-- Changed max-w-7xl to max-w-4xl -->
+            <!-- Barra de acciones encima de "Crear Nueva Publicación" -->
+            <div id="action-bar" class="flex items-center justify-center space-x-4 px-4 mb-6 hidden">
+                <!-- Botón para Usuarios Conectados (solo icono) -->
+                <button id="toggle-online-users-btn" class="icon-action-button">
+                    <i class="fas fa-users"></i>
+                </button>
+                <!-- Botón de Notificaciones (solo icono) -->
+                <div class="relative">
+                    <button id="notifications-button" class="icon-action-button">
+                        <i class="fas fa-bell"></i>
+                        <span id="unread-notifications-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                            0
+                        </span>
+                    </button>
+                    <div id="notification-center" class="profile-dropdown-menu right-0 mt-2 p-0">
+                        <!-- Las notificaciones se cargarán aquí -->
+                        <div class="notification-item">No hay notificaciones.</div>
+                    </div>
+                </div>
+                <!-- Nuevo botón de Reglas (morado) -->
+                <button id="rules-button" class="main-action-button bg-purple-600 hover:bg-purple-700" onclick="window.showMessage('Las reglas del foro están en desarrollo.', 'purple');">
+                    Reglas
+                </button>
+                <!-- Botón especial de Admin (visible solo para administradores) -->
+                <button id="admin-button" class="main-action-button bg-blue-500 hover:bg-blue-600 hidden" title="Panel de Administrador">
+                    <i class="fas fa-crown mr-2"></i> Admin
+                </button>
+                <!-- Botón de perfil/ajustes con dropdown (imagen de perfil como símbolo) -->
+                <div id="profile-settings-container" class="relative">
+                    <button id="profile-settings-button" class="profile-button">
+                        <img id="profile-pic-img" src="${DEFAULT_PROFILE_PIC}" alt="Foto de perfil">
+                    </button>
+                    <div id="profile-dropdown-menu" class="profile-dropdown-menu">
+                        <button onclick="window.showMessage('Ajustes de perfil en desarrollo.', 'blue');">Ajustes de Perfil</button>
+                        <button id="logout-button" class="destructive-action-button" onclick="handleLogout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de Administrador -->
+            <div id="admin-modal" class="admin-modal">
+                <div class="admin-modal-content">
+                    <button class="admin-modal-close-btn" id="admin-modal-close-btn">&times;</button>
+                    <h2 class="text-2xl font-bold mb-4 text-byte-accent-cyan">Panel de Administrador</h2>
+                    <div class="space-y-4">
+                        <p class="text-lg">Usuarios registrados: <span id="registered-users-count" class="font-bold">0</span></p>
+
+                        <!-- Asignar Rol -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Asignar Rol a Usuario</h3>
+                            <input type="text" id="admin-target-user-id" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" placeholder="ID de Usuario">
+                            <select id="admin-assign-role-select" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light mt-2">
+                                <option value="user">Usuario</option>
+                                <option value="admin">Administrador</option>
+                                <option value="instructor">Instructor</option>
+                                <option value="aprendiz">Aprendiz</option>
+                            </select>
+                            <button id="admin-assign-role-btn" class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">Asignar Rol</button>
+                            <p class="text-red-500 text-sm mt-1">¡ADVERTENCIA! La asignación de roles del lado del cliente puede ser explotada. En producción, esto DEBE ser manejado por Firebase Cloud Functions.</p>
+                        </div>
+
+                        <!-- Banear/Desbanear Usuario -->
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2">Banear/Desbanear Usuario</h3>
+                            <input type="text" id="admin-ban-user-id" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" placeholder="ID de Usuario a Banear/Desbanear">
+                            <button id="admin-toggle-ban-btn" class="mt-2 w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">Alternar Baneo</button>
+                            <p class="text-red-500 text-sm mt-1">¡ADVERTENCIA! La modificación del estado de baneo del lado del cliente puede ser explotada. En producción, esto DEBE ser manejado por Firebase Cloud Functions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Columna Principal del Foro (posts, comments) -->
             <div class="w-full">
                 <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Bienvenido al Foro de Byte</h1>
@@ -693,6 +858,10 @@
                 <div class="bg-byte-secondary-dark rounded-xl p-6 mb-6 border border-byte-accent-cyan shadow-lg">
                     <h3 class="text-xl font-bold text-byte-accent-cyan mb-4">Crear Nueva Publicación</h3>
                     <form id="create-post-form" class="space-y-4">
+                        <div>
+                            <label for="post-title" class="block text-sm font-semibold mb-2 text-byte-text-light">Título de la Publicación:</label>
+                            <input type="text" id="post-title" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" placeholder="Un título para tu publicación..." required>
+                        </div>
                         <div>
                             <textarea id="post-content" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" rows="4" placeholder="¿Qué tienes en mente?" required></textarea>
                         </div>
@@ -786,7 +955,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         // Importa docChanges para actualizaciones más eficientes
-        import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp, updateDoc, deleteDoc, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp, updateDoc, deleteDoc, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Tus datos de configuración de Firebase
         const firebaseConfig = {
@@ -812,59 +981,88 @@
         /*
          * REGLAS DE SEGURIDAD DE FIRESTORE (PARA TU CONSOLA DE FIREBASE)
          *
-         * ¡IMPORTANTЕ! Para que la función de eliminar publicaciones funcione correctamente,
+         * ¡IMPORTANTE! Para que las funciones de administración y eliminación funcionen correctamente,
          * debes COPIAR Y PEGAR estas reglas en la sección "Rules" de tu base de datos Firestore
          * en la consola de Firebase. Sin estas reglas, Firebase por defecto no permitirá
-         * operaciones de eliminación, ya que los permisos de escritura son limitados.
+         * operaciones de eliminación o modificación de roles/baneos.
          *
          * Asegúrate de que las reglas para 'artifacts/{appId}/public/data/posts/{postId}'
          * permitan la eliminación solo si el usuario autenticado (request.auth.uid)
-         * es el mismo que el 'authorId' guardado en el documento (resource.data.authorId).
+         * es el mismo que el 'authorId' guardado en el documento (resource.data.authorId),
+         * O si el usuario autenticado tiene el rol de 'admin'.
+         *
+         * También, las reglas para 'artifacts/{appId}/users/{userId}' deben permitir
+         * a los administradores actualizar cualquier perfil de usuario (para banear o asignar roles).
          *
          * rules_version = '2';
          * service cloud.firestore {
          * match /databases/{database}/documents {
-         * // Permite a cualquier usuario autenticado crear, leer, actualizar y eliminar su propio perfil
+         *
+         * // User Profiles:
+         * // Any authenticated user can create their own profile.
+         * // Users can read and update their own profile.
+         * // Admins can read, update, and ban/unban any user.
          * match /artifacts/{appId}/users/{userId} {
          * allow read, create: if request.auth != null;
-         * allow update, delete: if request.auth != null && request.auth.uid == userId;
+         * allow update: if request.auth != null && request.auth.uid == userId; // Users can update their own profile
+         * allow delete: if false; // Users cannot delete their own profile directly
+         *
+         * // Admin specific rules for users:
+         * // Admins can read all user profiles, and update 'isBanned' and 'role' fields for any user.
+         * // Note: 'request.resource.data.keys().hasAny' is a security measure to restrict what fields an admin can change
+         * // when updating another user's profile to prevent privilege escalation.
+         * // For full role management via admin, you might need Cloud Functions for robust security.
+         * allow update: if request.auth != null
+         * && get(/databases/$(database)/documents/artifacts/$(appId)/users/$(request.auth.uid)).data.role == 'admin'
+         * && (request.resource.data.keys().hasOnly(['isBanned']) || request.resource.data.keys().hasOnly(['role']));
          * }
          *
-         * // Permite a cualquier usuario autenticado leer las publicaciones
-         * // Permite crear publicaciones si el usuario está autenticado
-         * // Permite actualizar y eliminar publicaciones solo si el usuario es el autor
+         * // Public Posts:
+         * // Any authenticated user can read posts.
+         * // Any authenticated user can create posts.
+         * // Only the author or an admin can update or delete a post.
          * match /artifacts/{appId}/public/data/posts/{postId} {
          * allow read: if request.auth != null;
          * allow create: if request.auth != null;
-         * // Regla crucial: solo el autor puede actualizar o eliminar su publicación
-         * allow update, delete: if request.auth != null && request.auth.uid == resource.data.authorId;
+         * allow update, delete: if request.auth != null && (request.auth.uid == resource.data.authorId || get(/databases/$(database)/documents/artifacts/$(appId)/users/$(request.auth.uid)).data.role == 'admin');
          *
-         * // Reglas para los comentarios de una publicación específica
+         * // Comments on Posts:
+         * // Any authenticated user can read comments.
+         * // Any authenticated user can create comments.
+         * // Only the author of the comment or an admin can update or delete a comment.
          * match /comments/{commentId} {
          * allow read: if request.auth != null;
          * allow create: if request.auth != null;
-         * // Solo el autor del comentario puede actualizarlo o eliminarlo
-         * allow update, delete: if request.auth != null && request.auth.uid == resource.data.authorId;
+         * allow update, delete: if request.auth != null && (request.auth.uid == resource.data.authorId || get(/databases/$(database)/documents/artifacts/$(appId)/users/$(request.auth.uid)).data.role == 'admin');
          * }
+         * }
+         *
+         * // Notifications (private per user):
+         * // Only the owner of the notification can read/write their own notifications.
+         * match /artifacts/{appId}/users/{userId}/notifications/{notificationId} {
+         * allow read, write: if request.auth != null && request.auth.uid == userId;
          * }
          * }
          * }
          */
+
 
         // Función para mostrar mensajes temporales (declarada globalmente para ser accesible)
         window.showMessage = function(msg, type = 'blue') {
             const messageEl = document.createElement('div');
             messageEl.textContent = msg;
             let bgColor;
+            let textColor = '#0A0A1A'; // Default dark text for cyan/yellow/green backgrounds
             switch (type) {
                 case 'red': bgColor = '#EF4444'; break;
                 case 'green': bgColor = '#25D366'; break;
                 case 'blue': bgColor = '#00FFFF'; break;
+                case 'purple': bgColor = '#9333ea'; textColor = '#F9FAFB'; break; // White text for purple
                 default: bgColor = '#00FFFF';
             }
             messageEl.style.cssText = `
                 position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-                background-color: ${bgColor}; color: #0A0A1A; padding: 10px 20px;
+                background-color: ${bgColor}; color: ${textColor}; padding: 10px 20px;
                 border-radius: 8px; z-index: 10000; opacity: 0; transition: opacity 0.3s ease-in-out;
             `;
             document.body.appendChild(messageEl);
@@ -890,25 +1088,26 @@
                 const forumContent = document.getElementById('forum-content');
                 const authSection = document.getElementById('auth-section');
                 const videoBackground = document.getElementById('video-background');
-                const loginRegisterLink = document.getElementById('login-register-link');
-                const welcomeMessage = document.getElementById('welcome-message');
+                const actionBar = document.getElementById('action-bar'); // Nueva referencia
                 const onlineUsersSidebar = document.getElementById('online-users-sidebar');
-                const toggleOnlineUsersBtn = document.getElementById('toggle-online-users-btn');
-                const notificationsButton = document.getElementById('notifications-button');
-                const profileSettingsContainer = document.getElementById('profile-settings-container');
-                const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
+                const adminButton = document.getElementById('admin-button'); // Botón de admin
+                const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
 
                 if (forumContent) forumContent.classList.add('hidden');
                 if (authSection) authSection.classList.remove('hidden');
-                if (videoBackground) videoBackground.classList.remove('hidden');
-                if (loginRegisterLink) loginRegisterLink.classList.remove('hidden');
-                if (welcomeMessage) welcomeMessage.classList.add('hidden');
+                if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
+                if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
                 if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
-                if (toggleOnlineUsersBtn) toggleOnlineUsersBtn.classList.add('hidden');
-                if (notificationsButton) notificationsButton.classList.add('hidden');
-                if (profileSettingsContainer) profileSettingsContainer.classList.add('hidden');
-                if (profileDropdownMenu) profileDropdownMenu.classList.remove('show');
-                
+                if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
+                if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
+
+                const mainEl = document.querySelector('main');
+                if (mainEl) {
+                    mainEl.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                    mainEl.style.padding = '0';
+                    mainEl.style.overflow = 'hidden';
+                }
+
                 if (firebaseStatusButtonElement) {
                     firebaseStatusButtonElement.textContent = 'FORO (Inactivo)';
                     firebaseStatusButtonElement.classList.remove('bg-green-500');
@@ -939,17 +1138,24 @@
             const loginTab = document.getElementById('login-tab');
             const registerTab = document.getElementById('register-tab');
             const onlineUsersSidebar = document.getElementById('online-users-sidebar');
-            const toggleOnlineUsersBtn = document.getElementById('toggle-online-users-btn');
-            const notificationsButton = document.getElementById('notifications-button');
-            const profileSettingsContainer = document.getElementById('profile-settings-container');
+            const actionBar = document.getElementById('action-bar');
+            const adminButton = document.getElementById('admin-button'); // Botón de admin
+            const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
 
             if (authSection) authSection.classList.remove('hidden');
             if (forumContent) forumContent.classList.add('hidden');
-            if (videoBackground) videoBackground.classList.remove('hidden');
+            if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
             if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
-            if (toggleOnlineUsersBtn) toggleOnlineUsersBtn.classList.add('hidden');
-            if (notificationsButton) notificationsButton.classList.add('hidden');
-            if (profileSettingsContainer) profileSettingsContainer.classList.add('hidden');
+            if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
+            if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
+            if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
+
+            const mainEl = document.querySelector('main');
+            if (mainEl) {
+                mainEl.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                mainEl.style.padding = '0';
+                mainEl.style.overflow = 'hidden';
+            }
 
             if (loginForm) loginForm.classList.remove('hidden');
             if (registerForm) registerForm.classList.add('hidden');
@@ -974,20 +1180,24 @@
             window.showMessage('Por favor, usa el formulario superior para crear una nueva publicación.', 'blue');
         };
 
-        // Función para eliminar una publicación
+        // Función para eliminar una publicación (ahora con chequeo de admin)
         window.deletePost = async function(postId, authorId) {
-            console.log("Depuración de eliminación de publicación:");
-            console.log("UID del usuario actual:", auth.currentUser ? auth.currentUser.uid : "No autenticado");
-            console.log("Author ID de la publicación:", authorId);
-            console.log("¿Coinciden los IDs?", auth.currentUser && auth.currentUser.uid === authorId);
+            if (!auth.currentUser) {
+                window.showMessage('Debes iniciar sesión para realizar esta acción.', 'red');
+                return;
+            }
 
-            if (!auth.currentUser || auth.currentUser.uid !== authorId) {
+            // Obtener el rol del usuario actual
+            const userProfileRef = doc(db, `artifacts/${appId}/users`, auth.currentUser.uid);
+            const userProfileSnap = await getDoc(userProfileRef);
+            const userRole = userProfileSnap.exists() ? userProfileSnap.data().role : 'user';
+
+            // Solo el autor o un administrador pueden eliminar la publicación
+            if (auth.currentUser.uid !== authorId && userRole !== 'admin') {
                 window.showMessage('No tienes permiso para eliminar esta publicación.', 'red');
                 return;
             }
 
-            // Usar una función de confirmación personalizada en un escenario real
-            // Por ahora, se usa un confirm de navegador para la demostración de la lógica
             if (window.confirm('¿Estás seguro de que quieres eliminar esta publicación? Esto también eliminará todos sus comentarios.')) {
                 try {
                     // Eliminar la publicación principal
@@ -996,6 +1206,35 @@
                 } catch (error) {
                     console.error('Error al eliminar publicación:', error);
                     window.showMessage('Error al eliminar la publicación. Intenta de nuevo. Asegúrate de tener los permisos de seguridad de Firebase configurados correctamente.', 'red');
+                }
+            }
+        };
+
+        // Función para eliminar un comentario (con chequeo de admin)
+        window.deleteComment = async function(postId, commentId, authorId) {
+            if (!auth.currentUser) {
+                window.showMessage('Debes iniciar sesión para realizar esta acción.', 'red');
+                return;
+            }
+
+            // Obtener el rol del usuario actual
+            const userProfileRef = doc(db, `artifacts/${appId}/users`, auth.currentUser.uid);
+            const userProfileSnap = await getDoc(userProfileRef);
+            const userRole = userProfileSnap.exists() ? userProfileSnap.data().role : 'user';
+
+            // Solo el autor del comentario o un administrador pueden eliminarlo
+            if (auth.currentUser.uid !== authorId && userRole !== 'admin') {
+                window.showMessage('No tienes permiso para eliminar este comentario.', 'red');
+                return;
+            }
+
+            if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+                try {
+                    await deleteDoc(doc(db, `artifacts/${appId}/public/data/posts/${postId}/comments`, commentId));
+                    window.showMessage('Comentario eliminado exitosamente.', 'green');
+                } catch (error) {
+                    console.error('Error al eliminar comentario:', error);
+                    window.showMessage('Error al eliminar el comentario. Intenta de nuevo.', 'red');
                 }
             }
         };
@@ -1015,9 +1254,10 @@
                     const postData = { id: change.doc.id, ...change.doc.data() };
                     let postElement = document.getElementById(`post-${postData.id}`); // ID único para cada post
 
-                    // Obtener datos del autor (nombre y foto de perfil)
+                    // Obtener datos del autor (nombre, foto de perfil, y ROL)
                     let authorName = postData.authorEmail || 'Usuario Anónimo';
                     let authorProfilePic = DEFAULT_PROFILE_PIC;
+                    let authorRole = ''; // Default role
                     if (postData.authorId) {
                         const authorProfileRef = doc(db, `artifacts/${appId}/users`, postData.authorId);
                         const authorProfileSnap = await getDoc(authorProfileRef);
@@ -1025,6 +1265,7 @@
                             const authorData = authorProfileSnap.data();
                             authorName = authorData.name || authorData.email || authorName;
                             authorProfilePic = authorData.profilePicUrl || DEFAULT_PROFILE_PIC;
+                            authorRole = authorData.role ? ` (${authorData.role.charAt(0).toUpperCase() + authorData.role.slice(1)})` : ''; // Add role if exists
                         }
                     }
 
@@ -1037,7 +1278,7 @@
                         const diffMs = Date.now() - date.getTime();
                         const diffMins = Math.round(diffMs / (1000 * 60));
                         const diffHours = Math.round(diffMs / (1000 * 60 * 60));
-                        const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24)); /* Fixed: Changed Math.Round to Math.round */
+                        const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
 
                         if (diffMins < 1) {
                             postedTime = 'Hace un momento';
@@ -1053,10 +1294,11 @@
                     // Contenido multimedia
                     let mediaContent = '';
                     if (postData.imageUrl) {
-                        mediaContent += `<img src="${postData.imageUrl}" alt="Imagen de la publicación" class="w-full h-auto rounded-lg mb-4 object-cover max-h-96">`;
+                        mediaContent += `<img src="${postData.imageUrl}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FF0000/FFFFFF?text=IMAGEN+NO+CARGADA';" alt="Imagen de la publicación" class="w-full h-auto rounded-lg mb-4 object-cover max-h-96">`;
                     }
                     if (postData.videoUrl) {
                         let embedUrl = postData.videoUrl;
+                        // Basic YouTube URL parsing
                         if (postData.videoUrl.includes('youtube.com/watch?v=')) {
                             const videoId = postData.videoUrl.split('v=')[1].split('&')[0];
                             embedUrl = `https://www.youtube.com/embed/${videoId}`;
@@ -1072,7 +1314,9 @@
                     }
 
                     const isAuthor = auth.currentUser && auth.currentUser.uid === postData.authorId;
-                    const deleteButtonHtml = isAuthor ?
+                    const isAdmin = currentUserData && currentUserData.role === 'admin';
+
+                    const deleteButtonHtml = (isAuthor || isAdmin) ?
                         `<button class="text-gray-400 hover:text-red-500 transition duration-200" onclick="deletePost('${postData.id}', '${postData.authorId}')">
                             <i class="fas fa-times text-lg"></i>
                         </button>` : '';
@@ -1084,7 +1328,7 @@
                                 <div class="flex items-center">
                                     <img src="${authorProfilePic}" alt="Foto de perfil de ${authorName}" class="w-10 h-10 rounded-full mr-3 object-cover border-2 border-byte-accent-cyan">
                                     <div>
-                                        <p class="font-semibold text-byte-accent-cyan text-base leading-tight">${authorName}</p>
+                                        <p class="font-semibold text-byte-accent-cyan text-base leading-tight">${authorName}${authorRole}</p>
                                         <p class="text-gray-400 text-xs" title="${fullPostedTime}">${postedTime} <i class="fas fa-globe-americas ml-1"></i></p>
                                     </div>
                                 </div>
@@ -1128,6 +1372,7 @@
                                 <div id="comments-list-${postData.id}" class="space-y-3 mb-4">
                                     <!-- Los comentarios se cargarán aquí -->
                                 </div>
+                                <!-- Formulario para añadir comentario principal -->
                                 <form class="add-comment-form" data-post-id="${postData.id}">
                                     <textarea class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-600 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-byte-accent-cyan text-sm" rows="2" placeholder="Añade un comentario..." required></textarea>
                                     <button type="submit" class="mt-2 bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 text-sm">Comentar</button>
@@ -1137,12 +1382,11 @@
                     `;
 
                     if (change.type === 'added') {
-                        // Solo añadimos el elemento si no existe, para evitar duplicados en re-renders iniciales
                         if (!postElement) {
                             const tempDiv = document.createElement('div');
                             tempDiv.innerHTML = postHtml;
                             postElement = tempDiv.firstElementChild;
-                            postsList.prepend(postElement); // Añadir al principio para "nuevas publicaciones arriba"
+                            postsList.prepend(postElement);
                         }
                     } else if (change.type === 'modified') {
                         if (postElement) {
@@ -1150,7 +1394,7 @@
                             tempDiv.innerHTML = postHtml;
                             const newPostElement = tempDiv.firstElementChild;
                             postsList.replaceChild(newPostElement, postElement);
-                            postElement = newPostElement; // Actualizar referencia
+                            postElement = newPostElement;
                         }
                     } else if (change.type === 'removed') {
                         if (postElement) {
@@ -1158,15 +1402,13 @@
                         }
                     }
 
-                    // Después de añadir/modificar, cargar comentarios y configurar likes
                     if (postElement) {
                         loadCommentsForPost(postData.id);
                         setupLikeButton(postData.id, postData.likes || []);
 
-                        // Re-attach event listeners for comment buttons if they were replaced
                         const commentButton = postElement.querySelector(`.comment-button[data-post-id="${postData.id}"]`);
                         if (commentButton) {
-                            commentButton.onclick = (e) => { // Use onclick directly for re-attached elements
+                            commentButton.onclick = (e) => {
                                 const postId = e.currentTarget.dataset.postId;
                                 const commentForm = document.querySelector(`.add-comment-form[data-post-id="${postId}"]`);
                                 if (commentForm) {
@@ -1180,38 +1422,47 @@
             });
         }
 
-        // Función para cargar y mostrar comentarios de una publicación específica
+        // Función para cargar y mostrar comentarios de una publicación específica, ahora con replies anidados
         async function loadCommentsForPost(postId) {
             const commentsListElement = document.getElementById(`comments-list-${postId}`);
             const commentsCountElement = document.getElementById(`comments-count-${postId}`);
             if (!commentsListElement || !commentsCountElement) return;
 
             const commentsCollectionRef = collection(db, `artifacts/${appId}/public/data/posts/${postId}/comments`);
-            const q = query(commentsCollectionRef, orderBy('createdAt', 'asc')); // Ordenar comentarios por fecha ascendente
+            const q = query(commentsCollectionRef, orderBy('createdAt', 'asc'));
 
             onSnapshot(q, async (snapshot) => {
-                commentsListElement.innerHTML = ''; // Limpiar y re-renderizar todos los comentarios para esta publicación (menos impactante que en posts)
-                commentsCountElement.textContent = snapshot.size;
-
-                const comments = [];
+                commentsListElement.innerHTML = '';
+                let allComments = [];
                 snapshot.forEach(doc => {
-                    comments.push({ id: doc.id, ...doc.data() });
+                    allComments.push({ id: doc.id, ...doc.data() });
                 });
 
-                // No es necesario ordenar aquí si ya se hizo en la consulta (orderBy), pero se mantiene como respaldo.
-                // comments.sort((a, b) => {
-                //     const dateA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate() : new Date(a.createdAt)) : new Date(0);
-                //     const dateB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate() : new Date(b.createdAt)) : new Date(0);
-                //     return dateA - dateB;
-                // });
+                // Construir una estructura de árbol de comentarios (con 'parentId')
+                const commentMap = new Map();
+                allComments.forEach(comment => commentMap.set(comment.id, { ...comment, replies: [] }));
 
-                for (const comment of comments) {
+                const rootComments = [];
+                allComments.forEach(comment => {
+                    if (comment.parentId && commentMap.has(comment.parentId)) {
+                        commentMap.get(comment.parentId).replies.push(commentMap.get(comment.id));
+                    } else {
+                        rootComments.push(commentMap.get(comment.id));
+                    }
+                });
+
+                commentsCountElement.textContent = allComments.length; // Count all comments including replies
+
+                const renderComment = async (comment, indentLevel = 0) => {
                     const commentElement = document.createElement('div');
                     commentElement.classList.add('flex', 'items-start', 'bg-byte-secondary-dark', 'p-3', 'rounded-md', 'border', 'border-gray-800');
+                    if (indentLevel > 0) {
+                        commentElement.classList.add('nested-comment');
+                    }
 
                     let authorName = comment.authorEmail || 'Anónimo';
                     let authorProfilePic = DEFAULT_PROFILE_PIC;
-
+                    let authorRole = '';
                     if (comment.authorId) {
                         const authorProfileRef = doc(db, `artifacts/${appId}/users`, comment.authorId);
                         const authorProfileSnap = await getDoc(authorProfileRef);
@@ -1219,39 +1470,75 @@
                             const authorData = authorProfileSnap.data();
                             authorName = authorData.name || authorData.email || authorName;
                             authorProfilePic = authorData.profilePicUrl || DEFAULT_PROFILE_PIC;
+                            authorRole = authorData.role ? ` (${authorData.role.charAt(0).toUpperCase() + authorData.role.slice(1)})` : '';
                         }
                     }
 
+                    const isAdmin = currentUserData && currentUserData.role === 'admin';
+                    const isAuthor = auth.currentUser && auth.currentUser.uid === comment.authorId;
+                    const deleteCommentButtonHtml = (isAuthor || isAdmin) ?
+                        `<button class="text-gray-400 hover:text-red-500 transition duration-200 ml-2" onclick="deleteComment('${postId}', '${comment.id}', '${comment.authorId}')">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>` : '';
+
                     commentElement.innerHTML = `
                         <img src="${authorProfilePic}" alt="Foto de perfil de ${authorName}" class="w-8 h-8 rounded-full mr-3 object-cover border border-gray-700">
-                        <div>
-                            <p class="font-semibold text-byte-accent-cyan text-sm">${authorName} <span class="text-gray-400 text-xs ml-2">${new Date(comment.createdAt?.toDate ? comment.createdAt.toDate() : comment.createdAt).toLocaleString()}</span></p>
-                            <p class="text-byte-text-light text-sm">${comment.content}</p>
+                        <div class="flex-1">
+                            <p class="font-semibold text-byte-accent-cyan text-sm">${authorName}${authorRole}
+                                <span class="text-gray-400 text-xs ml-2">${new Date(comment.createdAt?.toDate ? comment.createdAt.toDate() : comment.createdAt).toLocaleString()}</span>
+                                ${deleteCommentButtonHtml}
+                            </p>
+                            <p class="text-byte-text-light text-sm mt-1">${comment.content}</p>
+                            <button class="text-blue-400 text-xs mt-2 hover:underline reply-button" data-post-id="${postId}" data-comment-id="${comment.id}" data-author-id="${comment.authorId}">Responder</button>
+                            <div id="reply-form-container-${comment.id}" class="mt-2 hidden">
+                                <form class="add-comment-form" data-post-id="${postId}" data-parent-id="${comment.id}">
+                                    <textarea class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-600 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-byte-accent-cyan text-sm" rows="1" placeholder="Tu respuesta..." required></textarea>
+                                    <button type="submit" class="mt-1 bg-green-600 text-white font-bold py-1 px-3 rounded-md hover:bg-green-700 transition duration-200 text-xs">Responder</button>
+                                </form>
+                            </div>
                         </div>
                     `;
                     commentsListElement.appendChild(commentElement);
+
+                    // Añadir event listener para el botón de responder
+                    const replyButton = commentElement.querySelector(`.reply-button[data-comment-id="${comment.id}"]`);
+                    if (replyButton) {
+                        replyButton.addEventListener('click', (e) => {
+                            const replyFormContainer = document.getElementById(`reply-form-container-${comment.id}`);
+                            if (replyFormContainer) {
+                                replyFormContainer.classList.toggle('hidden');
+                                if (!replyFormContainer.classList.contains('hidden')) {
+                                    replyFormContainer.querySelector('textarea').focus();
+                                }
+                            }
+                        });
+                    }
+
+                    // Renderizar las respuestas anidadas
+                    for (const reply of comment.replies) {
+                        await renderComment(reply, indentLevel + 1);
+                    }
+                };
+
+                for (const comment of rootComments) {
+                    await renderComment(comment, 0);
                 }
             });
         }
 
         // Función para configurar el botón de "Me gusta"
         function setupLikeButton(postId, currentLikes) {
-            // Target the new interactive "Me gusta" button
             const likeButton = document.querySelector(`.like-button[data-post-id="${postId}"]`);
-            // Target the like count span in the meta-info area
             const likesCountSpan = document.getElementById(`likes-count-${postId}`);
 
             if (!likeButton || !likesCountSpan) return;
 
             const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
-            // No necesitamos userLiked aquí ya que onSnapshot manejará el estado visual directamente
 
-            // Function to update the button style and count
             const updateLikeDisplay = (likesArray) => {
                 const updatedUserLiked = likesArray.includes(currentUserId);
-                likesCountSpan.textContent = likesArray.length; // Update the numerical count
+                likesCountSpan.textContent = likesArray.length;
 
-                // Update the style of the interactive "Me gusta" button
                 if (updatedUserLiked) {
                     likeButton.classList.remove('text-gray-400');
                     likeButton.classList.add('text-blue-500');
@@ -1261,15 +1548,12 @@
                 }
             };
 
-            // Initial display update
             updateLikeDisplay(currentLikes);
 
-            // Remove previous event listener to prevent duplicates if post element is replaced
             const oldLikeButton = likeButton.cloneNode(true);
             likeButton.parentNode.replaceChild(oldLikeButton, likeButton);
-            const newLikeButton = oldLikeButton; // Use this as the new reference
+            const newLikeButton = oldLikeButton;
 
-            // Add the click listener
             newLikeButton.onclick = async () => {
                 if (!auth.currentUser) {
                     window.showMessage('Debes iniciar sesión para reaccionar.', 'red');
@@ -1297,20 +1581,18 @@
                     await updateDoc(postRef, {
                         likes: newLikesArray
                     });
-                    // Firestore onSnapshot for this post will handle the UI update
                 } catch (error) {
                     console.error('Error al actualizar like:', error);
                     window.showMessage('Error al actualizar la reacción. Intenta de nuevo.', 'red');
                 }
             };
 
-            // Set up a listener for real-time updates to likes for this specific post
             const postRef = doc(db, `artifacts/${appId}/public/data/posts`, postId);
             onSnapshot(postRef, (docSnap) => {
                 if (docSnap.exists()) {
                     const data = docSnap.data();
                     const updatedLikes = data.likes || [];
-                    updateLikeDisplay(updatedLikes); // Update the UI based on new data
+                    updateLikeDisplay(updatedLikes);
                 }
             });
         }
@@ -1352,13 +1634,88 @@
                                 <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                             </span>
                             <img src="${profilePic}" alt="Foto de perfil de ${user.name || user.email}" class="w-6 h-6 rounded-full mr-2 object-cover border border-green-500">
-                            <span>${user.name || user.email}</span>
+                            <span>${user.name || user.email}${user.role ? ` (${user.role.charAt(0).toUpperCase() + user.role.slice(1)})` : ''}</span>
                         `;
                         onlineUsersList.appendChild(userElement);
                     });
                 }
             });
         }
+
+        // Función para cargar las notificaciones del usuario
+        async function loadNotifications() {
+            const notificationCenter = document.getElementById('notification-center');
+            const unreadCountSpan = document.getElementById('unread-notifications-count');
+
+            if (!auth.currentUser || !notificationCenter || !unreadCountSpan) {
+                if (unreadCountSpan) unreadCountSpan.textContent = '0';
+                return;
+            }
+
+            const notificationsRef = collection(db, `artifacts/${appId}/users/${auth.currentUser.uid}/notifications`);
+            const q = query(notificationsRef, orderBy('createdAt', 'desc')); // Ordenar por las más recientes
+
+            onSnapshot(q, (snapshot) => {
+                notificationCenter.innerHTML = ''; // Limpiar notificaciones existentes
+                let unreadCount = 0;
+
+                if (snapshot.empty) {
+                    notificationCenter.innerHTML = '<div class="notification-item">No hay notificaciones.</div>';
+                    unreadCountSpan.textContent = '0';
+                    return;
+                }
+
+                snapshot.forEach(docSnap => {
+                    const notification = docSnap.data();
+                    const notificationId = docSnap.id;
+
+                    if (!notification.read) {
+                        unreadCount++;
+                    }
+
+                    const notificationItem = document.createElement('div');
+                    notificationItem.classList.add('notification-item');
+                    if (!notification.read) {
+                        notificationItem.classList.add('unread');
+                    }
+                    notificationItem.innerHTML = `
+                        <p>${notification.message}</p>
+                        <p class="timestamp">${new Date(notification.createdAt?.toDate ? notification.createdAt.toDate() : notification.createdAt).toLocaleString()}</p>
+                    `;
+                    notificationItem.addEventListener('click', async () => {
+                        // Marcar como leído al hacer clic
+                        await updateDoc(doc(db, `artifacts/${appId}/users/${auth.currentUser.uid}/notifications`, notificationId), {
+                            read: true
+                        });
+                        // Podrías redirigir al comentario/post relevante aquí
+                        // window.location.href = `/post.html?postId=${notification.postId}#comment-${notification.commentId}`;
+                        window.showMessage('Notificación marcada como leída.', 'blue');
+                    });
+                    notificationCenter.appendChild(notificationItem);
+                });
+                unreadCountSpan.textContent = unreadCount.toString();
+            });
+        }
+
+        // Función para enviar una notificación (para cuando se responda a un comentario)
+        async function sendNotification(targetUserId, message, postId, commentId) {
+            if (!db) return; // Asegurarse de que Firebase esté inicializado
+
+            const notificationsCollectionRef = collection(db, `artifacts/${appId}/users/${targetUserId}/notifications`);
+            try {
+                await addDoc(notificationsCollectionRef, {
+                    message: message,
+                    postId: postId,
+                    commentId: commentId, // El ID del comentario al que se respondió
+                    read: false,
+                    createdAt: serverTimestamp()
+                });
+                console.log(`Notificación enviada a ${targetUserId}`);
+            } catch (error) {
+                console.error("Error al enviar notificación:", error);
+            }
+        }
+
 
         document.addEventListener('DOMContentLoaded', () => {
             // Inicializar Firebase dentro de DOMContentLoaded
@@ -1390,28 +1747,21 @@
 
             const scrollToTopButton = document.getElementById('scroll-to-top-button');
             const mainHeader = document.getElementById('main-header');
-            let lastScrollY = 0;
+            const actionBar = document.getElementById('action-bar');
+            const mainEl = document.querySelector('main');
 
-            // Lógica para el botón "Volver arriba" y el encabezado
-            if (window) { // Check if window exists (for safety)
+            // Lógica para el botón "Volver arriba"
+            if (window) {
                 window.addEventListener('scroll', () => {
                     const currentScrollY = window.scrollY;
-
                     if (currentScrollY > 0) {
                         if (scrollToTopButton) scrollToTopButton.classList.add('show');
                     } else {
                         if (scrollToTopButton) scrollToTopButton.classList.remove('show');
                     }
-
-                    if (currentScrollY > lastScrollY && currentScrollY > 0) {
-                        if (mainHeader) mainHeader.classList.add('header-hide');
-                    } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
-                        if (mainHeader) mainHeader.classList.remove('header-hide');
-                    }
-                    lastScrollY = currentScrollY;
                 });
             }
-            if (scrollToTopButton) { // Check if button exists
+            if (scrollToTopButton) {
                 scrollToTopButton.addEventListener('click', () => {
                     window.scrollTo({
                         top: 0,
@@ -1420,13 +1770,26 @@
                 });
             }
 
+            // Function to toggle main's centering and padding for auth/forum views
+            function toggleMainLayout(isAuthView) {
+                if (mainEl) {
+                    if (isAuthView) {
+                        mainEl.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                        mainEl.style.padding = '0';
+                        mainEl.style.overflow = 'hidden';
+                    } else {
+                        mainEl.classList.remove('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                        mainEl.style.padding = '';
+                        mainEl.style.paddingTop = '80px';
+                        mainEl.style.overflow = '';
+                    }
+                }
+            }
+
 
             // Elementos del DOM para autenticación y foro
-            const welcomeMessage = document.getElementById('welcome-message');
-            const loginRegisterLink = document.getElementById('login-register-link');
             const forumContent = document.getElementById('forum-content');
-            const authSection = document.getElementById('auth-section'); // Este ID ahora está en el HTML
-            const createTopicButton = document.getElementById('create-topic-button'); // Se usa en comentarios para inhabilitar
+            const authSection = document.getElementById('auth-section');
             const authFormsContainer = document.getElementById('auth-forms-container');
             const verificationScreen = document.getElementById('verification-screen');
             const videoBackground = document.getElementById('video-background');
@@ -1441,11 +1804,23 @@
             const createPostForm = document.getElementById('create-post-form');
             const onlineUsersSidebar = document.getElementById('online-users-sidebar');
             const toggleOnlineUsersBtn = document.getElementById('toggle-online-users-btn');
-            const notificationsButton = document.getElementById('notifications-button'); // Nuevo
+            const notificationsButton = document.getElementById('notifications-button');
             const profileSettingsContainer = document.getElementById('profile-settings-container');
             const profilePicImg = document.getElementById('profile-pic-img');
             const profileSettingsButton = document.getElementById('profile-settings-button');
             const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
+            const rulesButton = document.getElementById('rules-button');
+            const adminButton = document.getElementById('admin-button'); // Botón de Admin
+            const adminModal = document.getElementById('admin-modal'); // Modal de Admin
+            const adminModalCloseBtn = document.getElementById('admin-modal-close-btn'); // Botón para cerrar modal
+            const registeredUsersCountSpan = document.getElementById('registered-users-count'); // Contador de usuarios
+            const adminAssignRoleBtn = document.getElementById('admin-assign-role-btn');
+            const adminTargetUserIdInput = document.getElementById('admin-target-user-id');
+            const adminAssignRoleSelect = document.getElementById('admin-assign-role-select');
+            const adminToggleBanBtn = document.getElementById('admin-toggle-ban-btn');
+            const adminBanUserIdInput = document.getElementById('admin-ban-user-id');
+            const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
+            const unreadNotificationsCount = document.getElementById('unread-notifications-count'); // Contador de notificaciones
 
             // Asegurarse de que el botón de estado de Firebase se obtenga aquí
             firebaseStatusButtonElement = document.getElementById('firebase-status-button');
@@ -1454,14 +1829,8 @@
             if (toggleOnlineUsersBtn) {
                 toggleOnlineUsersBtn.addEventListener('click', () => {
                     if (onlineUsersSidebar) {
-                        // Toggle the 'hidden-sidebar' class
                         onlineUsersSidebar.classList.toggle('hidden-sidebar');
-                        // Ensure 'display' property is correctly set based on class presence
-                        if (!onlineUsersSidebar.classList.contains('hidden-sidebar')) {
-                             onlineUsersSidebar.style.display = 'block';
-                        } else {
-                            onlineUsersSidebar.style.display = 'none';
-                        }
+                        onlineUsersSidebar.style.display = onlineUsersSidebar.classList.contains('hidden-sidebar') ? 'none' : 'block';
                     }
                 });
             }
@@ -1469,62 +1838,202 @@
             // Lógica para el menú desplegable del perfil/ajustes
             if (profileSettingsButton) {
                 profileSettingsButton.addEventListener('click', (event) => {
-                    event.stopPropagation(); // Evita que el clic en el botón cierre el menú inmediatamente
+                    event.stopPropagation();
                     if (profileDropdownMenu) {
                         profileDropdownMenu.classList.toggle('show');
+                        // Asegurarse de que el centro de notificaciones esté oculto
+                        if (notificationCenter) notificationCenter.classList.remove('show');
                     }
                 });
             }
 
-            // Cerrar el menú desplegable si se hace clic fuera de él
+            // Lógica para el botón de Notificaciones
+            if (notificationsButton) {
+                notificationsButton.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    if (notificationCenter) {
+                        notificationCenter.classList.toggle('show');
+                        // Asegurarse de que el menú de perfil esté oculto
+                        if (profileDropdownMenu) profileDropdownMenu.classList.remove('show');
+                    }
+                });
+            }
+
+            // Cerrar menús desplegables si se hace clic fuera de ellos
             document.addEventListener('click', (event) => {
                 if (profileDropdownMenu && profileSettingsContainer && !profileSettingsContainer.contains(event.target)) {
                     profileDropdownMenu.classList.remove('show');
                 }
+                if (notificationCenter && notificationsButton && !notificationsButton.contains(event.target) && !notificationCenter.contains(event.target)) {
+                    notificationCenter.classList.remove('show');
+                }
             });
 
+            // Lógica para el botón de Admin
+            if (adminButton) {
+                adminButton.addEventListener('click', async () => {
+                    if (adminModal) {
+                        adminModal.style.display = 'flex'; // Mostrar el modal
+                        // Cargar el conteo de usuarios registrados
+                        try {
+                            const usersSnapshot = await getDocs(collection(db, `artifacts/${appId}/users`));
+                            if (registeredUsersCountSpan) {
+                                registeredUsersCountSpan.textContent = usersSnapshot.size;
+                            }
+                        } catch (error) {
+                            console.error("Error al obtener el conteo de usuarios:", error);
+                            window.showMessage("Error al cargar el conteo de usuarios.", "red");
+                        }
+                    }
+                });
+            }
+
+            // Cerrar el modal de Admin
+            if (adminModalCloseBtn) {
+                adminModalCloseBtn.addEventListener('click', () => {
+                    if (adminModal) {
+                        adminModal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Funcionalidad de Banear/Desbanear usuario para Admin
+            if (adminToggleBanBtn) {
+                adminToggleBanBtn.addEventListener('click', async () => {
+                    const targetUserId = adminBanUserIdInput.value.trim();
+                    if (!targetUserId) {
+                        window.showMessage("Por favor, introduce un ID de usuario.", "red");
+                        return;
+                    }
+
+                    if (!auth.currentUser || currentUserData.role !== 'admin') {
+                        window.showMessage("No tienes permisos de administrador para realizar esta acción.", "red");
+                        return;
+                    }
+
+                    if (targetUserId === auth.currentUser.uid) {
+                        window.showMessage("No puedes banearte a ti mismo.", "red");
+                        return;
+                    }
+
+                    try {
+                        const targetUserRef = doc(db, `artifacts/${appId}/users`, targetUserId);
+                        const targetUserSnap = await getDoc(targetUserRef);
+
+                        if (!targetUserSnap.exists()) {
+                            window.showMessage("Usuario no encontrado.", "red");
+                            return;
+                        }
+
+                        const currentBanStatus = targetUserSnap.data().isBanned || false;
+                        await updateDoc(targetUserRef, { isBanned: !currentBanStatus });
+                        window.showMessage(`Usuario ${targetUserId} ha sido ${!currentBanStatus ? 'baneado' : 'desbaneado'} con éxito.`, "green");
+                    } catch (error) {
+                        console.error("Error al alternar baneo:", error);
+                        window.showMessage("Error al alternar el estado de baneo.", "red");
+                    }
+                });
+            }
+
+            // Funcionalidad de Asignar Rol para Admin
+            if (adminAssignRoleBtn) {
+                adminAssignRoleBtn.addEventListener('click', async () => {
+                    const targetUserId = adminTargetUserIdInput.value.trim();
+                    const newRole = adminAssignRoleSelect.value;
+
+                    if (!targetUserId) {
+                        window.showMessage("Por favor, introduce un ID de usuario.", "red");
+                        return;
+                    }
+
+                    if (!auth.currentUser || currentUserData.role !== 'admin') {
+                        window.showMessage("No tienes permisos de administrador para realizar esta acción.", "red");
+                        return;
+                    }
+
+                    if (targetUserId === auth.currentUser.uid) {
+                        window.showMessage("No puedes cambiar tu propio rol a través de este panel.", "red");
+                        return;
+                    }
+
+                    try {
+                        const targetUserRef = doc(db, `artifacts/${appId}/users`, targetUserId);
+                        const targetUserSnap = await getDoc(targetUserRef);
+
+                        if (!targetUserSnap.exists()) {
+                            window.showMessage("Usuario no encontrado.", "red");
+                            return;
+                        }
+
+                        await updateDoc(targetUserRef, { role: newRole });
+                        window.showMessage(`Rol de ${targetUserId} actualizado a ${newRole} con éxito.`, "green");
+                    } catch (error) {
+                        console.error("Error al asignar rol:", error);
+                        window.showMessage("Error al asignar el rol.", "red");
+                    }
+                });
+            }
 
             // Manejar el estado de autenticación
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
-                    // Actualizar el timestamp de 'última vez visto' del usuario al iniciar sesión
+                    // Cargar los datos del perfil del usuario, incluyendo el rol y el estado de baneo
                     if (db) {
                         const userProfileRef = doc(db, `artifacts/${appId}/users`, user.uid);
                         try {
                             const userSnap = await getDoc(userProfileRef);
                             if (userSnap.exists()) {
+                                currentUserData = userSnap.data();
+                                // Si el usuario está baneado, cerrar sesión inmediatamente y mostrar mensaje
+                                if (currentUserData.isBanned) {
+                                    window.showMessage('Tu cuenta ha sido baneada. Contacta al administrador.', 'red');
+                                    handleLogout(); // Cerrar sesión
+                                    return; // Detener la ejecución
+                                }
                                 await updateDoc(userProfileRef, { lastSeen: serverTimestamp() });
                             } else {
-                                await setDoc(userProfileRef, {
+                                // Crear un perfil básico si no existe, con rol por defecto 'user'
+                                currentUserData = {
                                     email: user.email,
                                     name: user.email.split('@')[0],
                                     lastSeen: serverTimestamp(),
-                                    profilePicUrl: DEFAULT_PROFILE_PIC
-                                }, { merge: true });
+                                    profilePicUrl: DEFAULT_PROFILE_PIC,
+                                    role: 'user', // Rol por defecto
+                                    isBanned: false // Estado de baneo por defecto
+                                };
+                                await setDoc(userProfileRef, currentUserData, { merge: true });
                             }
                             clearInterval(onlineUsersInterval);
                             onlineUsersInterval = setInterval(updateLastSeen, 30000);
                         } catch (error) {
-                            console.error("Error al establecer/actualizar lastSeen al iniciar sesión:", error);
+                            console.error("Error al establecer/actualizar lastSeen o cargar perfil al iniciar sesión:", error);
+                            window.showMessage("Error al cargar tu perfil de usuario.", "red");
+                            // Si hay un error grave al cargar el perfil, es posible que el usuario no pueda continuar
+                            handleLogout();
+                            return;
                         }
                     }
 
                     if (user.emailVerified) {
                         console.log('Firebase Auth: Usuario autenticado y correo verificado', user.uid);
-                        // Mostrar contenido del foro, ocultar elementos de autenticación, ocultar video
-                        if (loginRegisterLink) loginRegisterLink.classList.add('hidden');
-                        if (welcomeMessage) welcomeMessage.classList.remove('hidden');
-                        if (toggleOnlineUsersBtn) toggleOnlineUsersBtn.classList.remove('hidden'); // Mostrar botón "conectados"
-                        if (notificationsButton) notificationsButton.classList.remove('hidden'); // Mostrar botón "notificaciones"
-                        if (profileSettingsContainer) profileSettingsContainer.classList.remove('hidden'); // Mostrar contenedor de perfil
-
-
+                        
+                        toggleMainLayout(false); // Ajustar layout para el foro
                         if (forumContent) forumContent.classList.remove('hidden');
                         if (authSection) authSection.classList.add('hidden'); // Usa authSection como contenedor principal
                         if (videoBackground) videoBackground.classList.add('hidden'); // Ocultar el video de fondo
-                        // La sidebar se maneja con el botón, pero su estado inicial es hidden-sidebar
-                        if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
-                        if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'none'; // Ensure it starts hidden
+                        
+                        if (actionBar) actionBar.classList.remove('hidden'); // Mostrar la barra de acciones
+                        if (onlineUsersSidebar) onlineUsersSidebar.classList.remove('hidden-sidebar');
+                        if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'block'; // Ensure it starts hidden
+
+                        // Mostrar botón de Admin si el rol es 'admin'
+                        if (adminButton && currentUserData && currentUserData.role === 'admin') {
+                            adminButton.classList.remove('hidden');
+                        } else if (adminButton) {
+                            adminButton.classList.add('hidden');
+                        }
+
+                        if (profilePicImg) profilePicImg.src = currentUserData.profilePicUrl || DEFAULT_PROFILE_PIC; // Actualizar foto de perfil
 
                         if (firebaseStatusButtonElement) {
                             firebaseStatusButtonElement.textContent = 'FORO (Activo)';
@@ -1532,50 +2041,18 @@
                             firebaseStatusButtonElement.classList.add('bg-green-500');
                         }
 
-                        try {
-                            const userProfileRef = doc(db, `artifacts/${appId}/users`, user.uid);
-                            const userProfileSnap = await getDoc(userProfileRef);
-
-                            if (userProfileSnap.exists()) {
-                                currentUserData = userProfileSnap.data();
-                                if (welcomeMessage) welcomeMessage.textContent = `Bienvenido, ${currentUserData.name || user.email}!`;
-                                if (profilePicImg) profilePicImg.src = currentUserData.profilePicUrl || DEFAULT_PROFILE_PIC; // Actualizar foto de perfil
-                            } else {
-                                if (welcomeMessage) welcomeMessage.textContent = `Bienvenido, ${user.email}!`;
-                                if (profilePicImg) profilePicImg.src = DEFAULT_PROFILE_PIC;
-                                await setDoc(userProfileRef, {
-                                    email: user.email,
-                                    name: user.email.split('@')[0],
-                                    lastSeen: serverTimestamp(),
-                                    profilePicUrl: DEFAULT_PROFILE_PIC
-                                });
-                                const updatedUserSnap = await getDoc(userProfileRef);
-                                if (updatedUserSnap.exists()) currentUserData = updatedUserSnap.data();
-                            }
-                        } catch (firestoreError) {
-                            console.error('Error al cargar datos del perfil desde Firestore:', firestoreError);
-                            window.showMessage('Error al cargar tu perfil.', 'red');
-                            if (welcomeMessage) welcomeMessage.textContent = `Bienvenido, ${user.email}!`;
-                            if (profilePicImg) profilePicImg.src = DEFAULT_PROFILE_PIC;
-                        }
-
-                        if (createTopicButton) {
-                            createTopicButton.disabled = false;
-                            createTopicButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                            createTopicButton.onclick = window.handleCreateNewTopic;
-                        }
+                        // if (createTopicButton) { // Removed this button, logic no longer applies
+                        //     createTopicButton.disabled = false;
+                        //     createTopicButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                        //     createTopicButton.onclick = window.handleCreateNewTopic;
+                        // }
                         loadPosts();
                         loadOnlineUsers();
+                        loadNotifications(); // Cargar notificaciones al iniciar sesión
 
                     } else {
                         console.log('Firebase Auth: Usuario autenticado, pero correo NO verificado.', user.uid);
-                        // Mostrar pantalla de verificación, ocultar foro y formularios de autenticación, mostrar video
-                        if (loginRegisterLink) loginRegisterLink.classList.remove('hidden');
-                        if (welcomeMessage) welcomeMessage.classList.add('hidden');
-                        if (toggleOnlineUsersBtn) toggleOnlineUsersBtn.classList.add('hidden'); // Ocultar botón "conectados"
-                        if (notificationsButton) notificationsButton.classList.add('hidden'); // Ocultar botón "notificaciones"
-                        if (profileSettingsContainer) profileSettingsContainer.classList.add('hidden'); // Ocultar contenedor de perfil
-
+                        toggleMainLayout(true); // Ajustar layout para autenticación
                         if (forumContent) forumContent.classList.add('hidden');
                         if (authSection) authSection.classList.remove('hidden'); // Mostrar authSection
                         if (authFormsContainer) authFormsContainer.classList.add('hidden'); // Ocultar formularios dentro
@@ -1586,38 +2063,44 @@
                             if (verificationScreen.querySelector('p:nth-of-type(2)')) verificationScreen.querySelector('p:nth-of-type(2)').textContent = 'Revisa tu bandeja de entrada o la carpeta de spam para el enlace de verificación.';
                             if (goToLoginBtn) goToLoginBtn.textContent = 'Volver a Iniciar Sesión';
                         }
-                        if (videoBackground) videoBackground.classList.remove('hidden');
-                        if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar'); // Ocultar sidebar
+                        if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
+                        
+                        if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
+                        if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
                         if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'none'; // Ensure it starts hidden
+                        if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
+                        if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
+
 
                         if (firebaseStatusButtonElement) {
                             firebaseStatusButtonElement.textContent = 'FORO (Verifica Email)';
                             firebaseStatusButtonElement.classList.remove('bg-green-500', 'bg-gray-500');
                             firebaseStatusButtonElement.classList.add('bg-red-500');
                         }
-                        if (createTopicButton) {
-                            createTopicButton.disabled = true;
-                            createTopicButton.classList.add('opacity-50', 'cursor-not-allowed');
-                            createTopicButton.onclick = () => window.showMessage('Debes verificar tu correo para crear un tema.', 'red');
-                        }
+                        // if (createTopicButton) { // Removed this button
+                        //     createTopicButton.disabled = true;
+                        //     createTopicButton.classList.add('opacity-50', 'cursor-not-allowed');
+                        //     createTopicButton.onclick = () => window.showMessage('Debes verificar tu correo para crear un tema.', 'red');
+                        // }
                     }
 
                 } else {
                     // Usuario NO autenticado, mostrar la sección de autenticación y ocultar el foro.
                     console.log('Firebase Auth: Usuario no autenticado. Mostrando sección de autenticación.');
-                    if (loginRegisterLink) loginRegisterLink.classList.remove('hidden');
-                    if (welcomeMessage) welcomeMessage.classList.add('hidden');
-                    if (toggleOnlineUsersBtn) toggleOnlineUsersBtn.classList.add('hidden'); // Ocultar botón "conectados"
-                    if (notificationsButton) notificationsButton.classList.add('hidden'); // Ocultar botón "notificaciones"
-                    if (profileSettingsContainer) profileSettingsContainer.classList.add('hidden'); // Ocultar contenedor de perfil
+                    toggleMainLayout(true); // Ajustar layout para autenticación
 
                     if (forumContent) forumContent.classList.add('hidden');
                     if (authSection) authSection.classList.remove('hidden'); // Mostrar authSection
                     if (authFormsContainer) authFormsContainer.classList.remove('hidden'); // Asegurarse de que el formulario de login/register esté visible
                     if (verificationScreen) verificationScreen.classList.add('hidden'); // Ocultar pantalla de verificación
-                    if (videoBackground) videoBackground.classList.remove('hidden');
-                    if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar'); // Ocultar sidebar
+                    if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
+
+                    if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
+                    if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
                     if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'none'; // Ensure it starts hidden
+                    if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
+                    if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
+
 
                     if (firebaseStatusButtonElement) {
                         firebaseStatusButtonElement.textContent = 'FORO (Inactivo)';
@@ -1625,11 +2108,11 @@
                         firebaseStatusButtonElement.classList.add('bg-red-500');
                     }
 
-                    if (createTopicButton) {
-                        createTopicButton.disabled = true;
-                        createTopicButton.classList.add('opacity-50', 'cursor-not-allowed');
-                        createTopicButton.onclick = () => window.showMessage('Debes iniciar sesión para crear un tema.', 'red');
-                    }
+                    // if (createTopicButton) { // Removed this button
+                    //     createTopicButton.disabled = true;
+                    //     createTopicButton.classList.add('opacity-50', 'cursor-not-allowed');
+                    //     createTopicButton.onclick = () => window.showMessage('Debes iniciar sesión para crear un tema.', 'red');
+                    // }
                     // Asegurarse de que el formulario de inicio de sesión se muestre por defecto
                     if (loginForm) loginForm.classList.remove('hidden');
                     if (registerForm) registerForm.classList.add('hidden');
@@ -1702,7 +2185,7 @@
                     const phone = registerForm.elements['phone'].value;
                     const age = registerForm.elements['age'].value;
                     const role = registerForm.elements['role'].value;
-                    const profilePicUrl = registerForm.elements['profile_pic_url'].value;
+                    const profilePicUrl = registerForm.elements['profile_pic_url'].value; // Ahora es opcional URL
 
                     if (!auth || !db) {
                         window.showMessage('Firebase no está inicializado. Por favor, revisa la configuración.', 'red');
@@ -1716,16 +2199,23 @@
                         await sendEmailVerification(user);
                         window.showMessage('¡Registro exitoso! Correo de verificación enviado.', 'green');
 
+                        // Por defecto el primer usuario registrado es 'admin', los demás son 'user'
+                        const usersRef = collection(db, `artifacts/${appId}/users`);
+                        const usersSnapshot = await getDocs(usersRef);
+                        const isFirstUser = usersSnapshot.empty;
+                        const assignedRole = isFirstUser ? 'admin' : (role.trim() ? role : 'user'); // Si no elige rol, es 'user'
+
                         await setDoc(doc(db, `artifacts/${appId}/users`, user.uid), {
                             email: email,
                             name: name,
                             lastname: lastname,
                             phone: phone,
                             age: parseInt(age),
-                            role: role,
-                            profilePicUrl: profilePicUrl || DEFAULT_PROFILE_PIC,
+                            role: assignedRole, // Asignar el rol
+                            profilePicUrl: profilePicUrl.trim() ? profilePicUrl : DEFAULT_PROFILE_PIC, // Usa URL o el default
                             createdAt: serverTimestamp(),
-                            lastSeen: serverTimestamp()
+                            lastSeen: serverTimestamp(),
+                            isBanned: false // Por defecto no está baneado
                         });
                         console.log('Datos de usuario guardados en Firestore para:', user.uid);
 
@@ -1761,7 +2251,18 @@
                     }
 
                     try {
-                        await signInWithEmailAndPassword(auth, email, password);
+                        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                        const user = userCredential.user;
+
+                        // Verificar si el usuario está baneado después de iniciar sesión
+                        const userProfileRef = doc(db, `artifacts/${appId}/users`, user.uid);
+                        const userProfileSnap = await getDoc(userProfileRef);
+                        if (userProfileSnap.exists() && userProfileSnap.data().isBanned) {
+                            await signOut(auth); // Cerrar sesión si está baneado
+                            window.showMessage('Tu cuenta ha sido baneada. Contacta al administrador.', 'red');
+                            return;
+                        }
+
                         window.showMessage('¡Inicio de sesión exitoso!', 'green');
                         console.log('Usuario ha iniciado sesión.');
                     } catch (error) {
@@ -1794,10 +2295,15 @@
                         return;
                     }
 
+                    const postTitle = createPostForm.elements['post-title'].value; // Nuevo campo de título
                     const postContent = createPostForm.elements['post-content'].value;
                     const postImageUrl = createPostForm.elements['post-image-url'].value;
-                    const postVideoUrl = createPostForm.elements['post-video-url'].value; // Nuevo campo de video URL
+                    const postVideoUrl = createPostForm.elements['post-video-url'].value;
 
+                    if (!postTitle.trim()) {
+                        window.showMessage('El título de la publicación no puede estar vacío.', 'red');
+                        return;
+                    }
                     if (!postContent.trim()) {
                         window.showMessage('El contenido de la publicación no puede estar vacío.', 'red');
                         return;
@@ -1807,9 +2313,10 @@
                         await addDoc(collection(db, `artifacts/${appId}/public/data/posts`), {
                             authorId: auth.currentUser.uid,
                             authorEmail: auth.currentUser.email,
+                            title: postTitle, // Guardar el título
                             content: postContent,
                             imageUrl: postImageUrl.trim() ? postImageUrl : null,
-                            videoUrl: postVideoUrl.trim() ? postVideoUrl : null, // Guardar la URL del video
+                            videoUrl: postVideoUrl.trim() ? postVideoUrl : null,
                             createdAt: serverTimestamp(),
                             likes: []
                         });
@@ -1822,6 +2329,7 @@
                 });
             }
 
+            // Delegación de eventos para los formularios de comentarios (incluyendo respuestas anidadas)
             document.addEventListener('submit', async (e) => {
                 if (e.target.classList.contains('add-comment-form')) {
                     e.preventDefault();
@@ -1832,6 +2340,7 @@
                     }
 
                     const postId = e.target.dataset.postId;
+                    const parentId = e.target.dataset.parentId || null; // Si es una respuesta, tendrá parentId
                     const commentContent = e.target.querySelector('textarea').value;
 
                     if (!commentContent.trim()) {
@@ -1840,14 +2349,31 @@
                     }
 
                     try {
-                        await addDoc(collection(db, `artifacts/${appId}/public/data/posts/${postId}/comments`), {
+                        const newCommentRef = await addDoc(collection(db, `artifacts/${appId}/public/data/posts/${postId}/comments`), {
                             authorId: auth.currentUser.uid,
                             authorEmail: auth.currentUser.email,
                             content: commentContent,
-                            createdAt: serverTimestamp()
+                            createdAt: serverTimestamp(),
+                            parentId: parentId // Almacenar el parentId para comentarios anidados
                         });
                         window.showMessage('Comentario añadido.', 'green');
                         e.target.reset();
+
+                        // Si es una respuesta a un comentario, enviar notificación al autor del comentario padre
+                        if (parentId) {
+                            const parentCommentRef = doc(db, `artifacts/${appId}/public/data/posts/${postId}/comments`, parentId);
+                            const parentCommentSnap = await getDoc(parentCommentRef);
+                            if (parentCommentSnap.exists()) {
+                                const parentCommentAuthorId = parentCommentSnap.data().authorId;
+                                const parentCommentAuthorEmail = parentCommentSnap.data().authorEmail;
+
+                                // Asegurarse de no enviarse una notificación a sí mismo
+                                if (parentCommentAuthorId !== auth.currentUser.uid) {
+                                    const notificationMessage = `${auth.currentUser.email.split('@')[0]} respondió a tu comentario en "${postId}"`;
+                                    sendNotification(parentCommentAuthorId, notificationMessage, postId, parentId);
+                                }
+                            }
+                        }
                     } catch (error) {
                         console.error('Error al añadir comentario:', error);
                         window.showMessage('Error al añadir comentario. Intenta de nuevo.', 'red');
