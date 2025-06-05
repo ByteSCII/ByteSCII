@@ -43,6 +43,8 @@
                         'blue-500': '#3B82F6', /* Tailwind blue-500 for likes */
                         'purple-600': '#9333ea', /* Nuevo color para el botón de reglas */
                         'purple-700': '#7e22ce', /* Hover de purple-600 */
+                        'orange-600': '#f97316', /* Naranja para actualizar contraseña */
+                        'orange-700': '#ea580c', /* Hover de orange-600 */
                     }
                 }
             }
@@ -163,6 +165,11 @@
             left: 0;
             width: 100%;
             z-index: 50; /* Asegura que esté por encima del contenido */
+            transition: transform 0.3s ease-in-out; /* Animación para ocultar/mostrar */
+        }
+
+        .main-header.header-hidden {
+            transform: translateY(-100%); /* Oculta el encabezado */
         }
 
         /* Estilos para la sección de autenticación */
@@ -203,7 +210,7 @@
         .auth-container input[type="text"],
         .auth-container input[type="tel"],
         .auth-container input[type="number"],
-        .auth-container input[type="file"], /* Añadido para el input de archivo */
+        .auth-container input[type="url"],
         .auth-container select,
         /* Corregido: Input URL para imagen y video ahora usan este estilo */
         #post-image-url,
@@ -218,7 +225,10 @@
         #profile-pic-url-input,
         #profile-current-email,
         #profile-new-email,
-        #profile-current-password {
+        #profile-current-password,
+        #profile-current-password-change,
+        #profile-new-password,
+        #profile-confirm-new-password {
             background-color: #1A202C !important; /* Fuerza el fondo oscuro de Byte */
             color: #F9FAFB !important; /* Fuerza el color de texto claro de Byte */
             border: 1px solid #00FFFF !important; /* Fuerza el borde cian */
@@ -226,7 +236,7 @@
         /* Fin de nuevo estilo */
 
         /* Estilos para la barra de seguridad de contraseña */
-        #password-strength-bar {
+        #password-strength-bar, #new-password-strength-bar {
             height: 8px;
             border-radius: 4px;
             transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
@@ -307,10 +317,12 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px); /* Efecto de desenfoque */
             -webkit-backdrop-filter: blur(5px); /* Compatibilidad con Safari */
+            display: none; /* Oculto por defecto en todas las pantallas */
         }
 
-        #online-users-sidebar.hidden-sidebar {
-            transform: translateX(100%); /* Hide to the right */
+        #online-users-sidebar.show-sidebar {
+            display: block; /* Muestra el sidebar cuando tiene la clase show-sidebar */
+            transform: translateX(0%);
         }
 
         /* Nuevo estilo para botones principales */
@@ -488,22 +500,33 @@
         /* Ajustes específicos para móviles */
         @media (max-width: 767px) { /* Para pantallas menores a 'md' (768px) */
             .auth-container, .verification-message, .forum-section {
-                padding: 1.5rem;
+                padding: 1rem; /* Reducir padding en móviles */
+                width: 95%; /* Usar más ancho de pantalla */
             }
-            /* main-header */
             .main-header img {
-                height: 48px; /* Tamaño del logo en móviles, h-12 en Tailwind */
+                height: 40px; /* Tamaño del logo en móviles */
             }
             .main-header .back-to-home-button {
-                padding: 0.5rem 0.75rem; /* Reducir padding del botón */
-                font-size: 0.875rem; /* Reducir tamaño de fuente del botón (text-sm) */
+                padding: 0.4rem 0.6rem; /* Reducir padding del botón */
+                font-size: 0.8rem; /* Reducir tamaño de fuente del botón */
             }
             .verification-message .fa-check-circle {
                 font-size: 3rem;
             }
-            /* En móvil, la barra lateral se oculta */
+            /* La barra lateral se oculta por defecto y solo se muestra con el botón */
             #online-users-sidebar {
-                display: none;
+                transform: translateX(100%);
+                display: none; /* Fuerza la ocultación inicial */
+            }
+            #online-users-sidebar.show-sidebar {
+                 transform: translateX(0%);
+                 display: block;
+                 width: 100%; /* Ocupa todo el ancho en móvil */
+                 right: 0;
+                 left: 0;
+                 top: 60px; /* Ajuste para el header más pequeño */
+                 height: calc(100vh - 60px);
+                 padding-bottom: 80px; /* Espacio para el footer */
             }
             /* En móvil, la sección de foro toma el ancho completo */
             .forum-section {
@@ -517,9 +540,10 @@
             }
             /* Ajuste para la nueva barra de acciones en móvil */
             .header-buttons-group {
-                flex-direction: column; /* Apilar verticalmente */
-                align-items: flex-end; /* Alinear a la derecha */
+                flex-direction: row; /* Mantener horizontal en móvil para evitar demasiado espacio vertical */
+                justify-content: flex-end; /* Alinear a la derecha */
                 gap: 0.5rem; /* Espaciado entre elementos apilados */
+                width: 100%;
             }
             .header-buttons-group > div,
             .header-buttons-group > a,
@@ -528,7 +552,13 @@
             }
             /* Ajustar el padding superior de main para móviles si la action-bar no es fixed */
             main {
-                padding-top: 130px !important; /* Aproximadamente la altura del header en móvil con más botones */
+                padding-top: 100px !important; /* Aproximadamente la altura del header en móvil con más botones */
+            }
+            .forum-topic-card {
+                padding: 1rem; /* Menor padding en móvil */
+            }
+            .comments-section {
+                padding: 1rem; /* Menor padding en móvil */
             }
         }
         /* Ajustes de botones en la cabecera para todas las resoluciones */
@@ -540,6 +570,9 @@
         @media (min-width: 768px) { /* Para pantallas 'md' y superiores */
             .header-buttons-group {
                 flex-direction: row; /* Horizontal en desktop */
+            }
+            #online-users-sidebar {
+                display: none; /* Asegura que esté oculto en desktop también por defecto */
             }
         }
 
@@ -693,6 +726,22 @@
         }
 
         /* Reglas: Estilo mejorado para cada sección de regla */
+        .rules-modal-content {
+            background-color: #1A202C; /* Re-apply the content background */
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            max-width: 800px; /* Aumentar ancho para reglas */
+            width: 95%; /* Más ancho en móvil */
+            color: #F9FAFB;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-image: linear-gradient(to bottom right, rgba(26, 32, 44, 0.95), rgba(10, 10, 26, 0.95));
+            border: 1px solid rgba(0, 255, 255, 0.5);
+        }
         .rule-item {
             display: flex;
             align-items: flex-start;
@@ -721,7 +770,6 @@
             line-height: 1.5;
             color: #F9FAFB;
         }
-
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -887,6 +935,14 @@
                                placeholder="Crea tu contraseña" required>
                         <div id="password-strength-bar" class="w-0"></div>
                     </div>
+                    <!-- Nuevo campo para confirmar contraseña -->
+                    <div>
+                        <label for="register-confirm-password" class="block text-sm font-semibold mb-2">Confirmar Contraseña:</label>
+                        <input type="password" id="register-confirm-password" name="confirm_password"
+                               class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan
+                                      text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan"
+                               placeholder="Confirma tu contraseña" required>
+                    </div>
                     <button type="submit"
                             class="w-full bg-yellow-500 text-black font-bold py-3 px-4 rounded-full
                                    shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
@@ -1004,6 +1060,38 @@
                             </button>
                         </form>
                     </div>
+
+                    <!-- Nueva sección para cambiar contraseña -->
+                    <div class="border-t border-gray-700 pt-4 mt-6">
+                        <h3 class="text-xl font-semibold mb-2 text-byte-accent-cyan">Cambiar Contraseña</h3>
+                        <p class="text-sm text-gray-400 mb-4">Se te pedirá tu contraseña actual para confirmar el cambio.</p>
+                        <form id="profile-password-form" class="space-y-4">
+                            <div>
+                                <label for="profile-current-password-change" class="block text-sm font-semibold mb-2">Contraseña Actual:</label>
+                                <input type="password" id="profile-current-password-change"
+                                       class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan
+                                              text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" required>
+                            </div>
+                            <div>
+                                <label for="profile-new-password" class="block text-sm font-semibold mb-2">Nueva Contraseña:</label>
+                                <input type="password" id="profile-new-password"
+                                       class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan
+                                              text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" required>
+                                <div id="new-password-strength-bar" class="w-0"></div>
+                            </div>
+                            <div>
+                                <label for="profile-confirm-new-password" class="block text-sm font-semibold mb-2">Confirmar Nueva Contraseña:</label>
+                                <input type="password" id="profile-confirm-new-password"
+                                       class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan
+                                              text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" required>
+                            </div>
+                            <button type="submit"
+                                    class="w-full bg-orange-600 text-white font-bold py-3 px-4 rounded-full
+                                           shadow-lg hover:bg-orange-700 transition duration-300 transform hover:scale-105">
+                                Actualizar Contraseña
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
@@ -1100,7 +1188,7 @@
                         </div>
                         <div>
                             <label for="post-video-url" class="block text-sm font-semibold mb-2 text-byte-text-light">URL del video (opcional):</label>
-                            <input type="url" id="post-video-url" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" placeholder="https://ejemplo.com/video.mp4 o URL de YouTube">
+                            <input type="url" id="post-video-url" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" placeholder="https://youtube.com/watch?v=VIDEO_ID o URL directa">
                         </div>
                         <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-3 px-4 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
                             Publicar
@@ -1123,7 +1211,7 @@
     </main>
 
     <!-- Barra Lateral Derecha para Usuarios Online (Fixed y oculta por defecto) -->
-    <aside id="online-users-sidebar" class="fixed right-0 bg-byte-secondary-dark rounded-xl p-6 border border-byte-accent-cyan shadow-lg h-[calc(100vh-8rem)] overflow-y-auto hidden-sidebar lg:block">
+    <aside id="online-users-sidebar" class="fixed right-0 bg-byte-secondary-dark rounded-xl p-6 border border-byte-accent-cyan shadow-lg h-[calc(100vh-8rem)] overflow-y-auto hidden-sidebar">
         <h3 class="text-xl font-bold text-byte-accent-cyan mb-4">Usuarios Online</h3>
         <ul id="online-users-list" class="space-y-3">
             <!-- Los usuarios online se cargarán aquí dinámicamente -->
@@ -1161,7 +1249,7 @@
     <script type="module">
         // Importa las funciones de Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut, reauthenticateWithCredential, EmailAuthProvider, updateEmail, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut, reauthenticateWithCredential, EmailAuthProvider, updateEmail, updatePassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         // Importa docChanges para actualizaciones más eficientes
         import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp, updateDoc, deleteDoc, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
@@ -1170,7 +1258,7 @@
             apiKey: "AIzaSyDjUNln-KyOvyOKfzm7077Lv8tGtKwtFTE",
             authDomain: "byte-21d48.firebaseapp.com",
             projectId: "byte-21d48",
-            storageBucket: "byte-21d48.firebaseastorage.app",
+            storageBucket: "byte-21d48.appspot.com",
             messagingSenderId: "647326645291",
             appId: "1:647326645291:web:6013f0179f525f288f3e6e"
         };
@@ -1254,7 +1342,6 @@
          * }
          */
 
-
         // Función para mostrar mensajes temporales (declarada globalmente para ser accesible)
         window.showMessage = function(msg, type = 'blue') {
             const messageEl = document.createElement('div');
@@ -1302,12 +1389,17 @@
                 const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
                 const profileSettingsModal = document.getElementById('profile-settings-modal'); // Modal de perfil
                 const rulesModal = document.getElementById('rules-modal'); // Modal de reglas
+                const mainHeader = document.getElementById('main-header'); // Header
+                mainHeader.classList.remove('header-hidden'); // Asegurarse de que el header esté visible al cerrar sesión
 
                 if (forumContent) forumContent.classList.add('hidden');
                 if (authSection) authSection.classList.remove('hidden');
                 if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
                 if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
-                if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
+                if (onlineUsersSidebar) {
+                    onlineUsersSidebar.classList.remove('show-sidebar'); // Ocultar sidebar
+                    onlineUsersSidebar.style.display = 'none'; // Asegurarse de que esté realmente oculto
+                }
                 if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
                 if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
                 if (profileSettingsModal) profileSettingsModal.style.display = 'none'; // Ocultar modal de perfil
@@ -1315,7 +1407,7 @@
 
                 const mainEl = document.querySelector('main');
                 if (mainEl) {
-                    mainEl.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                    mainEl.classList.add('flex', 'items-center', 'justify-content', 'w-full', 'h-screen');
                     mainEl.style.padding = '0';
                     mainEl.style.overflow = 'hidden';
                 }
@@ -1355,12 +1447,17 @@
             const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
             const profileSettingsModal = document.getElementById('profile-settings-modal'); // Modal de perfil
             const rulesModal = document.getElementById('rules-modal'); // Modal de reglas
+            const mainHeader = document.getElementById('main-header'); // Header
+            mainHeader.classList.remove('header-hidden'); // Asegurarse de que el header esté visible al cambiar de vista
 
 
             if (authSection) authSection.classList.remove('hidden');
             if (forumContent) forumContent.classList.add('hidden');
             if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
-            if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
+            if (onlineUsersSidebar) {
+                onlineUsersSidebar.classList.remove('show-sidebar'); // Ocultar sidebar
+                onlineUsersSidebar.style.display = 'none'; // Asegurarse de que esté realmente oculto
+            }
             if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
             if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
             if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
@@ -1370,7 +1467,7 @@
 
             const mainEl = document.querySelector('main');
             if (mainEl) {
-                mainEl.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                mainEl.classList.add('flex', 'items-center', 'justify-content', 'w-full', 'h-screen');
                 mainEl.style.padding = '0';
                 mainEl.style.overflow = 'hidden';
             }
@@ -1416,7 +1513,28 @@
                 return;
             }
 
-            if (confirm('¿Estás seguro de que quieres eliminar esta publicación? Esto también eliminará todos sus comentarios.')) {
+            // Usar un modal en lugar de confirm()
+            const confirmDeleteModal = document.createElement('div');
+            confirmDeleteModal.className = 'admin-modal';
+            confirmDeleteModal.innerHTML = `
+                <div class="admin-modal-content">
+                    <h3 class="text-xl font-bold mb-4 text-byte-accent-cyan">Confirmar Eliminación</h3>
+                    <p class="mb-6 text-byte-text-light">¿Estás seguro de que quieres eliminar esta publicación? Esto también eliminará todos sus comentarios.</p>
+                    <div class="flex justify-end gap-4">
+                        <button id="cancel-delete-btn" class="main-action-button bg-gray-600 hover:bg-gray-700">Cancelar</button>
+                        <button id="confirm-delete-btn" class="destructive-action-button">Eliminar</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmDeleteModal);
+            confirmDeleteModal.style.display = 'flex'; // Mostrar el modal
+
+            document.getElementById('cancel-delete-btn').onclick = () => {
+                confirmDeleteModal.remove();
+            };
+
+            document.getElementById('confirm-delete-btn').onclick = async () => {
+                confirmDeleteModal.remove();
                 try {
                     // Eliminar la publicación principal
                     await deleteDoc(doc(db, `artifacts/${appId}/public/data/posts`, postId));
@@ -1425,7 +1543,7 @@
                     console.error('Error al eliminar publicación:', error);
                     window.showMessage('Error al eliminar la publicación. Intenta de nuevo. Asegúrate de tener los permisos de seguridad de Firebase configurados correctamente.', 'red');
                 }
-            }
+            };
         };
 
         // Función para editar una publicación
@@ -1588,7 +1706,28 @@
                 return;
             }
 
-            if (confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+            // Usar un modal en lugar de confirm()
+            const confirmDeleteModal = document.createElement('div');
+            confirmDeleteModal.className = 'admin-modal';
+            confirmDeleteModal.innerHTML = `
+                <div class="admin-modal-content">
+                    <h3 class="text-xl font-bold mb-4 text-byte-accent-cyan">Confirmar Eliminación</h3>
+                    <p class="mb-6 text-byte-text-light">¿Estás seguro de que quieres eliminar este comentario?</p>
+                    <div class="flex justify-end gap-4">
+                        <button id="cancel-comment-delete-btn" class="main-action-button bg-gray-600 hover:bg-gray-700">Cancelar</button>
+                        <button id="confirm-comment-delete-btn" class="destructive-action-button">Eliminar</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(confirmDeleteModal);
+            confirmDeleteModal.style.display = 'flex'; // Mostrar el modal
+
+            document.getElementById('cancel-comment-delete-btn').onclick = () => {
+                confirmDeleteModal.remove();
+            };
+
+            document.getElementById('confirm-comment-delete-btn').onclick = async () => {
+                confirmDeleteModal.remove();
                 try {
                     await deleteDoc(doc(db, `artifacts/${appId}/public/data/posts/${postId}/comments`, commentId));
                     window.showMessage('Comentario eliminado exitosamente.', 'green');
@@ -1596,7 +1735,7 @@
                     console.error('Error al eliminar comentario:', error);
                     window.showMessage('Error al eliminar el comentario. Intenta de nuevo.', 'red');
                 }
-            }
+            };
         };
 
         // Función para cargar y mostrar publicaciones (refactorizada para evitar "shaking")
@@ -1632,7 +1771,7 @@
                     let postElement = document.getElementById(`post-${postData.id}`); // ID único para cada post
 
                     // Check if post data exists before rendering (useful if a doc was deleted before being fully processed)
-                    if (!postData.title && !postData.content) {
+                    if (!postData.title && !postData.content && change.type !== 'removed') {
                         if (postElement) postElement.remove(); // Remove if incomplete
                         return;
                     }
@@ -2185,11 +2324,11 @@
             function toggleMainLayout(isAuthView) {
                 if (mainEl) {
                     if (isAuthView) {
-                        mainEl.classList.add('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                        mainEl.classList.add('flex', 'items-center', 'justify-content', 'w-full', 'h-screen');
                         mainEl.style.padding = '0';
                         mainEl.style.overflow = 'hidden';
                     } else {
-                        mainEl.classList.remove('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
+                        mainEl.classList.remove('flex', 'items-center', 'justify-content', 'w-full', 'h-screen');
                         // Adjust padding based on header height, especially for mobile
                         const headerHeight = mainHeader ? mainHeader.offsetHeight : 0;
                         mainEl.style.padding = '1rem'; // Default padding
@@ -2212,6 +2351,7 @@
             const registerForm = document.getElementById('register-form');
             const goToLoginBtn = document.getElementById('go-to-login-btn');
             const registerPasswordInput = document.getElementById('register-password');
+            const registerConfirmPasswordInput = document.getElementById('register-confirm-password'); // New
             const passwordStrengthBar = document.getElementById('password-strength-bar');
             const forgotPasswordLink = document.getElementById('forgot-password-link');
             const createPostForm = document.getElementById('create-post-form');
@@ -2253,9 +2393,20 @@
             const adminNotificationMessageInput = document.getElementById('admin-notification-message');
             const adminSendNotificationBtn = document.getElementById('admin-send-notification-btn');
 
+            // New password change elements
+            const profilePasswordForm = document.getElementById('profile-password-form');
+            const profileCurrentPasswordChangeInput = document.getElementById('profile-current-password-change');
+            const profileNewPasswordInput = document.getElementById('profile-new-password');
+            const profileConfirmNewPasswordInput = document.getElementById('profile-confirm-new-password');
+            const newPasswordStrengthBar = document.getElementById('new-password-strength-bar');
+
+
             // Rules modal elements
             const rulesModal = document.getElementById('rules-modal');
             const rulesModalCloseBtn = document.getElementById('rules-modal-close-btn');
+
+            // Video URL input (reverted from file upload)
+            const postVideoUrlInput = document.getElementById('post-video-url');
 
 
             // Asegurarse de que el botón de estado de Firebase se obtenga aquí
@@ -2265,8 +2416,13 @@
             if (toggleOnlineUsersBtn) {
                 toggleOnlineUsersBtn.addEventListener('click', () => {
                     if (onlineUsersSidebar) {
-                        onlineUsersSidebar.classList.toggle('hidden-sidebar');
-                        onlineUsersSidebar.style.display = onlineUsersSidebar.classList.contains('hidden-sidebar') ? 'none' : 'block';
+                        onlineUsersSidebar.classList.toggle('show-sidebar');
+                        // Asegurarse de que el display esté en 'block' cuando se muestra y 'none' cuando se oculta
+                        if (onlineUsersSidebar.classList.contains('show-sidebar')) {
+                            onlineUsersSidebar.style.display = 'block';
+                        } else {
+                            onlineUsersSidebar.style.display = 'none';
+                        }
                     }
                 });
             }
@@ -2281,6 +2437,10 @@
                         if (notificationCenter) notificationCenter.classList.remove('show');
                         if (adminModal) adminModal.style.display = 'none';
                         if (rulesModal) rulesModal.style.display = 'none';
+                        if (onlineUsersSidebar) { // Ocultar sidebar si está abierto
+                            onlineUsersSidebar.classList.remove('show-sidebar');
+                            onlineUsersSidebar.style.display = 'none';
+                        }
                     }
                 });
             }
@@ -2296,8 +2456,10 @@
                         if (adminModal) adminModal.style.display = 'none';
                         if (rulesModal) rulesModal.style.display = 'none';
                         if (profileSettingsModal) profileSettingsModal.style.display = 'none';
-
-
+                        if (onlineUsersSidebar) { // Ocultar sidebar si está abierto
+                            onlineUsersSidebar.classList.remove('show-sidebar');
+                            onlineUsersSidebar.style.display = 'none';
+                        }
                     }
                 });
             }
@@ -2320,6 +2482,10 @@
                  if (rulesModal && event.target === rulesModal) {
                     rulesModal.style.display = 'none';
                 }
+                 if (onlineUsersSidebar && !toggleOnlineUsersBtn.contains(event.target) && !onlineUsersSidebar.contains(event.target)) {
+                    onlineUsersSidebar.classList.remove('show-sidebar');
+                    onlineUsersSidebar.style.display = 'none';
+                }
             });
 
             // Lógica para el botón de Admin
@@ -2332,6 +2498,10 @@
                         if (notificationCenter) notificationCenter.classList.remove('show');
                         if (rulesModal) rulesModal.style.display = 'none';
                         if (profileSettingsModal) profileSettingsModal.style.display = 'none';
+                        if (onlineUsersSidebar) { // Ocultar sidebar si está abierto
+                            onlineUsersSidebar.classList.remove('show-sidebar');
+                            onlineUsersSidebar.style.display = 'none';
+                        }
 
                         // Cargar el conteo de usuarios registrados
                         try {
@@ -2485,6 +2655,10 @@
                         if (notificationCenter) notificationCenter.classList.remove('show');
                         if (adminModal) adminModal.style.display = 'none';
                         if (rulesModal) rulesModal.style.display = 'none';
+                        if (onlineUsersSidebar) { // Ocultar sidebar si está abierto
+                            onlineUsersSidebar.classList.remove('show-sidebar');
+                            onlineUsersSidebar.style.display = 'none';
+                        }
 
                         // Rellenar el formulario con los datos actuales del usuario
                         if (currentUserData) {
@@ -2503,6 +2677,11 @@
                                 profileDobInput.value = currentUserData.dob;
                             }
                         }
+                        // Limpiar campos de contraseña cada vez que se abre el modal
+                        profileCurrentPasswordChangeInput.value = '';
+                        profileNewPasswordInput.value = '';
+                        profileConfirmNewPasswordInput.value = '';
+                        if (newPasswordStrengthBar) newPasswordStrengthBar.style.width = '0%';
                     }
                 });
             }
@@ -2534,7 +2713,7 @@
                     // Handle date of birth: ensure it's stored consistently
                     const dobValue = profileDobInput.value.trim();
                     if (dobValue) {
-                        updatedData.dob = dobValue; // Store as YYYY-MM-DD string
+                        updatedData.dob = dobValue; // Store asYYYY-MM-DD string
                     } else {
                         updatedData.dob = null; // Clear if empty
                     }
@@ -2609,6 +2788,68 @@
                 });
             }
 
+            // Manejar el envío del formulario de Cambio de Contraseña
+            if (profilePasswordForm) {
+                profilePasswordForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!auth.currentUser || !db) return;
+
+                    const user = auth.currentUser;
+                    const currentPassword = profileCurrentPasswordChangeInput.value;
+                    const newPassword = profileNewPasswordInput.value;
+                    const confirmNewPassword = profileConfirmNewPasswordInput.value;
+
+                    if (!currentPassword || !newPassword || !confirmNewPassword) {
+                        window.showMessage('Todos los campos son obligatorios.', 'red');
+                        return;
+                    }
+
+                    if (newPassword !== confirmNewPassword) {
+                        window.showMessage('La nueva contraseña y su confirmación no coinciden.', 'red');
+                        return;
+                    }
+                    
+                    if (newPassword.length < 6) {
+                        window.showMessage('La nueva contraseña debe tener al menos 6 caracteres.', 'red');
+                        return;
+                    }
+
+                    try {
+                        // 1. Re-autenticar al usuario
+                        const credential = EmailAuthProvider.credential(user.email, currentPassword);
+                        await reauthenticateWithCredential(user, credential);
+                        
+                        // 2. Actualizar la contraseña
+                        await updatePassword(user, newPassword);
+
+                        window.showMessage('Contraseña actualizada exitosamente.', 'green');
+                        // Limpiar campos de contraseña
+                        profileCurrentPasswordChangeInput.value = '';
+                        profileNewPasswordInput.value = '';
+                        profileConfirmNewPasswordInput.value = '';
+                        if (newPasswordStrengthBar) newPasswordStrengthBar.style.width = '0%';
+                    } catch (error) {
+                        console.error('Error al cambiar contraseña:', error);
+                        let errorMessage = 'Error al cambiar contraseña.';
+                        if (error.code === 'auth/wrong-password') {
+                            errorMessage = 'Contraseña actual incorrecta.';
+                        } else if (error.code === 'auth/weak-password') {
+                            errorMessage = 'La nueva contraseña es demasiado débil.';
+                        } else if (error.code === 'auth/requires-recent-login') {
+                            errorMessage = 'Por favor, cierra sesión y vuelve a iniciar sesión para cambiar tu contraseña.';
+                        }
+                        window.showMessage(errorMessage, 'red');
+                    }
+                });
+
+                // Añadir evento para la barra de seguridad de la nueva contraseña
+                if (profileNewPasswordInput) {
+                    profileNewPasswordInput.addEventListener('input', (e) => {
+                        checkPasswordStrength(e.target.value, newPasswordStrengthBar);
+                    });
+                }
+            }
+
 
             // Lógica para el modal de Reglas del Foro
             if (rulesButton) {
@@ -2620,6 +2861,10 @@
                         if (notificationCenter) notificationCenter.classList.remove('show');
                         if (adminModal) adminModal.style.display = 'none';
                         if (profileSettingsModal) profileSettingsModal.style.display = 'none';
+                        if (onlineUsersSidebar) { // Ocultar sidebar si está abierto
+                            onlineUsersSidebar.classList.remove('show-sidebar');
+                            onlineUsersSidebar.style.display = 'none';
+                        }
                     }
                 });
             }
@@ -2684,8 +2929,9 @@
                         if (videoBackground) videoBackground.classList.add('hidden'); // Ocultar el video de fondo
                         
                         if (actionBar) actionBar.classList.remove('hidden'); // Mostrar la barra de acciones
-                        if (onlineUsersSidebar) onlineUsersSidebar.classList.remove('hidden-sidebar');
-                        if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'block'; // Ensure it starts hidden
+                        // onlineUsersSidebar should stay hidden until clicked
+                        if (onlineUsersSidebar) onlineUsersSidebar.classList.remove('show-sidebar'); // Ensure it's hidden on login
+                        if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'none';
 
                         // Mostrar botón de Admin si el rol es 'admin'
                         if (adminButton && currentUserData && currentUserData.role === 'admin') {
@@ -2722,8 +2968,10 @@
                         if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
                         
                         if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
-                        if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
-                        if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'none'; // Ensure it starts hidden
+                        if (onlineUsersSidebar) { // Ocultar sidebar
+                            onlineUsersSidebar.classList.remove('show-sidebar');
+                            onlineUsersSidebar.style.display = 'none';
+                        }
                         if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
                         if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
 
@@ -2747,8 +2995,10 @@
                     if (videoBackground) videoBackground.classList.remove('hidden'); // Mostrar video
 
                     if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
-                    if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
-                    if (onlineUsersSidebar) onlineUsersSidebar.style.display = 'none'; // Ensure it starts hidden
+                    if (onlineUsersSidebar) { // Ocultar sidebar
+                        onlineUsersSidebar.classList.remove('show-sidebar');
+                        onlineUsersSidebar.style.display = 'none';
+                    }
                     if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
                     if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
 
@@ -2790,31 +3040,31 @@
             if (goToLoginBtn) goToLoginBtn.addEventListener('click', () => showForm('login'));
 
             // Función para evaluar la seguridad de la contraseña
-            const checkPasswordStrength = (password) => {
+            const checkPasswordStrength = (password, strengthBarElement) => {
                 let strength = 0;
                 if (password.length > 7) strength++;
                 if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
                 if (password.match(/\d/)) strength++;
                 if (password.match(/[^a-zA-Z0-9]/)) strength++;
 
-                if (passwordStrengthBar) {
-                    passwordStrengthBar.className = '';
+                if (strengthBarElement) {
+                    strengthBarElement.className = '';
                     if (strength === 0) {
-                        passwordStrengthBar.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
-                        passwordStrengthBar.style.width = '0%';
+                        strengthBarElement.classList.remove('strength-weak', 'strength-medium', 'strength-strong');
+                        strengthBarElement.style.width = '0%';
                     } else if (strength < 2) {
-                        passwordStrengthBar.classList.add('strength-weak');
+                        strengthBarElement.classList.add('strength-weak');
                     } else if (strength < 4) {
-                        passwordStrengthBar.classList.add('strength-medium');
+                        strengthBarElement.classList.add('strength-medium');
                     } else {
-                        passwordStrengthBar.classList.add('strength-strong');
+                        strengthBarElement.classList.add('strength-strong');
                     }
                 }
             };
 
             if (registerPasswordInput) {
                 registerPasswordInput.addEventListener('input', (e) => {
-                    checkPasswordStrength(e.target.value);
+                    checkPasswordStrength(e.target.value, passwordStrengthBar);
                 });
             }
 
@@ -2826,12 +3076,18 @@
 
                     const email = registerForm.elements['email'].value;
                     const password = registerForm.elements['password'].value;
+                    const confirmPassword = registerForm.elements['confirm_password'].value; // New
                     const name = registerForm.elements['name'].value;
                     const lastname = registerForm.elements['lastname'].value;
                     const phone = registerForm.elements['phone'].value;
                     const age = registerForm.elements['age'].value;
                     const role = registerForm.elements['role'].value;
                     const profilePicUrl = registerForm.elements['profile_pic_url'].value; // Ahora es opcional URL
+
+                    if (password !== confirmPassword) {
+                        window.showMessage('Las contraseñas no coinciden.', 'red');
+                        return; // Prevent form submission
+                    }
 
                     if (!auth || !db) {
                         window.showMessage('Firebase no está inicializado. Por favor, revisa la configuración.', 'red');
@@ -2944,7 +3200,7 @@
                     const postTitle = createPostForm.elements['post-title'].value; // Nuevo campo de título
                     const postContent = createPostForm.elements['post-content'].value;
                     const postImageUrl = createPostForm.elements['post-image-url'].value;
-                    const postVideoUrl = createPostForm.elements['post-video-url'].value;
+                    const postVideoUrl = postVideoUrlInput.value; // Obtener la URL del campo de video
 
                     if (!postTitle.trim()) {
                         window.showMessage('El título de la publicación no puede estar vacío.', 'red');
@@ -2962,7 +3218,7 @@
                             title: postTitle, // Guardar el título
                             content: postContent,
                             imageUrl: postImageUrl.trim() ? postImageUrl : null,
-                            videoUrl: postVideoUrl.trim() ? postVideoUrl : null,
+                            videoUrl: postVideoUrl.trim() ? postVideoUrl : null, // Guardar la URL del video
                             createdAt: serverTimestamp(),
                             likes: []
                         });
@@ -3031,7 +3287,16 @@
             const updateMainPadding = () => {
                 if (mainEl && mainHeader) {
                     const headerHeight = mainHeader.offsetHeight;
-                    mainEl.style.paddingTop = `${headerHeight + 20}px`; // Add some extra space
+                    // Adjusted padding for mobile responsiveness
+                    if (window.innerWidth < 768) { // Assuming 768px is the mobile breakpoint
+                        mainEl.style.paddingTop = `${headerHeight + 20}px`;
+                        mainEl.style.paddingLeft = '1rem';
+                        mainEl.style.paddingRight = '1rem';
+                    } else {
+                        mainEl.style.paddingTop = `${headerHeight + 20}px`; // Default for desktop
+                        mainEl.style.paddingLeft = '2rem';
+                        mainEl.style.paddingRight = '2rem';
+                    }
                 }
             };
 
@@ -3039,6 +3304,26 @@
             updateMainPadding();
             // Call on window resize
             window.addEventListener('resize', updateMainPadding);
+
+            // Lógica para la barra de navegación dinámica (ocultar/mostrar al desplazar)
+            let lastScrollY = 0;
+            const headerHeight = mainHeader.offsetHeight; // Altura del encabezado
+
+            window.addEventListener('scroll', () => {
+                if (mainHeader) {
+                    const currentScrollY = window.scrollY;
+
+                    // Detectar dirección de desplazamiento
+                    if (currentScrollY > lastScrollY && currentScrollY > headerHeight) {
+                        // Desplazándose hacia abajo y ya pasó la altura del encabezado
+                        mainHeader.classList.add('header-hidden');
+                    } else if (currentScrollY < lastScrollY) {
+                        // Desplazándose hacia arriba
+                        mainHeader.classList.remove('header-hidden');
+                    }
+                    lastScrollY = currentScrollY;
+                }
+            });
         });
     </script>
 </body>
