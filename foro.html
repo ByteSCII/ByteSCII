@@ -628,13 +628,50 @@
             color: #888;
             margin-top: 0.2rem;
         }
+
+        /* Estilos para las etiquetas de roles */
+        .role-tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem; /* rounded-md */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: bold;
+            margin-left: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .role-admin {
+            background-color: #EF4444; /* red-500 */
+            color: #FFFFFF; /* white */
+        }
+
+        .role-cliente {
+            background-color: #22C55E; /* green-500 */
+            color: #FFFFFF; /* white */
+        }
+
+        .role-aprendiz {
+            background-color: #FACC15; /* yellow-400 */
+            color: #1A202C; /* black or very dark gray for contrast */
+        }
+
+        .role-instructor {
+            background-color: #3B82F6; /* blue-500 */
+            color: #1A202C; /* black or very dark gray for contrast */
+        }
+
+        .role-user {
+            background-color: #6B7280; /* gray-500 */
+            color: #F9FAFB; /* white */
+        }
+
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <!-- Video de fondo (inicialmente oculto, solo se muestra con auth-section) -->
     <video autoplay muted loop id="video-background" class="hidden">
-        <source src="./images/fondo.mp4" type="video/mp4">
+        <source src="./images/fondoforo.mp4" type="video/mp4">
         Tu navegador no soporta el tag de video.
     </video>
 
@@ -1258,6 +1295,8 @@
                     let authorName = postData.authorEmail || 'Usuario Anónimo';
                     let authorProfilePic = DEFAULT_PROFILE_PIC;
                     let authorRole = ''; // Default role
+                    let roleTagHtml = ''; // HTML for the role tag
+
                     if (postData.authorId) {
                         const authorProfileRef = doc(db, `artifacts/${appId}/users`, postData.authorId);
                         const authorProfileSnap = await getDoc(authorProfileRef);
@@ -1265,7 +1304,11 @@
                             const authorData = authorProfileSnap.data();
                             authorName = authorData.name || authorData.email || authorName;
                             authorProfilePic = authorData.profilePicUrl || DEFAULT_PROFILE_PIC;
-                            authorRole = authorData.role ? ` (${authorData.role.charAt(0).toUpperCase() + authorData.role.slice(1)})` : ''; // Add role if exists
+                            authorRole = authorData.role ? authorData.role : 'user'; // Get actual role
+                            
+                            // Generate role tag HTML
+                            const roleDisplay = authorRole.charAt(0).toUpperCase() + authorRole.slice(1);
+                            roleTagHtml = `<span class="role-tag role-${authorRole.toLowerCase()}">${roleDisplay}</span>`;
                         }
                     }
 
@@ -1328,7 +1371,9 @@
                                 <div class="flex items-center">
                                     <img src="${authorProfilePic}" alt="Foto de perfil de ${authorName}" class="w-10 h-10 rounded-full mr-3 object-cover border-2 border-byte-accent-cyan">
                                     <div>
-                                        <p class="font-semibold text-byte-accent-cyan text-base leading-tight">${authorName}${authorRole}</p>
+                                        <p class="font-semibold text-byte-accent-cyan text-base leading-tight">
+                                            ${authorName}${roleTagHtml}
+                                        </p>
                                         <p class="text-gray-400 text-xs" title="${fullPostedTime}">${postedTime} <i class="fas fa-globe-americas ml-1"></i></p>
                                     </div>
                                 </div>
@@ -1463,6 +1508,8 @@
                     let authorName = comment.authorEmail || 'Anónimo';
                     let authorProfilePic = DEFAULT_PROFILE_PIC;
                     let authorRole = '';
+                    let roleTagHtml = '';
+
                     if (comment.authorId) {
                         const authorProfileRef = doc(db, `artifacts/${appId}/users`, comment.authorId);
                         const authorProfileSnap = await getDoc(authorProfileRef);
@@ -1470,7 +1517,11 @@
                             const authorData = authorProfileSnap.data();
                             authorName = authorData.name || authorData.email || authorName;
                             authorProfilePic = authorData.profilePicUrl || DEFAULT_PROFILE_PIC;
-                            authorRole = authorData.role ? ` (${authorData.role.charAt(0).toUpperCase() + authorData.role.slice(1)})` : '';
+                            authorRole = authorData.role ? authorData.role : 'user'; // Get actual role
+                            
+                            // Generate role tag HTML
+                            const roleDisplay = authorRole.charAt(0).toUpperCase() + authorRole.slice(1);
+                            roleTagHtml = `<span class="role-tag role-${authorRole.toLowerCase()}">${roleDisplay}</span>`;
                         }
                     }
 
@@ -1484,7 +1535,8 @@
                     commentElement.innerHTML = `
                         <img src="${authorProfilePic}" alt="Foto de perfil de ${authorName}" class="w-8 h-8 rounded-full mr-3 object-cover border border-gray-700">
                         <div class="flex-1">
-                            <p class="font-semibold text-byte-accent-cyan text-sm">${authorName}${authorRole}
+                            <p class="font-semibold text-byte-accent-cyan text-sm">
+                                ${authorName}${roleTagHtml}
                                 <span class="text-gray-400 text-xs ml-2">${new Date(comment.createdAt?.toDate ? comment.createdAt.toDate() : comment.createdAt).toLocaleString()}</span>
                                 ${deleteCommentButtonHtml}
                             </p>
@@ -1628,13 +1680,17 @@
                         const userElement = document.createElement('li');
                         userElement.classList.add('flex', 'items-center', 'text-byte-text-light', 'text-sm');
                         const profilePic = user.profilePicUrl || DEFAULT_PROFILE_PIC;
+                        
+                        const roleDisplay = user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : '';
+                        const roleTagHtml = user.role ? `<span class="role-tag role-${user.role.toLowerCase()}">${roleDisplay}</span>` : '';
+
                         userElement.innerHTML = `
                             <span class="relative flex h-3 w-3 mr-2">
                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                 <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                             </span>
                             <img src="${profilePic}" alt="Foto de perfil de ${user.name || user.email}" class="w-6 h-6 rounded-full mr-2 object-cover border border-green-500">
-                            <span>${user.name || user.email}${user.role ? ` (${user.role.charAt(0).toUpperCase() + user.role.slice(1)})` : ''}</span>
+                            <span>${user.name || user.email}${roleTagHtml}</span>
                         `;
                         onlineUsersList.appendChild(userElement);
                     });
