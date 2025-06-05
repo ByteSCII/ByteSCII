@@ -556,7 +556,7 @@
         </div>
     </header>
 
-    <main class="flex-grow flex items-center justify-center p-4 md:p-8 relative">
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8 relative pt-16"> <!-- Added pt-16 for header spacing -->
         <!-- Sección de Autenticación -->
         <div id="auth-section" class="hidden flex flex-col items-center justify-center w-full min-h-[calc(100vh-100px)]">
              <!-- Contenedor principal de autenticación -->
@@ -680,7 +680,7 @@
 
 
         <!-- Contenido del foro, inicialmente oculto -->
-        <section id="forum-content" class="forum-section hidden">
+        <section id="forum-content" class="forum-section hidden max-w-7xl mx-auto"> <!-- Added max-w-7xl and mx-auto -->
             <!-- Columna Principal del Foro (posts, comments) -->
             <div class="w-full">
                 <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Bienvenido al Foro de Byte</h1>
@@ -812,7 +812,7 @@
         /*
          * REGLAS DE SEGURIDAD DE FIRESTORE (PARA TU CONSOLA DE FIREBASE)
          *
-         * ¡IMPORTANTE! Para que la función de eliminar publicaciones funcione correctamente,
+         * ¡IMPORTANTЕ! Para que la función de eliminar publicaciones funcione correctamente,
          * debes COPIAR Y PEGAR estas reglas en la sección "Rules" de tu base de datos Firestore
          * en la consola de Firebase. Sin estas reglas, Firebase por defecto no permitirá
          * operaciones de eliminación, ya que los permisos de escritura son limitados.
