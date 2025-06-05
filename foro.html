@@ -152,7 +152,7 @@
             box-shadow: 0 8px 15px rgba(0, 255, 255, 0.25);
         }
 
-        /* Estilos para el encabezado - NO SE OCULTA */
+        /* Estilos para el encabezado */
         .main-header {
             background-color: #0A0A1A; /* Fondo oscuro */
             color: #F9FAFB; /* Texto claro */
@@ -163,7 +163,6 @@
             left: 0;
             width: 100%;
             z-index: 50; /* Asegura que esté por encima del contenido */
-            /* Transiciones eliminadas para que no se oculte */
         }
 
         /* Estilos para la sección de autenticación */
@@ -210,7 +209,16 @@
         #post-image-url,
         #post-video-url,
         #post-title, /* Añadido para el título de la publicación */
-        textarea {
+        textarea,
+        /* Nuevos campos de perfil */
+        #profile-name,
+        #profile-lastname,
+        #profile-phone,
+        #profile-dob,
+        #profile-pic-url-input,
+        #profile-current-email,
+        #profile-new-email,
+        #profile-current-password {
             background-color: #1A202C !important; /* Fuerza el fondo oscuro de Byte */
             color: #F9FAFB !important; /* Fuerza el color de texto claro de Byte */
             border: 1px solid #00FFFF !important; /* Fuerza el borde cian */
@@ -271,11 +279,15 @@
             border: 1px solid rgba(0, 255, 255, 0.15);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            /* Añadido para un aspecto más moderno */
+            background-image: linear-gradient(to bottom right, #1A202C, #0F131D); /* Degradado sutil */
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
+            -webkit-backdrop-filter: blur(5px); /* Compatibilidad con Safari */
         }
 
         .forum-topic-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 255, 255, 0.25);
+            box-shadow: 0 8px 15px rgba(0, 255, 255, 0.25), 0 0 20px rgba(0, 255, 255, 0.1); /* Sombra y brillo extra */
         }
 
         /* Estilos para la barra lateral de usuarios online */
@@ -293,6 +305,8 @@
             background-image: linear-gradient(to bottom right, rgba(10, 10, 26, 0.95), rgba(26, 32, 44, 0.95)); /* Subtle gradient */
             border-radius: 0.75rem; /* Rounded corners */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px); /* Efecto de desenfoque */
+            -webkit-backdrop-filter: blur(5px); /* Compatibilidad con Safari */
         }
 
         #online-users-sidebar.hidden-sidebar {
@@ -309,11 +323,14 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
             transition: background-color 0.3s ease, transform 0.3s ease;
             white-space: nowrap; /* Prevent text wrapping */
+            background-image: linear-gradient(to right, #00FFFF, #00E5E5); /* Gradiente */
+            border: 1px solid rgba(0, 255, 255, 0.5);
         }
 
         .main-action-button:hover {
             background-color: #00E5E5; /* Un cian ligeramente más oscuro al pasar el ratón */
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px); /* Pequeño levantamiento */
+            box-shadow: 0 8px 15px rgba(0, 255, 255, 0.3);
         }
 
         /* Nuevo estilo para botones de cabecera con solo icono */
@@ -330,11 +347,14 @@
             justify-content: center;
             width: 40px; /* Fixed size for circular button */
             height: 40px;
+            background-image: linear-gradient(to right, #00FFFF, #00E5E5); /* Gradiente */
+            border: 1px solid rgba(0, 255, 255, 0.5);
         }
 
         .icon-action-button:hover {
             background-color: #00E5E5; /* Un cian ligeramente más oscuro al pasar el ratón */
             transform: scale(1.1); /* Slightly more prominent scale for icons */
+            box-shadow: 0 6px 10px rgba(0, 255, 255, 0.3);
         }
 
         /* Estilo para el botón de "Volver al inicio" con color amarillo */
@@ -347,11 +367,14 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, transform 0.3s ease;
             white-space: nowrap;
+            background-image: linear-gradient(to right, #FFD700, #E6C200);
+            border: 1px solid rgba(255, 215, 0, 0.5);
         }
 
         .back-to-home-button:hover {
             background-color: #E6C200; /* Darker yellow on hover */
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 215, 0, 0.3);
         }
 
 
@@ -364,11 +387,14 @@
             border-radius: 0.5rem; /* rounded-md */
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, transform 0.3s ease;
+            background-image: linear-gradient(to right, #EF4444, #DC2626);
+            border: 1px solid rgba(239, 68, 68, 0.5);
         }
 
         .destructive-action-button:hover {
             background-color: #DC2626; /* Un rojo más oscuro */
-            transform: scale(1.02);
+            transform: scale(1.02) translateY(-1px);
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
         }
 
         /* Estilos para el botón de perfil/ajustes */
@@ -412,6 +438,9 @@
             z-index: 70; /* Por encima de todo */
             padding: 0.5rem 0;
             display: none; /* Oculto por defecto */
+            backdrop-filter: blur(8px); /* Efecto de desenfoque */
+            -webkit-backdrop-filter: blur(8px); /* Compatibilidad con Safari */
+            background-image: linear-gradient(to bottom right, rgba(26, 32, 44, 0.95), rgba(10, 10, 26, 0.95)); /* Degradado */
         }
 
         .profile-dropdown-menu.show {
@@ -487,55 +516,36 @@
                 width: 100%; /* Ocupar todo el ancho en móviles */
             }
             /* Ajuste para la nueva barra de acciones en móvil */
-            #action-bar {
-                position: relative; /* Quitar fixed en móvil */
-                top: auto;
-                left: auto;
-                transform: none;
-                padding-top: 1rem; /* Añadir algo de padding superior */
-                padding-bottom: 1rem; /* Añadir algo de padding inferior */
-                justify-content: center; /* Centrar elementos */
-                flex-wrap: wrap; /* Permitir que los elementos se envuelvan */
+            .header-buttons-group {
+                flex-direction: column; /* Apilar verticalmente */
+                align-items: flex-end; /* Alinear a la derecha */
+                gap: 0.5rem; /* Espaciado entre elementos apilados */
             }
-            #action-bar > div {
-                margin-bottom: 0.5rem; /* Espacio entre filas en móvil */
+            .header-buttons-group > div,
+            .header-buttons-group > a,
+            .header-buttons-group > button {
+                margin-bottom: 0; /* Eliminar margen inferior si ya está en gap */
             }
             /* Ajustar el padding superior de main para móviles si la action-bar no es fixed */
             main {
-                padding-top: 90px !important; /* Aproximadamente la altura del header pequeño en móvil */
+                padding-top: 130px !important; /* Aproximadamente la altura del header en móvil con más botones */
             }
         }
         /* Ajustes de botones en la cabecera para todas las resoluciones */
         .header-buttons-group {
-            flex-direction: column; /* Siempre apilar verticalmente */
-            align-items: flex-end; /* Alinear a la derecha */
+            display: flex; /* Usar flexbox */
+            gap: 1rem; /* Espaciado horizontal */
+            align-items: center; /* Alinear verticalmente */
         }
-        .header-buttons-group > div,
-        .header-buttons-group > a {
-            margin-bottom: 0.5rem; /* Espaciado entre elementos apilados */
-        }
-        .header-buttons-group > div:last-child,
-        .header-buttons-group > a:last-child {
-            margin-bottom: 0; /* Eliminar margen inferior del último elemento */
-        }
-
-        /* Nueva barra de acciones */
-        #action-bar {
-            background-color: #1A202C; /* byte-secondary-dark */
-            color: #F9FAFB;
-            padding: 0.75rem 0; /* Relleno */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center; /* Centrar los botones */
-            align-items: center;
-            gap: 1rem; /* Espacio entre los botones */
-            margin-bottom: 1.5rem; /* Espacio entre la barra de acciones y el formulario de publicación */
-            border-radius: 0.75rem; /* Bordes redondeados */
+        @media (min-width: 768px) { /* Para pantallas 'md' y superiores */
+            .header-buttons-group {
+                flex-direction: row; /* Horizontal en desktop */
+            }
         }
 
         /* Asegurar que el contenido principal tenga un padding superior adecuado para la cabecera fija */
         main {
-            /* padding-top se ajusta dinámicamente en JS */
+            padding-top: 80px; /* Base, se ajusta en JS para móviles */
         }
 
         /* Estilos para comentarios anidados */
@@ -545,8 +555,8 @@
             padding-left: 10px;
         }
 
-        /* Estilo para el modal de administrador */
-        .admin-modal {
+        /* Estilo para el modal de administrador, perfil y reglas */
+        .admin-modal, .profile-settings-modal, .rules-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -558,9 +568,10 @@
             justify-content: center;
             z-index: 1000;
             display: none; /* Oculto por defecto */
+            overflow-y: auto; /* Permite scroll si el contenido es largo */
         }
 
-        .admin-modal-content {
+        .admin-modal-content, .profile-settings-modal-content, .rules-modal-content {
             background-color: #1A202C;
             padding: 2rem;
             border-radius: 1rem;
@@ -569,9 +580,15 @@
             width: 90%;
             color: #F9FAFB;
             position: relative;
+            max-height: 90vh; /* Altura máxima para el contenido del modal */
+            overflow-y: auto; /* Scroll interno si el contenido supera la altura */
+            backdrop-filter: blur(10px); /* Efecto de desenfoque */
+            -webkit-backdrop-filter: blur(10px); /* Compatibilidad con Safari */
+            background-image: linear-gradient(to bottom right, rgba(26, 32, 44, 0.95), rgba(10, 10, 26, 0.95)); /* Degradado */
+            border: 1px solid rgba(0, 255, 255, 0.5);
         }
 
-        .admin-modal-close-btn {
+        .admin-modal-close-btn, .profile-settings-modal-close-btn, .rules-modal-close-btn {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -580,6 +597,12 @@
             font-size: 1.5rem;
             color: #F9FAFB;
             cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .admin-modal-close-btn:hover, .profile-settings-modal-close-btn:hover, .rules-modal-close-btn:hover {
+            transform: scale(1.2) rotate(90deg);
+            color: #00FFFF;
         }
         /* Estilos para las notificaciones */
         #notification-center {
@@ -596,6 +619,9 @@
             z-index: 70;
             padding: 0.5rem 0;
             display: none; /* Oculto por defecto */
+            backdrop-filter: blur(8px); /* Efecto de desenfoque */
+            -webkit-backdrop-filter: blur(8px); /* Compatibilidad con Safari */
+            background-image: linear-gradient(to bottom right, rgba(26, 32, 44, 0.95), rgba(10, 10, 26, 0.95)); /* Degradado */
         }
 
         #notification-center.show {
@@ -638,6 +664,7 @@
             font-weight: bold;
             margin-left: 0.5rem;
             white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .role-admin {
@@ -665,6 +692,36 @@
             color: #F9FAFB; /* white */
         }
 
+        /* Reglas: Estilo mejorado para cada sección de regla */
+        .rule-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background-color: rgba(0, 255, 255, 0.05); /* Cian muy tenue */
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 255, 255, 0.05);
+        }
+        .rule-item .icon {
+            font-size: 1.8rem;
+            color: #00FFFF; /* Cian brillante para el ícono */
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        .rule-item h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #00FFFF;
+            margin-bottom: 0.25rem;
+            text-shadow: none; /* Eliminar sombra de texto para reglas */
+        }
+        .rule-item p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #F9FAFB;
+        }
+
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -676,13 +733,56 @@
     </video>
 
     <header id="main-header" class="main-header">
-        <div class="w-full px-4 sm:px-6 md:px-8 flex justify-between items-center">
-            <!-- Logo de Byte -->
-            <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
-            <!-- Volver al inicio, siempre visible y amarillo -->
-            <a href="index.html" class="inline-block back-to-home-button">
-                Volver al inicio
-            </a>
+        <div class="w-full px-4 sm:px-6 md:px-8 flex flex-col md:flex-row justify-between items-center py-2">
+            <!-- Grupo de la izquierda: Logo y Volver al inicio -->
+            <div class="flex items-center justify-between w-full md:w-auto mb-2 md:mb-0">
+                <!-- Logo de Byte -->
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
+                <!-- Volver al inicio, siempre visible y amarillo -->
+                <a href="index.html" class="inline-block back-to-home-button md:ml-4">
+                    Volver al inicio
+                </a>
+            </div>
+
+            <!-- Grupo de la derecha: Botones de acción (action-bar content movido aquí) -->
+            <!-- La barra de acciones ahora está directamente en el header -->
+            <div id="action-bar" class="flex items-center justify-center flex-wrap gap-4 md:gap-2 lg:gap-4 px-4 hidden">
+                <!-- Botón para Usuarios Conectados (solo icono) -->
+                <button id="toggle-online-users-btn" class="icon-action-button">
+                    <i class="fas fa-users"></i>
+                </button>
+                <!-- Botón de Notificaciones (solo icono) -->
+                <div class="relative">
+                    <button id="notifications-button" class="icon-action-button">
+                        <i class="fas fa-bell"></i>
+                        <span id="unread-notifications-count" class="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
+                            0
+                        </span>
+                    </button>
+                    <div id="notification-center" class="profile-dropdown-menu right-0 mt-2 p-0">
+                        <!-- Las notificaciones se cargarán aquí -->
+                        <div class="notification-item">No hay notificaciones.</div>
+                    </div>
+                </div>
+                <!-- Nuevo botón de Reglas (morado) -->
+                <button id="rules-button" class="main-action-button bg-purple-600 hover:bg-purple-700">
+                    Reglas
+                </button>
+                <!-- Botón especial de Admin (visible solo para administradores) -->
+                <button id="admin-button" class="main-action-button bg-blue-500 hover:bg-blue-600 hidden" title="Panel de Administrador">
+                    <i class="fas fa-crown mr-2"></i> Admin
+                </button>
+                <!-- Botón de perfil/ajustes con dropdown (imagen de perfil como símbolo) -->
+                <div id="profile-settings-container" class="relative">
+                    <button id="profile-settings-button" class="profile-button">
+                        <img id="profile-pic-img" src="./images/logo.ico" alt="Foto de perfil">
+                    </button>
+                    <div id="profile-dropdown-menu" class="profile-dropdown-menu">
+                        <button id="open-profile-settings-btn">Ajustes de Perfil</button>
+                        <button id="logout-button" class="destructive-action-button" onclick="handleLogout()">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -811,45 +911,6 @@
 
         <!-- Contenido del foro, inicialmente oculto -->
         <section id="forum-content" class="forum-section hidden max-w-4xl mx-auto"> <!-- Changed max-w-7xl to max-w-4xl -->
-            <!-- Barra de acciones encima de "Crear Nueva Publicación" -->
-            <div id="action-bar" class="flex items-center justify-center space-x-4 px-4 mb-6 hidden">
-                <!-- Botón para Usuarios Conectados (solo icono) -->
-                <button id="toggle-online-users-btn" class="icon-action-button">
-                    <i class="fas fa-users"></i>
-                </button>
-                <!-- Botón de Notificaciones (solo icono) -->
-                <div class="relative">
-                    <button id="notifications-button" class="icon-action-button">
-                        <i class="fas fa-bell"></i>
-                        <span id="unread-notifications-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">
-                            0
-                        </span>
-                    </button>
-                    <div id="notification-center" class="profile-dropdown-menu right-0 mt-2 p-0">
-                        <!-- Las notificaciones se cargarán aquí -->
-                        <div class="notification-item">No hay notificaciones.</div>
-                    </div>
-                </div>
-                <!-- Nuevo botón de Reglas (morado) -->
-                <button id="rules-button" class="main-action-button bg-purple-600 hover:bg-purple-700" onclick="window.showMessage('Las reglas del foro están en desarrollo.', 'purple');">
-                    Reglas
-                </button>
-                <!-- Botón especial de Admin (visible solo para administradores) -->
-                <button id="admin-button" class="main-action-button bg-blue-500 hover:bg-blue-600 hidden" title="Panel de Administrador">
-                    <i class="fas fa-crown mr-2"></i> Admin
-                </button>
-                <!-- Botón de perfil/ajustes con dropdown (imagen de perfil como símbolo) -->
-                <div id="profile-settings-container" class="relative">
-                    <button id="profile-settings-button" class="profile-button">
-                        <img id="profile-pic-img" src="${DEFAULT_PROFILE_PIC}" alt="Foto de perfil">
-                    </button>
-                    <div id="profile-dropdown-menu" class="profile-dropdown-menu">
-                        <button onclick="window.showMessage('Ajustes de perfil en desarrollo.', 'blue');">Ajustes de Perfil</button>
-                        <button id="logout-button" class="destructive-action-button" onclick="handleLogout()">Cerrar Sesión</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Modal de Administrador -->
             <div id="admin-modal" class="admin-modal">
                 <div class="admin-modal-content">
@@ -879,7 +940,138 @@
                             <button id="admin-toggle-ban-btn" class="mt-2 w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md">Alternar Baneo</button>
                             <p class="text-red-500 text-sm mt-1">¡ADVERTENCIA! La modificación del estado de baneo del lado del cliente puede ser explotada. En producción, esto DEBE ser manejado por Firebase Cloud Functions.</p>
                         </div>
+
+                        <!-- Enviar Notificación por Infracción -->
+                        <div class="border-t border-gray-700 pt-4 mt-4">
+                            <h3 class="text-xl font-semibold mb-2">Enviar Notificación por Infracción</h3>
+                            <input type="text" id="admin-notification-user-id" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan" placeholder="ID de Usuario o Email">
+                            <textarea id="admin-notification-message" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-gray-700 text-byte-text-light placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan mt-2" rows="3" placeholder="Mensaje de infracción..."></textarea>
+                            <button id="admin-send-notification-btn" class="mt-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-md">Enviar Notificación</button>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Modal de Ajustes de Perfil -->
+            <div id="profile-settings-modal" class="profile-settings-modal">
+                <div class="profile-settings-modal-content">
+                    <button class="profile-settings-modal-close-btn" id="profile-settings-modal-close-btn">&times;</button>
+                    <h2 class="text-2xl font-bold mb-4 text-byte-accent-cyan">Ajustes de Perfil</h2>
+                    <form id="profile-settings-form" class="space-y-4">
+                        <div>
+                            <label for="profile-name" class="block text-sm font-semibold mb-2">Nombre:</label>
+                            <input type="text" id="profile-name" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light" required>
+                        </div>
+                        <div>
+                            <label for="profile-lastname" class="block text-sm font-semibold mb-2">Apellido:</label>
+                            <input type="text" id="profile-lastname" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light" required>
+                        </div>
+                        <div>
+                            <label for="profile-phone" class="block text-sm font-semibold mb-2">Teléfono:</label>
+                            <input type="tel" id="profile-phone" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light" required>
+                        </div>
+                        <div>
+                            <label for="profile-dob" class="block text-sm font-semibold mb-2">Fecha de Nacimiento:</label>
+                            <input type="date" id="profile-dob" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light" required>
+                        </div>
+                        <div>
+                            <label for="profile-pic-url-input" class="block text-sm font-semibold mb-2">URL de Foto de Perfil:</label>
+                            <input type="url" id="profile-pic-url-input" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light">
+                        </div>
+                        <button type="submit" class="w-full bg-yellow-500 text-black font-bold py-3 px-4 rounded-full shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105">
+                            Guardar Cambios
+                        </button>
+                    </form>
+
+                    <div class="border-t border-gray-700 pt-4 mt-6">
+                        <h3 class="text-xl font-semibold mb-2 text-byte-accent-cyan">Cambiar Correo Electrónico</h3>
+                        <p class="text-sm text-gray-400 mb-4">Se te pedirá reconfirmar tu contraseña actual.</p>
+                        <form id="profile-email-form" class="space-y-4">
+                            <div>
+                                <label for="profile-current-email" class="block text-sm font-semibold mb-2">Correo Actual:</label>
+                                <input type="email" id="profile-current-email" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-gray-700 text-gray-400" readonly>
+                            </div>
+                            <div>
+                                <label for="profile-new-email" class="block text-sm font-semibold mb-2">Nuevo Correo Electrónico:</label>
+                                <input type="email" id="profile-new-email" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light" placeholder="nuevo.correo@ejemplo.com" required>
+                            </div>
+                            <div>
+                                <label for="profile-current-password" class="block text-sm font-semibold mb-2">Contraseña Actual para Confirmar:</label>
+                                <input type="password" id="profile-current-password" class="w-full p-3 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light" required>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-full shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+                                Cambiar Correo
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de Reglas del Foro -->
+            <div id="rules-modal" class="rules-modal">
+                <div class="rules-modal-content">
+                    <button class="rules-modal-close-btn" id="rules-modal-close-btn">&times;</button>
+                    <h2 class="text-2xl font-bold mb-6 text-center text-byte-accent-cyan">Reglas del Foro de Byte</h2>
+                    <p class="text-center text-byte-text-light mb-8">Para asegurar un ambiente constructivo y respetuoso, la participación en el foro de Byte se rige por las siguientes directrices:</p>
+                    <div id="rules-list" class="space-y-6">
+                        <!-- Rule 1: Veracidad de la Información -->
+                        <div class="rule-item">
+                            <i class="fas fa-check-circle icon"></i>
+                            <div>
+                                <h4>1. Veracidad de la Información</h4>
+                                <p>Es imperativo que toda la información compartida sea precisa, verificable y basada en fuentes confiables. La difusión intencional de datos falsos o engañosos, así como la tergiversación de hechos, está estrictamente prohibida y puede resultar en la suspensión permanente de la cuenta.</p>
+                            </div>
+                        </div>
+                        <!-- Rule 2: Respeto y Profesionalismo -->
+                        <div class="rule-item">
+                            <i class="fas fa-handshake icon"></i>
+                            <div>
+                                <h4>2. Respeto y Profesionalismo</h4>
+                                <p>Mantenga un tono cortés, profesional y constructivo en todas sus interacciones. Los comentarios ofensivos, difamatorios, discriminatorios, sexistas, racistas o que atenten contra la integridad y dignidad de otros usuarios o marcas no serán tolerados. La crítica debe ser objetiva y fundamentada, siempre con el objetivo de enriquecer el debate.</p>
+                            </div>
+                        </div>
+                        <!-- Rule 3: Relevancia del Contenido -->
+                        <div class="rule-item">
+                            <i class="fas fa-tag icon"></i>
+                            <div>
+                                <h4>3. Relevancia del Contenido</h4>
+                                <p>Asegúrese de que sus publicaciones y comentarios sean directamente relevantes para el tema de discusión. Evite el "off-topic" (fuera de tema), el spam, el contenido promocional excesivo no autorizado o la publicación de mensajes duplicados. Se prioriza el valor agregado al conocimiento colectivo.</p>
+                            </div>
+                        </div>
+                        <!-- Rule 4: Propiedad Intelectual -->
+                        <div class="rule-item">
+                            <i class="fas fa-lightbulb icon"></i>
+                            <div>
+                                <h4>4. Propiedad Intelectual</h4>
+                                <p>No comparta material protegido por derechos de autor, patentes o secretos comerciales sin la debida autorización o atribución explícita. El contenido debe ser original, creado por usted, o debidamente citado y referenciado. El plagio y el uso no autorizado de material de terceros son estrictamente prohibidos.</p>
+                            </div>
+                        </div>
+                        <!-- Rule 5: Confidencialidad y Privacidad -->
+                        <div class="rule-item">
+                            <i class="fas fa-user-secret icon"></i>
+                            <div>
+                                <h4>5. Confidencialidad y Privacidad</h4>
+                                <p>Evite divulgar información personal sensible, tanto propia como de terceros, incluyendo direcciones, números de teléfono, correos electrónicos privados o datos financieros. La privacidad de todos los miembros de la comunidad es primordial y debe ser respetada en todo momento.</p>
+                            </div>
+                        </div>
+                        <!-- Rule 6: Colaboración Constructiva -->
+                        <div class="rule-item">
+                            <i class="fas fa-users-cog icon"></i>
+                            <div>
+                                <h4>6. Colaboración Constructiva</h4>
+                                <p>Fomente un espíritu de colaboración, intercambio de conocimientos y aprendizaje mutuo. Participe activamente en debates saludables y brinde retroalimentación constructiva. Las discusiones deben buscar soluciones y nuevas perspectivas, no la confrontación.</p>
+                            </div>
+                        </div>
+                         <!-- Rule 7: Moderación y Sanciones -->
+                        <div class="rule-item">
+                            <i class="fas fa-gavel icon"></i>
+                            <div>
+                                <h4>7. Moderación y Sanciones</h4>
+                                <p>La administración del foro se reserva el derecho de editar, mover o eliminar cualquier contenido que incumpla estas reglas. Las infracciones recurrentes o graves pueden resultar en advertencias, suspensiones temporales o el baneo permanente de la cuenta. Las decisiones de moderación son finales y no negociables.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-byte-text-light mt-8">Al participar en este foro, usted acepta cumplir con estas reglas y contribuir a una comunidad enriquecedora para todos.</p>
                 </div>
             </div>
 
@@ -919,27 +1111,6 @@
                 <!-- Lista de Publicaciones -->
                 <div id="posts-list" class="space-y-6">
                     <!-- Las publicaciones se cargarán aquí dinámicamente -->
-                    <div class="forum-topic-card">
-                        <div class="flex items-center mb-4">
-                            <img src="https://placehold.co/100x100/374151/F9FAFB?text=BYTE" alt="Foto de perfil de Usuario Anónimo" class="w-10 h-10 rounded-full mr-3 object-cover border-2 border-byte-accent-cyan">
-                            <div>
-                                <h3 class="text-xl font-bold text-byte-accent-cyan">Cargando publicaciones...</h3>
-                                <p class="text-gray-400 text-sm">Publicado por: <span class="font-semibold">Cargando...</span></p>
-                            </div>
-                        </div>
-                        <p class="text-byte-text-light text-base mb-4">Las publicaciones del foro aparecerán aquí.</p>
-                        <div class="text-gray-400 text-xs mt-3 flex justify-between items-center">
-                            <span><i class="fas fa-clock mr-1"></i> --/--/----</span>
-                            <span><i class="fas fa-comment-dots mr-1"></i> 0 comentarios</span>
-                            <span><i class="fas fa-thumbs-up mr-1"></i> 0</span>
-                        </div>
-                        <div class="comments-section mt-6 p-4 bg-byte-dark-bg rounded-lg border border-gray-700">
-                            <h4 class="text-lg font-semibold text-byte-accent-cyan mb-3">Comentarios:</h4>
-                            <div class="space-y-3 mb-4">
-                                <p class="text-gray-400 text-sm italic">No hay comentarios aún.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -990,16 +1161,16 @@
     <script type="module">
         // Importa las funciones de Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, onAuthStateChanged, signInWithEmailAndPassword, signOut, reauthenticateWithCredential, EmailAuthProvider, updateEmail, updateProfile } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         // Importa docChanges para actualizaciones más eficientes
-        import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp, updateDoc, deleteDoc, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, query, onSnapshot, addDoc, serverTimestamp, updateDoc, deleteDoc, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Tus datos de configuración de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDjUNln-KyOvyOKfzm7077Lv8tGtKwtFTE",
             authDomain: "byte-21d48.firebaseapp.com",
             projectId: "byte-21d48",
-            storageBucket: "byte-21d48.firebasestorage.app",
+            storageBucket: "byte-21d48.firebaseastorage.app",
             messagingSenderId: "647326645291",
             appId: "1:647326645291:web:6013f0179f525f288f3e6e"
         };
@@ -1013,7 +1184,7 @@
         let onlineUsersInterval; // Intervalo para actualizar el estado online
         let firebaseStatusButtonElement = null; // Variable global para el botón de estado
 
-        const DEFAULT_PROFILE_PIC = "https://placehold.co/100x100/374151/F9FAFB?text=BYTE"; // URL de imagen de perfil por defecto
+        const DEFAULT_PROFILE_PIC = "./images/logo.ico"; // URL de imagen de perfil por defecto
 
         /*
          * REGLAS DE SEGURIDAD DE FIRESTORE (PARA TU CONSOLA DE FIREBASE)
@@ -1129,6 +1300,8 @@
                 const onlineUsersSidebar = document.getElementById('online-users-sidebar');
                 const adminButton = document.getElementById('admin-button'); // Botón de admin
                 const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
+                const profileSettingsModal = document.getElementById('profile-settings-modal'); // Modal de perfil
+                const rulesModal = document.getElementById('rules-modal'); // Modal de reglas
 
                 if (forumContent) forumContent.classList.add('hidden');
                 if (authSection) authSection.classList.remove('hidden');
@@ -1137,6 +1310,8 @@
                 if (onlineUsersSidebar) onlineUsersSidebar.classList.add('hidden-sidebar');
                 if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
                 if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
+                if (profileSettingsModal) profileSettingsModal.style.display = 'none'; // Ocultar modal de perfil
+                if (rulesModal) rulesModal.style.display = 'none'; // Ocultar modal de reglas
 
                 const mainEl = document.querySelector('main');
                 if (mainEl) {
@@ -1178,6 +1353,9 @@
             const actionBar = document.getElementById('action-bar');
             const adminButton = document.getElementById('admin-button'); // Botón de admin
             const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
+            const profileSettingsModal = document.getElementById('profile-settings-modal'); // Modal de perfil
+            const rulesModal = document.getElementById('rules-modal'); // Modal de reglas
+
 
             if (authSection) authSection.classList.remove('hidden');
             if (forumContent) forumContent.classList.add('hidden');
@@ -1186,6 +1364,9 @@
             if (actionBar) actionBar.classList.add('hidden'); // Ocultar la barra de acciones
             if (adminButton) adminButton.classList.add('hidden'); // Ocultar botón de admin
             if (notificationCenter) notificationCenter.classList.remove('show'); // Ocultar notificaciones
+            if (profileSettingsModal) profileSettingsModal.style.display = 'none'; // Ocultar modal de perfil
+            if (rulesModal) rulesModal.style.display = 'none'; // Ocultar modal de reglas
+
 
             const mainEl = document.querySelector('main');
             if (mainEl) {
@@ -1235,7 +1416,7 @@
                 return;
             }
 
-            if (window.confirm('¿Estás seguro de que quieres eliminar esta publicación? Esto también eliminará todos sus comentarios.')) {
+            if (confirm('¿Estás seguro de que quieres eliminar esta publicación? Esto también eliminará todos sus comentarios.')) {
                 try {
                     // Eliminar la publicación principal
                     await deleteDoc(doc(db, `artifacts/${appId}/public/data/posts`, postId));
@@ -1245,6 +1426,148 @@
                     window.showMessage('Error al eliminar la publicación. Intenta de nuevo. Asegúrate de tener los permisos de seguridad de Firebase configurados correctamente.', 'red');
                 }
             }
+        };
+
+        // Función para editar una publicación
+        window.editPost = async function(postId) {
+            if (!auth.currentUser) {
+                window.showMessage('Debes iniciar sesión para editar publicaciones.', 'red');
+                return;
+            }
+
+            const postElement = document.getElementById(`post-${postId}`);
+            if (!postElement) return;
+
+            const postRef = doc(db, `artifacts/${appId}/public/data/posts`, postId);
+            const postSnap = await getDoc(postRef);
+
+            if (!postSnap.exists()) {
+                window.showMessage('Publicación no encontrada.', 'red');
+                return;
+            }
+
+            const postData = postSnap.data();
+            const isAuthor = auth.currentUser.uid === postData.authorId;
+            const isAdmin = currentUserData && currentUserData.role === 'admin';
+
+            if (!isAuthor && !isAdmin) {
+                window.showMessage('No tienes permiso para editar esta publicación.', 'red');
+                return;
+            }
+
+            // Get existing elements
+            const titleElement = postElement.querySelector('h3');
+            const contentElement = postElement.querySelector('p:not(.text-gray-400)'); // Avoid selecting timestamp
+            const mediaContainer = postElement.querySelector('.post-media-content'); // New element to hold media
+
+            // Store original content to restore on cancel
+            const originalTitle = titleElement ? titleElement.textContent : '';
+            const originalContent = contentElement ? contentElement.textContent : '';
+            const originalImageUrl = postData.imageUrl || '';
+            const originalVideoUrl = postData.videoUrl || '';
+
+            // Replace elements with input fields and textareas
+            if (titleElement) {
+                titleElement.outerHTML = `<input type="text" id="edit-title-${postId}" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light text-xl font-bold mb-2" value="${originalTitle.replace(/"/g, '&quot;')}" required>`;
+            }
+            if (contentElement) {
+                contentElement.outerHTML = `<textarea id="edit-content-${postId}" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light text-base mb-4" rows="4" required>${originalContent.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>`;
+            }
+
+            // Replace media content with inputs
+            if (mediaContainer) {
+                mediaContainer.innerHTML = `
+                    <label for="edit-image-url-${postId}" class="block text-sm font-semibold mb-1 text-byte-text-light">URL Imagen (opcional):</label>
+                    <input type="url" id="edit-image-url-${postId}" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light mb-2" placeholder="URL de la imagen" value="${originalImageUrl.replace(/"/g, '&quot;')}" />
+                    <label for="edit-video-url-${postId}" class="block text-sm font-semibold mb-1 text-byte-text-light">URL Video (opcional):</label>
+                    <input type="url" id="edit-video-url-${postId}" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light mb-4" placeholder="URL del video (YouTube o directo)" value="${originalVideoUrl.replace(/"/g, '&quot;')}" />
+                `;
+            } else {
+                // If no media container exists, add the inputs just before the stats section
+                const statsDiv = postElement.querySelector('.text-gray-400.text-sm.mt-3.flex');
+                if (statsDiv) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.classList.add('post-media-content'); // Add this class to recognize it later
+                    tempDiv.innerHTML = `
+                        <label for="edit-image-url-${postId}" class="block text-sm font-semibold mb-1 text-byte-text-light">URL Imagen (opcional):</label>
+                        <input type="url" id="edit-image-url-${postId}" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light mb-2" placeholder="URL de la imagen" value="${originalImageUrl.replace(/"/g, '&quot;')}" />
+                        <label for="edit-video-url-${postId}" class="block text-sm font-semibold mb-1 text-byte-text-light">URL Video (opcional):</label>
+                        <input type="url" id="edit-video-url-${postId}" class="w-full p-2 rounded-md bg-byte-secondary-dark border border-byte-accent-cyan text-byte-text-light mb-4" placeholder="URL del video (YouTube o directo)" value="${originalVideoUrl.replace(/"/g, '&quot;')}" />
+                    `;
+                    statsDiv.parentNode.insertBefore(tempDiv, statsDiv);
+                }
+            }
+
+
+            // Hide existing action buttons (edit, delete, share) and add save/cancel
+            const actionsDiv = postElement.querySelector('.flex.justify-around.items-center.pt-3.mt-2.border-t.border-gray-700');
+            if (actionsDiv) {
+                actionsDiv.innerHTML = `
+                    <button class="flex items-center bg-green-600 text-white font-bold py-2 px-4 rounded-md hover:bg-green-700 transition duration-200" onclick="savePost('${postId}')">
+                        <i class="fas fa-save mr-2"></i> Guardar
+                    </button>
+                    <button class="flex items-center bg-gray-600 text-white font-bold py-2 px-4 rounded-md hover:bg-gray-700 transition duration-200" onclick="cancelEdit('${postId}', '${originalTitle.replace(/'/g, '&apos;').replace(/"/g, '&quot;')}', '${originalContent.replace(/'/g, '&apos;').replace(/"/g, '&quot;')}', '${originalImageUrl.replace(/'/g, '&apos;').replace(/"/g, '&quot;')}', '${originalVideoUrl.replace(/'/g, '&apos;').replace(/"/g, '&quot;')}')">
+                        <i class="fas fa-times mr-2"></i> Cancelar
+                    </button>
+                `;
+            }
+
+            // Hide the edit button that was just clicked
+            const editButton = postElement.querySelector(`[onclick="editPost('${postId}')"]`);
+            if (editButton) editButton.classList.add('hidden');
+        };
+
+        // Función para guardar los cambios de una publicación editada
+        window.savePost = async function(postId) {
+            const postElement = document.getElementById(`post-${postId}`);
+            if (!postElement) return;
+
+            const editedTitle = postElement.querySelector(`#edit-title-${postId}`).value;
+            const editedContent = postElement.querySelector(`#edit-content-${postId}`).value;
+            const editedImageUrl = postElement.querySelector(`#edit-image-url-${postId}`) ? postElement.querySelector(`#edit-image-url-${postId}`).value : null;
+            const editedVideoUrl = postElement.querySelector(`#edit-video-url-${postId}`) ? postElement.querySelector(`#edit-video-url-${postId}`).value : null;
+
+            if (!editedTitle.trim()) {
+                window.showMessage('El título no puede estar vacío.', 'red');
+                return;
+            }
+            if (!editedContent.trim()) {
+                window.showMessage('El contenido no puede estar vacío.', 'red');
+                return;
+            }
+
+            try {
+                const postRef = doc(db, `artifacts/${appId}/public/data/posts`, postId);
+                await updateDoc(postRef, {
+                    title: editedTitle,
+                    content: editedContent,
+                    imageUrl: editedImageUrl.trim() ? editedImageUrl : null,
+                    videoUrl: editedVideoUrl.trim() ? editedVideoUrl : null,
+                    lastEditedAt: serverTimestamp() // Añadir timestamp de última edición
+                });
+                window.showMessage('Publicación actualizada exitosamente.', 'green');
+                // The onSnapshot listener will re-render the post with updated content,
+                // so no need to manually restore the view mode here.
+            } catch (error) {
+                console.error('Error al actualizar publicación:', error);
+                window.showMessage('Error al actualizar la publicación. Intenta de nuevo.', 'red');
+            }
+        };
+
+        // Función para cancelar la edición de una publicación
+        window.cancelEdit = function(postId, originalTitle, originalContent, originalImageUrl, originalVideoUrl) {
+            // Simply trigger a re-render of the post by updating a dummy field or re-fetching
+            // A more robust way without re-fetching would be to revert the DOM manually
+            // For now, we will rely on the onSnapshot to re-render, by performing a dummy update if nothing else changed.
+            const postRef = doc(db, `artifacts/${appId}/public/data/posts`, postId);
+            updateDoc(postRef, { __dummyUpdate: Date.now() })
+                .then(() => {
+                    window.showMessage('Edición cancelada.', 'blue');
+                })
+                .catch(error => {
+                    console.error('Error al cancelar edición:', error);
+                    window.showMessage('Error al cancelar edición. Recarga la página si el problema persiste.', 'red');
+                });
         };
 
         // Función para eliminar un comentario (con chequeo de admin)
@@ -1265,7 +1588,7 @@
                 return;
             }
 
-            if (window.confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
+            if (confirm('¿Estás seguro de que quieres eliminar este comentario?')) {
                 try {
                     await deleteDoc(doc(db, `artifacts/${appId}/public/data/posts/${postId}/comments`, commentId));
                     window.showMessage('Comentario eliminado exitosamente.', 'green');
@@ -1286,10 +1609,33 @@
             const q = query(postsCollectionRef, orderBy('createdAt', 'desc'));
 
             onSnapshot(q, async (snapshot) => {
-                // Iterar sobre los cambios en lugar de borrar y re-renderizar todo
+                // Get current post IDs to manage removals cleanly
+                const existingPostIds = new Set();
+                postsList.querySelectorAll('.forum-topic-card').forEach(card => {
+                    existingPostIds.add(card.id.replace('post-', ''));
+                });
+
+                // Clear posts if the snapshot is empty (no posts yet) or if a post was explicitly removed
+                if (snapshot.empty && existingPostIds.size > 0) {
+                     postsList.innerHTML = '';
+                } else if (snapshot.empty) {
+                    // Display a message if there are genuinely no posts
+                    postsList.innerHTML = `
+                        <div class="forum-topic-card text-center text-gray-400 italic">
+                            No hay publicaciones todavía. ¡Sé el primero en publicar!
+                        </div>
+                    `;
+                }
+
                 snapshot.docChanges().forEach(async (change) => {
                     const postData = { id: change.doc.id, ...change.doc.data() };
                     let postElement = document.getElementById(`post-${postData.id}`); // ID único para cada post
+
+                    // Check if post data exists before rendering (useful if a doc was deleted before being fully processed)
+                    if (!postData.title && !postData.content) {
+                        if (postElement) postElement.remove(); // Remove if incomplete
+                        return;
+                    }
 
                     // Obtener datos del autor (nombre, foto de perfil, y ROL)
                     let authorName = postData.authorEmail || 'Usuario Anónimo';
@@ -1363,10 +1709,15 @@
                         `<button class="text-gray-400 hover:text-red-500 transition duration-200" onclick="deletePost('${postData.id}', '${postData.authorId}')">
                             <i class="fas fa-times text-lg"></i>
                         </button>` : '';
+                    
+                    const editButtonHtml = (isAuthor || isAdmin) ?
+                        `<button class="text-gray-400 hover:text-orange-500 transition duration-200 ml-2" onclick="editPost('${postData.id}')">
+                            <i class="fas fa-edit text-lg"></i>
+                        </button>` : '';
 
                     // Construcción del HTML de la publicación
                     const postHtml = `
-                        <div id="post-${postData.id}" class="forum-topic-card">
+                        <div id="post-${postData.id}" class="forum-topic-card" data-author-id="${postData.authorId}">
                             <div class="flex justify-between items-center mb-4">
                                 <div class="flex items-center">
                                     <img src="${authorProfilePic}" alt="Foto de perfil de ${authorName}" class="w-10 h-10 rounded-full mr-3 object-cover border-2 border-byte-accent-cyan">
@@ -1381,12 +1732,15 @@
                                     <button class="text-gray-400 hover:text-white transition duration-200" onclick="window.showMessage('Opciones de publicación en desarrollo.', 'blue');">
                                         <i class="fas fa-ellipsis-h text-lg"></i>
                                     </button>
+                                    ${editButtonHtml}
                                     ${deleteButtonHtml}
                                 </div>
                             </div>
                             <h3 class="text-xl font-bold text-byte-text-light mb-2">${postData.title || 'Publicación sin título'}</h3>
                             <p class="text-byte-text-light text-base mb-4">${postData.content}</p>
-                            ${mediaContent}
+                            <div class="post-media-content">
+                                ${mediaContent}
+                            </div>
 
                             <!-- Post statistics/meta-info -->
                             <div class="text-gray-400 text-sm mt-3 flex justify-between items-center px-2 py-1 border-b border-gray-700 pb-3">
@@ -1431,7 +1785,7 @@
                             const tempDiv = document.createElement('div');
                             tempDiv.innerHTML = postHtml;
                             postElement = tempDiv.firstElementChild;
-                            postsList.prepend(postElement);
+                            postsList.prepend(postElement); // Prepend to add new posts at the top
                         }
                     } else if (change.type === 'modified') {
                         if (postElement) {
@@ -1753,8 +2107,8 @@
             });
         }
 
-        // Función para enviar una notificación (para cuando se responda a un comentario)
-        async function sendNotification(targetUserId, message, postId, commentId) {
+        // Función para enviar una notificación (para cuando se responda a un comentario o por admin)
+        async function sendNotification(targetUserId, message, postId = null, commentId = null) {
             if (!db) return; // Asegurarse de que Firebase esté inicializado
 
             const notificationsCollectionRef = collection(db, `artifacts/${appId}/users/${targetUserId}/notifications`);
@@ -1762,13 +2116,14 @@
                 await addDoc(notificationsCollectionRef, {
                     message: message,
                     postId: postId,
-                    commentId: commentId, // El ID del comentario al que se respondió
+                    commentId: commentId,
                     read: false,
                     createdAt: serverTimestamp()
                 });
                 console.log(`Notificación enviada a ${targetUserId}`);
             } catch (error) {
                 console.error("Error al enviar notificación:", error);
+                window.showMessage(`Error al enviar notificación a ${targetUserId}.`, 'red');
             }
         }
 
@@ -1835,8 +2190,10 @@
                         mainEl.style.overflow = 'hidden';
                     } else {
                         mainEl.classList.remove('flex', 'items-center', 'justify-center', 'w-full', 'h-screen');
-                        mainEl.style.padding = '';
-                        mainEl.style.paddingTop = '80px';
+                        // Adjust padding based on header height, especially for mobile
+                        const headerHeight = mainHeader ? mainHeader.offsetHeight : 0;
+                        mainEl.style.padding = '1rem'; // Default padding
+                        mainEl.style.paddingTop = `${headerHeight + 20}px`; // Add some extra space
                         mainEl.style.overflow = '';
                     }
                 }
@@ -1878,6 +2235,29 @@
             const notificationCenter = document.getElementById('notification-center'); // Centro de notificaciones
             const unreadNotificationsCount = document.getElementById('unread-notifications-count'); // Contador de notificaciones
 
+            // New profile settings elements
+            const openProfileSettingsBtn = document.getElementById('open-profile-settings-btn');
+            const profileSettingsModal = document.getElementById('profile-settings-modal');
+            const profileSettingsModalCloseBtn = document.getElementById('profile-settings-modal-close-btn');
+            const profileSettingsForm = document.getElementById('profile-settings-form');
+            const profileNameInput = document.getElementById('profile-name');
+            const profileLastnameInput = document.getElementById('profile-lastname');
+            const profilePhoneInput = document.getElementById('profile-phone');
+            const profileDobInput = document.getElementById('profile-dob');
+            const profilePicUrlInput = document.getElementById('profile-pic-url-input');
+            const profileEmailForm = document.getElementById('profile-email-form');
+            const profileCurrentEmailInput = document.getElementById('profile-current-email');
+            const profileNewEmailInput = document.getElementById('profile-new-email');
+            const profileCurrentPasswordInput = document.getElementById('profile-current-password');
+            const adminNotificationUserIdInput = document.getElementById('admin-notification-user-id');
+            const adminNotificationMessageInput = document.getElementById('admin-notification-message');
+            const adminSendNotificationBtn = document.getElementById('admin-send-notification-btn');
+
+            // Rules modal elements
+            const rulesModal = document.getElementById('rules-modal');
+            const rulesModalCloseBtn = document.getElementById('rules-modal-close-btn');
+
+
             // Asegurarse de que el botón de estado de Firebase se obtenga aquí
             firebaseStatusButtonElement = document.getElementById('firebase-status-button');
 
@@ -1897,8 +2277,10 @@
                     event.stopPropagation();
                     if (profileDropdownMenu) {
                         profileDropdownMenu.classList.toggle('show');
-                        // Asegurarse de que el centro de notificaciones esté oculto
+                        // Asegurarse de que el centro de notificaciones y otros modales estén ocultos
                         if (notificationCenter) notificationCenter.classList.remove('show');
+                        if (adminModal) adminModal.style.display = 'none';
+                        if (rulesModal) rulesModal.style.display = 'none';
                     }
                 });
             }
@@ -1909,19 +2291,34 @@
                     event.stopPropagation();
                     if (notificationCenter) {
                         notificationCenter.classList.toggle('show');
-                        // Asegurarse de que el menú de perfil esté oculto
+                        // Asegurarse de que el menú de perfil y otros modales estén ocultos
                         if (profileDropdownMenu) profileDropdownMenu.classList.remove('show');
+                        if (adminModal) adminModal.style.display = 'none';
+                        if (rulesModal) rulesModal.style.display = 'none';
+                        if (profileSettingsModal) profileSettingsModal.style.display = 'none';
+
+
                     }
                 });
             }
 
-            // Cerrar menús desplegables si se hace clic fuera de ellos
+            // Cerrar menús desplegables y modales si se hace clic fuera de ellos
             document.addEventListener('click', (event) => {
                 if (profileDropdownMenu && profileSettingsContainer && !profileSettingsContainer.contains(event.target)) {
                     profileDropdownMenu.classList.remove('show');
                 }
                 if (notificationCenter && notificationsButton && !notificationsButton.contains(event.target) && !notificationCenter.contains(event.target)) {
                     notificationCenter.classList.remove('show');
+                }
+                // Close modals if click outside
+                if (adminModal && event.target === adminModal) {
+                    adminModal.style.display = 'none';
+                }
+                if (profileSettingsModal && event.target === profileSettingsModal) {
+                    profileSettingsModal.style.display = 'none';
+                }
+                 if (rulesModal && event.target === rulesModal) {
+                    rulesModal.style.display = 'none';
                 }
             });
 
@@ -1930,6 +2327,12 @@
                 adminButton.addEventListener('click', async () => {
                     if (adminModal) {
                         adminModal.style.display = 'flex'; // Mostrar el modal
+                        // Ocultar otros menús/modales
+                        if (profileDropdownMenu) profileDropdownMenu.classList.remove('show');
+                        if (notificationCenter) notificationCenter.classList.remove('show');
+                        if (rulesModal) rulesModal.style.display = 'none';
+                        if (profileSettingsModal) profileSettingsModal.style.display = 'none';
+
                         // Cargar el conteo de usuarios registrados
                         try {
                             const usersSnapshot = await getDocs(collection(db, `artifacts/${appId}/users`));
@@ -2030,6 +2433,205 @@
                 });
             }
 
+            // Funcionalidad para que el admin envíe notificaciones por infracción
+            if (adminSendNotificationBtn) {
+                adminSendNotificationBtn.addEventListener('click', async () => {
+                    const targetUserInput = adminNotificationUserIdInput.value.trim();
+                    const notificationMessage = adminNotificationMessageInput.value.trim();
+
+                    if (!targetUserInput || !notificationMessage) {
+                        window.showMessage("ID/Email de usuario y mensaje son obligatorios.", "red");
+                        return;
+                    }
+
+                    if (!auth.currentUser || currentUserData.role !== 'admin') {
+                        window.showMessage("No tienes permisos de administrador para enviar notificaciones.", "red");
+                        return;
+                    }
+
+                    let targetUserId = targetUserInput;
+                    // Si el input parece un email, intentar encontrar el UID
+                    if (targetUserInput.includes('@')) {
+                        const usersRef = collection(db, `artifacts/${appId}/users`);
+                        const q = query(usersRef, where("email", "==", targetUserInput));
+                        const querySnapshot = await getDocs(q);
+                        if (!querySnapshot.empty) {
+                            targetUserId = querySnapshot.docs[0].id;
+                        } else {
+                            window.showMessage("Usuario con ese correo electrónico no encontrado.", "red");
+                            return;
+                        }
+                    }
+
+                    try {
+                        await sendNotification(targetUserId, `Notificación de Infracción: ${notificationMessage}`);
+                        window.showMessage(`Notificación de infracción enviada a ${targetUserInput}.`, 'green');
+                        adminNotificationUserIdInput.value = '';
+                        adminNotificationMessageInput.value = '';
+                    } catch (error) {
+                        console.error("Error al enviar notificación de infracción:", error);
+                        window.showMessage("Error al enviar notificación de infracción.", "red");
+                    }
+                });
+            }
+
+            // Lógica para el modal de Ajustes de Perfil
+            if (openProfileSettingsBtn) {
+                openProfileSettingsBtn.addEventListener('click', () => {
+                    if (profileSettingsModal) {
+                        profileSettingsModal.style.display = 'flex';
+                        // Ocultar otros menús/modales
+                        if (profileDropdownMenu) profileDropdownMenu.classList.remove('show');
+                        if (notificationCenter) notificationCenter.classList.remove('show');
+                        if (adminModal) adminModal.style.display = 'none';
+                        if (rulesModal) rulesModal.style.display = 'none';
+
+                        // Rellenar el formulario con los datos actuales del usuario
+                        if (currentUserData) {
+                            profileNameInput.value = currentUserData.name || '';
+                            profileLastnameInput.value = currentUserData.lastname || '';
+                            profilePhoneInput.value = currentUserData.phone || '';
+                            profilePicUrlInput.value = currentUserData.profilePicUrl || '';
+                            profileCurrentEmailInput.value = currentUserData.email || '';
+                            profileNewEmailInput.value = currentUserData.email || ''; // Initialize new email with current email
+                            
+                            // Formatear la fecha de nacimiento para el input type="date"
+                            if (currentUserData.dob && currentUserData.dob.toDate) {
+                                const dobDate = currentUserData.dob.toDate();
+                                profileDobInput.value = dobDate.toISOString().split('T')[0];
+                            } else if (currentUserData.dob) { // If it's already a string, assume it's inYYYY-MM-DD format
+                                profileDobInput.value = currentUserData.dob;
+                            }
+                        }
+                    }
+                });
+            }
+
+            if (profileSettingsModalCloseBtn) {
+                profileSettingsModalCloseBtn.addEventListener('click', () => {
+                    if (profileSettingsModal) {
+                        profileSettingsModal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Manejar el envío del formulario de Ajustes de Perfil
+            if (profileSettingsForm) {
+                profileSettingsForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!auth.currentUser || !db) return;
+
+                    const userId = auth.currentUser.uid;
+                    const userProfileRef = doc(db, `artifacts/${appId}/users`, userId);
+
+                    const updatedData = {
+                        name: profileNameInput.value.trim(),
+                        lastname: profileLastnameInput.value.trim(),
+                        phone: profilePhoneInput.value.trim(),
+                        profilePicUrl: profilePicUrlInput.value.trim() || DEFAULT_PROFILE_PIC,
+                    };
+
+                    // Handle date of birth: ensure it's stored consistently
+                    const dobValue = profileDobInput.value.trim();
+                    if (dobValue) {
+                        updatedData.dob = dobValue; // Store as YYYY-MM-DD string
+                    } else {
+                        updatedData.dob = null; // Clear if empty
+                    }
+
+                    try {
+                        await updateDoc(userProfileRef, updatedData);
+                        // Update the currentUserData in memory for consistency
+                        currentUserData = { ...currentUserData, ...updatedData };
+                        window.showMessage('Perfil actualizado exitosamente.', 'green');
+                        // Update profile picture in header immediately
+                        if (profilePicImg) profilePicImg.src = updatedData.profilePicUrl;
+                    } catch (error) {
+                        console.error('Error al actualizar perfil:', error);
+                        window.showMessage('Error al actualizar perfil. Intenta de nuevo.', 'red');
+                    }
+                });
+            }
+
+            // Manejar el envío del formulario de Cambio de Correo Electrónico
+            if (profileEmailForm) {
+                profileEmailForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    if (!auth.currentUser || !db) return;
+
+                    const user = auth.currentUser;
+                    const newEmail = profileNewEmailInput.value.trim();
+                    const currentPassword = profileCurrentPasswordInput.value;
+
+                    if (!newEmail || !currentPassword) {
+                        window.showMessage('Todos los campos son obligatorios.', 'red');
+                        return;
+                    }
+
+                    if (newEmail === user.email) {
+                        window.showMessage('El nuevo correo es el mismo que el actual.', 'blue');
+                        return;
+                    }
+
+                    try {
+                        // 1. Re-autenticar al usuario
+                        const credential = EmailAuthProvider.credential(user.email, currentPassword);
+                        await reauthenticateWithCredential(user, credential);
+                        
+                        // 2. Actualizar el correo electrónico
+                        await updateEmail(user, newEmail);
+                        
+                        // 3. Enviar correo de verificación al nuevo email
+                        await sendEmailVerification(user);
+
+                        // 4. Actualizar el email en Firestore también
+                        const userProfileRef = doc(db, `artifacts/${appId}/users`, user.uid);
+                        await updateDoc(userProfileRef, { email: newEmail });
+
+                        window.showMessage('Correo electrónico actualizado. Por favor, verifica tu nuevo correo.', 'green');
+                        profileCurrentPasswordInput.value = ''; // Limpiar campo de contraseña
+                        profileCurrentEmailInput.value = newEmail; // Actualizar el campo de correo actual
+                        profileNewEmailInput.value = newEmail; // Resetear el campo del nuevo correo
+                    } catch (error) {
+                        console.error('Error al cambiar correo electrónico:', error);
+                        let errorMessage = 'Error al cambiar correo electrónico.';
+                        if (error.code === 'auth/wrong-password') {
+                            errorMessage = 'Contraseña actual incorrecta.';
+                        } else if (error.code === 'auth/invalid-email') {
+                            errorMessage = 'El nuevo correo electrónico es inválido.';
+                        } else if (error.code === 'auth/email-already-in-use') {
+                            errorMessage = 'El nuevo correo electrónico ya está en uso.';
+                        } else if (error.code === 'auth/requires-recent-login') {
+                            errorMessage = 'Por favor, cierra sesión y vuelve a iniciar sesión para cambiar tu correo.';
+                        }
+                        window.showMessage(errorMessage, 'red');
+                    }
+                });
+            }
+
+
+            // Lógica para el modal de Reglas del Foro
+            if (rulesButton) {
+                rulesButton.addEventListener('click', () => {
+                    if (rulesModal) {
+                        rulesModal.style.display = 'flex';
+                        // Ocultar otros menús/modales
+                        if (profileDropdownMenu) profileDropdownMenu.classList.remove('show');
+                        if (notificationCenter) notificationCenter.classList.remove('show');
+                        if (adminModal) adminModal.style.display = 'none';
+                        if (profileSettingsModal) profileSettingsModal.style.display = 'none';
+                    }
+                });
+            }
+            if (rulesModalCloseBtn) {
+                rulesModalCloseBtn.addEventListener('click', () => {
+                    if (rulesModal) {
+                        rulesModal.style.display = 'none';
+                    }
+                });
+            }
+
+
             // Manejar el estado de autenticación
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
@@ -2052,6 +2654,9 @@
                                 currentUserData = {
                                     email: user.email,
                                     name: user.email.split('@')[0],
+                                    lastname: '', // Default empty
+                                    phone: '', // Default empty
+                                    dob: null, // Default empty
                                     lastSeen: serverTimestamp(),
                                     profilePicUrl: DEFAULT_PROFILE_PIC,
                                     role: 'user', // Rol por defecto
@@ -2097,11 +2702,6 @@
                             firebaseStatusButtonElement.classList.add('bg-green-500');
                         }
 
-                        // if (createTopicButton) { // Removed this button, logic no longer applies
-                        //     createTopicButton.disabled = false;
-                        //     createTopicButton.classList.remove('opacity-50', 'cursor-not-allowed');
-                        //     createTopicButton.onclick = window.handleCreateNewTopic;
-                        // }
                         loadPosts();
                         loadOnlineUsers();
                         loadNotifications(); // Cargar notificaciones al iniciar sesión
@@ -2133,11 +2733,6 @@
                             firebaseStatusButtonElement.classList.remove('bg-green-500', 'bg-gray-500');
                             firebaseStatusButtonElement.classList.add('bg-red-500');
                         }
-                        // if (createTopicButton) { // Removed this button
-                        //     createTopicButton.disabled = true;
-                        //     createTopicButton.classList.add('opacity-50', 'cursor-not-allowed');
-                        //     createTopicButton.onclick = () => window.showMessage('Debes verificar tu correo para crear un tema.', 'red');
-                        // }
                     }
 
                 } else {
@@ -2164,11 +2759,6 @@
                         firebaseStatusButtonElement.classList.add('bg-red-500');
                     }
 
-                    // if (createTopicButton) { // Removed this button
-                    //     createTopicButton.disabled = true;
-                    //     createTopicButton.classList.add('opacity-50', 'cursor-not-allowed');
-                    //     createTopicButton.onclick = () => window.showMessage('Debes iniciar sesión para crear un tema.', 'red');
-                    // }
                     // Asegurarse de que el formulario de inicio de sesión se muestre por defecto
                     if (loginForm) loginForm.classList.remove('hidden');
                     if (registerForm) registerForm.classList.add('hidden');
@@ -2436,6 +3026,19 @@
                     }
                 }
             });
+
+            // Update main's padding-top on window resize and initial load
+            const updateMainPadding = () => {
+                if (mainEl && mainHeader) {
+                    const headerHeight = mainHeader.offsetHeight;
+                    mainEl.style.paddingTop = `${headerHeight + 20}px`; // Add some extra space
+                }
+            };
+
+            // Call on initial load
+            updateMainPadding();
+            // Call on window resize
+            window.addEventListener('resize', updateMainPadding);
         });
     </script>
 </body>
