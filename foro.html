@@ -52,7 +52,8 @@
             if (user) {
                 window.currentUserId = user.uid;
                 console.log("Firebase Authenticated! User ID:", window.currentUserId);
-                document.getElementById('user-id-display').textContent = `ID de Usuario: ${window.currentUserId}`;
+                // Removed the line that displayed the user ID on the page.
+                // document.getElementById('user-id-display').textContent = `ID de Usuario: ${window.currentUserId}`;
                 // Now that we are authenticated, we can start listening for reviews
                 initializeReviewsListener();
             } else { // User is not signed in
@@ -835,7 +836,8 @@
             </div>
             
             <!-- User ID Display (for debugging/instruction compliance) -->
-            <div id="user-id-display" class="text-xs text-gray-500 mt-4"></div>
+            <!-- La visualización del ID de usuario ha sido eliminada por solicitud del usuario. -->
+            <!-- <div id="user-id-display" class="text-xs text-gray-500 mt-4"></div> -->
 
         </section>
     </main>
