@@ -15,7 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
     <script>
-        // Configuración personalizada de Tailwind CSS
+        // Custom Tailwind CSS Configuration
         tailwind.config = {
             theme: {
                 extend: {
@@ -25,14 +25,14 @@
                         navigation: ['Montserrat', 'sans-serif'],
                     },
                     colors: {
-                        'byte-dark-bg': '#0A0A1A', // Fondo oscuro principal
-                        'byte-accent-cyan': '#00FFFF', // Cian eléctrico para acentos
-                        'byte-light-bg': '#F8FAFC', // Fondo claro (si se usa)
-                        'byte-text-dark': '#374151', // Texto oscuro (si se usa)
-                        'byte-text-light': '#F9FAFB', // Texto claro
-                        'byte-secondary-dark': '#1A202C', // Fondo oscuro secundario (para desplegables)
-                        'whatsapp-green': '#25D366', // Color oficial de WhatsApp
-                        'whatsapp-dark-green': '#128C7E', // Tono más oscuro para hover de WhatsApp
+                        'byte-dark-bg': '#0A0A1A', // Main dark background
+                        'byte-accent-cyan': '#00FFFF', // Electric cyan for accents
+                        'byte-light-bg': '#F8FAFC', // Light background (if used)
+                        'byte-text-dark': '#374151', // Dark text (if used)
+                        'byte-text-light': '#F9FAFB', // Light text
+                        'byte-secondary-dark': '#1A202C', // Secondary dark background (for dropdowns)
+                        'whatsapp-green': '#25D366', // Official WhatsApp color
+                        'whatsapp-dark-green': '#128C7E', // Darker tone for WhatsApp hover
                     }
                 }
             }
@@ -44,48 +44,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Box-Sizing universal para un modelo de caja consistente */
+        /* Box-Sizing universal for consistent box model */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        /* Estilos base para HTML y Body */
+        /* Base styles for HTML and Body */
         html {
-            height: 100%; /* Asegura que HTML tenga altura completa */
-            width: 100%; /* Asegura que HTML tenga ancho completo */
+            height: 100%; /* Ensures HTML has full height */
+            width: 100%; /* Ensures HTML has full width */
         }
         body {
-            min-height: 100vh; /* Asegura que el body ocupe al menos la altura completa del viewport, permitiendo el scroll */
-            width: 100%; /* Asegura que el body ocupe el ancho completo */
-            overflow-x: hidden; /* Previene el scroll horizontal no deseado */
-            background-color: #0A0A1A; /* Color de fondo oscuro principal */
-            font-family: 'Inter', sans-serif; /* Fuente principal */
-            color: #F9FAFB; /* Color de texto principal */
+            min-height: 100vh; /* Ensures body takes at least full viewport height, allowing scrolling */
+            width: 100%; /* Ensures body takes full width */
+            overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+            background-color: #0A0A1A; /* Main dark background color */
+            font-family: 'Inter', sans-serif; /* Main font */
+            color: #F9FAFB; /* Main text color */
             margin: 0;
             padding: 0;
-            /* Deshabilita la selección de texto para una experiencia más similar a una aplicación */
+            /* Disable text selection for an app-like experience */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* Estilos para encabezados (h1-h6) */
+        /* Styles for headings (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif; /* Fuente para encabezados */
-            color: #00FFFF; /* Cian eléctrico para acentos */
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra para un efecto de brillo */
+            font-family: 'Montserrat', sans-serif; /* Font for headings */
+            color: #00FFFF; /* Electric cyan for accents */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Shadow for a glow effect */
         }
 
-        /* Estilo de contorno de texto */
+        /* Text stroke style */
         .text-stroke-cyan {
-            -webkit-text-stroke: 1.5px #00FFFF; /* Contorno cian para navegadores WebKit */
-            text-stroke: 1.5px #00FFFF; /* Contorno cian estándar */
-            color: #FFFFFF; /* Color de relleno del texto */
-            text-shadow: none; /* Asegura que no haya sombras de texto que interfieran */
+            -webkit-text-stroke: 1.5px #00FFFF; /* Cyan stroke for WebKit browsers */
+            text-stroke: 1.5px #00FFFF; /* Standard cyan stroke */
+            color: #FFFFFF; /* Text fill color */
+            text-shadow: none; /* Ensures no text shadows interfere */
         }
 
-        /* Animación "Fall-in" al hacer scroll para AOS (se mantiene la definición pero no se usará si AOS.init se elimina) */
+        /* Fall-in animation for AOS (definition kept, but won't be used if AOS.init is removed) */
         @keyframes fall-in {
             0% {
                 opacity: 0;
@@ -97,7 +97,7 @@
             }
         }
 
-        /* Clase aplicada por AOS.js para animar elementos (se mantiene la definición pero no se usará si AOS.init se elimina) */
+        /* Class applied by AOS.js for animating elements (definition kept, but won't be used if AOS.init is removed) */
         .aos-animate {
             animation-name: fall-in;
             animation-duration: 1s;
@@ -105,68 +105,68 @@
             animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
-        /* Estilos para el texto del menú de navegación con contorno cian */
-        /* Fuente Montserrat aplicada directamente aquí para asegurar su visualización */
+        /* Styles for navigation menu text with cyan stroke */
+        /* Montserrat font applied directly here to ensure display */
         .nav-menu-text-stroke-cyan {
-            color: #E0E0E0; /* Color base plateado para el texto */
-            -webkit-text-stroke-width: 0.7px; /* Contorno cian más delgado para texto pequeño */
-            -webkit-text-stroke-color: #A0A0A0; /* Contorno gris más oscuro para efecto plateado */
-            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Sombra para profundidad */
+            color: #E0E0E0; /* Base silver color for text */
+            -webkit-text-stroke-width: 0.7px; /* Thinner cyan stroke for smaller text */
+            -webkit-text-stroke-color: #A0A0A0; /* Darker gray stroke for silver effect */
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Shadow for depth */
             transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-            font-family: 'Montserrat', sans-serif; /* APLICADO DIRECTAMENTE AQUÍ */
+            font-family: 'Montserrat', sans-serif; /* DIRECTLY APPLIED HERE */
         }
 
-        /* Efecto de brillo y elevación en los enlaces del menú al pasar el ratón */
-        .menu-link-hover-effect { /* Nueva clase para efectos hover */
+        /* Glow and lift effect on menu links on hover */
+        .menu-link-hover-effect { /* New class for hover effects */
             position: relative;
             transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
         .menu-link-hover-effect::before {
             content: '';
             position: absolute;
-            bottom: -5px; /* Posición de la línea debajo del texto */
-            left: 0; /* Comienza desde el inicio del texto */
-            width: 0; /* La línea comienza con ancho cero */
-            height: 3px; /* Grosor de la línea */
-            background-color: #00FFFF; /* Color cian */
+            bottom: -5px; /* Line position below text */
+            left: 0; /* Starts from text beginning */
+            width: 0; /* Line starts with zero width */
+            height: 3px; /* Line thickness */
+            background-color: #00FFFF; /* Cyan color */
             border-radius: 2px;
-            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición para el ancho y la opacidad */
-            opacity: 0; /* Inicialmente invisible */
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transition for width and opacity */
+            opacity: 0; /* Initially invisible */
         }
         .menu-link-hover-effect:hover::before {
-            width: 100%; /* La línea se expande al 100% del ancho del elemento padre */
-            opacity: 1; /* Se vuelve visible */
-            background-color: #00FFFF; /* Asegura que el subrayado sea cian al pasar el ratón */
+            width: 100%; /* Line expands to 100% of parent width */
+            opacity: 1; /* Becomes visible */
+            background-color: #00FFFF; /* Ensures underline is cyan on hover */
         }
         .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
-            color: #00FFFF; /* Cian eléctrico al pasar el ratón */
-            -webkit-text-stroke-color: #00BFFF; /* Cian más oscuro para el contorno al pasar el ratón */
-            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Brillo intenso al pasar el ratón */
+            color: #00FFFF; /* Electric cyan on hover */
+            -webkit-text-stroke-color: #00BFFF; /* Darker cyan for stroke on hover */
+            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Intense glow on hover */
         }
         .menu-link-hover-effect:hover {
-            transform: translateY(-5px); /* Eleva el enlace ligeramente más para un "salto" notable */
+            transform: translateY(-5px); /* Lifts the link slightly more for a noticeable "jump" */
         }
 
-        /* Animación de rebote sutil para el icono de flecha */
+        /* Subtle bounce animation for arrow icon */
         @keyframes bounce-subtle {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-2px); }
         }
 
-        /* Clase para activar la rotación y el rebote de la flecha */
+        /* Class to activate arrow rotation and bounce */
         .js-arrow-icon.arrow-active, .js-arrow-icon-mobile.arrow-active {
             transform: rotate(180deg);
             animation: bounce-subtle 0.5s ease-in-out infinite alternate;
         }
 
-        /* Estilos de las tarjetas de servicio */
+        /* Service card styles */
         .service-card {
-            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Gradiente sutil para el fondo */
-            border-radius: 1rem; /* Esquinas más redondeadas */
-            padding: 2rem; /* Relleno reducido */
-            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Sombra con color de acento */
-            transition: all 0.3s ease-in-out; /* Transición suave para todos los cambios */
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Subtle gradient background */
+            border-radius: 1rem; /* More rounded corners */
+            padding: 2rem; /* Reduced padding */
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Shadow with accent color */
+            transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle border */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -174,60 +174,60 @@
         }
 
         .service-card:hover {
-            transform: translateY(-8px) scale(1.03); /* Elevación y ligero aumento de tamaño al pasar el ratón */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
-            border-color: #00FFFF; /* Borde más visible al pasar el ratón */
+            transform: translateY(-8px) scale(1.03); /* Lift and slight increase in size on hover */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* More pronounced shadow on hover */
+            border-color: #00FFFF; /* More visible border on hover */
         }
 
         .service-card .icon {
-            font-size: 3.5rem; /* Tamaño de icono reducido */
-            margin-bottom: 1rem; /* Margen reducido */
-            /* Eliminado: color: #00FFFF; */ /* Eliminado el color cian para los iconos de servicio */
-            /* Eliminado: text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); */ /* Eliminado el brillo para los iconos de servicio */
-            color: #E0E0E0; /* Color gris claro para los iconos de servicio (blanco y negro) */
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transición para el hover del icono */
+            font-size: 3.5rem; /* Reduced icon size */
+            margin-bottom: 1rem; /* Reduced margin */
+            /* Removed: color: #00FFFF; */ /* Removed cyan color for service icons */
+            /* Removed: text-shadow: 0 0 15px rgba(0, 255, 255, 0.7); */ /* Removed glow for service icons */
+            color: #E0E0E0; /* Light gray color for service icons (black and white) */
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out; /* Transition for icon hover */
         }
         .service-card:hover .icon {
-            transform: rotate(10deg) scale(1.1); /* Efecto de rotación y escala al pasar el ratón */
-            color: #FFFFFF; /* Blanco puro al pasar el ratón para un contraste más fuerte */
+            transform: rotate(10deg) scale(1.1); /* Rotation and scale effect on hover */
+            color: #FFFFFF; /* Pure white on hover for stronger contrast */
         }
 
         .service-card h3 {
-            color: #F9FAFB; /* Texto del título más claro */
-            font-size: 1.5rem; /* Tamaño del título reducido */
-            margin-bottom: 0.75rem; /* Margen reducido */
-            font-weight: 700; /* Más negrita */
+            color: #F9FAFB; /* Lighter title text */
+            font-size: 1.5rem; /* Reduced title size */
+            margin-bottom: 0.75rem; /* Reduced margin */
+            font-weight: 700; /* Bolder */
         }
 
         .service-card p {
-            color: #CBD5E0; /* Texto de párrafo más suave */
-            font-size: 0.95rem; /* Tamaño de párrafo reducido */
+            color: #CBD5E0; /* Softer paragraph text */
+            font-size: 0.95rem; /* Reduced paragraph size */
             line-height: 1.6;
         }
 
-        /* Estilos específicos para las tarjetas de servicio en pantallas pequeñas (celulares) */
-        @media (max-width: 768px) { /* Para pantallas de hasta 768px (md breakpoint) */
+        /* Specific styles for service cards on small screens (mobiles) */
+        @media (max-width: 768px) { /* For screens up to 768px (md breakpoint) */
             .service-card {
-                padding: 1.2rem; /* Reduce el padding para hacer las tarjetas más compactas */
+                padding: 1.2rem; /* Reduce padding to make cards more compact */
             }
             .service-card .icon {
-                font-size: 2.8rem; /* Reduce el tamaño del icono */
+                font-size: 2.8rem; /* Reduce icon size */
                 margin-bottom: 0.8rem;
             }
             .service-card h3 {
-                font-size: 1.3rem; /* Reduce el tamaño del título */
+                font-size: 1.3rem; /* Reduce title size */
                 margin-bottom: 0.6rem;
             }
             .service-card p {
-                font-size: 0.85rem; /* Reduce el tamaño del párrafo */
+                font-size: 0.85rem; /* Reduce paragraph size */
             }
         }
 
 
-        /* Estilos específicos de la sección de contacto */
+        /* Specific styles for contact section */
         .contact-section {
-            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Gradiente de fondo */
-            padding: 4rem 0; /* Relleno reducido */
+            background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Background gradient */
+            padding: 4rem 0; /* Reduced padding */
             position: relative;
             overflow: hidden;
         }
@@ -240,7 +240,7 @@
             width: 200%;
             height: 200%;
             background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
-            animation: rotate-gradient 20s linear infinite; /* Animación de rotación para el fondo */
+            animation: rotate-gradient 20s linear infinite; /* Rotation animation for background */
             z-index: 0;
         }
 
@@ -252,18 +252,18 @@
         .contact-content {
             position: relative;
             z-index: 1;
-            background: rgba(10, 10, 26, 0.85); /* Fondo semi-transparente para el contenido */
+            background: rgba(10, 10, 26, 0.85); /* Semi-transparent background for content */
             border-radius: 1.5rem;
-            padding: 2.5rem; /* Relleno reducido */
+            padding: 2.5rem; /* Reduced padding */
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px); /* Efecto de desenfoque */
+            backdrop-filter: blur(5px); /* Blur effect */
         }
 
-        /* Ajuste de relleno para tarjetas de contacto - AHORA MANEJADO EN HTML CON TAILWIND */
+        /* Padding adjustment for contact cards - NOW HANDLED IN HTML WITH TAILWIND */
         .contact-form-card,
         .contact-info-card {
-            background: #1A202C; /* Fondo oscuro para tarjetas internas */
-            /* el padding se moverá a HTML */
+            background: #1A202C; /* Dark background for inner cards */
+            /* padding will be moved to HTML */
             border-radius: 1rem;
             box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
             border: 1px solid rgba(0, 255, 255, 0.2);
@@ -276,34 +276,34 @@
 
         .contact-form-card input,
         .contact-form-card textarea {
-            background-color: #0A0A1A; /* Usar el color de fondo primario */
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
-            color: #F9FAFB; /* Color de texto claro */
+            background-color: #0A0A1A; /* Use primary background color */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
+            color: #F9FAFB; /* Light text color */
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
         .contact-form-card input::placeholder,
         .contact-form-card textarea::placeholder {
-            color: #b0b0b0; /* Color del placeholder */
+            color: #b0b0b0; /* Placeholder color */
         }
         .contact-form-card input:focus,
         .contact-form-card textarea:focus {
-            border-color: #00FFFF; /* Cian al enfocar */
+            border-color: #00FFFF; /* Cyan on focus */
             box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.5);
         }
         .social-icon-link {
             transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
-            color: #F9FAFB; /* Color de icono predeterminado */
+            color: #F9FAFB; /* Default icon color */
         }
         .social-icon-link:hover {
             transform: translateY(-3px) scale(1.1);
-            color: #00FFFF; /* Cian al pasar el ratón */
+            color: #00FFFF; /* Cyan on hover */
         }
         .map-container {
             overflow: hidden;
             border-radius: 1rem;
-            margin-top: 2rem; /* Margen reducido */
+            margin-top: 2rem; /* Reduced margin */
             width: 100%;
-            /* Altura del mapa - AHORA CONTROLADA POR TAILWIND EN HTML */
+            /* Map height - NOW CONTROLLED BY TAILWIND IN HTML */
         }
         .map-container iframe {
             width: 100%;
@@ -311,55 +311,55 @@
             border: none;
         }
 
-        /* Estilo de enlace deshabilitado */
+        /* Disabled link style */
         .disabled-link {
-            opacity: 0.6; /* Opacidad reducida para indicar deshabilitado */
-            cursor: not-allowed; /* Cursor de "no permitido" */
+            opacity: 0.6; /* Reduced opacity to indicate disabled */
+            cursor: not-allowed; /* "Not allowed" cursor */
         }
 
-        /* Estilos del menú desplegable de escritorio */
+        /* Desktop dropdown menu styles */
         .js-dropdown-menu {
             position: absolute;
-            top: 100%; /* Justo debajo del botón padre */
+            top: 100%; /* Just below parent button */
             left: 50%;
             transform: translateX(-50%);
-            /* min-width: 180px; Ajustado via Tailwind classes */
-            background-color: #1A202C; /* Color oscuro secundario */
+            /* min-width: 180px; Adjusted via Tailwind classes */
+            background-color: #1A202C; /* Secondary dark color */
             border-radius: 0.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
             z-index: 1000;
-            overflow: hidden; /* Para que las esquinas redondeadas funcionen bien con los elementos */
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde cian sutil */
+            overflow: hidden; /* For rounded corners to work well with elements */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
         }
 
-        /* Hover de subcategoría en verde aqua para escritorio */
+        /* Subcategory hover in aqua green for desktop */
         .js-dropdown-menu a {
             display: block;
             padding: 0.75rem 1.25rem;
-            color: #F9FAFB; /* Color de texto claro */
-            text-align: center; /* Centrar texto en el desplegable */
+            color: #F9FAFB; /* Light text color */
+            text-align: center; /* Center text in dropdown */
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
         .js-dropdown-menu a:hover {
-            background-color: #00FFFF; /* Cian eléctrico para el fondo */
-            color: #0A0A1A; /* Texto oscuro al pasar el ratón */
+            background-color: #00FFFF; /* Electric cyan for background */
+            color: #0A0A1A; /* Dark text on hover */
         }
 
-        /* Botón flotante de WhatsApp (Global) */
+        /* Floating WhatsApp button (Global) */
         .whatsapp-float-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            /* Z-index para estar siempre encima de todo, incluyendo el banner de desarrollo */
+            /* Z-index to always be on top of everything, including development banner */
             z-index: 100000001;
             display: flex;
             align-items: center;
-            transition: bottom 0.3s ease-out; /* Transición para el movimiento */
+            transition: bottom 0.3s ease-out; /* Transition for movement */
         }
 
         .whatsapp-float-button {
-            background-color: #25D366; /* Verde de WhatsApp */
+            background-color: #25D366; /* WhatsApp green */
             color: white;
             width: 60px;
             height: 60px;
@@ -374,58 +374,58 @@
         }
 
         .whatsapp-float-button:hover {
-            background-color: #128C7E; /* Tono más oscuro al pasar el ratón */
-            transform: scale(1.05); /* Ligero aumento de escala al pasar el ratón */
-            animation: none !important; /* Detener todas las animaciones al pasar el ratón */
+            background-color: #128C7E; /* Darker tone on hover */
+            transform: scale(1.05); /* Slight increase in scale on hover */
+            animation: none !important; /* Stop all animations on hover */
         }
 
         .whatsapp-float-button svg {
             fill: white; /* Changed fill to white */
             stroke: white; /* Added stroke for thickness */
             stroke-width: 2; /* Increased stroke width for thickness */
-            width: 60%; /* Ajusta el tamaño del icono dentro del botón */
-            height: 60%; /* Ajusta el tamaño del icono dentro del botón */
+            width: 60%; /* Adjust icon size inside button */
+            height: 60%; /* Adjust icon size inside button */
         }
 
-        /* Tooltip para el botón de WhatsApp - Estilo de burbuja de mensaje */
+        /* Tooltip for WhatsApp button - Message bubble style */
         .whatsapp-tooltip {
-            background-color: #FFFFFF; /* Fondo blanco */
-            color: #0A0A1A; /* Texto oscuro */
+            background-color: #FFFFFF; /* White background */
+            color: #0A0A1A; /* Dark text */
             padding: 0.75rem 1rem;
-            border-radius: 0.75rem; /* Esquinas más redondeadas para un aspecto de burbuja */
+            border-radius: 0.75rem; /* More rounded corners for bubble look */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            margin-right: 15px; /* Espacio entre el tooltip y el botón */
-            opacity: 0; /* Inicialmente oculto */
-            visibility: hidden; /* Inicialmente oculto */
-            transform: translateX(20px); /* Empieza ligeramente a la derecha */
+            margin-right: 15px; /* Space between tooltip and button */
+            opacity: 0; /* Initially hidden */
+            visibility: hidden; /* Initially hidden */
+            transform: translateX(20px); /* Starts slightly to the right */
             transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
-            white-space: nowrap; /* Evita que el texto se envuelva */
+            white-space: nowrap; /* Prevents text wrapping */
             font-size: 0.9rem;
-            border: 1px solid rgba(0, 0, 0, 0.1); /* Borde claro sutil */
-            position: relative; /* Necesario para el posicionamiento del pseudo-elemento */
+            border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle light border */
+            position: relative; /* Necessary for pseudo-element positioning */
         }
 
         .whatsapp-tooltip.show-tooltip {
             opacity: 1;
             visibility: visible;
-            transform: translateX(0); /* Desliza a la vista */
+            transform: translateX(0); /* Slides into view */
         }
 
-        /* Cola de la burbuja de diálogo */
+        /* Tail of the dialogue bubble */
         .whatsapp-tooltip::after {
             content: '';
             position: absolute;
-            right: -10px; /* Posición fuera de la burbuja */
-            top: 50%; /* Centrado verticalmente con la burbuja */
-            transform: translateY(-50%); /* Ajuste para el centrado vertical */
+            right: -10px; /* Position outside the bubble */
+            top: 50%; /* Vertically centered with the bubble */
+            transform: translateY(-50%); /* Adjustment for vertical centering */
             width: 0;
             height: 0;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
-            border-left: 10px solid #FFFFFF; /* Borde blanco para que coincida con el fondo de la burbuja */
+            border-left: 10px solid #FFFFFF; /* White border to match bubble background */
         }
 
-        /* Animación de vibración para el botón de WhatsApp */
+        /* Shake animation for WhatsApp button */
         @keyframes shake {
             10%, 90% {
                 transform: translate3d(-1px, 0, 0);
@@ -441,7 +441,7 @@
             }
         }
 
-        /* Animación de brillo de pulso para el botón de WhatsApp */
+        /* Pulse glow animation for WhatsApp button */
         @keyframes pulse-glow {
             0% {
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
@@ -454,169 +454,169 @@
             }
         }
 
-        /* Estilos del menú desplegable móvil */
+        /* Mobile dropdown menu styles */
         .js-dropdown-menu-mobile {
-            background-color: #1A202C; /* Color oscuro secundario */
+            background-color: #1A202C; /* Secondary dark color */
             border-radius: 0.5rem;
-            margin-top: 0.5rem; /* Espacio entre el enlace padre y el submenú */
-            padding: 0.5rem 0; /* Relleno dentro del desplegable */
-            position: relative; /* Necesario para el centrado absoluto */
-            left: 50%; /* Centrado horizontal */
-            transform: translateX(-50%); /* Centrado horizontal */
-            width: 90%; /* Ajustar el ancho para que no sea fijo a 40 y sea más adaptable */
-            max-width: 200px; /* Ancho máximo para evitar que sea demasiado grande */
+            margin-top: 0.5rem; /* Space between parent link and submenu */
+            padding: 0.5rem 0; /* Padding inside dropdown */
+            position: relative; /* Necessary for absolute centering */
+            left: 50%; /* Horizontal centering */
+            transform: translateX(-50%); /* Horizontal centering */
+            width: 90%; /* Adjust width to be more adaptable */
+            max-width: 200px; /* Max width to prevent it from being too large */
         }
 
-        /* Hover de subcategoría en verde aqua para móvil */
+        /* Subcategory hover in aqua green for mobile */
         .js-dropdown-menu-mobile a {
-            padding: 0.75rem 1.5rem; /* Indentar sub-elementos */
-            text-align: center; /* CENTRADO DE SUBCATEGORÍAS EN MÓVIL */
-            border-radius: 0; /* Eliminar bordes redondeados para elementos individuales */
+            padding: 0.75rem 1.5rem; /* Indent sub-elements */
+            text-align: center; /* CENTERING SUBCATEGORIES ON MOBILE */
+            border-radius: 0; /* Remove rounded borders for individual elements */
         }
 
         .js-dropdown-menu-mobile a:hover {
-            background-color: #00FFFF; /* Cian eléctrico para el fondo */
-            color: #0A0A1A; /* Texto oscuro al pasar el ratón */
+            background-color: #00FFFF; /* Electric cyan for background */
+            color: #0A0A1A; /* Dark text on hover */
         }
 
-        /* Nuevo estilo para enlaces de menú móvil activos (subrayado y color de texto) */
+        /* New style for active mobile menu links (underline and text color) */
         .mobile-menu-link-active::before {
-            width: 100% !important; /* Fuerza el ancho a 100% */
-            opacity: 1 !important; /* Fuerza la visibilidad */
-            background-color: #00FFFF !important; /* Asegura el color cian */
+            width: 100% !important; /* Force width to 100% */
+            opacity: 1 !important; /* Force visibility */
+            background-color: #00FFFF !important; /* Ensure cyan color */
         }
 
         .mobile-menu-link-active {
-            transform: translateY(-5px) !important; /* Eleva el enlace */
+            transform: translateY(-5px) !important; /* Lift the link */
         }
 
-        /* --- Estilos para reducción de tamaño en PC y pantallas grandes --- */
-        @media (min-width: 1024px) { /* Ajusta este breakpoint según sea necesario (lg en Tailwind) */
+        /* --- Styles for size reduction on PC and large screens --- */
+        @media (min-width: 1024px) { /* Adjust this breakpoint as needed (lg in Tailwind) */
             .header-nav-item {
-                font-size: 0.95rem; /* Fuente más pequeña para enlaces de navegación */
+                font-size: 0.95rem; /* Smaller font for navigation links */
             }
 
             .main-cta-button {
-                padding: 0.6rem 1.5rem; /* Relleno de botón ligeramente más pequeño */
-                font-size: 0.9rem; /* Fuente más pequeña para el botón CTA */
+                padding: 0.6rem 1.5rem; /* Slightly smaller button padding */
+                font-size: 0.9rem; /* Smaller font for CTA button */
             }
 
             .hero-section-padding {
-                padding-top: 6rem; /* Ajusta el relleno superior para la sección hero */
-                padding-bottom: 6rem; /* Ajusta el relleno inferior para la sección hero */
+                padding-top: 6rem; /* Adjust top padding for hero section */
+                padding-bottom: 6rem; /* Adjust bottom padding for hero section */
             }
 
             .hero-heading {
-                font-size: 3.5rem; /* Encabezado más pequeño para la sección hero */
+                font-size: 3.5rem; /* Smaller heading for hero section */
             }
 
             .hero-subheading {
-                font-size: 1.1rem; /* Subencabezado más pequeño para la sección hero */
+                font-size: 1.1rem; /* Smaller subheading for hero section */
             }
 
             .section-heading {
-                font-size: 2.5rem; /* Encabezados de sección generales más pequeños */
+                font-size: 2.5rem; /* Smaller general section headings */
             }
 
             .service-card {
-                padding: 1.5rem; /* Relleno más pequeño para tarjetas de servicio */
+                padding: 1.5rem; /* Smaller padding for service cards */
             }
 
             .service-card .icon {
-                font-size: 3rem; /* Tamaño de icono más pequeño en tarjetas de servicio */
+                font-size: 3rem; /* Smaller icon size in service cards */
             }
 
             .service-card h3 {
-                font-size: 1.3rem; /* Título más pequeño en tarjetas de servicio */
+                font-size: 1.3rem; /* Smaller title in service cards */
             }
 
             .service-card p {
-                font-size: 0.85rem; /* Texto de párrafo más pequeño en tarjetas de servicio */
+                font-size: 0.85rem; /* Smaller paragraph text in service cards */
             }
 
             .contact-section {
-                padding: 3rem 0; /* Relleno más pequeño para la sección de contacto */
+                padding: 3rem 0; /* Smaller padding for contact section */
             }
 
             .contact-content {
-                padding: 2rem; /* Relleno más pequeño para la tarjeta de contenido de contacto */
+                padding: 2rem; /* Smaller padding for contact content card */
             }
 
             .contact-form-card,
             .contact-info-card {
-                padding: 1.5rem; /* Relleno más pequeño para tarjetas de contacto internas */
+                padding: 1.5rem; /* Smaller padding for inner contact cards */
             }
 
             .contact-form-card input,
             .contact-form-card textarea {
-                font-size: 0.8rem; /* Fuente más pequeña para campos de formulario */
+                font-size: 0.8rem; /* Smaller font for form fields */
             }
 
             .social-icon-link svg {
-                width: 24px; /* Iconos sociales más pequeños */
+                width: 24px; /* Smaller social icons */
                 height: 24px;
             }
 
             .whatsapp-float-button {
-                width: 50px; /* Botón de WhatsApp más pequeño */
+                width: 50px; /* Smaller WhatsApp button */
                 height: 50px;
                 font-size: 1.8rem;
             }
         }
 
-        /* Estilos del pie de página */
+        /* Footer styles */
         .footer {
-            background-color: #1A202C; /* Fondo oscuro secundario */
-            color: #F9FAFB; /* Texto claro */
-            padding: 2rem 0; /* Relleno para el pie de página */
-            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Borde superior cian sutil */
+            background-color: #1A202C; /* Secondary dark background */
+            color: #F9FAFB; /* Light text */
+            padding: 2rem 0; /* Padding for footer */
+            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan top border */
         }
 
         .footer a {
-            color: #00FFFF; /* Cian para enlaces */
+            color: #00FFFF; /* Cyan for links */
             transition: color 0.3s ease;
         }
 
         .footer a:hover {
-            color: #00BFFF; /* Cian más oscuro al pasar el ratón */
+            color: #00BFFF; /* Darker cyan on hover */
         }
 
         .footer-heading {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.25rem; /* Fuente más grande para encabezados */
+            font-size: 1.25rem; /* Larger font for headings */
             font-weight: 700;
             margin-bottom: 0.75rem;
-            color: #00FFFF; /* Color cian para encabezados */
+            color: #00FFFF; /* Cyan color for headings */
         }
 
         .footer-link-item {
-            margin-bottom: 0.5rem; /* Espacio entre elementos de la lista */
+            margin-bottom: 0.5rem; /* Space between list items */
         }
 
         .footer-social-icon {
-            font-size: 1.75rem; /* Tamaño de los iconos sociales */
+            font-size: 1.75rem; /* Size of social icons */
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .footer-social-icon:hover {
-            color: #00FFFF; /* Cian al pasar el ratón */
+            color: #00FFFF; /* Cyan on hover */
             transform: translateY(-3px) scale(1.1);
         }
 
-        /* Animación para la imagen del icono de precios */
+        /* Animation for the prices icon image */
         @keyframes rotate-3d {
-            /* Modificado para rotar solo en el eje Y */
+            /* Modified to rotate only on Y-axis */
             from { transform: rotateY(0deg); }
             to { transform: rotateY(360deg); }
         }
 
         .price-icon-animated {
-            animation: rotate-3d 12s linear infinite; /* Animación de rotación 3D, más lenta */
-            transform-style: preserve-3d; /* Necesario para que la rotación 3D funcione */
+            animation: rotate-3d 12s linear infinite; /* 3D rotation animation, slower */
+            transform-style: preserve-3d; /* Needed for 3D rotation to work */
         }
 
 
-        /* Animación de giro para el texto del encabezado */
+        /* Spin animation for header text */
         @keyframes text-flip-out {
             0% {
                 opacity: 1;
@@ -655,23 +655,23 @@
             animation: text-flip-in 0.8s ease-in-out forwards;
         }
 
-        /* Estilos para asegurar que el h1 mantenga su altura y centrado */
+        /* Styles to ensure h1 maintains its height and centering */
         #hero-heading-text {
-            height: 8rem; /* Altura fija para acomodar el texto más largo en varias líneas */
-            display: flex; /* Habilitar flexbox */
-            align-items: center; /* Centrar verticalmente el contenido */
-            justify-content: center; /* Centrar horizontalmente el contenido */
-            perspective: 1000px; /* Necesario para la animación 3D de giro */
+            height: 8rem; /* Fixed height to accommodate longer text on multiple lines */
+            display: flex; /* Enable flexbox */
+            align-items: center; /* Vertically center content */
+            justify-content: center; /* Horizontally center content */
+            perspective: 1000px; /* Necessary for 3D flip animation */
         }
 
-        /* Ajustes para pantallas más pequeñas si el texto se desborda */
+        /* Adjustments for smaller screens if text overflows */
         @media (max-width: 768px) {
             #hero-heading-text {
-                height: 7rem; /* Altura fija para pantallas móviles */
+                height: 7rem; /* Fixed height for mobile screens */
             }
         }
 
-        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        /* Styles to disable text selection and pointer events on images */
         img {
             pointer-events: none;
         }
@@ -681,14 +681,14 @@
             -webkit-touch-callout: none;
         }
 
-        /* Estilos para el carrusel de métodos de pago */
+        /* Styles for payment methods carousel */
         @keyframes scroll-carousel {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
         :root {
-            --speed: 60s; /* Velocidad inicial del carrusel en segundos */
+            --speed: 60s; /* Initial carousel speed in seconds */
         }
 
         .animate-scroll-carousel {
@@ -738,30 +738,30 @@
             position: relative;
         }
 
-        /* Estilos para las flechas de navegación */
+        /* Styles for navigation arrows */
         .arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
             width: 40px;
             height: 40px;
-            background-color: rgba(0, 255, 255, 0.15); /* Cian semi-transparente */
+            background-color: rgba(0, 255, 255, 0.15); /* Semi-transparent cyan */
             color: white;
             border-radius: 50%; /* Circular */
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            opacity: 0; /* Oculto por defecto */
-            pointer-events: none; /* No interactivo cuando está oculto */
+            opacity: 0; /* Hidden by default */
+            pointer-events: none; /* Non-interactive when hidden */
             transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-            border: 1px solid rgba(0, 255, 255, 0.3); /* Borde sutil */
-            z-index: 10; /* Asegura que las flechas estén por encima de los elementos del carrusel */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle border */
+            z-index: 10; /* Ensures arrows are above carousel elements */
         }
 
         .arrow:hover {
-            background-color: rgba(0, 255, 255, 0.3); /* Más opaco al pasar el ratón */
-            transform: translateY(-50%) scale(1.1); /* Ligero aumento de escala al pasar el ratón */
+            background-color: rgba(0, 255, 255, 0.3); /* More opaque on hover */
+            transform: translateY(-50%) scale(1.1); /* Slight increase in scale on hover */
         }
 
         .arrow-left {
@@ -772,20 +772,20 @@
             right: 10px;
         }
 
-        /* Mostrar flechas al pasar el ratón sobre el contenedor del carrusel (solo en escritorio) */
+        /* Show arrows on hover over carousel container (desktop only) */
         .carousel-wrapper:hover .arrow {
             opacity: 1;
             pointer-events: auto;
         }
 
-        /* Ocultar flechas en móvil */
+        /* Hide arrows on mobile */
         @media (max-width: 768px) {
             .arrow {
                 display: none;
             }
         }
 
-        /* Estilos para animaciones de carrusel */
+        /* Styles for carousel animations */
         @keyframes slide-carousel {
             0% {
                 transform: translateX(0);
@@ -861,7 +861,7 @@
                         </a>
                         <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
                             <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
+                            <a href="valoresyobjetivos.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
                         </div>
                     </li>
                     <li class="relative group">
@@ -936,7 +936,7 @@
                 </a>
                 <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
                     <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
+                    <a href="valoresyobjetivos.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
                 </div>
             </li>
             <li>
@@ -968,17 +968,17 @@
     <main class="flex-grow">
         <section id="inicio" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
             <video autoplay loop muted playsinline preload="auto"
-                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
+                           class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
                 <!--
-                    Atributos importantes para la reproducción automática de videos de fondo:
-                    - autoplay: Inicia la reproducción del video automáticamente.
-                    - loop: Reproduce el video en un bucle continuo.
-                    - muted: Silencia el video. Es crucial para que el autoplay funcione en la mayoría de los navegadores, ya que muchos bloquean la reproducción automática con sonido.
-                    - playsinline: Permite que el video se reproduzca en línea en iOS, en lugar de ir a pantalla completa automáticamente.
-                    - preload="auto": Sugiere al navegador que cargue el video completo tan pronto como sea posible.
+                    Important attributes for background video autoplay:
+                    - autoplay: Starts video playback automatically.
+                    - loop: Loops the video continuously.
+                    - muted: Mutes the video. Crucial for autoplay to work in most browsers, as many block auto-play with sound.
+                    - playsinline: Allows video to play inline on iOS, instead of going full-screen automatically.
+                    - preload="auto": Suggests to the browser to load the entire video as soon as possible.
                 -->
                 <source src="./images/fondo.mp4" type="video/mp4">
-                Tu navegador no soporta la etiqueta de video.
+                Your browser does not support the video tag.
             </video>
             <div class="container mx-auto px-4 relative z-10 text-center">
                 <h1 id="hero-heading-text" class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading">
@@ -1040,8 +1040,6 @@
                 </div>
             </div>
         </section>
-
-
         <section id="metodos-pago" class="py-16 text-center bg-byte-dark-bg text-byte-text-light">
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-extrabold text-cyan-400 mb-4">Múltiples Métodos de Pago</h2>
@@ -1099,6 +1097,7 @@
                             <img src="https://img.icons8.com/dusk/64/000000/smartphone-tablet.png" alt="Pago Móvil" class="w-14 h-14 object-contain">
                             <span>Pago Móvil</span>
                         </div>
+
                         <div class="payment-card">
                             <img src="https://img.icons8.com/color/48/000000/bank-building.png" alt="Transferencia" class="w-14 h-14 object-contain">
                             <span>Transferencia</span>
@@ -1165,9 +1164,11 @@
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
         <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <!-- Instagram Icon -->
                 <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
                 </a>
+                <!-- WhatsApp Icon -->
                 <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                     <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
                 </a>
@@ -1208,7 +1209,7 @@
     </div>
 
     <script type="text/javascript">
-        // Integración del chatbot
+        // Chatbot integration
         (function() {
             var chatBotEl = document.createElement('chat-bot');
             chatBotEl.setAttribute('platform_id', 'c53f3ecc-023b-4e9b-9289-d92fc39e8fd6');
@@ -1229,63 +1230,63 @@
     </script>
 
     <script>
-        // Variables globales para elementos de WhatsApp
+        // Global variables for WhatsApp elements
         const whatsappButton = document.getElementById('whatsapp-float-button');
         const whatsappTooltip = document.getElementById('whatsapp-tooltip');
         const whatsappFloatContainer = document.querySelector('.whatsapp-float-container');
         let initialTooltipTimeout;
         let animationInterval;
-        let whatsappTooltipEnabled = true; // Bandera para controlar la visibilidad del tooltip y las animaciones
+        let whatsappTooltipEnabled = true; // Flag to control tooltip visibility and animations
 
-        // Variables globales para el banner de cookies
+        // Global variables for cookie banner
         const cookieBanner = document.getElementById('cookie-banner');
         const acceptCookiesButton = document.getElementById('accept-cookies-button');
 
-        // Variables para el control de velocidad del carrusel
+        // Variables for carousel speed control
         const carousel = document.getElementById('carousel');
         const leftArrow = document.getElementById('carousel-arrow-left');
         const rightArrow = document.getElementById('carousel-arrow-right');
-        let currentSpeed = 60; // Velocidad inicial en segundos (más alto = más lento)
-        const minSpeed = 10; // Velocidad mínima (más rápido)
-        const maxSpeed = 120; // Velocidad máxima (más lento)
-        const speedStep = 10; // Incremento/decremento de velocidad
+        let currentSpeed = 60; // Initial speed in seconds (higher = slower)
+        const minSpeed = 10; // Minimum speed (faster)
+        const maxSpeed = 120; // Maximum speed (slower)
+        const speedStep = 10; // Speed increment/decrement
 
-        // Variables para el control táctil
+        // Variables for touch control
         let touchStartX = 0;
-        let touchTimeout; // Para restablecer la velocidad después de un toque
+        let touchTimeout; // To reset speed after a touch
 
-        // Función para actualizar la velocidad del carrusel (modifica la variable CSS)
+        // Function to update carousel speed (modifies CSS variable)
         function updateCarouselSpeed() {
             document.documentElement.style.setProperty('--speed', `${currentSpeed}s`);
         }
 
-        // Función para mostrar el tooltip de WhatsApp
+        // Function to show WhatsApp tooltip
         function showTooltip(autoHide = false) {
-            if (whatsappTooltipEnabled) { // Solo mostrar si está habilitado globalmente
+            if (whatsappTooltipEnabled) { // Only show if globally enabled
                 whatsappTooltip.classList.add('show-tooltip');
                 if (autoHide) {
-                    // Limpiar cualquier timeout de auto-ocultamiento existente para evitar conflictos
+                    // Clear any existing auto-hide timeout to avoid conflicts
                     if (initialTooltipTimeout) {
                         clearTimeout(initialTooltipTimeout);
                     }
                     initialTooltipTimeout = setTimeout(() => {
                         hideTooltip();
-                    }, 8000); // Auto-ocultar después de 8 segundos
+                    }, 8000); // Auto-hide after 8 seconds
                 }
             }
         }
 
-        // Función para ocultar el tooltip de WhatsApp
+        // Function to hide WhatsApp tooltip
         function hideTooltip() {
             whatsappTooltip.classList.remove('show-tooltip');
         }
 
-        // Función para iniciar la secuencia de animaciones de WhatsApp
+        // Function to start WhatsApp animation sequence
         function startWhatsappAnimations() {
-            // Limpiar cualquier animación existente para reiniciar
+            // Clear any existing animation to restart
             whatsappButton.style.animation = 'none';
-            void whatsappButton.offsetWidth; // Forzar el reflujo
-            whatsappButton.style.animation = ''; // Restablecer la propiedad de animación
+            void whatsappButton.offsetWidth; // Force reflow
+            whatsappButton.style.animation = ''; // Reset animation property
 
             whatsappButton.style.animation = 'pulse-glow 2s forwards';
 
@@ -1294,99 +1295,99 @@
             }, 2000);
         }
 
-        // Función para gestionar el ciclo de animación de WhatsApp
+        // Function to manage WhatsApp animation cycle
         function setupAnimationCycle() {
             if (animationInterval) {
                 clearInterval(animationInterval);
             }
-            if (whatsappTooltipEnabled) { // Solo iniciar animaciones si está habilitado globalmente
+            if (whatsappTooltipEnabled) { // Only start animations if globally enabled
                 startWhatsappAnimations();
                 animationInterval = setInterval(() => {
                     startWhatsappAnimations();
                 }, 8000);
             } else {
-                // Si las animaciones están deshabilitadas, asegurar que no haya ninguna animación en ejecución
+                // If animations are disabled, ensure no animation is running
                 whatsappButton.style.animation = 'none';
             }
         }
 
-        // Función para actualizar la posición del botón de WhatsApp según la visibilidad del banner de cookies
+        // Function to update WhatsApp button position based on cookie banner visibility
         function updateWhatsappPosition() {
             const isCookieBannerVisible = !cookieBanner.classList.contains('hidden');
 
             if (isCookieBannerVisible) {
-                // Si el banner de cookies está visible, elevar según la altura del banner de cookies
-                // Pequeño retraso para asegurar que la altura del banner de cookies se renderice antes del cálculo
+                // If cookie banner is visible, raise based on cookie banner height
+                // Small delay to ensure cookie banner height renders before calculation
                 setTimeout(() => {
                     const cookieBannerHeight = cookieBanner.offsetHeight;
                     whatsappFloatContainer.style.bottom = `${cookieBannerHeight + 20}px`;
                 }, 50);
             } else {
-                // Si ningún banner de cookies está visible, restaurar la posición predeterminada de WhatsApp
+                // If no cookie banner is visible, restore default WhatsApp position
                 whatsappFloatContainer.style.bottom = '20px';
             }
         }
 
-        // Listeners de eventos para el botón de WhatsApp (fuera de los banners)
+        // Event listeners for WhatsApp button (outside banners)
         if (whatsappButton && whatsappTooltip) {
             whatsappButton.addEventListener('mouseenter', () => {
-                // Cuando se pasa el ratón por encima, detener el ciclo de animación automático
+                // On hover, stop automatic animation cycle
                 clearInterval(animationInterval);
-                whatsappButton.style.animation = 'none'; // Limpiar cualquier animación en curso
-                showTooltip(); // Mostrar tooltip al pasar el ratón (sin auto-ocultar en hover)
+                whatsappButton.style.animation = 'none'; // Clear any ongoing animation
+                showTooltip(); // Show tooltip on hover (no auto-hide on hover)
             });
 
             whatsappButton.addEventListener('mouseleave', () => {
-                // Después de pasar el ratón, reiniciar el ciclo de animación automático
+                // After hover, restart automatic animation cycle
                 hideTooltip();
-                if (whatsappTooltipEnabled) { // Solo reiniciar animaciones si están habilitadas para el ciclo automático
+                if (whatsappTooltipEnabled) { // Only restart animations if enabled for auto cycle
                     setupAnimationCycle();
                 }
             });
         }
 
-        // Lógica principal de carga de página para los banners
+        // Main page load logic for banners
         window.addEventListener('load', () => {
             const cookieConsentAccepted = localStorage.getItem('cookieConsentAccepted');
 
-            // Inicializar la velocidad del carrusel al cargar
+            // Initialize carousel speed on load
             updateCarouselSpeed();
 
-            // Si las cookies NO han sido aceptadas
+            // If cookies have NOT been accepted
             if (!cookieConsentAccepted) {
-                cookieBanner.classList.remove('hidden'); // Mostrar el banner de cookies
-                updateWhatsappPosition(); // Ajustar la posición de WhatsApp para el banner de cookies
+                cookieBanner.classList.remove('hidden'); // Show cookie banner
+                updateWhatsappPosition(); // Adjust WhatsApp position for cookie banner
 
-                whatsappTooltipEnabled = false; // Deshabilitar tooltip y animaciones automáticas
-                hideTooltip(); // Asegurar que el tooltip esté oculto en la carga
-                clearInterval(animationInterval); // Detener cualquier animación predeterminada
+                whatsappTooltipEnabled = false; // Disable tooltip and automatic animations
+                hideTooltip(); // Ensure tooltip is hidden on load
+                clearInterval(animationInterval); // Stop any default animations
 
-                // Al hacer clic en 'Aceptar' del banner de cookies
+                // On clicking 'Accept' on cookie banner
                 acceptCookiesButton.addEventListener('click', () => {
                     localStorage.setItem('cookieConsentAccepted', 'true');
-                    cookieBanner.classList.add('hidden'); // Ocultar el banner de cookies
-                    updateWhatsappPosition(); // Reajustar la posición de WhatsApp (irá a 20px por defecto)
+                    cookieBanner.classList.add('hidden'); // Hide cookie banner
+                    updateWhatsappPosition(); // Re-adjust WhatsApp position (will go to 20px by default)
 
-                    whatsappTooltipEnabled = true; // Habilitar tooltip y animaciones automáticas
-                    // Mostrar tooltip y comenzar animaciones después de un breve retraso al aceptar cookies
+                    whatsappTooltipEnabled = true; // Enable tooltip and automatic animations
+                    // Show tooltip and start animations after a brief delay on accepting cookies
                     initialTooltipTimeout = setTimeout(() => {
-                        showTooltip(true); // Mostrar y auto-ocultar
+                        showTooltip(true); // Show and auto-hide
                         setupAnimationCycle();
                     }, 1000);
                 });
-            } else { // Si el consentimiento de cookies YA fue dado
-                cookieBanner.classList.add('hidden'); // Asegurar que el banner de cookies esté oculto
-                updateWhatsappPosition(); // Ajustar la posición de WhatsApp (será 20px)
+            } else { // If cookie consent HAS been given
+                cookieBanner.classList.add('hidden'); // Ensure cookie banner is hidden
+                updateWhatsappPosition(); // Adjust WhatsApp position (will be 20px)
 
-                whatsappTooltipEnabled = true; // Habilitar tooltip y animaciones automáticas
-                // Mostrar tooltip y comenzar animaciones después de un breve retraso en la carga de la página
+                whatsappTooltipEnabled = true; // Enable tooltip and automatic animations
+                // Show tooltip and start animations after a brief delay on page load
                 initialTooltipTimeout = setTimeout(() => {
-                    showTooltip(true); // Mostrar y auto-ocultar
+                    showTooltip(true); // Show and auto-hide
                     setupAnimationCycle();
                 }, 1000);
             }
 
-            // Lógica para el control de velocidad del carrusel con flechas (escritorio)
+            // Logic for carousel speed control with arrows (desktop)
             if (leftArrow && rightArrow) {
                 leftArrow.addEventListener('click', () => {
                     currentSpeed = Math.min(maxSpeed, currentSpeed + speedStep);
@@ -1399,11 +1400,11 @@
                 });
             }
 
-            // Lógica para el control de velocidad del carrusel con deslizamiento (móvil)
+            // Logic for carousel speed control with swipe (mobile)
             if (carousel) {
                 carousel.addEventListener('touchstart', (e) => {
                     touchStartX = e.touches[0].clientX;
-                    // Limpiar cualquier timeout de restablecimiento de velocidad
+                    // Clear any speed reset timeout
                     if (touchTimeout) {
                         clearTimeout(touchTimeout);
                     }
@@ -1411,66 +1412,66 @@
 
                 carousel.addEventListener('touchmove', (e) => {
                     const touchCurrentX = e.touches[0].clientX;
-                    const deltaX = touchStartX - touchCurrentX; // Deslizamiento a la izquierda es positivo, a la derecha es negativo
+                    const deltaX = touchStartX - touchCurrentX; // Swiping left is positive, right is negative
 
-                    if (Math.abs(deltaX) > 5) { // Solo ajustar si hay un movimiento significativo
-                        if (deltaX > 0) { // Deslizando a la izquierda (más rápido)
+                    if (Math.abs(deltaX) > 5) { // Only adjust if there's significant movement
+                        if (deltaX > 0) { // Swiping left (faster)
                             currentSpeed = Math.max(minSpeed, currentSpeed - speedStep);
-                        } else if (deltaX < 0) { // Deslizando a la derecha (más lento)
+                        } else if (deltaX < 0) { // Swiping right (slower)
                             currentSpeed = Math.min(maxSpeed, currentSpeed + speedStep);
                         }
                         updateCarouselSpeed();
-                        touchStartX = touchCurrentX; // Actualizar touchStartX para movimientos continuos
+                        touchStartX = touchCurrentX; // Update touchStartX for continuous movements
                     }
                 });
 
                 carousel.addEventListener('touchend', () => {
-                    // Restablecer la velocidad a la inicial después de un breve retraso
+                    // Reset speed to initial after a brief delay
                     touchTimeout = setTimeout(() => {
-                        currentSpeed = 60; // Restablecer a la velocidad inicial
+                        currentSpeed = 60; // Reset to initial speed
                         updateCarouselSpeed();
-                    }, 500); // 0.5 segundos de retraso
+                    }, 500); // 0.5 seconds delay
                 });
             }
         });
     </script>
 
     <script>
-        // Inicialización de AOS con configuraciones (se comenta para deshabilitar la carga por partes)
+        // AOS initialization (commented out to disable part-by-part loading)
         /*
         AOS.init({
-            once: true, // Las animaciones solo se ejecutan una vez al desplazarse hacia abajo
-            mirror: false, // No animar al desplazarse hacia arriba
-            offset: 100, // Desplazamiento (en px) desde el punto de activación original
-            duration: 800, // Duración de la animación (en ms)
-            easing: 'ease-out-cubic', // Función de temporización para la animación
+            once: true, // Animations only run once when scrolling down
+            mirror: false, // Do not animate when scrolling up
+            offset: 100, // Offset (in px) from the original trigger point
+            duration: 800, // Animation duration (in ms)
+            easing: 'ease-out-cubic', // Timing function for animation
         });
         */
     </script>
 
     <script>
-        // Lógica para menús desplegables de escritorio
+        // Logic for desktop dropdown menus
         window.addEventListener('load', () => {
             document.querySelectorAll('.js-dropdown-toggle').forEach(button => {
                 button.addEventListener('click', function(event) {
-                    event.preventDefault(); // Previene la acción de navegación predeterminada del enlace
-                    const dropdownId = this.dataset.dropdownId; // Obtiene el ID del menú desplegable asociado
+                    event.preventDefault(); // Prevents default link navigation action
+                    const dropdownId = this.dataset.dropdownId; // Gets associated dropdown menu ID
                     const dropdownMenu = document.getElementById(dropdownId);
                     const arrowIcon = this.querySelector('.js-arrow-icon');
 
-                    // Cierra otros menús desplegables de escritorio abiertos
+                    // Close other open desktop dropdown menus
                     document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
                         if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                             menu.classList.add('hidden');
                             const otherButton = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                             if (otherButton) {
-                                // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                // Remove bounce animation and rotation when closing other menus
                                 otherButton.querySelector('.js-arrow-icon').classList.remove('arrow-active');
                             }
                         }
                     });
 
-                    // Alterna la visibilidad del menú actual y aplica/elimina rotación y animación de rebote
+                    // Toggle visibility of current menu and apply/remove rotation and bounce animation
                     dropdownMenu.classList.toggle('hidden');
                     if (!dropdownMenu.classList.contains('hidden')) {
                         arrowIcon.classList.add('arrow-active');
@@ -1480,26 +1481,26 @@
                 });
             });
 
-            // Cierra todos los menús desplegables de escritorio al hacer clic fuera de ellos
+            // Close all desktop dropdown menus when clicking outside them
             document.addEventListener('click', function(event) {
-                // Si el clic no fue dentro de un botón desplegable o un menú desplegable
+                // If click was not inside a dropdown button or a dropdown menu
                 if (!event.target.closest('.js-dropdown-toggle') && !event.target.closest('.js-dropdown-menu')) {
                     document.querySelectorAll('.js-dropdown-menu').forEach(menu => {
-                        menu.classList.add('hidden'); // Oculta el menú
+                        menu.classList.add('hidden'); // Hide the menu
                         const button = document.querySelector(`[data-dropdown-id="${menu.id}"]`);
                         if (button) {
-                            // Restaura la orientación de la flecha y elimina la animación al cerrar
+                            // Restore arrow orientation and remove animation when closing
                             button.querySelector('.js-arrow-icon').classList.remove('arrow-active');
                         }
                     });
                 }
             });
 
-            // Lógica para el menú móvil y sus desplegables
+            // Logic for mobile menu and its dropdowns
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
-            // Definición de estilos para el texto del menú móvil (plateado y cian)
+            // Definition of styles for mobile menu text (silver and cyan)
             const mobileMenuSilverStyles = {
                 color: '#E0E0E0',
                 webkitTextStrokeColor: '#A0A0A0',
@@ -1512,10 +1513,10 @@
                 textShadow: '0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6)'
             };
 
-            // Inicializar Tone.js Synth
-            let synth = null; // Inicializar a null
+            // Initialize Tone.js Synth
+            let synth = null; // Initialize to null
 
-            // Función para aplicar estilos al texto del menú móvil
+            // Function to apply styles to mobile menu text
             function applyMobileMenuTextStyles(element, styles) {
                 element.style.color = styles.color;
                 element.style.webkitTextStrokeColor = styles.webkitTextStrokeColor;
@@ -1523,20 +1524,20 @@
             }
 
             if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', async () => { // Hacer la función asíncrona
-                    mobileMenu.classList.toggle('hidden'); // Alterna la visibilidad del menú móvil
+                mobileMenuButton.addEventListener('click', async () => { // Make function asynchronous
+                    mobileMenu.classList.toggle('hidden'); // Toggle mobile menu visibility
                     const icon = mobileMenuButton.querySelector('svg path');
-                    // Cambia el icono de hamburguesa a 'X' y viceversa
+                    // Change hamburger icon to 'X' and vice versa
                     if (mobileMenu.classList.contains('hidden')) {
-                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Icono de hamburguesa
+                        icon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
                         mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
                             applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
                         });
-                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        // Also remove mobile-menu-link-active and arrow-active from all mobile menu toggles
                         mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
                             button.classList.remove('mobile-menu-link-active');
                             button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                            // También ocultar cualquier submenú abierto
+                            // Also hide any open submenus
                             const dropdownId = button.dataset.dropdownIdMobile;
                             const dropdownMenu = document.getElementById(dropdownId);
                             if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
@@ -1544,30 +1545,30 @@
                             }
                         });
                     } else {
-                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // Icono de 'X'
+                        icon.setAttribute('d', 'M6 18L18 6M6 6l12 12'); // 'X' icon
 
-                        // Asegurar que el contexto de audio de Tone.js se inicie/reproduzca con la interacción del usuario
+                        // Ensure Tone.js audio context starts/plays with user interaction
                         if (Tone.context.state !== 'running') {
                             try {
-                                await Tone.start(); // Iniciar el contexto de audio
+                                await Tone.start(); // Start audio context
                                 console.log('Audio context started successfully.');
                             } catch (e) {
-                                console.error('Error al iniciar el contexto de audio:', e);
+                                console.error('Error starting audio context:', e);
                             }
                         }
 
-                        // Inicializar el sintetizador solo una vez, después de que el contexto de audio esté funcionando
+                        // Initialize synthesizer only once, after audio context is running
                         if (!synth) {
                             try {
                                 synth = new Tone.Synth().toDestination();
                             } catch (e) {
-                                console.error("Error al inicializar Tone.js Synth:", e);
+                                console.error("Error initializing Tone.js Synth:", e);
                             }
                         }
 
-                        // Reproducir sonido si el sintetizador está disponible
+                        // Play sound if synthesizer is available
                         if (synth) {
-                            synth.triggerAttackRelease("C4", "8n"); // Toca un C4 por un octavo de nota
+                            synth.triggerAttackRelease("C4", "8n"); // Play a C4 for an eighth note
                         }
                     }
                 });
@@ -1577,16 +1578,16 @@
                     const isClickOnMobileMenuButton = mobileMenuButton.contains(event.target);
 
                     if (!isClickInsideMobileMenu && !isClickOnMobileMenuButton && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden'); // Oculta el menú
-                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restaura el icono
+                        mobileMenu.classList.add('hidden'); // Hide the menu
+                        mobileMenuButton.querySelector('svg path').setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Restore icon
                         mobileMenu.querySelectorAll('ul > li > a.js-dropdown-toggle-mobile > span.nav-menu-text-stroke-cyan').forEach(span => {
                             applyMobileMenuTextStyles(span, mobileMenuSilverStyles);
                         });
-                        // También eliminar mobile-menu-link-active y arrow-active de todos los toggles de menú móvil
+                        // Also remove mobile-menu-link-active and arrow-active from all mobile menu toggles
                         mobileMenu.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
                             button.classList.remove('mobile-menu-link-active');
                             button.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                            // También ocultar cualquier submenú abierto
+                            // Also hide any open submenus
                             const dropdownId = button.dataset.dropdownIdMobile;
                             const dropdownMenu = document.getElementById(dropdownId);
                             if (dropdownMenu && !dropdownMenu.classList.contains('hidden')) {
@@ -1596,25 +1597,25 @@
                     }
                 });
 
-                // Lógica para menús desplegables móviles (similar a escritorio pero con clases específicas para móvil)
+                // Logic for mobile dropdown menus (similar to desktop but with mobile-specific classes)
                 document.querySelectorAll('.js-dropdown-toggle-mobile').forEach(button => {
                     button.addEventListener('click', function(event) {
                         event.preventDefault();
-                        event.stopPropagation(); // Importante para evitar que el clic se propague al documento y cierre el menú principal
+                        event.stopPropagation(); // Important to prevent click from propagating to document and closing main menu
                         const dropdownId = this.dataset.dropdownIdMobile;
                         const dropdownMenu = document.getElementById(dropdownId);
                         const arrowIcon = this.querySelector('.js-arrow-icon-mobile');
-                        const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // El span con el texto de la categoría
+                        const categoryTextSpan = this.querySelector('.nav-menu-text-stroke-cyan'); // The span with the category text
 
-                        // Cierra otros submenús móviles abiertos y restablece sus estilos de texto
+                        // Close other open mobile submenus and reset their text styles
                         document.querySelectorAll('.js-dropdown-menu-mobile').forEach(menu => {
                             if (menu !== dropdownMenu && !menu.classList.contains('hidden')) {
                                 menu.classList.add('hidden');
                                 const otherButton = document.querySelector(`[data-dropdown-id-mobile="${menu.id}"]`);
                                 if (otherButton) {
-                                    // Eliminar la animación de rebote y la rotación al cerrar otros menús
+                                    // Remove bounce animation and rotation when closing other menus
                                     otherButton.querySelector('.js-arrow-icon-mobile').classList.remove('arrow-active');
-                                    // Eliminar la clase activa del otro enlace
+                                    // Remove active class from other link
                                     otherButton.classList.remove('mobile-menu-link-active');
                                     const otherCategoryTextSpan = otherButton.querySelector('.nav-menu-text-stroke-cyan');
                                     if (otherCategoryTextSpan) {
@@ -1627,30 +1628,30 @@
                         dropdownMenu.classList.toggle('hidden');
                         if (!dropdownMenu.classList.contains('hidden')) {
                             arrowIcon.classList.add('arrow-active');
-                            // Añadir la clase activa al enlace actual
+                            // Add active class to current link
                             this.classList.add('mobile-menu-link-active');
-                            // Si el menú se está abriendo, aplica estilos cian
+                            // If menu is opening, apply cyan styles
                             applyMobileMenuTextStyles(categoryTextSpan, mobileMenuCyanStyles);
                         } else {
                             arrowIcon.classList.remove('arrow-active');
-                            // Eliminar la clase activa del enlace actual
+                            // Remove active class from current link
                             this.classList.remove('mobile-menu-link-active');
-                            // Si el menú se está cerrando, aplica estilos plateados
+                            // If menu is closing, apply silver styles
                             applyMobileMenuTextStyles(categoryTextSpan, mobileMenuSilverStyles);
                         }
                     });
                 });
             }
 
-            // Lógica para deshabilitar enlaces con la clase 'disabled-link'
+            // Logic to disable links with the 'disabled-link' class
             document.querySelectorAll('a.disabled-link').forEach(link => {
                 link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Previene la acción predeterminada del enlace
-                    event.stopPropagation(); // Previene la propagación del evento para que el menú padre no se cierre
+                    event.preventDefault(); // Prevents default link action
+                    event.stopPropagation(); // Prevents event propagation so parent menu doesn't close
                 });
             });
 
-            // Lógica para el texto dinámico en la sección de inicio
+            // Logic for dynamic text in hero section
             const heroHeadingElement = document.getElementById('hero-heading-text');
             const heroHeadings = [
                 "Nosotros convertimos sueños en realidades digitales",
@@ -1659,25 +1660,25 @@
             let currentHeadingIndex = 0;
 
             function updateHeroHeading() {
-                // Aplica la animación de salida
+                // Apply exit animation
                 heroHeadingElement.classList.remove('text-flip-in');
                 heroHeadingElement.classList.add('text-flip-out');
 
-                // Después de la mitad de la animación de salida, cambia el texto
+                // After half of the exit animation, change text
                 setTimeout(() => {
                     currentHeadingIndex = (currentHeadingIndex + 1) % heroHeadings.length;
                     heroHeadingElement.textContent = heroHeadings[currentHeadingIndex];
 
-                    // Remueve la animación de salida y aplica la de entrada
-                    // Forzar un "reflow" para reiniciar la animación
+                    // Remove exit animation and apply entrance animation
+                    // Force a "reflow" to restart animation
                     void heroHeadingElement.offsetWidth;
                     heroHeadingElement.classList.remove('text-flip-out');
                     heroHeadingElement.classList.add('text-flip-in');
-                }, 400); // La mitad de la duración de text-flip-out (0.8s / 2 = 0.4s)
+                }, 400); // Half of text-flip-out duration (0.8s / 2 = 0.4s)
             }
 
-            // Inicia el cambio de texto cada 9 segundos
-            setInterval(updateHeroHeading, 9000); // Cambia el texto cada 9 segundos
+            // Start text change every 9 seconds
+            setInterval(updateHeroHeading, 9000); // Change text every 9 seconds
         });
     </script>
 </body>
