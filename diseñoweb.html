@@ -17,6 +17,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
+    <!-- Carga temprana del script del chatbot para asegurar que el elemento personalizado 'chat-bot' esté definido -->
+    <script type="text/javascript" src="https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js"></script>
+
     <style>
         /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
         tailwind.config = {
@@ -69,8 +72,8 @@
         /* Estilos para encabezados (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
-            color: #00FFFF;
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            color: '#00FFFF'; /* Color cian */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra de texto cian */
         }
 
         /* Estilo de contorno de texto */
@@ -361,7 +364,7 @@
                     <li class="text-base sm:text-lg"><strong>Identidad de Marca Reforzada:</strong> Un sitio web que realmente representa quién eres.</li>
                     <li class="text-base sm:text-lg"><strong>Experiencia de Usuario Superior:</strong> Navegación intuitiva que retiene a tus visitantes.</li>
                     <li class="text-base sm:text-lg"><strong>Mayor Visibilidad Online:</strong> Preparado para ser encontrado en Google y otros buscadores.</li>
-                    <li class="text-base sm:text-lg"><strong>Conversiones Optimizadas:</strong> Diseño enfocado en guiar al usuario hacia tus objetivos.</li>
+                    <li class="text-base sm:text-lg"><strong>Conversiones Optimizadas:</strong> Diseño enfocado en guiar al usuario hacia sus objetivos.</li>
                     <li class="text-base sm:text-lg"><strong>Diferenciación Competitiva:</strong> Destaca en tu nicho con un sitio único.</li>
                     <li class="text-base sm:text-lg"><strong>Escalabilidad Futura:</strong> Una base sólida para el crecimiento de tu negocio.</li>
                 </ul>
@@ -373,13 +376,13 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     <div class="programmer-card">
                         <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de Yeiver Rojas">
-                        <h3 class="text-lg sm:text-xl">Yeiver Rojas</h3> <!-- CAMBIO REALIZADO AQUÍ -->
+                        <h3 class="text-lg sm:text-xl">Yeiver Rojas</h3>
                         <p class="text-sm sm:text-base">Programador General</p>
                         <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p>
                     </div>
                     <div class="programmer-card">
-                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de Luis Goncalvez">
-                        <h3 class="text-lg sm:text-xl">Luis Goncalvez</h3>
+                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de Luis Goncalves">
+                        <h3 class="text-lg sm:text-xl">Luis Goncalves</h3>
                         <p class="text-sm sm:text-base">Programador General</p>
                         <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p>
                     </div>
@@ -421,24 +424,6 @@
         </div>
     </footer>
 
-    <script type="text/javascript">
-        (function() {
-            var chatBotEl = document.createElement('chat-bot');
-            chatBotEl.setAttribute('platform_id', 'c53f3ecc-023b-4e9b-9289-d92fc39e8fd6');
-            chatBotEl.setAttribute('user_id', 'df3ac4f2-1102-4134-9692-f88cb8c4461d');
-            chatBotEl.setAttribute('chatbot_id', 'c289fafb-ec5e-4124-9fb6-c04fed5f6e37');
-            var chatbotLink = document.createElement('a');
-            chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
-            chatbotLink.innerHTML = 'chatsimple';
-            chatBotEl.appendChild(chatbotLink);
-            document.body.appendChild(chatBotEl);
-
-            var cs = document.createElement('script');
-            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-            document.body.appendChild(cs);
-        })();
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const scrollToTopButton = document.getElementById('scroll-to-top-button');
@@ -473,6 +458,24 @@
                     behavior: 'smooth' // Desplazamiento suave
                 });
             });
+
+            // Inicialización del chatbot movida aquí para asegurar que el DOM esté listo y el script de definición cargado
+            if (customElements.get('chat-bot')) { // Verifica si el elemento personalizado 'chat-bot' está definido
+                var chatBotEl = document.createElement('chat-bot');
+                chatBotEl.setAttribute('platform_id', 'c53f3ecc-023b-4e9b-9289-d92fc39e8fd6');
+                chatBotEl.setAttribute('user_id', 'df3ac4f2-1102-4134-9692-f88cb8c4461d');
+                chatBotEl.setAttribute('chatbot_id', 'c289fafb-ec5e-4124-9fb6-c04fed5f6e37');
+
+                var chatbotLink = document.createElement('a');
+                chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+                chatbotLink.innerHTML = 'chatsimple';
+                chatBotEl.appendChild(chatbotLink);
+
+                document.body.appendChild(chatBotEl);
+            } else {
+                console.warn("El elemento personalizado 'chat-bot' aún no está definido. El chatbot podría no cargarse correctamente.");
+                // Se podría añadir lógica de fallback o reintento aquí si fuera necesario
+            }
         });
     </script>
 </body>
