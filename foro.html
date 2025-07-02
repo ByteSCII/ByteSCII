@@ -411,24 +411,6 @@
             color: var(--star-unfilled-color); /* Usar variable CSS para el color de la estrella no llena */
         }
 
-        .review-text-container {
-            max-height: 4.5rem; /* Altura máxima para 3 líneas de texto (aprox.) */
-            overflow: hidden;
-            position: relative;
-            transition: max-height 0.4s ease-in-out; /* Transición más suave */
-        }
-
-        .review-text-container.expanded {
-            max-height: 500px; /* Suficientemente grande para la mayoría de las reseñas */
-        }
-
-        .review-text-container p {
-            color: rgb(203, 213, 224); /* Ajuste para mayor legibilidad en fondo oscuro, similar a text-slate-300 */
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin: 0;
-        }
-
         /* Estilo para el botón "Escribe tu reseña" */
         .write-review-button {
             display: inline-block;
@@ -667,6 +649,34 @@
             border-radius: 0.5rem;
             padding: 1rem;
             background-color: rgba(0, 255, 255, 0.05); /* Fondo muy sutil para la lista */
+        }
+
+        /* Estilos de la barra de desplazamiento para WebKit (Chrome, Safari, Edge) */
+        .rules-modal-content ul::-webkit-scrollbar {
+            width: 12px; /* Ancho de la barra de desplazamiento */
+        }
+
+        .rules-modal-content ul::-webkit-scrollbar-track {
+            background: #1A202C; /* Color de fondo de la pista de la barra de desplazamiento */
+            border-radius: 10px;
+        }
+
+        .rules-modal-content ul::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3); /* Colores del arcoíris */
+            border-radius: 10px;
+            animation: rainbowScrollbar 8s linear infinite; /* Animación de arcoíris */
+        }
+
+        /* Animación para el efecto de arcoíris en la barra de desplazamiento */
+        @keyframes rainbowScrollbar {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Estilos para Firefox (menos control sobre el gradiente animado) */
+        .rules-modal-content ul {
+            scrollbar-width: thin; /* "auto" o "none" */
+            scrollbar-color: #00FFFF #1A202C; /* color del pulgar y color de la pista */
         }
 
         .rules-modal-content ul li {
@@ -917,22 +927,20 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js"></script>
     <script type="text/javascript">
         // Script for the chatbot
         (function() {
             var chatBotEl = document.createElement('chat-bot');
-            chatBotEl.setAttribute('platform_id', 'c53f3ecc-023b-4e9b-9289-d92fc39e8fd6');
-            chatBotEl.setAttribute('user_id', 'df3ac4f2-1102-4134-9692-f88cb8c4461d');
-            chatBotEl.setAttribute('chatbot_id', 'c289fafb-ec5e-4124-9fb6-c04fed5f6e37');
+            // Usando los IDs del chatbot de la última actualización de graphic-design-page
+            chatBotEl.setAttribute('platform_id', '7def0408-a3e8-4a58-90bb-c6e5e3e750b2');
+            chatBotEl.setAttribute('user_id', 'e71d960f-62bf-4b52-9c34-89801d0d8023');
+            chatBotEl.setAttribute('chatbot_id', 'cb3c57ca-bd69-47a9-8df1-1e2756ae556a');
             var chatbotLink = document.createElement('a');
             chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
             chatbotLink.innerHTML = 'chatsimple';
             chatBotEl.appendChild(chatbotLink);
-            document.body.appendChild(chatBotEl); // Append the custom element to the body FIRST
-
-            var cs = document.createElement('script'); // Define 'cs'
-            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-            document.body.appendChild(cs); // Then append the script loader
+            document.body.appendChild(chatBotEl); // Append the custom element to the body
         })();
     </script>
 
