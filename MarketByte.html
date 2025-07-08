@@ -163,7 +163,7 @@
         .service-card-item { /* Renamed to avoid conflict with existing .service-card */
             background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Subtle gradient background */
             border-radius: 1rem; /* More rounded corners */
-            padding: 1.5rem; /* Reduced padding */
+            padding: 1.25rem; /* Reduced padding */
             box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2); /* Shadow with accent color */
             transition: all 0.3s ease-in-out; /* Smooth transition for all changes */
             border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle border */
@@ -181,7 +181,7 @@
 
         .service-card-item img {
             width: 100%;
-            height: 180px;
+            height: 160px; /* Reduced height */
             object-fit: cover;
             border-radius: 0.75rem;
             margin-bottom: 1rem;
@@ -189,25 +189,25 @@
 
         .service-card-item h3 {
             color: #F9FAFB; /* Lighter title text */
-            font-size: 1.5rem; /* Reduced title size */
+            font-size: 1.3rem; /* Reduced title size */
             margin-bottom: 0.75rem; /* Reduced margin */
             font-weight: 700; /* Bolder */
         }
 
         .service-card-item p {
             color: #CBD5E0; /* Softer paragraph text */
-            font-size: 0.95rem; /* Reduced paragraph size */
+            font-size: 0.85rem; /* Reduced paragraph size */
             line-height: 1.6;
         }
 
         .service-card-item .rating {
             color: #FFD700; /* Gold color for stars */
             margin-top: 0.5rem;
-            font-size: 1.1rem;
+            font-size: 1rem; /* Reduced font size */
         }
 
         .service-card-item .price {
-            font-size: 1.8rem;
+            font-size: 1.6rem; /* Reduced font size */
             font-weight: bold;
             color: #00FFFF;
             margin-top: 1rem;
@@ -216,17 +216,17 @@
         /* Specific styles for service cards on small screens (mobiles) */
         @media (max-width: 768px) { /* For screens up to 768px (md breakpoint) */
             .service-card-item {
-                padding: 1.2rem; /* Reduce padding to make cards more compact */
+                padding: 1rem; /* Further reduce padding for mobile */
             }
             .service-card-item img {
-                height: 150px;
+                height: 140px; /* Further reduce image height for mobile */
             }
             .service-card-item h3 {
-                font-size: 1.3rem; /* Reduce title size */
-                margin-bottom: 0.6rem;
+                font-size: 1.2rem; /* Further reduce title size for mobile */
+                margin-bottom: 0.5rem;
             }
             .service-card-item p {
-                font-size: 0.85rem; /* Reduce paragraph size */
+                font-size: 0.8rem; /* Further reduce paragraph size for mobile */
             }
         }
 
@@ -234,7 +234,7 @@
         /* Specific styles for contact section */
         .contact-section {
             background: linear-gradient(180deg, #1A202C, #0A0A1A); /* Background gradient */
-            padding: 4rem 0; /* Reduced padding */
+            padding: 3rem 0; /* Reduced padding */
             position: relative;
             overflow: hidden;
         }
@@ -261,7 +261,7 @@
             z-index: 1;
             background: rgba(10, 10, 26, 0.85); /* Semi-transparent background for content */
             border-radius: 1.5rem;
-            padding: 2.5rem; /* Reduced padding */
+            padding: 2rem; /* Reduced padding */
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px); /* Blur effect */
         }
@@ -308,7 +308,7 @@
         .map-container {
             overflow: hidden;
             border-radius: 1rem;
-            margin-top: 2rem; /* Reduced margin */
+            margin-top: 1.5rem; /* Reduced margin */
             width: 100%;
             /* Map height - NOW CONTROLLED BY TAILWIND IN HTML */
         }
@@ -368,13 +368,13 @@
         .whatsapp-float-button {
             background-color: #25D366; /* WhatsApp green */
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 50px; /* Reduced width */
+            height: 50px; /* Reduced height */
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem; /* Reduced font size */
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
             transform-origin: center;
@@ -398,7 +398,7 @@
         .whatsapp-tooltip {
             background-color: #FFFFFF; /* White background */
             color: #0A0A1A; /* Dark text */
-            padding: 0.75rem 1rem;
+            padding: 0.6rem 0.9rem; /* Slightly reduced padding */
             border-radius: 0.75rem; /* More rounded corners for bubble look */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             margin-right: 15px; /* Space between tooltip and button */
@@ -407,7 +407,7 @@
             transform: translateX(20px); /* Starts slightly to the right */
             transition: opacity 0.3s ease-out, transform 0.3s ease-out, visibility 0.3s ease-out;
             white-space: nowrap; /* Prevents text wrapping */
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Slightly reduced font size */
             border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle light border */
             position: relative; /* Necessary for pseudo-element positioning */
         }
@@ -500,74 +500,74 @@
         /* --- Styles for size reduction on PC and large screens --- */
         @media (min-width: 1024px) { /* Adjust this breakpoint as needed (lg in Tailwind) */
             .header-nav-item {
-                font-size: 0.95rem; /* Smaller font for navigation links */
+                font-size: 0.9rem; /* Smaller font for navigation links */
             }
 
             .main-cta-button {
-                padding: 0.6rem 1.5rem; /* Slightly smaller button padding */
-                font-size: 0.9rem; /* Smaller font for CTA button */
+                padding: 0.5rem 1.25rem; /* Slightly smaller button padding */
+                font-size: 0.85rem; /* Smaller font for CTA button */
             }
 
             .hero-section-padding {
-                padding-top: 6rem; /* Adjust top padding for hero section */
-                padding-bottom: 6rem; /* Adjust bottom padding for hero section */
+                padding-top: 5rem; /* Adjust top padding for hero section */
+                padding-bottom: 5rem; /* Adjust bottom padding for hero section */
             }
 
             .hero-heading {
-                font-size: 3.5rem; /* Smaller heading for hero section */
+                font-size: 3rem; /* Smaller heading for hero section */
             }
 
             .hero-subheading {
-                font-size: 1.1rem; /* Smaller subheading for hero section */
+                font-size: 1rem; /* Smaller subheading for hero section */
             }
 
             .section-heading {
-                font-size: 2.5rem; /* Smaller general section headings */
+                font-size: 2.2rem; /* Smaller general section headings */
             }
 
             .service-card-item {
-                padding: 1.5rem; /* Smaller padding for service cards */
+                padding: 1.2rem; /* Smaller padding for service cards */
             }
 
             .service-card-item img {
-                height: 150px;
+                height: 140px; /* Smaller image height */
             }
 
             .service-card-item h3 {
-                font-size: 1.3rem; /* Smaller title in service cards */
+                font-size: 1.2rem; /* Smaller title in service cards */
             }
 
             .service-card-item p {
-                font-size: 0.85rem; /* Smaller paragraph text in service cards */
+                font-size: 0.8rem; /* Smaller paragraph text in service cards */
             }
 
             .contact-section {
-                padding: 3rem 0; /* Smaller padding for contact section */
+                padding: 2.5rem 0; /* Smaller padding for contact section */
             }
 
             .contact-content {
-                padding: 2rem; /* Smaller padding for contact content card */
+                padding: 1.8rem; /* Smaller padding for contact content card */
             }
 
             .contact-form-card,
             .contact-info-card {
-                padding: 1.5rem; /* Smaller padding for inner contact cards */
+                padding: 1.2rem; /* Smaller padding for inner contact cards */
             }
 
             .contact-form-card input,
             .contact-form-card textarea {
-                font-size: 0.8rem; /* Smaller font for form fields */
+                font-size: 0.75rem; /* Smaller font for form fields */
             }
 
             .social-icon-link svg {
-                width: 24px; /* Smaller social icons */
-                height: 24px;
+                width: 22px; /* Smaller social icons */
+                height: 22px;
             }
 
             .whatsapp-float-button {
-                width: 50px; /* Smaller WhatsApp button */
-                height: 50px;
-                font-size: 1.8rem;
+                width: 45px; /* Even smaller WhatsApp button */
+                height: 45px;
+                font-size: 1.6rem;
             }
         }
 
@@ -575,7 +575,7 @@
         .footer {
             background-color: #1A202C; /* Secondary dark background */
             color: #F9FAFB; /* Light text */
-            padding: 2rem 0; /* Padding for footer */
+            padding: 1.5rem 0; /* Reduced padding for footer */
             border-top: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan top border */
         }
 
@@ -590,18 +590,18 @@
 
         .footer-heading {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.25rem; /* Larger font for headings */
+            font-size: 1.1rem; /* Reduced font for headings */
             font-weight: 700;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem; /* Reduced margin */
             color: #00FFFF; /* Cyan color for headings */
         }
 
         .footer-link-item {
-            margin-bottom: 0.5rem; /* Space between list items */
+            margin-bottom: 0.4rem; /* Reduced space between list items */
         }
 
         .footer-social-icon {
-            font-size: 1.75rem; /* Size of social icons */
+            font-size: 1.5rem; /* Reduced size of social icons */
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
@@ -664,7 +664,7 @@
 
         /* Styles to ensure h1 maintains its height and centering */
         #hero-heading-text {
-            height: 8rem; /* Fixed height to accommodate longer text on multiple lines */
+            height: 7rem; /* Adjusted fixed height */
             display: flex; /* Enable flexbox */
             align-items: center; /* Vertically center content */
             justify-content: center; /* Horizontally center content */
@@ -674,7 +674,7 @@
         /* Adjustments for smaller screens if text overflows */
         @media (max-width: 768px) {
             #hero-heading-text {
-                height: 7rem; /* Fixed height for mobile screens */
+                height: 6rem; /* Further adjusted fixed height for mobile screens */
             }
         }
 
@@ -713,9 +713,9 @@
         .filter-modal-content {
             background-color: #1A202C; /* Secondary dark background */
             border-radius: 1rem;
-            padding: 2rem;
+            padding: 1.8rem; /* Reduced padding */
             width: 90%;
-            max-width: 500px;
+            max-width: 450px; /* Reduced max-width */
             box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
             position: relative;
             transform: translateY(-20px);
@@ -731,11 +731,11 @@
 
         .filter-modal-close-button {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
+            top: 0.8rem; /* Adjusted position */
+            right: 0.8rem; /* Adjusted position */
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.4rem; /* Reduced font size */
             color: #00FFFF;
             cursor: pointer;
             transition: color 0.2s ease;
@@ -748,9 +748,9 @@
         .filter-modal-category-item {
             display: flex;
             align-items: center;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.6rem; /* Reduced margin */
             cursor: pointer;
-            padding: 0.5rem;
+            padding: 0.4rem; /* Reduced padding */
             border-radius: 0.5rem;
             transition: background-color 0.2s ease;
         }
@@ -760,15 +760,15 @@
         }
 
         .filter-modal-category-item input[type="radio"] {
-            margin-right: 0.75rem;
+            margin-right: 0.6rem; /* Reduced margin */
             accent-color: #00FFFF; /* Cyan color for radio button */
-            width: 1.25rem;
-            height: 1.25rem;
+            width: 1.1rem; /* Reduced size */
+            height: 1.1rem; /* Reduced size */
         }
 
         .filter-modal-category-item label {
             color: #F9FAFB;
-            font-size: 1.1rem;
+            font-size: 1rem; /* Reduced font size */
             cursor: pointer;
         }
 
@@ -776,10 +776,10 @@
             background-color: #00FFFF;
             color: #0A0A1A;
             font-weight: bold;
-            padding: 0.75rem 1.5rem;
+            padding: 0.6rem 1.2rem; /* Reduced padding */
             border-radius: 0.75rem;
             width: 100%;
-            margin-top: 1.5rem;
+            margin-top: 1.2rem; /* Reduced margin */
             transition: background-color 0.2s ease, transform 0.2s ease;
         }
 
@@ -790,17 +790,17 @@
         .filter-modal-input-group {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.8rem; /* Reduced gap */
+            margin-bottom: 0.8rem; /* Reduced margin */
         }
         .filter-modal-input-group input {
             flex-grow: 1;
-            padding: 0.75rem;
+            padding: 0.6rem; /* Reduced padding */
             border-radius: 0.5rem;
             background-color: #0A0A1A;
             border: 1px solid rgba(0, 255, 255, 0.3);
             color: #F9FAFB;
-            font-size: 1rem;
+            font-size: 0.9rem; /* Reduced font size */
         }
         .filter-modal-input-group input:focus {
             outline: none;
@@ -815,42 +815,42 @@
     <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
             <div class="flex items-center justify-start ml-0">
-                <img src="./images/logo.ico" alt="Logo de MarketByte" class="h-16 w-auto object-contain">
+                <img src="./images/logo.ico" alt="Logo de MarketByte" class="h-14 w-auto object-contain"> <!-- Reduced logo height -->
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
-                <ul class="flex space-x-6 items-center">
+                <ul class="flex space-x-5 items-center"> <!-- Reduced space-x -->
                     <li>
-                        <button onclick="navigate('home')" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect">
+                        <button onclick="navigate('home')" class="header-nav-item text-sm font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect"> <!-- Reduced text-base to text-sm -->
                             <span class="nav-menu-text-stroke-cyan">Inicio</span>
                         </button>
                     </li>
                 </ul>
             </nav>
 
-            <button onclick="alert('Funcionalidad de registro/login no implementada en este demo.')" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+            <button onclick="alert('Funcionalidad de registro/login no implementada en este demo.')" class="hidden sm:inline-block bg-yellow-500 text-black font-bold py-1.5 px-3 rounded-full <!-- Reduced padding -->
                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                 Regístrate / Inicia Sesión
             </button>
 
-            <button id="mobile-menu-button" class="sm:hidden p-2 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <button id="mobile-menu-button" class="sm:hidden p-1.5 rounded-md text-byte-accent-cyan hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan ml-auto"> <!-- Reduced padding -->
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <!-- Reduced icon size -->
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
         </div>
     </header>
 
-    <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
-        <ul class="flex flex-col space-y-4 text-center">
+    <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-3 px-3 hidden fixed top-18 w-full z-40 max-h-[calc(100vh-4.5rem)] overflow-y-auto"> <!-- Adjusted top and max-height -->
+        <ul class="flex flex-col space-y-3 text-center"> <!-- Reduced space-y -->
             <li>
-                <button onclick="navigate('home'); mobileMenu.classList.add('hidden'); mobileMenuButton.click();" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect">
+                <button onclick="navigate('home'); mobileMenu.classList.add('hidden'); mobileMenuButton.click();" class="block text-base font-semibold transition duration-300 ease-in-out py-1.5 cursor-pointer menu-link-hover-effect"> <!-- Reduced text-lg to text-base, reduced padding -->
                     <span class="nav-menu-text-stroke-cyan">Inicio</span>
                 </button>
             </li>
             <li>
-                <button onclick="alert('Funcionalidad de registro/login no implementada en este demo.'); mobileMenu.classList.add('hidden'); mobileMenuButton.click();" class="block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
-                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-4 text-sm main-cta-button">
+                <button onclick="alert('Funcionalidad de registro/login no implementada en este demo.'); mobileMenu.classList.add('hidden'); mobileMenuButton.click();" class="block bg-yellow-500 text-black font-bold py-1.5 px-3 rounded-full <!-- Reduced padding -->
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-center mt-3 text-sm main-cta-button"> <!-- Reduced margin-top -->
                     Regístrate / Inicia Sesión
                 </button>
             </li>
@@ -861,9 +861,9 @@
         <!-- Dynamic content will be loaded here by JavaScript -->
     </main>
 
-    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-6"> <!-- Reduced padding -->
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left"> <!-- Reduced gap -->
+            <div class="md:col-span-3 flex justify-center space-x-3 mt-2"> <!-- Reduced space-x and margin-top -->
                 <!-- Instagram Icon -->
                 <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
@@ -874,13 +874,13 @@
                 </a>
             </div>
         </div>
-        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
-            <p class="mb-2">
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-6 border-t border-gray-700 pt-3"> <!-- Reduced margin-top and padding-top -->
+            <p class="mb-1.5 text-xs md:text-sm"> <!-- Reduced margin-bottom, adjusted text size -->
                 Al navegar en la página de MarketByte, aceptas nuestros
                 <a href="#" class="text-byte-accent-cyan hover:underline">Términos de Servicio</a> y
                 <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
             </p>
-            <p>© 2025 MarketByte. Todos los derechos reservados.</p>
+            <p class="text-xs">© 2025 MarketByte. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -894,35 +894,35 @@
         </a>
     </div>
 
-    <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 z-[10000] bg-byte-secondary-dark text-byte-text-light p-4 shadow-lg rounded-t-lg text-center transition-all duration-300 ease-out">
-        <p class="mb-2 text-sm md:text-base">
+    <div id="cookie-banner" class="hidden fixed bottom-0 left-0 right-0 z-[10000] bg-byte-secondary-dark text-byte-text-light p-3.5 shadow-lg rounded-t-lg text-center transition-all duration-300 ease-out"> <!-- Reduced padding -->
+        <p class="mb-1.5 text-xs md:text-sm"> <!-- Reduced margin-bottom, adjusted text size -->
             Esta página web utiliza cookies para mejorar tu experiencia y entender qué le interesa a nuestros clientes.
             Al continuar navegando, aceptas nuestros
             <a href="#" class="text-byte-accent-cyan hover:underline">Términos de Servicio</a> y
             <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
         </p>
-        <button id="accept-cookies-button" class="bg-yellow-500 text-black font-bold py-2 px-6 rounded-full
+        <button id="accept-cookies-button" class="bg-yellow-500 text-black font-bold py-1.5 px-5 rounded-full <!-- Reduced padding -->
                                                      shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105 text-sm">
             Aceptar
         </button>
-        <p class="mt-2 text-xs text-gray-400">© 2025 MarketByte. Todos los derechos reservados.</p>
+        <p class="mt-1.5 text-xs text-gray-400">© 2025 MarketByte. Todos los derechos reservados.</p> <!-- Reduced margin-top -->
     </div>
 
     <!-- Filter Modal Structure -->
     <div id="filter-modal" class="filter-modal-overlay">
         <div class="filter-modal-content">
             <button id="filter-modal-close-button" class="filter-modal-close-button">&times;</button>
-            <h3 class="text-2xl font-bold text-byte-accent-cyan mb-6 text-center">Filtrar Servicios</h3>
+            <h3 class="text-xl font-bold text-byte-accent-cyan mb-5 text-center">Filtrar Servicios</h3> <!-- Reduced text-2xl to text-xl, reduced margin-bottom -->
 
-            <div class="mb-6">
-                <p class="text-byte-text-light text-lg mb-3">Categoría:</p>
-                <div id="category-filter-options" class="space-y-2">
+            <div class="mb-5"> <!-- Reduced margin-bottom -->
+                <p class="text-byte-text-light text-base mb-2.5">Categoría:</p> <!-- Reduced text-lg to text-base, reduced margin-bottom -->
+                <div id="category-filter-options" class="space-y-1.5"> <!-- Reduced space-y -->
                     <!-- Categories will be dynamically loaded here -->
                 </div>
             </div>
 
-            <div class="mb-6">
-                <p class="text-byte-text-light text-lg mb-3">Rango de Precios ($):</p>
+            <div class="mb-5"> <!-- Reduced margin-bottom -->
+                <p class="text-byte-text-light text-base mb-2.5">Rango de Precios ($):</p> <!-- Reduced text-lg to text-base, reduced margin-bottom -->
                 <div class="filter-modal-input-group">
                     <input type="number" id="min-price-filter" placeholder="Mínimo" class="w-1/2">
                     <span class="text-byte-text-light">-</span>
@@ -930,8 +930,8 @@
                 </div>
             </div>
 
-            <div class="mb-6">
-                <p class="text-byte-text-light text-lg mb-3">Distancia Máxima (km):</p>
+            <div class="mb-5"> <!-- Reduced margin-bottom -->
+                <p class="text-byte-text-light text-base mb-2.5">Distancia Máxima (km):</p> <!-- Reduced text-lg to text-base, reduced margin-bottom -->
                 <div class="filter-modal-input-group">
                     <input type="number" id="max-distance-filter" placeholder="Ej. 50" class="w-full">
                 </div>
@@ -1171,24 +1171,24 @@
 
             return `
                 <div class="service-card-item cursor-pointer" onclick="navigate('serviceDetail', { id: '${service.id}' })">
-                    <img src="${service.imageUrl}" alt="${service.title}" class="w-full h-48 object-cover rounded-t-xl" onerror="this.src='https://placehold.co/400x300/F0F8FF/0A0A1A?text=No+Image';">
-                    <div class="p-5 flex flex-col flex-grow w-full">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2 text-byte-text-light">${service.title}</h3>
-                        <p class="text-sm text-gray-400 mb-3 line-clamp-2">${service.description}</p>
-                        <div class="flex items-center text-gray-400 text-sm mb-3">
+                    <img src="${service.imageUrl}" alt="${service.title}" class="w-full h-40 object-cover rounded-t-xl" onerror="this.src='https://placehold.co/400x300/F0F8FF/0A0A1A?text=No+Image';"> <!-- Adjusted height -->
+                    <div class="p-4 flex flex-col flex-grow w-full"> <!-- Adjusted padding -->
+                        <h3 class="text-lg font-bold text-gray-900 mb-1.5 text-byte-text-light">${service.title}</h3> <!-- Adjusted text size and margin -->
+                        <p class="text-sm text-gray-400 mb-2 line-clamp-2">${service.description}</p> <!-- Adjusted text size and margin -->
+                        <div class="flex items-center text-gray-400 text-sm mb-2"> <!-- Adjusted margin -->
                             <span class="text-yellow-500 mr-1">★</span>
                             ${service.rating} (${service.reviews} reseñas)
                         </div>
-                        <button onclick="event.stopPropagation(); navigate('providerProfile', { id: '${service.providerId}' })" class="flex items-center text-byte-accent-cyan hover:underline mb-4 self-start">
-                            <img src="${providerProfileImageUrl}" alt="${providerName}" class="w-8 h-8 rounded-full mr-2 border-2 border-byte-accent-cyan" onerror="this.src='https://placehold.co/150x150/F0F8FF/0A0A1A?text=No+Img';">
-                            <span class="font-medium">${providerName}</span>
+                        <button onclick="event.stopPropagation(); navigate('providerProfile', { id: '${service.providerId}' })" class="flex items-center text-byte-accent-cyan hover:underline mb-3 self-start"> <!-- Adjusted margin -->
+                            <img src="${providerProfileImageUrl}" alt="${providerName}" class="w-7 h-7 rounded-full mr-1.5 border-2 border-byte-accent-cyan" onerror="this.src='https://placehold.co/150x150/F0F8FF/0A0A1A?text=No+Img';"> <!-- Adjusted size -->
+                            <span class="font-medium text-sm">${providerName}</span> <!-- Adjusted text size -->
                         </button>
                         ${distanceHtml}
-                        <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-700 w-full">
-                            <span class="text-2xl font-extrabold text-byte-accent-cyan">$${service.price}</span>
+                        <div class="mt-auto flex justify-between items-center pt-3 border-t border-gray-700 w-full"> <!-- Adjusted padding-top -->
+                            <span class="text-xl font-extrabold text-byte-accent-cyan">$${service.price}</span> <!-- Adjusted text size -->
                             <button
                                 onclick="event.stopPropagation(); navigate('serviceDetail', { id: '${service.id}' })"
-                                class="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105"
+                                class="bg-blue-600 text-white px-5 py-1.5 rounded-full font-semibold shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 text-sm" <!-- Adjusted padding and text size -->
                             >
                                 Ver Detalles
                             </button>
@@ -1243,44 +1243,44 @@
 
 
             container.innerHTML = `
-                <section id="hero-section" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
+                <section id="hero-section" class="relative bg-byte-dark-bg text-white py-16 md:py-32 overflow-hidden flex items-center justify-center hero-section-padding"> <!-- Adjusted padding -->
                     <video autoplay loop muted playsinline preload="auto"
                                    class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
                         <source src="./images/fondo.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="container mx-auto px-4 relative z-10 text-center">
-                        <h1 id="hero-heading-text" class="text-3xl md:text-6xl lg:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-lg text-stroke-cyan hero-heading">
+                        <h1 id="hero-heading-text" class="text-2xl md:text-5xl lg:text-4xl font-extrabold leading-tight mb-3 text-white drop-shadow-lg text-stroke-cyan hero-heading"> <!-- Adjusted text sizes and margin -->
                             Encuentra el talento que necesitas
                         </h1>
-                        <p class="text-base md:text-xl lg:text-lg mb-8 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading">
+                        <p class="text-sm md:text-lg lg:text-base mb-6 max-w-3xl mx-auto text-byte-text-light opacity-90 hero-subheading"> <!-- Adjusted text sizes and margin -->
                             Conecta con profesionales para cualquier proyecto.
                         </p>
-                        <div class="max-w-3xl mx-auto flex rounded-full shadow-lg overflow-hidden border border-byte-accent-cyan">
+                        <div class="max-w-2xl mx-auto flex rounded-full shadow-lg overflow-hidden border border-byte-accent-cyan"> <!-- Reduced max-w -->
                             <input
                                 type="text"
                                 id="search-input"
                                 placeholder="Buscar servicios (ej. diseño de logo, redacción SEO)"
-                                class="flex-grow p-4 text-lg rounded-l-full focus:outline-none bg-byte-secondary-dark text-byte-text-light placeholder-gray-400 focus:ring-2 focus:ring-byte-accent-cyan"
+                                class="flex-grow p-3 text-base rounded-l-full focus:outline-none bg-byte-secondary-dark text-byte-text-light placeholder-gray-400 focus:ring-2 focus:ring-byte-accent-cyan" <!-- Adjusted padding and text size -->
                                 value="${currentSearchTerm}"
                             />
-                            <button id="search-button" class="bg-byte-accent-cyan text-byte-dark-bg px-8 py-4 text-lg font-semibold rounded-r-none hover:bg-cyan-400 transition-colors duration-300">
+                            <button id="search-button" class="bg-byte-accent-cyan text-byte-dark-bg px-6 py-3 text-base font-semibold rounded-r-none hover:bg-cyan-400 transition-colors duration-300"> <!-- Adjusted padding and text size -->
                                 Buscar
                             </button>
-                            <button id="filters-button" class="bg-blue-600 text-white px-6 py-4 text-lg font-semibold rounded-r-full hover:bg-blue-700 transition-colors duration-300">
+                            <button id="filters-button" class="bg-blue-600 text-white px-5 py-3 text-base font-semibold rounded-r-full hover:bg-blue-700 transition-colors duration-300"> <!-- Adjusted padding and text size -->
                                 Filtros
                             </button>
                         </div>
                     </div>
                 </section>
 
-                <section id="featured-services" class="py-12 lg:py-10 bg-byte-dark-bg text-byte-text-light">
+                <section id="featured-services" class="py-10 lg:py-8 bg-byte-dark-bg text-byte-text-light"> <!-- Adjusted padding -->
                     <div class="container mx-auto px-4">
-                        <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Servicios Destacados</h2>
-                        <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <h2 class="text-xl md:text-3xl lg:text-2xl font-extrabold text-center mb-8 section-heading text-stroke-cyan">Servicios Destacados</h2> <!-- Adjusted text sizes and margin -->
+                        <div id="services-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"> <!-- Adjusted gap -->
                             ${filteredServices.length > 0 ?
                                 filteredServices.map(service => createServiceCardHtml(service)).join('') :
-                                '<p class="text-center text-gray-400 text-lg col-span-full">No se encontraron servicios que coincidan con tu búsqueda.</p>'
+                                '<p class="text-center text-gray-400 text-base col-span-full">No se encontraron servicios que coincidan con tu búsqueda.</p>' <!-- Adjusted text size -->
                             }
                         </div>
                     </div>
@@ -1310,14 +1310,14 @@
             let distanceInfoHtml = '';
             if (provider && provider.location) {
                 const distance = calculateDistance(userLocation, provider.location);
-                distanceInfoHtml = `<li class="text-gray-400"><span class="font-semibold text-byte-text-light">Distancia Aproximada:</span> ${distance.toFixed(1)} km</li>`;
+                distanceInfoHtml = `<li class="text-sm text-gray-400"><span class="font-semibold text-byte-text-light">Distancia Aproximada:</span> ${distance.toFixed(1)} km</li>`; <!-- Adjusted text size -->
             }
 
             if (!service) {
                 container.innerHTML = `
-                    <div class="container mx-auto p-8 text-center text-red-500 text-xl bg-byte-secondary-dark rounded-xl shadow-lg my-8">
-                        <p class="mb-4">Servicio no encontrado.</p>
-                        <button onclick="navigate('home')" class="mt-4 bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition-colors duration-300">
+                    <div class="container mx-auto p-6 text-center text-red-500 text-lg bg-byte-secondary-dark rounded-xl shadow-lg my-6"> <!-- Adjusted padding, text size, margin -->
+                        <p class="mb-3">Servicio no encontrado.</p> <!-- Adjusted margin -->
+                        <button onclick="navigate('home')" class="mt-3 bg-blue-600 text-white px-5 py-2.5 rounded-full hover:bg-blue-700 transition-colors duration-300 text-base"> <!-- Adjusted padding and text size -->
                             Volver al Inicio
                         </button>
                     </div>
@@ -1326,22 +1326,22 @@
             }
 
             container.innerHTML = `
-                <div class="container mx-auto p-6 my-8 bg-byte-secondary-dark rounded-xl shadow-lg border border-byte-accent-cyan/30">
-                    <button onclick="navigate('home')" class="text-byte-accent-cyan hover:underline mb-6 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <div class="container mx-auto p-5 my-6 bg-byte-secondary-dark rounded-xl shadow-lg border border-byte-accent-cyan/30"> <!-- Adjusted padding and margin -->
+                    <button onclick="navigate('home')" class="text-byte-accent-cyan hover:underline mb-5 flex items-center text-sm"> <!-- Adjusted margin and text size -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" viewBox="0 0 20 20" fill="currentColor"> <!-- Adjusted icon size -->
                             <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         Volver a la búsqueda
                     </button>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6"> <!-- Adjusted gap -->
                         <div class="lg:col-span-2">
-                            <img src="${service.imageUrl}" alt="${service.title}" class="w-full h-96 object-cover rounded-lg shadow-md border border-byte-accent-cyan/20" onerror="this.src='https://placehold.co/800x600/F0F8FF/0A0A1A?text=No+Image';">
-                            <h1 class="text-4xl font-extrabold text-byte-text-light mt-8 mb-4 text-stroke-cyan">${service.title}</h1>
-                            <p class="text-lg text-gray-400 leading-relaxed mb-6">${service.description}</p>
-                            <div class="bg-byte-dark-bg p-6 rounded-lg shadow-inner border border-byte-accent-cyan/10">
-                                <h2 class="text-2xl font-bold text-byte-accent-cyan mb-4">Detalles del Servicio</h2>
-                                <ul class="list-disc list-inside text-gray-400 space-y-2">
+                            <img src="${service.imageUrl}" alt="${service.title}" class="w-full h-80 object-cover rounded-lg shadow-md border border-byte-accent-cyan/20" onerror="this.src='https://placehold.co/800x600/F0F8FF/0A0A1A?text=No+Image';"> <!-- Adjusted height -->
+                            <h1 class="text-3xl font-extrabold text-byte-text-light mt-6 mb-3 text-stroke-cyan">${service.title}</h1> <!-- Adjusted text size and margin -->
+                            <p class="text-base text-gray-400 leading-relaxed mb-5">${service.description}</p> <!-- Adjusted text size and margin -->
+                            <div class="bg-byte-dark-bg p-5 rounded-lg shadow-inner border border-byte-accent-cyan/10"> <!-- Adjusted padding -->
+                                <h2 class="text-xl font-bold text-byte-accent-cyan mb-3.5">Detalles del Servicio</h2> <!-- Adjusted text size and margin -->
+                                <ul class="list-disc list-inside text-gray-400 space-y-1.5 text-sm"> <!-- Adjusted space-y and text size -->
                                     <li><span class="font-semibold text-byte-text-light">Categoría:</span> ${service.category}</li>
                                     <li><span class="font-semibold text-byte-text-light">Tiempo de Entrega:</span> ${service.deliveryTime}</li>
                                     <li><span class="font-semibold text-byte-text-light">Rating:</span> <span class="text-yellow-500">★</span>${service.rating} (${service.reviews} reseñas)</li>
@@ -1352,36 +1352,36 @@
                         </div>
 
                         <div class="lg:col-span-1">
-                            <div class="bg-byte-dark-bg p-6 rounded-xl shadow-md sticky top-4 border border-byte-accent-cyan/30">
-                                <div class="flex justify-between items-baseline mb-6">
-                                    <span class="text-4xl font-extrabold text-byte-accent-cyan">$${service.price}</span>
-                                    <span class="text-lg text-gray-400">Precio Fijo</span>
+                            <div class="bg-byte-dark-bg p-5 rounded-xl shadow-md sticky top-4 border border-byte-accent-cyan/30"> <!-- Adjusted padding -->
+                                <div class="flex justify-between items-baseline mb-5"> <!-- Adjusted margin -->
+                                    <span class="text-3xl font-extrabold text-byte-accent-cyan">$${service.price}</span> <!-- Adjusted text size -->
+                                    <span class="text-base text-gray-400">Precio Fijo</span> <!-- Adjusted text size -->
                                 </div>
-                                <button onclick="alert('Funcionalidad de \"Contratar Servicio\" no implementada en este demo.')" class="w-full bg-blue-600 text-white py-4 rounded-full text-xl font-bold hover:bg-blue-700 transition-colors duration-300 shadow-lg transform hover:scale-105">
+                                <button onclick="alert('Funcionalidad de \"Contratar Servicio\" no implementada en este demo.')" class="w-full bg-blue-600 text-white py-3.5 rounded-full text-lg font-bold hover:bg-blue-700 transition-colors duration-300 shadow-lg transform hover:scale-105"> <!-- Adjusted padding and text size -->
                                     Contratar Servicio
                                 </button>
-                                <button onclick="alert('Funcionalidad de \"Contactar Proveedor\" no implementada en este demo.')" class="w-full bg-gray-700 text-white py-3 rounded-full text-lg font-semibold mt-4 hover:bg-gray-600 transition-colors duration-300">
+                                <button onclick="alert('Funcionalidad de \"Contactar Proveedor\" no implementada en este demo.')" class="w-full bg-gray-700 text-white py-2.5 rounded-full text-base font-semibold mt-3.5 hover:bg-gray-600 transition-colors duration-300"> <!-- Adjusted padding, text size, margin -->
                                     Contactar al Proveedor
                                 </button>
 
                                 ${provider ? `
-                                <div class="mt-8 pt-6 border-t border-gray-700">
-                                    <h3 class="text-xl font-bold text-byte-accent-cyan mb-4">Acerca del Proveedor</h3>
-                                    <div class="flex items-center mb-4">
-                                        <img src="${provider.profileImageUrl}" alt="${provider.name}" class="w-16 h-16 rounded-full mr-4 border-4 border-byte-accent-cyan shadow-md" onerror="this.src='https://placehold.co/150x150/F0F8FF/0A0A1A?text=No+Img';">
+                                <div class="mt-7 pt-5 border-t border-gray-700"> <!-- Adjusted margin and padding -->
+                                    <h3 class="text-lg font-bold text-byte-accent-cyan mb-3">Acerca del Proveedor</h3> <!-- Adjusted text size and margin -->
+                                    <div class="flex items-center mb-3"> <!-- Adjusted margin -->
+                                        <img src="${provider.profileImageUrl}" alt="${provider.name}" class="w-14 h-14 rounded-full mr-3 border-3 border-byte-accent-cyan shadow-md" onerror="this.src='https://placehold.co/150x150/F0F8FF/0A0A1A?text=No+Img';"> <!-- Adjusted size and border -->
                                         <div>
-                                            <button onclick="navigate('providerProfile', { id: '${provider.id}' })" class="text-byte-accent-cyan text-2xl font-semibold hover:underline">
+                                            <button onclick="navigate('providerProfile', { id: '${provider.id}' })" class="text-byte-accent-cyan text-xl font-semibold hover:underline"> <!-- Adjusted text size -->
                                                 ${provider.name}
                                             </button>
-                                            <p class="text-gray-400 text-sm">${provider.profession}</p>
+                                            <p class="text-gray-400 text-xs">${provider.profession}</p> <!-- Adjusted text size -->
                                         </div>
                                     </div>
-                                    <div class="flex items-center text-gray-400 mb-4">
-                                        <span class="text-yellow-500 mr-1 text-lg">★</span>
-                                        <span class="font-medium text-lg">${provider.rating}</span> (${provider.reviews} reseñas)
+                                    <div class="flex items-center text-gray-400 mb-3 text-sm"> <!-- Adjusted margin and text size -->
+                                        <span class="text-yellow-500 mr-1 text-base">★</span> <!-- Adjusted text size -->
+                                        <span class="font-medium text-base">${provider.rating}</span> (${provider.reviews} reseñas) <!-- Adjusted text size -->
                                     </div>
-                                    <p class="text-gray-500 text-sm mb-4 line-clamp-3">${provider.bio}</p>
-                                    <button onclick="navigate('providerProfile', { id: '${provider.id}' })" class="text-byte-accent-cyan font-semibold hover:underline">
+                                    <p class="text-gray-500 text-xs mb-3 line-clamp-3">${provider.bio}</p> <!-- Adjusted text size and margin -->
+                                    <button onclick="navigate('providerProfile', { id: '${provider.id}' })" class="text-byte-accent-cyan font-semibold hover:underline text-sm"> <!-- Adjusted text size -->
                                         Ver Perfil Completo
                                     </button>
                                 </div>
@@ -1390,27 +1390,27 @@
                         </div>
                     </div>
 
-                    <section class="mt-12 p-6 bg-byte-dark-bg rounded-xl shadow-inner border border-byte-accent-cyan/10">
-                        <h2 class="text-3xl font-bold text-byte-accent-cyan mb-6">Reseñas de Clientes</h2>
+                    <section class="mt-10 p-5 bg-byte-dark-bg rounded-xl shadow-inner border border-byte-accent-cyan/10"> <!-- Adjusted margin and padding -->
+                        <h2 class="text-2xl font-bold text-byte-accent-cyan mb-5">Reseñas de Clientes</h2> <!-- Adjusted text size and margin -->
                         ${service.reviews > 0 ? `
-                            <div class="space-y-6">
-                                <div class="bg-byte-secondary-dark p-5 rounded-lg shadow-sm border border-gray-700">
-                                    <div class="flex items-center mb-2">
-                                        <span class="font-semibold text-byte-text-light mr-2">Cliente Satisfecho</span>
-                                        <span class="text-yellow-500">★★★★★</span>
+                            <div class="space-y-5"> <!-- Adjusted space-y -->
+                                <div class="bg-byte-secondary-dark p-4 rounded-lg shadow-sm border border-gray-700"> <!-- Adjusted padding -->
+                                    <div class="flex items-center mb-1.5"> <!-- Adjusted margin -->
+                                        <span class="font-semibold text-byte-text-light mr-1.5 text-sm">Cliente Satisfecho</span> <!-- Adjusted text size and margin -->
+                                        <span class="text-yellow-500 text-sm">★★★★★</span> <!-- Adjusted text size -->
                                     </div>
-                                    <p class="text-gray-400">"¡Excelente trabajo! El logo quedó justo como lo imaginé y la comunicación fue fluida. Muy recomendado."</p>
+                                    <p class="text-gray-400 text-sm">"¡Excelente trabajo! El logo quedó justo como lo imaginé y la comunicación fue fluida. Muy recomendado."</p> <!-- Adjusted text size -->
                                 </div>
-                                <div class="bg-byte-secondary-dark p-5 rounded-lg shadow-sm border border-gray-700">
-                                    <div class="flex items-center mb-2">
-                                        <span class="font-semibold text-byte-text-light mr-2">Empresa XYZ</span>
-                                        <span class="text-yellow-500">★★★★☆</span>
+                                <div class="bg-byte-secondary-dark p-4 rounded-lg shadow-sm border border-gray-700"> <!-- Adjusted padding -->
+                                    <div class="flex items-center mb-1.5"> <!-- Adjusted margin -->
+                                        <span class="font-semibold text-byte-text-light mr-1.5 text-sm">Empresa XYZ</span> <!-- Adjusted text size and margin -->
+                                        <span class="text-yellow-500 text-sm">★★★★☆</span> <!-- Adjusted text size -->
                                     </div>
-                                    <p class="text-gray-400">"Buen servicio, aunque la entrega se demoró un día. El resultado final fue muy bueno."</p>
+                                    <p class="text-gray-400 text-sm">"Buen servicio, aunque la entrega se demoró un día. El resultado final fue muy bueno."</p> <!-- Adjusted text size -->
                                 </div>
                             </div>
                         ` : `
-                            <p class="text-gray-400">Sé el primero en dejar una reseña para este servicio.</p>
+                            <p class="text-gray-400 text-sm">Sé el primero en dejar una reseña para este servicio.</p> <!-- Adjusted text size -->
                         `}
                     </section>
                 </div>
