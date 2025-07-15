@@ -460,12 +460,13 @@
             });
 
             // Inicialización del chatbot movida aquí para asegurar que el DOM esté listo y el script de definición cargado
-            if (customElements.get('chat-bot')) { // Verifica si el elemento personalizado 'chat-bot' está definido
+            // Se verifica si el elemento personalizado 'chat-bot' está definido para evitar errores si el script de carga aún no ha terminado.
+            if (customElements.get('chat-bot')) {
                 var chatBotEl = document.createElement('chat-bot');
                 // ACTUALIZADO: Nuevos IDs para el chatbot
-                chatBotEl.setAttribute('platform_id', '7def0408-a3e8-4a58-90bb-c6e5e3e750b2');
-                chatBotEl.setAttribute('user_id', 'e71d960f-62bf-4b52-9c34-89801d0d8023');
-                chatBotEl.setAttribute('chatbot_id', 'cb3c57ca-bd69-47a9-8df1-1e2756ae556a');
+                chatBotEl.setAttribute('platform_id', '218acb1c-a252-488a-8fdb-ef64cefc2b31');
+                chatBotEl.setAttribute('user_id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');
+                chatBotEl.setAttribute('chatbot_id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a');
 
                 var chatbotLink = document.createElement('a');
                 chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
