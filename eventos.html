@@ -341,9 +341,20 @@
             -ms-user-select: none;
             user-select: none;
         }
-        /* Add pointer events back for gallery images */
+        /* Global image protection */
+        img {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none; /* Disable pointer events for all images by default */
+        }
+
+        /* Add pointer events back for gallery images (if any were present) */
+        /* This ensures images intended for interaction (like fullscreen view) remain clickable */
         #web-dev-gallery img {
             cursor: pointer;
+            pointer-events: auto; /* Re-enable pointer events for gallery images */
         }
 
 
@@ -732,8 +743,8 @@
             right: 4rem; /* Adjusted to be slightly more to the left from the right edge */
             top: 50%;
             transform: translateY(-50%);
-            width: 180px; /* Thinner */
-            height: 70vh; /* Taller */
+            width: 220px; /* Made wider */
+            height: 75vh; /* Made taller */
             max-height: 80vh; 
             background-color: #1A202C; /* Using byte-secondary-dark */
             border-radius: 1rem; /* Rounded corners */
@@ -772,7 +783,7 @@
     <header class="bg-transparent text-byte-text-light py-2">
         <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
             <div class="flex items-center justify-start ml-0">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain" oncontextmenu="return false;" draggable="false">
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow items-center gap-4">
