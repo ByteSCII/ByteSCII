@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos - Byte Desarrolladora Digital</title>
+
+    <link rel="icon" type="image/png" href="./images/isotipo.png">
+    <meta name="description" content="Byte - Métodos de pago seguros, atención al cliente y soluciones digitales confiables.">
+    <meta name="keywords" content="Byte, pagos seguros, tecnología, atención al cliente, soluciones digitales, Venezuela">
+    <meta name="author" content="Byte">
+    <meta property="og:title" content="Byte - Tecnología y confianza">
+    <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script>
+        // Custom Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A', // Main dark background
+                        'byte-accent-cyan': '#00FFFF', // Electric cyan for accents
+                        'byte-light-bg': '#F8FAFC', // Light background (if used)
+                        'byte-text-dark': '#374151', // Dark text (if used)
+                        'byte-text-light': '#F9FAFB', // Light text
+                        'byte-secondary-dark': '#1A202C', // Secondary dark background (for dropdowns)
+                        'whatsapp-green': '#25D366', // Official WhatsApp color
+                        'whatsapp-dark-green': '#128C7E', // Darker tone for WhatsApp hover
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Box-Sizing universal for consistent box model */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Base styles for HTML and Body */
+        html {
+            height: 100%; /* Ensures HTML has full height */
+            width: 100%; /* Ensures HTML has full width */
+        }
+        body {
+            min-height: 100vh; /* Ensures body takes at least full viewport height, allowing scrolling */
+            width: 100%; /* Ensures body takes full width */
+            overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+            background-color: #0A0A1A; /* Main dark background color */
+            font-family: 'Inter', sans-serif; /* Main font */
+            color: #F9FAFB; /* Main text color */
+            margin: 0;
+            padding: 0;
+            /* Disable text selection for an app-like experience */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            /* Flexbox for overall layout */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Scrollbar styles for WebKit browsers (Chrome, Safari, Edge) */
+        body::-webkit-scrollbar, html::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
+
+        body::-webkit-scrollbar-track, html::-webkit-scrollbar-track {
+            background: #1A202C; /* Color of the scrollbar track */
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
+            background-color: #00FFFF; /* Color of the scrollbar thumb (cyan) */
+            border-radius: 10px;
+            border: 2px solid #1A202C; /* Padding around the thumb */
+        }
+
+        body::-webkit-scrollbar-thumb:hover, html::-webkit-scrollbar-thumb:hover {
+            background-color: #00BFFF; /* Darker cyan on hover */
+        }
+
+        /* Image Background Styles */
+        #image-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire area without distortion */
+            z-index: -1; /* Places the image behind all other content */
+            filter: brightness(50%); /* Darken the image to make text more readable */
+        }
+
+        /* Styles for headings (h1-h6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif; /* Font for headings */
+            color: #00FFFF; /* Electric cyan for accents */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Shadow for a glow effect */
+        }
+
+        /* Text stroke style */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF; /* Cyan stroke for WebKit browsers */
+            text-stroke: 1.5px #00FFFF; /* Standard cyan stroke */
+            color: #FFFFFF; /* Text fill color */
+            text-shadow: none; /* Ensures no text shadows interfere */
+        }
+
+        /* Fall-in animation for AOS (definition kept, but won't be used if AOS.init is removed) */
+        @keyframes fall-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Class applied by AOS.js for animating elements (definition kept, but won't be used if AOS.init is removed) */
+        .aos-animate {
+            animation-name: fall-in;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Styles for navigation menu text with cyan stroke */
+        /* Montserrat font applied directly here to ensure display */
+        .nav-menu-text-stroke-cyan {
+            color: #E0E0E0; /* Base silver color for text */
+            -webkit-text-stroke-width: 0.7px; /* Thinner cyan stroke for smaller text */
+            -webkit-text-stroke-color: #A0A0A0; /* Darker gray stroke for silver effect */
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Shadow for depth */
+            transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            font-family: 'Montserrat', sans-serif; /* DIRECTLY APPLIED HERE */
+        }
+
+        /* Glow and lift effect on menu links on hover */
+        .menu-link-hover-effect { /* New class for hover effects */
+            position: relative;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .menu-link-hover-effect::before {
+            content: '';
+            position: absolute;
+            bottom: -5px; /* Line position below text */
+            left: 0; /* Starts from text beginning */
+            width: 0; /* Line starts with zero width */
+            height: 3px; /* Line thickness */
+            background-color: #00FFFF; /* Cyan color */
+            border-radius: 2px;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transition for width and opacity */
+            opacity: 0; /* Initially invisible */
+        }
+        .menu-link-hover-effect:hover::before {
+            width: 100%; /* Line expands to 100% of parent width */
+            opacity: 1; /* Becomes visible */
+            background-color: #00FFFF; /* Ensures underline is cyan on hover */
+        }
+        .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
+            color: #00FFFF; /* Electric cyan on hover */
+            -webkit-text-stroke-color: #00BFFF; /* Darker cyan for stroke on hover */
+            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Intense glow on hover */
+        }
+        .menu-link-hover-effect:hover {
+            transform: translateY(-5px); /* Lifts the link slightly more for a noticeable "jump" */
+        }
+
+        /* Subtle bounce animation for arrow icon */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        /* Class to activate arrow rotation and bounce */
+        .js-arrow-icon.arrow-active, .js-arrow-icon-mobile.arrow-active {
+            transform: rotate(180deg);
+            animation: bounce-subtle 0.5s ease-in-out infinite alternate;
+        }
+
+        /* Service item styles */
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem; /* Padding for content */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            color: #F9FAFB; /* Light text color */
+            text-decoration: none; /* Remove underline from links */
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Subtle gradient background */
+            border-radius: 1rem; /* Rectangular with rounded corners */
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1); /* Subtle shadow */
+            border: 1px solid rgba(0, 255, 255, 0.2); /* Subtle border */
+            width: 100%; /* Occupy full width of its container */
+            max-width: 250px; /* Limit max width for better appearance */
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px) scale(1.05); /* Lift and slight increase in size on hover */
+            color: #00FFFF; /* Cyan text on hover */
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3); /* More pronounced shadow on hover */
+            border-color: #00FFFF; /* More visible border on hover */
+        }
+
+        .service-item .icon {
+            font-size: 3rem; /* Icon size */
+            margin-bottom: 0.5rem; /* Space below icon */
+            color: #E0E0E0; /* Light gray color for icons */
+            transition: color 0.3s ease, transform 0.3s ease; /* Added transform for icon animation */
+        }
+
+        /* Icon animation on hover */
+        .service-item:hover .icon {
+            color: #00FFFF; /* Cyan icon on hover */
+            transform: scale(1.2); /* Slightly enlarge icon on hover */
+        }
+
+        .service-item h3 {
+            font-size: 1.2rem; /* Title size */
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0;
+            color: inherit; /* Inherit color from parent (.service-item) */
+            /* Removed white-space: nowrap; and text-overflow: ellipsis; to allow wrapping */
+            /* max-width: 100%; is still useful to keep it within parent bounds */
+            max-width: 100%; 
+        }
+
+        /* Specific styles for service items on small screens (mobiles) */
+        @media (max-width: 768px) { /* For screens up to 768px (md breakpoint) */
+            .service-item {
+                padding: 0.75rem; /* Smaller padding for mobile */
+                max-width: 180px; /* Smaller max-width for mobile */
+            }
+            .service-item .icon {
+                font-size: 2.5rem;
+            }
+            .service-item h3 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Disabled link style */
+        .disabled-link {
+            opacity: 0.6; /* Reduced opacity to indicate disabled */
+            cursor: not-allowed; /* "Not allowed" cursor */
+        }
+
+        /* --- Styles for size reduction on PC and large screens --- */
+        @media (min-width: 1024px) { /* Adjust this breakpoint as needed (lg in Tailwind) */
+            .header-nav-item {
+                font-size: 0.95rem; /* Smaller font for navigation links */
+            }
+
+            .main-cta-button {
+                padding: 0.6rem 1.5rem; /* Slightly smaller button padding */
+                font-size: 0.9rem; /* Smaller font for CTA button */
+            }
+
+            .section-heading {
+                font-size: 2.5rem; /* Smaller general section headings */
+            }
+
+            .service-item {
+                padding: 1.5rem; /* Standard padding for larger screens */
+            }
+
+            .service-item .icon {
+                font-size: 3rem; /* Standard icon size for larger screens */
+            }
+
+            .service-item h3 {
+                font-size: 1.3rem; /* Standard title size for larger screens */
+            }
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #1A202C; /* Secondary dark background */
+            color: #F9FAFB; /* Light text */
+            padding: 1rem 0; /* Reduced padding for a more compact look */
+            /* Removed border-top as it's not needed with the new background */
+        }
+
+        .footer a {
+            color: #00FFFF; /* Cyan for links */
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00BFFF; /* Darker cyan on hover */
+        }
+
+        .footer-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem; /* Larger font for headings */
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #00FFFF; /* Cyan color for headings */
+        }
+
+        .footer-link-item {
+            margin-bottom: 0.5rem; /* Space between list items */
+        }
+
+        .footer-social-icon {
+            font-size: 1.75rem; /* Size of social icons */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            color: #00FFFF; /* Cyan on hover */
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Styles to disable text selection and pointer events on images */
+        p, h1, h2, h3, h4, h5, h6, span, div {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        /* Add pointer events back for gallery images */
+        #web-dev-gallery img {
+            cursor: pointer;
+        }
+
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent; /* Changed to transparent to show background image */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Below header, but still above main content */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(0); /* Initial position for slide-down */
+            transition: opacity 1.5s ease, visibility 1.5s ease, transform 1.5s ease; /* Slower transition */
+            pointer-events: none;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0); /* Ensure it's at the top */
+            pointer-events: auto; /* Re-enable pointer events for the overlay when shown */
+        }
+
+        .modal-overlay.slide-out {
+            transform: translateY(100%); /* Slide down */
+            opacity: 0; /* Fade out */
+            visibility: hidden; /* Hide completely after animation */
+        }
+
+        .modal-content {
+            background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* New background image with correct path and extension */
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the background image */
+            padding: 2rem;
+            border-radius: 1rem; /* Rounded corners for square modal */
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4); /* Cyan glow */
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto; /* Enable scrolling for content if it overflows */
+            position: relative;
+            transform: translateY(20px); /* Start slightly below center */
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            padding-top: 2rem; /* Standard padding */
+            padding-bottom: 2rem; /* Standard padding */
+            display: flex; /* Use flexbox for internal layout */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            pointer-events: auto;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0); /* Slide into place */
+        }
+
+        /* Ensure header is always on top and clickable */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999; /* Very high z-index to guarantee it's on top */
+            pointer-events: auto; /* Ensure header itself is always clickable */
+            background-color: transparent; /* Make header background transparent */
+            box-shadow: none; /* Remove shadow */
+            border-bottom: none; /* Remove border-bottom */
+        }
+
+        /* Specific styles for the main CTA button to ensure animation */
+        .main-cta-button {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .main-cta-button:hover {
+            transform: scale(1.15); /* Slightly more pronounced scale */
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
+        }
+
+        /* Service Detail Page as a fixed overlay */
+        #service-detail-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1001; /* Above modal */
+            background-color: #0A0A1A; /* Solid background to cover image */
+            /* New background for destellos effect */
+            background-image: 
+                radial-gradient(circle at top left, rgba(0, 255, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at bottom right, rgba(0, 255, 255, 0.1) 0%, transparent 30%),
+                repeating-linear-gradient(45deg, rgba(0, 255, 255, 0.05) 0px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(-45deg, rgba(0, 255, 255, 0.05) 0px, transparent 1px, transparent 20px);
+            background-size: cover;
+            display: flex; /* Keep flex for centering content */
+            flex-direction: column;
+            align-items: center; /* Center items horizontally */
+            justify-content: flex-start; /* Align content to the top */
+            padding: 8rem 1rem 4rem 1rem; /* Increased top padding to 8rem, added bottom padding */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+            opacity: 0; /* Start hidden for a fade-in effect */
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out; /* Smooth transition */
+        }
+        #service-detail-page.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #service-detail-page.hidden {
+            display: none !important; /* Ensure it's fully hidden when not active */
+        }
+
+        /* Styles for the animated clone element */
+        .animated-service-clone {
+            position: fixed;
+            top: 50%; /* Start centered */
+            left: 50%; /* Start centered */
+            transform: translate(-50%, -50%) scale(0.1); /* Start small and centered */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Keep the background of the service item */
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            padding: 2rem;
+            opacity: 0; /* Start hidden for fade-in */
+            transition: transform 3.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 3.5s ease-in-out; /* Even slower transition for scale and opacity */
+            z-index: 10000; /* Ensure it's on top during animation */
+        }
+        .animated-service-clone.animate-in {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.5); /* Reduced scale to 1.5 */
+        }
+        /* Ensure text in animated clone is visible */
+        .animated-service-clone h3 {
+            color: #F9FAFB !important; /* Explicitly set text color to light */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Add a subtle glow for visibility */
+        }
+
+
+        /* Typing animation for text */
+        .typing-text {
+            overflow: hidden; /* Ensures text is hidden until typed */
+            white-space: nowrap; /* Keeps text on a single line */
+            animation: typing 2.5s steps(40, end) forwards; /* Adjust steps based on text length */
+            width: 0; /* Start with zero width */
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Vertical Lines */
+        .vertical-line {
+            position: fixed;
+            top: 0;
+            width: 2px; /* Thin line */
+            height: 100%;
+            z-index: 999; /* Above content, below header */
+            background: linear-gradient(to bottom, #00FFFF, #00BFFF, #00FFFF); /* Cyan gradient */
+            background-size: 100% 200%; /* Make gradient taller to animate */
+            animation: color-shift 5s linear infinite alternate; /* Dynamic color change */
+        }
+
+        .vertical-line.left {
+            left: 0;
+        }
+
+        .vertical-line.right {
+            right: 0;
+        }
+
+        @keyframes color-shift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
+
+        /* Fullscreen Image Modal Styles */
+        #fullscreen-image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10002; /* Above everything else */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #fullscreen-image-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #fullscreen-image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensures the entire image is visible */
+            border-radius: 0.5rem;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); /* Cyan glow */
+            transform: scale(0.5); /* Start small for zoom-in animation */
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Zoom animation */
+        }
+
+        #fullscreen-image-modal.show img {
+            transform: scale(1); /* Zoom to full size */
+        }
+
+        #fullscreen-image-modal .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem; /* Larger X */
+            color: #00FFFF; /* Cyan color */
+            cursor: pointer;
+            z-index: 10003; /* Above the image */
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        #fullscreen-image-modal .close-button:hover {
+            transform: rotate(90deg); /* Rotate on hover */
+            color: #00BFFF; /* Darker cyan on hover */
+        }
+
+        /* Styles for the container holding image, date, and description */
+        .image-description-container {
+            display: flex;
+            flex-direction: column; /* Default to column for mobile */
+            align-items: center; /* Center content horizontally within the container */
+            width: 100%; /* Take full width of its parent (web-dev-gallery) */
+            max-width: 800px; /* Increased max-width to accommodate side-by-side content */
+            margin-bottom: 4rem; /* Space between each image block */
+            padding: 1rem; /* Add some padding around the content */
+            border-radius: 1rem;
+            background: rgba(10, 10, 26, 0.7); /* Slightly transparent dark background */
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2); /* Subtle cyan shadow */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .image-description-container:hover {
+            transform: translateY(-5px) scale(1.02); /* Slight lift and scale on hover */
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4); /* More pronounced shadow */
+        }
+
+        .image-description-container img {
+            /* Keep existing image styles, but ensure it fits within the new container */
+            width: 100%; /* Make image fill the container width on mobile */
+            max-width: 350px; /* Limit image width on larger screens */
+            height: auto;
+            margin-bottom: 1rem; /* Space between image and date/description on mobile */
+            pointer-events: auto; /* Ensure clickable */
+        }
+
+        .image-text-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center text content horizontally */
+            text-align: center;
+            flex-grow: 1; /* Allow text content to take available space */
+        }
+
+        .image-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #00FFFF; /* Cyan for title */
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.7); /* Stronger glow */
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .image-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00FFFF; /* Cyan for date */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Glow */
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .image-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #F9FAFB; /* Light text color */
+            text-align: center;
+            max-width: 90%; /* Limit width for readability */
+            margin-bottom: 0; /* Remove extra margin at the bottom */
+        }
+
+        /* Adjust zigzag alignment for the new container */
+        #web-dev-gallery .image-description-container:nth-child(odd) {
+            align-self: flex-start; /* Align left */
+        }
+        #web-dev-gallery .image-description-container:nth-child(even) {
+            align-self: flex-end; /* Align right */
+        }
+
+        /* Responsive adjustments for the container on medium and larger screens */
+        @media (min-width: 768px) { /* md breakpoint */
+            .image-description-container {
+                flex-direction: row; /* Change to row for side-by-side layout */
+                justify-content: space-between; /* Space out image and text */
+                align-items: center; /* Vertically align items in the center */
+                padding: 1.5rem; /* Increase padding for larger screens */
+            }
+
+            .image-description-container:nth-child(odd) {
+                flex-direction: row; /* Image on left, text on right */
+            }
+
+            .image-description-container:nth-child(even) {
+                flex-direction: row-reverse; /* Image on right, text on left */
+            }
+
+            .image-description-container img {
+                margin-bottom: 0; /* Remove bottom margin when side-by-side */
+                margin-right: 1.5rem; /* Space between image and text */
+                margin-left: 1.5rem;
+            }
+
+            .image-description-container:nth-child(even) img {
+                margin-right: 0; /* Remove right margin for reversed order */
+                margin-left: 1.5rem; /* Add left margin for reversed order */
+            }
+
+            .image-text-content {
+                align-items: flex-start; /* Align text to the start (left) */
+                text-align: left; /* Align text to the left */
+            }
+            .image-description-container:nth-child(even) .image-text-content {
+                align-items: flex-end; /* Align text to the end (right) for reversed order */
+                text-align: right; /* Align text to the right for reversed order */
+            }
+        }
+
+        /* Mobile adjustments for the container and titles */
+        @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
+            .image-description-container {
+                max-width: 95%; /* Allow it to take more width on small screens */
+                padding: 0.75rem;
+                margin-bottom: 3rem; /* Slightly less space on mobile */
+            }
+            .image-title {
+                font-size: 1.1rem;
+            }
+            .image-date {
+                font-size: 0.95rem;
+            }
+            .image-description {
+                font-size: 0.9rem;
+            }
+
+            /* Shrink main portfolio title on mobile */
+            #main-portfolio-title {
+                font-size: 2.5rem; /* Smaller font size for mobile */
+            }
+            /* Shrink welcome text title on mobile */
+            #page-detail-title {
+                font-size: 2rem; /* Smaller font size for mobile */
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <!-- Vertical lines for aesthetic margin -->
+    <div class="vertical-line left"></div>
+    <div class="vertical-line right"></div>
+
+    <!-- Image Background -->
+    <img src="./eventos/fondo.jpg" alt="Fondo de Eventos" id="image-background">
+
+    <header class="bg-transparent text-byte-text-light py-2">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
+            <div class="flex items-center justify-start ml-0">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain">
+            </div>
+
+            <nav class="hidden sm:flex justify-end flex-grow items-center gap-4">
+                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                    Volver al inicio
+                </a>
+            </nav>
+
+            <!-- Contenedor de botones para móvil -->
+            <div class="sm:hidden flex items-center gap-2">
+                <a href="index.html" id="mobile-menu-link" class="p-2 rounded-lg bg-yellow-500 text-black font-bold
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 flex items-center justify-center h-12 w-auto text-center text-xs px-4">
+                    Inicio
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content-area" class="flex-grow flex items-center justify-center">
+        <!-- Main content area will be empty, modal will appear on top -->
+    </main>
+
+    <!-- Events Modal -->
+    <div id="events-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos</h2>
+            <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
+                <button onclick="showPastEvents()" class="service-item">
+                    <div class="icon"><i class="fa-solid fa-calendar-check"></i></div>
+                    <h3>Pasados</h3>
+                </button>
+                <button onclick="showUpcomingEvents()" class="service-item">
+                    <div class="icon"><i class="fa-solid fa-calendar-alt"></i></div>
+                    <h3>Próximos</h3>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fullscreen Image Modal (kept for potential future use or if user wants to add images later) -->
+    <div id="fullscreen-image-modal">
+        <button class="close-button" id="close-image-modal">&times;</button>
+        <img id="fullscreen-image" src="" alt="Imagen en pantalla completa" oncontextmenu="return false;" draggable="false">
+    </div>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-4">
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400">
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        // Chatbot integration
+        (function() {
+            try {
+                var cs = document.createElement('script');
+                cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+                cs.setAttribute('data-platform-id', '218acb1c-a252-488a-8fdb-ef64cefc2b31'); // Pass platform_id via data attribute
+                cs.setAttribute('data-user-id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');     // Pass user_id via data attribute
+                cs.setAttribute('data-chatbot-id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a'); // Pass chatbot_id via data attribute
+                document.body.appendChild(cs);
+                console.log('Chatbot script appended.');
+            } catch (error) {
+                console.error('Error appending chatbot script:', error);
+            }
+        })();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            const eventsModal = document.getElementById('events-modal');
+            const fullscreenImageModal = document.getElementById('fullscreen-image-modal');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            const closeImageModalBtn = document.getElementById('close-image-modal');
+
+            // Function to open the events modal
+            function openEventsModal() {
+                eventsModal.classList.remove('hidden', 'slide-out');
+                eventsModal.classList.add('show');
+            }
+
+            // Placeholder functions for event categories
+            window.showPastEvents = function() {
+                alert('Mostrando eventos pasados...'); // Replace with actual content loading logic
+                // Here you would typically hide the eventsModal and display a new section
+                // with past events, similar to how service details were shown previously.
+            };
+
+            window.showUpcomingEvents = function() {
+                alert('Mostrando eventos próximos...'); // Replace with actual content loading logic
+                // Here you would typically hide the eventsModal and display a new section
+                // with upcoming events.
+            };
+
+            // Function to open fullscreen image (kept for potential future use)
+            window.openFullscreenImage = function(src) {
+                fullscreenImage.src = src;
+                fullscreenImageModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            };
+
+            // Function to close fullscreen image (kept for potential future use)
+            window.closeFullscreenImage = function() {
+                fullscreenImageModal.classList.remove('show');
+                document.body.style.overflow = '';
+            };
+
+            // Event listener for closing fullscreen image
+            if (closeImageModalBtn) {
+                closeImageModalBtn.addEventListener('click', window.closeFullscreenImage);
+                fullscreenImageModal.addEventListener('click', (event) => {
+                    if (event.target === fullscreenImageModal) {
+                        window.closeFullscreenImage();
+                    }
+                });
+            }
+
+            // Open the events modal automatically on page load
+            openEventsModal();
+        });
+    </script>
+</body>
+</html>
