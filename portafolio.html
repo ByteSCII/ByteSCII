@@ -335,7 +335,9 @@
         p, h1, h2, h3, h4, h5, h6, span, div {
             user-select: none;
             -webkit-user-select: none;
-            -webkit-touch-callout: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
         /* Add pointer events back for gallery images */
         #web-dev-gallery img {
@@ -728,18 +730,30 @@
                 <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain">
             </div>
 
-            <nav class="hidden sm:flex justify-end flex-grow">
+            <nav class="hidden sm:flex justify-end flex-grow items-center gap-4">
                 <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg
                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                     Volver al inicio
                 </a>
+                <!-- Botón "Volver al Portafolio" para escritorio -->
+                <button id="back-to-portfolio-btn-desktop" class="hidden bg-blue-600 text-white font-bold py-2 px-4 rounded-lg
+                                                     shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 text-sm">
+                    Volver al Portafolio
+                </button>
             </nav>
 
-            <!-- Mobile menu button, now directly links to index.html and is rectangular with rounded corners -->
-            <a href="index.html" id="mobile-menu-link" class="sm:hidden p-2 rounded-lg bg-yellow-500 text-black font-bold
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 flex items-center justify-center h-12 w-auto text-center text-xs px-4">
-                Inicio
-            </a>
+            <!-- Contenedor de botones para móvil -->
+            <div class="sm:hidden flex items-center gap-2">
+                <a href="index.html" id="mobile-menu-link" class="p-2 rounded-lg bg-yellow-500 text-black font-bold
+                                             shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 flex items-center justify-center h-12 w-auto text-center text-xs px-4">
+                    Inicio
+                </a>
+                <!-- Botón "Volver al Portafolio" para móvil -->
+                <button id="back-to-portfolio-btn-mobile" class="hidden bg-blue-600 text-white font-bold py-2 px-4 rounded-lg
+                                                     shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105 text-xs">
+                    Portafolio
+                </button>
+            </div>
         </div>
     </header>
 
@@ -789,10 +803,7 @@
             <!-- Images will be dynamically inserted here -->
         </div>
 
-        <button id="back-to-portfolio-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg
-                                                 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
-            Volver al Portafolio
-        </button>
+        <!-- El botón "Volver al Portafolio" ha sido movido a la cabecera -->
     </section>
 
     <!-- Fullscreen Image Modal -->
@@ -881,7 +892,9 @@
             const serviceDetailPage = document.getElementById('service-detail-page');
             const pageDetailTitle = document.getElementById('page-detail-title');
             const pageDetailDescription = document.getElementById('page-detail-description');
-            const backToPortfolioBtn = document.getElementById('back-to-portfolio-btn');
+            // Referencia a los nuevos botones en la cabecera
+            const backToPortfolioBtnDesktop = document.getElementById('back-to-portfolio-btn-desktop');
+            const backToPortfolioBtnMobile = document.getElementById('back-to-portfolio-btn-mobile');
             const welcomeTextSpan = document.getElementById('welcome-text');
             const mainPortfolioTypingText = document.getElementById('main-portfolio-typing-text');
             const webDevGallery = document.getElementById('web-dev-gallery'); // Get the gallery container
@@ -947,6 +960,11 @@
                     // Show the service detail page and start typing animation
                     serviceDetailPage.classList.remove('hidden');
                     serviceDetailPage.classList.add('show');
+
+                    // Mostrar los botones "Volver al Portafolio"
+                    if (backToPortfolioBtnDesktop) backToPortfolioBtnDesktop.classList.remove('hidden');
+                    if (backToPortfolioBtnMobile) backToPortfolioBtnMobile.classList.remove('hidden');
+
 
                     // Clear previous content
                     webDevGallery.innerHTML = '';
@@ -1025,16 +1043,24 @@
 
 
             // Function to show the main portfolio page (from service detail)
-            if (backToPortfolioBtn) {
-                backToPortfolioBtn.addEventListener('click', () => {
+            // Agregamos listeners a ambos botones
+            if (backToPortfolioBtnDesktop && backToPortfolioBtnMobile) {
+                const handleBackButtonClick = () => {
                     serviceDetailPage.classList.remove('show'); // Fade out
                     
                     // After fade out, hide completely and re-open modal
                     setTimeout(() => {
                         serviceDetailPage.classList.add('hidden'); // Hide completely
                         openModal(); // Re-open the modal
+
+                        // Ocultar los botones "Volver al Portafolio"
+                        if (backToPortfolioBtnDesktop) backToPortfolioBtnDesktop.classList.add('hidden');
+                        if (backToPortfolioBtnMobile) backToPortfolioBtnMobile.classList.add('hidden');
                     }, 800); // Match fade-out transition duration (0.8s)
-                });
+                };
+
+                backToPortfolioBtnDesktop.addEventListener('click', handleBackButtonClick);
+                backToPortfolioBtnMobile.addEventListener('click', handleBackButtonClick);
             }
 
             // Open modal automatically on page load
