@@ -332,7 +332,6 @@
         }
 
         /* Styles to disable text selection and pointer events on images */
-        /* REMOVED: img { pointer-events: none; } */
         p, h1, h2, h3, h4, h5, h6, span, div {
             user-select: none;
             -webkit-user-select: none;
@@ -575,6 +574,125 @@
             transform: rotate(90deg); /* Rotate on hover */
             color: #00BFFF; /* Darker cyan on hover */
         }
+
+        /* Styles for the container holding image, date, and description */
+        .image-description-container {
+            display: flex;
+            flex-direction: column; /* Default to column for mobile */
+            align-items: center; /* Center content horizontally within the container */
+            width: 100%; /* Take full width of its parent (web-dev-gallery) */
+            max-width: 800px; /* Increased max-width to accommodate side-by-side content */
+            margin-bottom: 4rem; /* Space between each image block */
+            padding: 1rem; /* Add some padding around the content */
+            border-radius: 1rem;
+            background: rgba(10, 10, 26, 0.7); /* Slightly transparent dark background */
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2); /* Subtle cyan shadow */
+            border: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan border */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .image-description-container:hover {
+            transform: translateY(-5px) scale(1.02); /* Slight lift and scale on hover */
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4); /* More pronounced shadow */
+        }
+
+        .image-description-container img {
+            /* Keep existing image styles, but ensure it fits within the new container */
+            width: 100%; /* Make image fill the container width on mobile */
+            max-width: 350px; /* Limit image width on larger screens */
+            height: auto;
+            margin-bottom: 1rem; /* Space between image and date/description on mobile */
+            pointer-events: auto; /* Ensure clickable */
+        }
+
+        .image-text-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center text content horizontally */
+            text-align: center;
+            flex-grow: 1; /* Allow text content to take available space */
+        }
+
+        .image-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #00FFFF; /* Cyan for date */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Glow */
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .image-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #F9FAFB; /* Light text color */
+            text-align: center;
+            max-width: 90%; /* Limit width for readability */
+            margin-bottom: 0; /* Remove extra margin at the bottom */
+        }
+
+        /* Adjust zigzag alignment for the new container */
+        #web-dev-gallery .image-description-container:nth-child(odd) {
+            align-self: flex-start; /* Align left */
+        }
+        #web-dev-gallery .image-description-container:nth-child(even) {
+            align-self: flex-end; /* Align right */
+        }
+
+        /* Responsive adjustments for the container on medium and larger screens */
+        @media (min-width: 768px) { /* md breakpoint */
+            .image-description-container {
+                flex-direction: row; /* Change to row for side-by-side layout */
+                justify-content: space-between; /* Space out image and text */
+                align-items: center; /* Vertically align items in the center */
+                padding: 1.5rem; /* Increase padding for larger screens */
+            }
+
+            .image-description-container:nth-child(odd) {
+                flex-direction: row; /* Image on left, text on right */
+            }
+
+            .image-description-container:nth-child(even) {
+                flex-direction: row-reverse; /* Image on right, text on left */
+            }
+
+            .image-description-container img {
+                margin-bottom: 0; /* Remove bottom margin when side-by-side */
+                margin-right: 1.5rem; /* Space between image and text */
+                margin-left: 1.5rem;
+            }
+
+            .image-description-container:nth-child(even) img {
+                margin-right: 0; /* Remove right margin for reversed order */
+                margin-left: 1.5rem; /* Add left margin for reversed order */
+            }
+
+            .image-text-content {
+                align-items: flex-start; /* Align text to the start (left) */
+                text-align: left; /* Align text to the left */
+            }
+            .image-description-container:nth-child(even) .image-text-content {
+                align-items: flex-end; /* Align text to the end (right) for reversed order */
+                text-align: right; /* Align text to the right for reversed order */
+            }
+        }
+
+        /* Mobile adjustments for the container */
+        @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
+            .image-description-container {
+                max-width: 95%; /* Allow it to take more width on small screens */
+                padding: 0.75rem;
+                margin-bottom: 3rem; /* Slightly less space on mobile */
+            }
+            .image-date {
+                font-size: 0.95rem;
+            }
+            .image-description {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 
 </head>
@@ -664,7 +782,7 @@
     <!-- Fullscreen Image Modal -->
     <div id="fullscreen-image-modal">
         <button class="close-button" id="close-image-modal">&times;</button>
-        <img id="fullscreen-image" src="" alt="Imagen en pantalla completa">
+        <img id="fullscreen-image" src="" alt="Imagen en pantalla completa" oncontextmenu="return false;" draggable="false">
     </div>
 
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-4">
@@ -697,11 +815,26 @@
                 title: 'Desarrollo Web',
                 welcomeText: 'Trabajos realizados', // New welcome text
                 images: [
-                    './desarrolloweb/1.png',
-                    './desarrolloweb/2.png',
-                    './desarrolloweb/3.png',
-                    './desarrolloweb/4.png',
-                    './desarrolloweb/5.png'
+                    {
+                        path: './desarrolloweb/2.png',
+                        date: '5 de Julio de 2025',
+                        description: 'Esta empresa de cremas para el cuidado de la piel buscaba expandir su alcance y aumentar sus ventas. Decidimos crear una tienda virtual moderna y funcional, optimizada para una experiencia de compra fluida y visualmente atractiva, lo que les permitió llegar a nuevos clientes y potenciar su crecimiento en línea.'
+                    },
+                    {
+                        path: './desarrolloweb/3.png',
+                        date: '10 de Julio de 2025',
+                        description: 'Para esta encantadora pastelería, diseñamos una plataforma digital que no solo exhibe sus deliciosas creaciones, sino que también facilita los pedidos personalizados y la gestión de entregas, conectando directamente con sus clientes y simplificando el proceso de compra de sus productos artesanales.'
+                    },
+                    {
+                        path: './desarrolloweb/4.png',
+                        date: '12 de Julio de 2025',
+                        description: 'Transformamos la presencia en línea de esta tienda de ropa con un diseño web vanguardista y un sistema de catálogo intuitivo. El objetivo fue reflejar su estilo único y ofrecer a los usuarios una experiencia de navegación inmersiva, facilitando la exploración de colecciones y la compra de sus prendas favoritas.'
+                    },
+                    {
+                        path: './desarrolloweb/5.png',
+                        date: '14 de Julio de 2025',
+                        description: 'Desarrollamos una página de recaudación de datos segura y eficiente para una iniciativa crucial. Nos centramos en la usabilidad y la protección de la información, asegurando un proceso de recolección de datos transparente y confiable, fundamental para el éxito de su proyecto.'
+                    }
                 ]
             },
             'virtual-stores': {
@@ -825,23 +958,47 @@
 
                     // Add images or description based on content type
                     if (content.images && content.images.length > 0) {
-                        content.images.forEach((imagePath, index) => {
+                        content.images.forEach((item, index) => {
+                            const container = document.createElement('div');
+                            container.classList.add('image-description-container');
+
                             const img = document.createElement('img');
-                            img.src = imagePath;
+                            img.src = item.path;
                             img.alt = `Imagen de Portafolio ${index + 1}`;
-                            img.classList.add('w-full', 'max-w-xs', 'md:max-w-sm', 'lg:max-w-md', 'rounded-lg', 'shadow-lg', 'mb-16', 'transition-transform', 'duration-500', 'ease-in-out', 'cursor-pointer'); 
+                            img.oncontextmenu = "return false;"; // Disable right-click
+                            img.draggable = false; // Prevent dragging
                             img.onerror = function() { this.src = `https://placehold.co/300x200/000000/FFFFFF?text=Error+Carga`; }; // Fallback
                             
                             // Add click listener to open fullscreen image
-                            img.addEventListener('click', () => openFullscreenImage(imagePath));
+                            img.addEventListener('click', () => openFullscreenImage(item.path));
+                            img.addEventListener('contextmenu', function(e) {
+                                e.preventDefault(); // Prevent the default right-click context menu
+                            });
 
-                            // Zigzag alignment using flexbox alignment classes (no md: prefix for mobile support)
+                            const textContentDiv = document.createElement('div');
+                            textContentDiv.classList.add('image-text-content');
+
+                            const dateP = document.createElement('p');
+                            dateP.classList.add('image-date');
+                            dateP.textContent = item.date;
+
+                            const descriptionP = document.createElement('p');
+                            descriptionP.classList.add('image-description');
+                            descriptionP.textContent = item.description;
+
+                            textContentDiv.appendChild(dateP);
+                            textContentDiv.appendChild(descriptionP);
+
+                            container.appendChild(img);
+                            container.appendChild(textContentDiv);
+
+                            // Apply zigzag alignment to the container
                             if (index % 2 === 0) {
-                                img.classList.add('self-start'); // Align left
+                                container.classList.add('self-start'); // Align left
                             } else {
-                                img.classList.add('self-end'); // Align right
+                                container.classList.add('self-end'); // Align right
                             }
-                            webDevGallery.appendChild(img);
+                            webDevGallery.appendChild(container);
                         });
                     } else if (content.description) {
                         pageDetailDescription.innerHTML = content.description;
