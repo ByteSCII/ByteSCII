@@ -775,6 +775,7 @@
     <!-- Service Detail Page (initially hidden) -->
     <section id="service-detail-page" class="hidden">
         <h1 id="main-portfolio-title" class="text-4xl md:text-6xl font-extrabold text-center mb-4 text-stroke-cyan">
+            <!-- This span will now remain empty, effectively removing the "Portafolio Desarrollo web" text -->
             <span id="main-portfolio-typing-text" class="typing-text"></span>
         </h1>
         <h2 id="page-detail-title" class="text-3xl md:text-5xl font-extrabold text-center mb-8 text-stroke-cyan">
@@ -951,15 +952,15 @@
                     webDevGallery.innerHTML = '';
                     pageDetailDescription.innerHTML = ''; // Clear description as well
 
-                    // Set and start typing for the main portfolio title
-                    const mainPortfolioText = `Portafolio ${content.title}`;
-                    mainPortfolioTypingText.textContent = ''; // Clear previous text
-                    mainPortfolioTypingText.style.width = '0%'; // Reset width for typing animation
-                    mainPortfolioTypingText.style.animation = 'none'; // Reset animation
-                    void mainPortfolioTypingText.offsetWidth; // Trigger reflow
-                    mainPortfolioTypingText.style.animation = `typing ${mainPortfolioText.length * 0.05}s steps(${mainPortfolioText.length}, end) forwards`; // Reapply animation
+                    // Removed the main portfolio title typing animation
+                    // const mainPortfolioText = `Portafolio ${content.title}`;
+                    // mainPortfolioTypingText.textContent = ''; // Clear previous text
+                    // mainPortfolioTypingText.style.width = '0%'; // Reset width for typing animation
+                    // mainPortfolioTypingText.style.animation = 'none'; // Reset animation
+                    // void mainPortfolioTypingText.offsetWidth; // Trigger reflow
+                    // mainPortfolioTypingText.style.animation = `typing ${mainPortfolioText.length * 0.05}s steps(${mainPortfolioText.length}, end) forwards`; // Reapply animation
 
-                    typeWriter(mainPortfolioTypingText, mainPortfolioText, 0, () => {
+                    // typeWriter(mainPortfolioTypingText, mainPortfolioText, 0, () => {
                         // Callback after main title finishes typing
                         // Then set and start typing for the welcome text
                         const subPageWelcomeText = content.welcomeText || `Bienvenido al portafolio de ${content.title}`; // Use specific welcomeText or default
@@ -969,7 +970,7 @@
                         void welcomeTextSpan.offsetWidth;
                         welcomeTextSpan.style.animation = `typing ${subPageWelcomeText.length * 0.05}s steps(${subPageWelcomeText.length}, end) forwards`;
                         typeWriter(welcomeTextSpan, subPageWelcomeText, 0);
-                    });
+                    // });
 
                     // Add images or description based on content type
                     if (content.images && content.images.length > 0) {
