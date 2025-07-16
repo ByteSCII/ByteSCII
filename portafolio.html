@@ -74,6 +74,18 @@
             flex-direction: column;
         }
 
+        /* Video Background Styles */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the video covers the entire area without distortion */
+            z-index: -1; /* Places the video behind all other content */
+            filter: brightness(50%); /* Darken the video to make text more readable */
+        }
+
         /* Styles for headings (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif; /* Font for headings */
@@ -313,11 +325,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent; /* Changed to transparent to show background image */
-            background-image: url('./images/fondomodal1.jpg'); /* Set background image */
-            background-size: cover; /* Cover the entire overlay */
-            background-position: center; /* Center the background image */
-            background-repeat: no-repeat; /* Ensure image does not repeat */
+            background-color: transparent; /* Changed to transparent to show background video */
+            /* Removed background-image here */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -385,13 +394,9 @@
             box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
         }
 
-        /* Media query for mobile background image adjustment */
+        /* Media query for mobile background image adjustment (not needed for video) */
         @media (max-width: 768px) {
-            .modal-overlay {
-                background-size: contain; /* Ensure the image fits entirely without stretching */
-                background-repeat: no-repeat; /* Prevent repetition if 'contain' leaves space */
-                background-position: center; /* Center the image */
-            }
+            /* Removed .modal-overlay background-size: contain; as video handles it */
         }
 
         /* Style for the animated clone element */
@@ -412,16 +417,41 @@
         }
 
         /* Styles for the image inside the animated clone */
-        .animated-service-clone img {
+        .animated-service-clone img.isotipo-animation {
             width: 100%; /* Ensure image fills its container */
             height: 100%;
             object-fit: contain; /* Ensure image is contained without stretching */
             filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8)); /* Glow for the image */
         }
+
+        /* Service Detail Page as a fixed overlay */
+        #service-detail-page {
+            position: fixed; /* Make it fixed to overlay content */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1001; /* Above modal, below animated clone */
+            background-color: #0A0A1A; /* Solid background to cover video */
+            display: flex; /* Keep flex for centering content */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1rem; /* Add padding for content */
+            overflow-y: auto; /* Allow scrolling if content overflows */
+        }
+        #service-detail-page.hidden {
+            display: none !important; /* Ensure it's fully hidden when not active */
+        }
     </style>
 
 </head>
 <body>
+    <!-- Video Background -->
+    <video autoplay loop muted playsinline id="video-background">
+        <source src="./fondoforo.mp4" type="video/mp4">
+        Tu navegador no soporta el elemento de video.
+    </video>
 
     <header class="bg-transparent text-byte-text-light py-2">
         <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
@@ -474,7 +504,7 @@
     </div>
 
     <!-- Service Detail Page (initially hidden) -->
-    <section id="service-detail-page" class="hidden flex-grow flex flex-col items-center justify-center min-h-[calc(100vh-160px)] px-4 py-8 bg-byte-dark-bg">
+    <section id="service-detail-page" class="hidden">
         <h2 id="page-detail-title" class="text-3xl md:text-5xl font-extrabold text-center mb-8 text-stroke-cyan"></h2>
         <p id="page-detail-description" class="text-byte-text-light text-lg md:text-xl text-center max-w-3xl mb-12 leading-relaxed"></p>
         <button id="back-to-portfolio-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg
@@ -531,7 +561,8 @@
             // Function to open the modal
             function openModal() {
                 servicesModal.classList.add('show');
-                mainContentArea.classList.add('hidden'); // Hide main content when modal is open
+                // mainContentArea should always be visible to push footer down
+                mainContentArea.classList.remove('hidden'); 
             }
 
             // Function to show service details with animation
@@ -542,8 +573,8 @@
                 // Hide the modal immediately
                 servicesModal.classList.remove('show');
                 servicesModal.classList.add('hidden');
-                mainContentArea.classList.add('hidden'); // Ensure main content is hidden
-
+                // mainContentArea remains visible, but will be covered by serviceDetailPage
+                
                 // Get position and size of the clicked element
                 const rect = clickedElement.getBoundingClientRect();
 
@@ -575,7 +606,7 @@
 
                 // Change content to "Isotipo" and fade it in mid-animation
                 setTimeout(() => {
-                    animatedClone.innerHTML = `<img src="./images/isotipo.png" alt="Isotipo de Byte" class="w-full h-full object-contain" style="filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8));">`; // Replace with isotipo image
+                    animatedClone.innerHTML = `<img src="./images/isotipo.png" alt="Isotipo de Byte" class="isotipo-animation">`; // Replace with isotipo image and apply new class
                     animatedClone.style.opacity = '1'; // Fade in isotipo
                     animatedClone.style.transition = 'opacity 1.5s ease-in-out'; // Slower transition for image fade
                     animatedClone.style.transform = 'translate(-50%, -50%) scale(2.0) rotate(720deg)'; // Keep it scaled for isotipo
@@ -587,7 +618,7 @@
                     pageDetailTitle.textContent = content.title;
                     pageDetailDescription.textContent = content.description;
                     serviceDetailPage.classList.remove('hidden'); // Show the service detail page
-                    serviceDetailPage.classList.add('flex'); // Ensure flex display
+                    // serviceDetailPage already has 'flex' in its CSS, no need to add here
                 }, 4000); // Total duration of the animation (main animation + isotipo fade-in)
             };
 
@@ -596,8 +627,8 @@
             if (backToPortfolioBtn) {
                 backToPortfolioBtn.addEventListener('click', () => {
                     serviceDetailPage.classList.add('hidden');
-                    serviceDetailPage.classList.remove('flex');
-                    mainContentArea.classList.remove('hidden'); // Show main content
+                    // serviceDetailPage.classList.remove('flex'); // Not needed if hidden handles display:none
+                    mainContentArea.classList.remove('hidden'); // Ensure main content is visible
                     openModal(); // Re-open the modal
                 });
             }
