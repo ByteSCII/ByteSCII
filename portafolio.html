@@ -429,7 +429,7 @@
 
         /* Service Detail Page as a fixed overlay */
         #service-detail-page {
-            position: fixed; /* Make it fixed to overlay content */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -621,6 +621,16 @@
             flex-grow: 1; /* Allow text content to take available space */
         }
 
+        .image-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #00FFFF; /* Cyan for title */
+            text-shadow: 0 0 8px rgba(0, 255, 255, 0.7); /* Stronger glow */
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
         .image-date {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.1rem;
@@ -693,6 +703,9 @@
                 max-width: 95%; /* Allow it to take more width on small screens */
                 padding: 0.75rem;
                 margin-bottom: 3rem; /* Slightly less space on mobile */
+            }
+            .image-title {
+                font-size: 1.1rem;
             }
             .image-date {
                 font-size: 0.95rem;
@@ -844,35 +857,77 @@
                 images: [
                     {
                         path: './desarrolloweb/2.png',
+                        title: 'Humectaria',
                         date: '5 de Julio de 2025',
-                        description: 'Esta empresa de cremas para el cuidado de la piel buscaba expandir su alcance y aumentar sus ventas. Decidimos crear una tienda virtual moderna y funcional, optimizada para una experiencia de compra fluida y visualmente atractiva, lo que les permitió llegar a nuevos clientes y potenciar su crecimiento en línea.'
+                        description: 'Esta empresa de cremas para el cuidado de la piel, Humectaria, buscaba expandir su alcance y aumentar sus ventas. Decidimos crear una tienda virtual moderna y funcional, optimizada para una experiencia de compra fluida y visualmente atractiva, lo que les permitió llegar a nuevos clientes y potenciar su crecimiento en línea.'
                     },
                     {
                         path: './desarrolloweb/3.png',
+                        title: 'La Dulzura de Comer',
                         date: '10 de Julio de 2025',
-                        description: 'Para esta encantadora pastelería, diseñamos una plataforma digital que no solo exhibe sus deliciosas creaciones, sino que también facilita los pedidos personalizados y la gestión de entregas, conectando directamente con sus clientes y simplificando el proceso de compra de sus productos artesanales.'
+                        description: 'Para esta encantadora pastelería, La Dulzura de Comer, diseñamos una plataforma digital que no solo exhibe sus deliciosas creaciones, sino que también facilita los pedidos personalizados y la gestión de entregas, conectando directamente con sus clientes y simplificando el proceso de compra de sus productos artesanales.'
                     },
                     {
                         path: './desarrolloweb/4.png',
+                        title: 'Pepita CO.',
                         date: '12 de Julio de 2025',
-                        description: 'Transformamos la presencia en línea de esta tienda de ropa con un diseño web vanguardista y un sistema de catálogo intuitivo. El objetivo fue reflejar su estilo único y ofrecer a los usuarios una experiencia de navegación inmersiva, facilitando la exploración de colecciones y la compra de sus prendas favoritas.'
+                        description: 'Transformamos la presencia en línea de esta tienda de ropa, Pepita CO., con un diseño web vanguardista y un sistema de catálogo intuitivo. El objetivo fue reflejar su estilo único y ofrecer a los usuarios una experiencia de navegación inmersiva, facilitando la exploración de colecciones y la compra de sus prendas favoritas.'
                     },
                     {
                         path: './desarrolloweb/5.png',
+                        title: 'ORO CORP.',
                         date: '14 de Julio de 2025',
-                        description: 'Desarrollamos una página de recaudación de datos segura y eficiente para una iniciativa crucial. Nos centramos en la usabilidad y la protección de la información, asegurando un proceso de recolección de datos transparente y confiable, fundamental para el éxito de su proyecto.'
+                        description: 'Desarrollamos una página de recaudación de datos segura y eficiente para una iniciativa crucial de ORO CORP.. Nos centramos en la usabilidad y la protección de la información, asegurando un proceso de recolección de datos transparente y confiable, fundamental para el éxito de su proyecto.'
                     }
                 ]
             },
             'virtual-stores': {
                 title: 'Diseño de Tiendas Virtuales',
-                welcomeText: 'Bienvenido al portafolio de Diseño de Tiendas Virtuales', // Default welcome text
-                description: 'Diseñamos y desarrollamos tiendas online robustas y seguras que facilitan la venta de tus productos. Integramos pasarelas de pago, gestión de inventario y todo lo necesario para tu e-commerce.'
+                welcomeText: 'Portafolio de Tiendas Virtuales', // Updated welcome text for virtual stores
+                images: [
+                    {
+                        path: './tiendavirtual/7.png',
+                        title: 'Pepita CO.',
+                        date: '22 de Junio de 2025',
+                        description: 'Para esta exclusiva tienda de bolsos, Pepita CO., creamos una tienda virtual que refleja la elegancia y calidad de sus productos. Implementamos una interfaz intuitiva y un proceso de compra simplificado para ofrecer a sus clientes una experiencia de lujo, aumentando así sus ventas y presencia online.'
+                    },
+                    {
+                        path: './tiendavirtual/8.png',
+                        title: 'ECLIPSE FASHION',
+                        date: '27 de Junio de 2025',
+                        description: 'Esta vibrante tienda de ropa, ECLIPSE FASHION, necesitaba una plataforma robusta para maximizar sus ventas durante el Black Friday. Desarrollamos una tienda virtual escalable y de alto rendimiento, capaz de manejar un gran volumen de tráfico y transacciones, asegurando un éxito rotundo en sus campañas de venta.'
+                    },
+                    {
+                        path: './tiendavirtual/9.png',
+                        title: 'Bocado Sublime',
+                        date: '30 de Junio de 2025',
+                        description: 'Para esta deliciosa heladería, Bocado Sublime, diseñamos una tienda virtual que captura la esencia de sus sabores únicos. La plataforma permite a los clientes explorar el menú, personalizar sus pedidos y programar entregas, llevando la dulzura de sus helados directamente a los hogares.'
+                    }
+                ]
             },
             'branding': {
                 title: 'Branding y Diseño Gráfico',
-                welcomeText: 'Bienvenido al portafolio de Branding y Diseño Gráfico', // Default welcome text
-                description: 'Construimos la identidad visual de tu marca desde cero o la renovamos. Incluye diseño de logotipos, paletas de colores, tipografías, y elementos gráficos que harán que tu marca destaque.'
+                welcomeText: 'Proyectos de Branding y Diseño', // Updated welcome text for branding
+                images: [
+                    {
+                        path: './diseñografico/1.png',
+                        title: 'Bocado Sublime - Logo',
+                        date: '1 de Julio de 2025',
+                        description: 'Creamos el logotipo para "Bocado Sublime", una pastelería. El diseño incorpora un cupcake con una cereza, transmitiendo dulzura y delicadeza. La paleta de colores incluye tonos rojos, beige, negro y rosa claro, evocando una sensación de calidez y apetito. La tipografía es elegante, complementando la estética artesanal del negocio.'
+                    },
+                    {
+                        path: './diseñografico/2.png',
+                        title: 'Printed Life - Logo',
+                        date: '7 de Julio de 2025',
+                        description: 'Diseñamos el logo para "Printed Life", una empresa de fotografía. El concepto fusiona una cámara con elementos naturales como una mariposa y hojas, y dentro del lente, se aprecian marcos de fotos. Los colores son una gama de verdes y azules (verde azulado, azul claro, verde claro y verde oscuro), que evocan frescura, creatividad y la captura de momentos vitales. La forma fluida y orgánica del diseño sugiere la conexión con la naturaleza y la vida.'
+                    },
+                    {
+                        path: './diseñografico/3.png',
+                        title: 'Humectaria - Logo',
+                        date: '15 de Julio de 2025',
+                        description: 'Para "Humectaria", desarrollamos un logotipo que representa la hidratación y el cuidado de la piel. El diseño principal es una gota de agua estilizada con ondas, simbolizando fluidez y pureza. La paleta de colores se centra en tonos marrones y beige, transmitiendo una sensación de naturalidad, tierra y bienestar. La forma simple y limpia del logo refuerza el enfoque en productos orgánicos y suaves.'
+                    }
+                ]
             }
         };
 
@@ -1012,6 +1067,11 @@
                             const textContentDiv = document.createElement('div');
                             textContentDiv.classList.add('image-text-content');
 
+                            // Add image title
+                            const titleH3 = document.createElement('h3');
+                            titleH3.classList.add('image-title');
+                            titleH3.textContent = item.title;
+
                             const dateP = document.createElement('p');
                             dateP.classList.add('image-date');
                             dateP.textContent = item.date;
@@ -1020,6 +1080,7 @@
                             descriptionP.classList.add('image-description');
                             descriptionP.textContent = item.description;
 
+                            textContentDiv.appendChild(titleH3); // Append title first
                             textContentDiv.appendChild(dateP);
                             textContentDiv.appendChild(descriptionP);
 
