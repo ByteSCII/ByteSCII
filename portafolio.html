@@ -468,10 +468,39 @@
             from { width: 0 }
             to { width: 100% }
         }
+
+        /* Vertical Lines */
+        .vertical-line {
+            position: fixed;
+            top: 0;
+            width: 2px; /* Thin line */
+            height: 100%;
+            z-index: 999; /* Above content, below header */
+            background: linear-gradient(to bottom, #00FFFF, #00BFFF, #00FFFF); /* Cyan gradient */
+            background-size: 100% 200%; /* Make gradient taller to animate */
+            animation: color-shift 5s linear infinite alternate; /* Dynamic color change */
+        }
+
+        .vertical-line.left {
+            left: 0;
+        }
+
+        .vertical-line.right {
+            right: 0;
+        }
+
+        @keyframes color-shift {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
     </style>
 
 </head>
 <body>
+    <!-- Vertical lines for aesthetic margin -->
+    <div class="vertical-line left"></div>
+    <div class="vertical-line right"></div>
+
     <!-- Video Background -->
     <video autoplay loop muted playsinline id="video-background">
         <source src="./images/fondoreseñas.mp4" type="video/mp4">
@@ -530,6 +559,9 @@
 
     <!-- Service Detail Page (initially hidden) -->
     <section id="service-detail-page" class="hidden">
+        <h1 id="main-portfolio-title" class="text-4xl md:text-6xl font-extrabold text-center mb-4 text-stroke-cyan">
+            <span id="main-portfolio-typing-text" class="typing-text"></span>
+        </h1>
         <h2 id="page-detail-title" class="text-3xl md:text-5xl font-extrabold text-center mb-8 text-stroke-cyan">
             <span id="welcome-text" class="typing-text"></span>
         </h2>
@@ -557,13 +589,17 @@
     <script type="text/javascript">
         // Chatbot integration
         (function() {
-            // Dynamically load the external script which will create the chatbot element
-            var cs = document.createElement('script');
-            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-            cs.setAttribute('data-platform-id', '218acb1c-a252-488a-8fdb-ef64cefc2b31'); // Pass platform_id via data attribute
-            cs.setAttribute('data-user-id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');     // Pass user_id via data attribute
-            cs.setAttribute('data-chatbot-id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a'); // Pass chatbot_id via data attribute
-            document.body.appendChild(cs);
+            try {
+                var cs = document.createElement('script');
+                cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+                cs.setAttribute('data-platform-id', '218acb1c-a252-488a-8fdb-ef64cefc2b31'); // Pass platform_id via data attribute
+                cs.setAttribute('data-user-id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');     // Pass user_id via data attribute
+                cs.setAttribute('data-chatbot-id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a'); // Pass chatbot_id via data attribute
+                document.body.appendChild(cs);
+                console.log('Chatbot script appended.');
+            } catch (error) {
+                console.error('Error appending chatbot script:', error);
+            }
         })();
     </script>
 
@@ -608,6 +644,7 @@
             const pageDetailDescription = document.getElementById('page-detail-description');
             const backToPortfolioBtn = document.getElementById('back-to-portfolio-btn');
             const welcomeTextSpan = document.getElementById('welcome-text');
+            const mainPortfolioTypingText = document.getElementById('main-portfolio-typing-text');
             const webDevGallery = document.getElementById('web-dev-gallery'); // Get the gallery container
 
             // Function to open the modal
@@ -637,7 +674,7 @@
                 setTimeout(() => {
                     animatedClone.remove(); // Remove the clone after its animation
                     
-                    // Show the service detail page and start typing animation
+                    // Show the service detail page
                     serviceDetailPage.classList.remove('hidden');
                     serviceDetailPage.classList.add('show');
 
@@ -645,14 +682,25 @@
                     webDevGallery.innerHTML = '';
                     pageDetailDescription.innerHTML = ''; // Clear description as well
 
-                    // Set title and start typing animation
-                    const fullWelcomeText = `Bienvenido al portafolio de ${content.title}`;
-                    welcomeTextSpan.textContent = ''; // Clear previous text
-                    welcomeTextSpan.style.width = '0%'; // Reset width for typing animation
-                    welcomeTextSpan.style.animation = 'none'; // Reset animation
-                    void welcomeTextSpan.offsetWidth; // Trigger reflow
-                    welcomeTextSpan.style.animation = `typing ${fullWelcomeText.length * 0.05}s steps(${fullWelcomeText.length}, end) forwards`; // Reapply animation
-                    typeWriter(welcomeTextSpan, fullWelcomeText, 0); // Start typing animation
+                    // Set and start typing for the main portfolio title
+                    const mainPortfolioText = `Portafolio ${content.title}`;
+                    mainPortfolioTypingText.textContent = ''; // Clear previous text
+                    mainPortfolioTypingText.style.width = '0%'; // Reset width for typing animation
+                    mainPortfolioTypingText.style.animation = 'none'; // Reset animation
+                    void mainPortfolioTypingText.offsetWidth; // Trigger reflow
+                    mainPortfolioTypingText.style.animation = `typing ${mainPortfolioText.length * 0.05}s steps(${mainPortfolioText.length}, end) forwards`; // Reapply animation
+
+                    typeWriter(mainPortfolioTypingText, mainPortfolioText, 0, () => {
+                        // Callback after main title finishes typing
+                        // Then set and start typing for the welcome text
+                        const fullWelcomeText = `Bienvenido al portafolio de ${content.title}`;
+                        welcomeTextSpan.textContent = '';
+                        welcomeTextSpan.style.width = '0%';
+                        welcomeTextSpan.style.animation = 'none';
+                        void welcomeTextSpan.offsetWidth;
+                        welcomeTextSpan.style.animation = `typing ${fullWelcomeText.length * 0.05}s steps(${fullWelcomeText.length}, end) forwards`;
+                        typeWriter(welcomeTextSpan, fullWelcomeText, 0);
+                    });
 
                     // Add images or description based on content type
                     if (content.images && content.images.length > 0) {
@@ -661,7 +709,7 @@
                             img.src = imagePath;
                             img.alt = `Imagen de Portafolio ${index + 1}`;
                             // Tailwind classes for responsiveness and spacing
-                            img.classList.add('w-full', 'max-w-xs', 'md:max-w-sm', 'lg:max-w-md', 'rounded-lg', 'shadow-lg', 'mb-8', 'transition-transform', 'duration-500', 'ease-in-out');
+                            img.classList.add('w-full', 'max-w-xs', 'md:max-w-sm', 'lg:max-w-md', 'rounded-lg', 'shadow-lg', 'mb-12', 'transition-transform', 'duration-500', 'ease-in-out'); // Increased mb to mb-12
                             img.onerror = function() { this.src = `https://placehold.co/300x200/000000/FFFFFF?text=Error+Carga`; }; // Fallback
                             
                             // Zigzag alignment using Tailwind's flexbox alignment classes
