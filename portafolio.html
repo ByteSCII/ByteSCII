@@ -74,6 +74,26 @@
             flex-direction: column;
         }
 
+        /* Scrollbar styles for WebKit browsers (Chrome, Safari, Edge) */
+        body::-webkit-scrollbar, html::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+        }
+
+        body::-webkit-scrollbar-track, html::-webkit-scrollbar-track {
+            background: #1A202C; /* Color of the scrollbar track */
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb, html::-webkit-scrollbar-thumb {
+            background-color: #00FFFF; /* Color of the scrollbar thumb (cyan) */
+            border-radius: 10px;
+            border: 2px solid #1A202C; /* Padding around the thumb */
+        }
+
+        body::-webkit-scrollbar-thumb:hover, html::-webkit-scrollbar-thumb:hover {
+            background-color: #00BFFF; /* Darker cyan on hover */
+        }
+
         /* Video Background Styles */
         #video-background {
             position: fixed;
@@ -219,6 +239,9 @@
             line-height: 1.2;
             margin-bottom: 0;
             color: inherit; /* Inherit color from parent (.service-item) */
+            /* Removed white-space: nowrap; and text-overflow: ellipsis; to allow wrapping */
+            /* max-width: 100%; is still useful to keep it within parent bounds */
+            max-width: 100%; 
         }
 
         /* Specific styles for service items on small screens (mobiles) */
@@ -309,14 +332,17 @@
         }
 
         /* Styles to disable text selection and pointer events on images */
-        img {
-            pointer-events: none;
-        }
+        /* REMOVED: img { pointer-events: none; } */
         p, h1, h2, h3, h4, h5, h6, span, div {
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
         }
+        /* Add pointer events back for gallery images */
+        #web-dev-gallery img {
+            cursor: pointer;
+        }
+
 
         /* Modal styles */
         .modal-overlay {
@@ -351,7 +377,9 @@
         }
 
         .modal-content {
-            background-color: rgba(10, 10, 26, 0.8); /* Semi-transparent dark background */
+            background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* New background image with correct path and extension */
+            background-size: cover; /* Cover the entire area */
+            background-position: center; /* Center the background image */
             padding: 2rem;
             border-radius: 1rem; /* Rounded corners for square modal */
             box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4); /* Cyan glow */
@@ -416,9 +444,9 @@
             background-size: cover;
             display: flex; /* Keep flex for centering content */
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 4rem 1rem; /* Add padding for content */
+            align-items: center; /* Center items horizontally */
+            justify-content: flex-start; /* Align content to the top */
+            padding: 8rem 1rem 4rem 1rem; /* Increased top padding to 8rem, added bottom padding */
             overflow-y: auto; /* Allow scrolling if content overflows */
             opacity: 0; /* Start hidden for a fade-in effect */
             visibility: hidden;
@@ -492,6 +520,60 @@
         @keyframes color-shift {
             0% { background-position: 0% 0%; }
             100% { background-position: 0% 100%; }
+        }
+
+        /* Fullscreen Image Modal Styles */
+        #fullscreen-image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10002; /* Above everything else */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #fullscreen-image-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #fullscreen-image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain; /* Ensures the entire image is visible */
+            border-radius: 0.5rem;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); /* Cyan glow */
+            transform: scale(0.5); /* Start small for zoom-in animation */
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Zoom animation */
+        }
+
+        #fullscreen-image-modal.show img {
+            transform: scale(1); /* Zoom to full size */
+        }
+
+        #fullscreen-image-modal .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem; /* Larger X */
+            color: #00FFFF; /* Cyan color */
+            cursor: pointer;
+            z-index: 10003; /* Above the image */
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        #fullscreen-image-modal .close-button:hover {
+            transform: rotate(90deg); /* Rotate on hover */
+            color: #00BFFF; /* Darker cyan on hover */
         }
     </style>
 
@@ -569,7 +651,7 @@
         <p id="page-detail-description" class="text-byte-text-light text-lg md:text-xl text-center max-w-3xl mb-12 leading-relaxed"></p>
 
         <!-- New container for images -->
-        <div id="web-dev-gallery" class="flex flex-col items-center w-full max-w-4xl px-4">
+        <div id="web-dev-gallery" class="flex flex-col items-start w-full max-w-4xl px-4">
             <!-- Images will be dynamically inserted here -->
         </div>
 
@@ -579,6 +661,11 @@
         </button>
     </section>
 
+    <!-- Fullscreen Image Modal -->
+    <div id="fullscreen-image-modal">
+        <button class="close-button" id="close-image-modal">&times;</button>
+        <img id="fullscreen-image" src="" alt="Imagen en pantalla completa">
+    </div>
 
     <footer class="footer bg-byte-secondary-dark text-byte-text-light py-4">
         <div class="container mx-auto px-4 text-center text-xs text-gray-400">
@@ -608,6 +695,7 @@
         const serviceContents = {
             'web-dev': {
                 title: 'Desarrollo Web',
+                welcomeText: 'Trabajos realizados', // New welcome text
                 images: [
                     './desarrolloweb/1.png',
                     './desarrolloweb/2.png',
@@ -618,10 +706,12 @@
             },
             'virtual-stores': {
                 title: 'Diseño de Tiendas Virtuales',
+                welcomeText: 'Bienvenido al portafolio de Diseño de Tiendas Virtuales', // Default welcome text
                 description: 'Diseñamos y desarrollamos tiendas online robustas y seguras que facilitan la venta de tus productos. Integramos pasarelas de pago, gestión de inventario y todo lo necesario para tu e-commerce.'
             },
             'branding': {
                 title: 'Branding y Diseño Gráfico',
+                welcomeText: 'Bienvenido al portafolio de Branding y Diseño Gráfico', // Default welcome text
                 description: 'Construimos la identidad visual de tu marca desde cero o la renovamos. Incluye diseño de logotipos, paletas de colores, tipografías, y elementos gráficos que harán que tu marca destaque.'
             }
         };
@@ -646,11 +736,42 @@
             const welcomeTextSpan = document.getElementById('welcome-text');
             const mainPortfolioTypingText = document.getElementById('main-portfolio-typing-text');
             const webDevGallery = document.getElementById('web-dev-gallery'); // Get the gallery container
+            const fullscreenImageModal = document.getElementById('fullscreen-image-modal');
+            const fullscreenImage = document.getElementById('fullscreen-image');
+            const closeImageModalBtn = document.getElementById('close-image-modal');
 
             // Function to open the modal
             function openModal() {
                 servicesModal.classList.remove('hidden', 'slide-out'); // Ensure hidden and slide-out are removed
                 servicesModal.classList.add('show');
+            }
+
+            // Function to open fullscreen image
+            function openFullscreenImage(src) {
+                fullscreenImage.src = src;
+                fullscreenImageModal.classList.add('show');
+                // Disable body scroll when modal is open
+                document.body.style.overflow = 'hidden';
+                console.log('Opening fullscreen image:', src); // Debug log
+            }
+
+            // Function to close fullscreen image
+            function closeFullscreenImage() {
+                fullscreenImageModal.classList.remove('show');
+                // Re-enable body scroll after modal closes
+                document.body.style.overflow = '';
+                console.log('Closing fullscreen image.'); // Debug log
+            }
+
+            // Event listener for closing fullscreen image
+            if (closeImageModalBtn) {
+                closeImageModalBtn.addEventListener('click', closeFullscreenImage);
+                fullscreenImageModal.addEventListener('click', (event) => {
+                    // Close if clicked outside the image itself
+                    if (event.target === fullscreenImageModal) {
+                        closeFullscreenImage();
+                    }
+                });
             }
 
             // Function to show service details with animation
@@ -674,7 +795,7 @@
                 setTimeout(() => {
                     animatedClone.remove(); // Remove the clone after its animation
                     
-                    // Show the service detail page
+                    // Show the service detail page and start typing animation
                     serviceDetailPage.classList.remove('hidden');
                     serviceDetailPage.classList.add('show');
 
@@ -693,13 +814,13 @@
                     typeWriter(mainPortfolioTypingText, mainPortfolioText, 0, () => {
                         // Callback after main title finishes typing
                         // Then set and start typing for the welcome text
-                        const fullWelcomeText = `Bienvenido al portafolio de ${content.title}`;
+                        const subPageWelcomeText = content.welcomeText || `Bienvenido al portafolio de ${content.title}`; // Use specific welcomeText or default
                         welcomeTextSpan.textContent = '';
                         welcomeTextSpan.style.width = '0%';
                         welcomeTextSpan.style.animation = 'none';
                         void welcomeTextSpan.offsetWidth;
-                        welcomeTextSpan.style.animation = `typing ${fullWelcomeText.length * 0.05}s steps(${fullWelcomeText.length}, end) forwards`;
-                        typeWriter(welcomeTextSpan, fullWelcomeText, 0);
+                        welcomeTextSpan.style.animation = `typing ${subPageWelcomeText.length * 0.05}s steps(${subPageWelcomeText.length}, end) forwards`;
+                        typeWriter(welcomeTextSpan, subPageWelcomeText, 0);
                     });
 
                     // Add images or description based on content type
@@ -708,15 +829,17 @@
                             const img = document.createElement('img');
                             img.src = imagePath;
                             img.alt = `Imagen de Portafolio ${index + 1}`;
-                            // Tailwind classes for responsiveness and spacing
-                            img.classList.add('w-full', 'max-w-xs', 'md:max-w-sm', 'lg:max-w-md', 'rounded-lg', 'shadow-lg', 'mb-12', 'transition-transform', 'duration-500', 'ease-in-out'); // Increased mb to mb-12
+                            img.classList.add('w-full', 'max-w-xs', 'md:max-w-sm', 'lg:max-w-md', 'rounded-lg', 'shadow-lg', 'mb-16', 'transition-transform', 'duration-500', 'ease-in-out', 'cursor-pointer'); 
                             img.onerror = function() { this.src = `https://placehold.co/300x200/000000/FFFFFF?text=Error+Carga`; }; // Fallback
                             
-                            // Zigzag alignment using Tailwind's flexbox alignment classes
+                            // Add click listener to open fullscreen image
+                            img.addEventListener('click', () => openFullscreenImage(imagePath));
+
+                            // Zigzag alignment using flexbox alignment classes (no md: prefix for mobile support)
                             if (index % 2 === 0) {
-                                img.classList.add('self-start', 'md:mr-auto'); // Align left, push to left on medium screens and up
+                                img.classList.add('self-start'); // Align left
                             } else {
-                                img.classList.add('self-end', 'md:ml-auto'); // Align right, push to right on medium screens and up
+                                img.classList.add('self-end'); // Align right
                             }
                             webDevGallery.appendChild(img);
                         });
