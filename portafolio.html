@@ -326,23 +326,28 @@
             width: 100%;
             height: 100%;
             background-color: transparent; /* Changed to transparent to show background video */
-            /* Removed background-image here */
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000; /* Below header, but still above main content */
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            /* Allow clicks to pass through the overlay itself, only modal-content will capture them */
+            transform: translateY(0); /* Initial position for slide-down */
+            transition: opacity 1.5s ease, visibility 1.5s ease, transform 1.5s ease; /* Slower transition */
             pointer-events: none;
         }
 
         .modal-overlay.show {
             opacity: 1;
             visibility: visible;
-            /* When shown, the overlay itself still doesn't capture clicks, only its children that have pointer-events: auto */
+            transform: translateY(0); /* Ensure it's at the top */
             pointer-events: auto; /* Re-enable pointer events for the overlay when shown */
+        }
+
+        .modal-overlay.slide-out {
+            transform: translateY(100%); /* Slide down */
+            opacity: 0; /* Fade out */
+            visibility: hidden; /* Hide completely after animation */
         }
 
         .modal-content {
@@ -363,7 +368,6 @@
             flex-direction: column; /* Stack items vertically */
             align-items: center; /* Center items horizontally */
             justify-content: center; /* Center items vertically */
-            /* Crucial: Ensure content inside modal is clickable */
             pointer-events: auto;
         }
 
@@ -373,7 +377,7 @@
 
         /* Ensure header is always on top and clickable */
         header {
-            position: fixed; /* Changed from sticky for consistent z-index behavior */
+            position: fixed;
             width: 100%;
             top: 0;
             left: 0;
@@ -394,14 +398,6 @@
             box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
         }
 
-        /* Media query for mobile background image adjustment (not needed for video) */
-        @media (max-width: 768px) {
-            /* Removed .modal-overlay background-size: contain; as video handles it */
-        }
-
-        /* Style for the animated clone element (Removed as per user request) */
-        /* .animated-service-clone { ... } */
-
         /* Service Detail Page as a fixed overlay */
         #service-detail-page {
             position: fixed; /* Make it fixed to overlay content */
@@ -411,6 +407,13 @@
             height: 100%;
             z-index: 1001; /* Above modal */
             background-color: #0A0A1A; /* Solid background to cover video */
+            /* New background for destellos effect */
+            background-image: 
+                radial-gradient(circle at top left, rgba(0, 255, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at bottom right, rgba(0, 255, 255, 0.1) 0%, transparent 30%),
+                repeating-linear-gradient(45deg, rgba(0, 255, 255, 0.05) 0px, transparent 1px, transparent 20px),
+                repeating-linear-gradient(-45deg, rgba(0, 255, 255, 0.05) 0px, transparent 1px, transparent 20px);
+            background-size: cover;
             display: flex; /* Keep flex for centering content */
             flex-direction: column;
             align-items: center;
@@ -419,7 +422,7 @@
             overflow-y: auto; /* Allow scrolling if content overflows */
             opacity: 0; /* Start hidden for a fade-in effect */
             visibility: hidden;
-            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Smooth transition */
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out; /* Smooth transition */
         }
         #service-detail-page.show {
             opacity: 1;
@@ -427,6 +430,43 @@
         }
         #service-detail-page.hidden {
             display: none !important; /* Ensure it's fully hidden when not active */
+        }
+
+        /* Styles for the animated clone element */
+        .animated-service-clone {
+            position: fixed;
+            top: 50%; /* Start centered */
+            left: 50%; /* Start centered */
+            transform: translate(-50%, -50%) scale(0.1); /* Start small and centered */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Keep the background of the service item */
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            padding: 2rem;
+            opacity: 0; /* Start hidden for fade-in */
+            transition: transform 3.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 3.5s ease-in-out; /* Even slower transition for scale and opacity */
+            z-index: 10000; /* Ensure it's on top during animation */
+        }
+        .animated-service-clone.animate-in {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.5); /* Reduced scale to 1.5 */
+        }
+
+        /* Typing animation for text */
+        .typing-text {
+            overflow: hidden; /* Ensures text is hidden until typed */
+            white-space: nowrap; /* Keeps text on a single line */
+            animation: typing 2.5s steps(40, end) forwards; /* Adjust steps based on text length */
+            width: 0; /* Start with zero width */
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
         }
     </style>
 
@@ -470,16 +510,16 @@
         <div class="modal-content">
             <!-- Service List Container -->
             <div id="service-list-container" class="flex flex-col items-center gap-8 w-full">
-                <a onclick="showServiceDetails('web-dev')" class="service-item">
+                <a onclick="showServiceDetails('web-dev', this)" class="service-item">
                     <div class="icon"><i class="fa-solid fa-desktop"></i></div>
                     <h3>Desarrollo web</h3>
                 </a>
                 <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
-                    <a onclick="showServiceDetails('virtual-stores')" class="service-item">
+                    <a onclick="showServiceDetails('virtual-stores', this)" class="service-item">
                         <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
                         <h3>Diseño de tiendas virtuales</h3>
                     </a>
-                    <a onclick="showServiceDetails('branding')" class="service-item">
+                    <a onclick="showServiceDetails('branding', this)" class="service-item">
                         <div class="icon"><i class="fa-solid fa-lightbulb"></i> <i class="fa-solid fa-palette"></i></div>
                         <h3>Branding y Diseño Gráfico</h3>
                     </a>
@@ -490,8 +530,17 @@
 
     <!-- Service Detail Page (initially hidden) -->
     <section id="service-detail-page" class="hidden">
-        <h2 id="page-detail-title" class="text-3xl md:text-5xl font-extrabold text-center mb-8 text-stroke-cyan"></h2>
+        <h2 id="page-detail-title" class="text-3xl md:text-5xl font-extrabold text-center mb-8 text-stroke-cyan">
+            <span id="welcome-text" class="typing-text"></span>
+        </h2>
+        <!-- This paragraph will be used for descriptions of other services if they don't have images -->
         <p id="page-detail-description" class="text-byte-text-light text-lg md:text-xl text-center max-w-3xl mb-12 leading-relaxed"></p>
+
+        <!-- New container for images -->
+        <div id="web-dev-gallery" class="flex flex-col items-center w-full max-w-4xl px-4">
+            <!-- Images will be dynamically inserted here -->
+        </div>
+
         <button id="back-to-portfolio-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg
                                                  shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
             Volver al Portafolio
@@ -523,7 +572,13 @@
         const serviceContents = {
             'web-dev': {
                 title: 'Desarrollo Web',
-                description: 'Creamos sitios web modernos, responsivos y optimizados para ofrecer la mejor experiencia de usuario. Desde páginas informativas hasta complejas aplicaciones web, tu presencia online estará garantizada.'
+                images: [
+                    './desarrolloweb/1.png',
+                    './desarrolloweb/2.png',
+                    './desarrolloweb/3.png',
+                    './desarrolloweb/4.png',
+                    './desarrolloweb/5.png'
+                ]
             },
             'virtual-stores': {
                 title: 'Diseño de Tiendas Virtuales',
@@ -535,6 +590,16 @@
             }
         };
 
+        // Typing animation function
+        function typeWriter(element, text, i, callback) {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                setTimeout(() => typeWriter(element, text, i + 1, callback), 50); // Adjust typing speed here
+            } else if (callback) {
+                callback();
+            }
+        }
+
         window.addEventListener('load', () => {
             const servicesModal = document.getElementById('services-modal');
             const mainContentArea = document.getElementById('main-content-area');
@@ -542,31 +607,76 @@
             const pageDetailTitle = document.getElementById('page-detail-title');
             const pageDetailDescription = document.getElementById('page-detail-description');
             const backToPortfolioBtn = document.getElementById('back-to-portfolio-btn');
+            const welcomeTextSpan = document.getElementById('welcome-text');
+            const webDevGallery = document.getElementById('web-dev-gallery'); // Get the gallery container
 
             // Function to open the modal
             function openModal() {
+                servicesModal.classList.remove('hidden', 'slide-out'); // Ensure hidden and slide-out are removed
                 servicesModal.classList.add('show');
-                // mainContentArea should always be visible to push footer down
-                mainContentArea.classList.remove('hidden'); 
             }
 
-            // Function to show service details (no animation)
-            window.showServiceDetails = function(serviceName) {
+            // Function to show service details with animation
+            window.showServiceDetails = function(serviceName, clickedElement) {
                 const content = serviceContents[serviceName];
                 if (!content) return;
 
-                // Hide the modal immediately
+                // Start modal slide-out animation
                 servicesModal.classList.remove('show');
-                servicesModal.classList.add('hidden');
-                mainContentArea.classList.add('hidden'); // Hide main content when service detail is shown
+                servicesModal.classList.add('slide-out');
                 
-                // Set content for the detail page
-                pageDetailTitle.textContent = content.title;
-                pageDetailDescription.textContent = content.description;
-                
-                // Show the service detail page
-                serviceDetailPage.classList.remove('hidden');
-                serviceDetailPage.classList.add('show'); // Use 'show' for opacity transition
+                // Create a clone for animation
+                const animatedClone = document.createElement('div');
+                animatedClone.classList.add('animated-service-clone');
+                animatedClone.innerHTML = clickedElement.innerHTML; // Copy original content
+                document.body.appendChild(animatedClone);
+                void animatedClone.offsetWidth; // Force reflow to apply initial styles
+                animatedClone.classList.add('animate-in');
+
+                // After scaling animation, remove clone and show detail page
+                setTimeout(() => {
+                    animatedClone.remove(); // Remove the clone after its animation
+                    
+                    // Show the service detail page and start typing animation
+                    serviceDetailPage.classList.remove('hidden');
+                    serviceDetailPage.classList.add('show');
+
+                    // Clear previous content
+                    webDevGallery.innerHTML = '';
+                    pageDetailDescription.innerHTML = ''; // Clear description as well
+
+                    // Set title and start typing animation
+                    const fullWelcomeText = `Bienvenido al portafolio de ${content.title}`;
+                    welcomeTextSpan.textContent = ''; // Clear previous text
+                    welcomeTextSpan.style.width = '0%'; // Reset width for typing animation
+                    welcomeTextSpan.style.animation = 'none'; // Reset animation
+                    void welcomeTextSpan.offsetWidth; // Trigger reflow
+                    welcomeTextSpan.style.animation = `typing ${fullWelcomeText.length * 0.05}s steps(${fullWelcomeText.length}, end) forwards`; // Reapply animation
+                    typeWriter(welcomeTextSpan, fullWelcomeText, 0); // Start typing animation
+
+                    // Add images or description based on content type
+                    if (content.images && content.images.length > 0) {
+                        content.images.forEach((imagePath, index) => {
+                            const img = document.createElement('img');
+                            img.src = imagePath;
+                            img.alt = `Imagen de Portafolio ${index + 1}`;
+                            // Tailwind classes for responsiveness and spacing
+                            img.classList.add('w-full', 'max-w-xs', 'md:max-w-sm', 'lg:max-w-md', 'rounded-lg', 'shadow-lg', 'mb-8', 'transition-transform', 'duration-500', 'ease-in-out');
+                            img.onerror = function() { this.src = `https://placehold.co/300x200/000000/FFFFFF?text=Error+Carga`; }; // Fallback
+                            
+                            // Zigzag alignment using Tailwind's flexbox alignment classes
+                            if (index % 2 === 0) {
+                                img.classList.add('self-start', 'md:mr-auto'); // Align left, push to left on medium screens and up
+                            } else {
+                                img.classList.add('self-end', 'md:ml-auto'); // Align right, push to right on medium screens and up
+                            }
+                            webDevGallery.appendChild(img);
+                        });
+                    } else if (content.description) {
+                        pageDetailDescription.innerHTML = content.description;
+                    }
+
+                }, 3500); // Duration of the scaling animation (3.5s as per CSS transition)
             };
 
 
@@ -574,9 +684,12 @@
             if (backToPortfolioBtn) {
                 backToPortfolioBtn.addEventListener('click', () => {
                     serviceDetailPage.classList.remove('show'); // Fade out
-                    serviceDetailPage.classList.add('hidden'); // Then hide completely
-                    mainContentArea.classList.remove('hidden'); // Ensure main content is visible
-                    openModal(); // Re-open the modal
+                    
+                    // After fade out, hide completely and re-open modal
+                    setTimeout(() => {
+                        serviceDetailPage.classList.add('hidden'); // Hide completely
+                        openModal(); // Re-open the modal
+                    }, 800); // Match fade-out transition duration (0.8s)
                 });
             }
 
