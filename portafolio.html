@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - Byte Desarrolladora Digital</title>
+
+    <link rel="icon" type="image/png" href="./images/isotipo.png">
+    <meta name="description" content="Byte - Métodos de pago seguros, atención al cliente y soluciones digitales confiables.">
+    <meta name="keywords" content="Byte, pagos seguros, tecnología, atención al cliente, soluciones digitales, Venezuela">
+    <meta name="author" content="Byte">
+    <meta property="og:title" content="Byte - Tecnología y confianza">
+    <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script>
+        // Custom Tailwind CSS Configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A', // Main dark background
+                        'byte-accent-cyan': '#00FFFF', // Electric cyan for accents
+                        'byte-light-bg': '#F8FAFC', // Light background (if used)
+                        'byte-text-dark': '#374151', // Dark text (if used)
+                        'byte-text-light': '#F9FAFB', // Light text
+                        'byte-secondary-dark': '#1A202C', // Secondary dark background (for dropdowns)
+                        'whatsapp-green': '#25D366', // Official WhatsApp color
+                        'whatsapp-dark-green': '#128C7E', // Darker tone for WhatsApp hover
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Box-Sizing universal for consistent box model */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Base styles for HTML and Body */
+        html {
+            height: 100%; /* Ensures HTML has full height */
+            width: 100%; /* Ensures HTML has full width */
+        }
+        body {
+            min-height: 100vh; /* Ensures body takes at least full viewport height, allowing scrolling */
+            width: 100%; /* Ensures body takes full width */
+            overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+            background-color: #0A0A1A; /* Main dark background color */
+            font-family: 'Inter', sans-serif; /* Main font */
+            color: #F9FAFB; /* Main text color */
+            margin: 0;
+            padding: 0;
+            /* Disable text selection for an app-like experience */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Styles for headings (h1-h6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif; /* Font for headings */
+            color: #00FFFF; /* Electric cyan for accents */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Shadow for a glow effect */
+        }
+
+        /* Text stroke style */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF; /* Cyan stroke for WebKit browsers */
+            text-stroke: 1.5px #00FFFF; /* Standard cyan stroke */
+            color: #FFFFFF; /* Text fill color */
+            text-shadow: none; /* Ensures no text shadows interfere */
+        }
+
+        /* Fall-in animation for AOS (definition kept, but won't be used if AOS.init is removed) */
+        @keyframes fall-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Class applied by AOS.js for animating elements (definition kept, but won't be used if AOS.init is removed) */
+        .aos-animate {
+            animation-name: fall-in;
+            animation-duration: 1s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Styles for navigation menu text with cyan stroke */
+        /* Montserrat font applied directly here to ensure display */
+        .nav-menu-text-stroke-cyan {
+            color: #E0E0E0; /* Base silver color for text */
+            -webkit-text-stroke-width: 0.7px; /* Thinner cyan stroke for smaller text */
+            -webkit-text-stroke-color: #A0A0A0; /* Darker gray stroke for silver effect */
+            text-shadow: 0 0 5px rgba(224, 224, 224, 0.3), 0 0 10px rgba(160, 160, 160, 0.2); /* Shadow for depth */
+            transition: color 0.3s ease-in-out, -webkit-text-stroke-color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+            font-family: 'Montserrat', sans-serif; /* DIRECTLY APPLIED HERE */
+        }
+
+        /* Glow and lift effect on menu links on hover */
+        .menu-link-hover-effect { /* New class for hover effects */
+            position: relative;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .menu-link-hover-effect::before {
+            content: '';
+            position: absolute;
+            bottom: -5px; /* Line position below text */
+            left: 0; /* Starts from text beginning */
+            width: 0; /* Line starts with zero width */
+            height: 3px; /* Line thickness */
+            background-color: #00FFFF; /* Cyan color */
+            border-radius: 2px;
+            transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transition for width and opacity */
+            opacity: 0; /* Initially invisible */
+        }
+        .menu-link-hover-effect:hover::before {
+            width: 100%; /* Line expands to 100% of parent width */
+            opacity: 1; /* Becomes visible */
+            background-color: #00FFFF; /* Ensures underline is cyan on hover */
+        }
+        .menu-link-hover-effect:hover .nav-menu-text-stroke-cyan {
+            color: #00FFFF; /* Electric cyan on hover */
+            -webkit-text-stroke-color: #00BFFF; /* Darker cyan for stroke on hover */
+            text-shadow: 0 0 8px #00FFFF, 0 0 15px rgba(0, 255, 255, 0.6); /* Intense glow on hover */
+        }
+        .menu-link-hover-effect:hover {
+            transform: translateY(-5px); /* Lifts the link slightly more for a noticeable "jump" */
+        }
+
+        /* Subtle bounce animation for arrow icon */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        /* Class to activate arrow rotation and bounce */
+        .js-arrow-icon.arrow-active, .js-arrow-icon-mobile.arrow-active {
+            transform: rotate(180deg);
+            animation: bounce-subtle 0.5s ease-in-out infinite alternate;
+        }
+
+        /* Service item styles */
+        .service-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem; /* Padding for content */
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+            color: #F9FAFB; /* Light text color */
+            text-decoration: none; /* Remove underline from links */
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Subtle gradient background */
+            border-radius: 1rem; /* Rectangular with rounded corners */
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1); /* Subtle shadow */
+            border: 1px solid rgba(0, 255, 255, 0.2); /* Subtle border */
+            width: 100%; /* Occupy full width of its container */
+            max-width: 250px; /* Limit max width for better appearance */
+        }
+
+        .service-item:hover {
+            transform: translateY(-5px) scale(1.05); /* Lift and slight increase in size on hover */
+            color: #00FFFF; /* Cyan text on hover */
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3); /* More pronounced shadow on hover */
+            border-color: #00FFFF; /* More visible border on hover */
+        }
+
+        .service-item .icon {
+            font-size: 3rem; /* Icon size */
+            margin-bottom: 0.5rem; /* Space below icon */
+            color: #E0E0E0; /* Light gray color for icons */
+            transition: color 0.3s ease;
+        }
+
+        .service-item:hover .icon {
+            color: #00FFFF; /* Cyan icon on hover */
+        }
+
+        .service-item h3 {
+            font-size: 1.2rem; /* Title size */
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0;
+            color: inherit; /* Inherit color from parent (.service-item) */
+        }
+
+        /* Specific styles for service items on small screens (mobiles) */
+        @media (max-width: 768px) { /* For screens up to 768px (md breakpoint) */
+            .service-item {
+                padding: 0.75rem; /* Smaller padding for mobile */
+                max-width: 180px; /* Smaller max-width for mobile */
+            }
+            .service-item .icon {
+                font-size: 2.5rem;
+            }
+            .service-item h3 {
+                font-size: 1rem;
+            }
+        }
+
+        /* Disabled link style */
+        .disabled-link {
+            opacity: 0.6; /* Reduced opacity to indicate disabled */
+            cursor: not-allowed; /* "Not allowed" cursor */
+        }
+
+        /* --- Styles for size reduction on PC and large screens --- */
+        @media (min-width: 1024px) { /* Adjust this breakpoint as needed (lg in Tailwind) */
+            .header-nav-item {
+                font-size: 0.95rem; /* Smaller font for navigation links */
+            }
+
+            .main-cta-button {
+                padding: 0.6rem 1.5rem; /* Slightly smaller button padding */
+                font-size: 0.9rem; /* Smaller font for CTA button */
+            }
+
+            .section-heading {
+                font-size: 2.5rem; /* Smaller general section headings */
+            }
+
+            .service-item {
+                padding: 1.5rem; /* Standard padding for larger screens */
+            }
+
+            .service-item .icon {
+                font-size: 3rem; /* Standard icon size for larger screens */
+            }
+
+            .service-item h3 {
+                font-size: 1.3rem; /* Standard title size for larger screens */
+            }
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #1A202C; /* Secondary dark background */
+            color: #F9FAFB; /* Light text */
+            padding: 2rem 0; /* Padding for footer */
+            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan top border */
+        }
+
+        .footer a {
+            color: #00FFFF; /* Cyan for links */
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #00BFFF; /* Darker cyan on hover */
+        }
+
+        .footer-heading {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem; /* Larger font for headings */
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #00FFFF; /* Cyan color for headings */
+        }
+
+        .footer-link-item {
+            margin-bottom: 0.5rem; /* Space between list items */
+        }
+
+        .footer-social-icon {
+            font-size: 1.75rem; /* Size of social icons */
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            color: #00FFFF; /* Cyan on hover */
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Styles to disable text selection and pointer events on images */
+        img {
+            pointer-events: none;
+        }
+        p, h1, h2, h3, h4, h5, h6, span, div {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent; /* Changed to transparent to show background image */
+            background-image: url('./images/fondomodal1.jpg'); /* Set background image */
+            background-size: cover; /* Cover the entire overlay */
+            background-position: center; /* Center the background image */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Below header, but still above main content */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            /* Allow clicks to pass through the overlay itself, only modal-content will capture them */
+            pointer-events: none;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+            /* When shown, the overlay itself still doesn't capture clicks, only its children that have pointer-events: auto */
+            pointer-events: auto; /* Re-enable pointer events for the overlay when shown */
+        }
+
+        .modal-content {
+            background-color: rgba(10, 10, 26, 0.8); /* Semi-transparent dark background */
+            padding: 2rem;
+            border-radius: 1rem; /* Rounded corners for square modal */
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4); /* Cyan glow */
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto; /* Enable scrolling for content if it overflows */
+            position: relative;
+            transform: translateY(20px); /* Start slightly below center */
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            padding-top: 2rem; /* Standard padding */
+            padding-bottom: 2rem; /* Standard padding */
+            display: flex; /* Use flexbox for internal layout */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items horizontally */
+            justify-content: center; /* Center items vertically */
+            /* Crucial: Ensure content inside modal is clickable */
+            pointer-events: auto;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: translateY(0); /* Slide into place */
+        }
+
+        /* Ensure header is always on top and clickable */
+        header {
+            position: fixed; /* Changed from sticky for consistent z-index behavior */
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9999; /* Very high z-index to guarantee it's on top */
+            pointer-events: auto; /* Ensure header itself is always clickable */
+        }
+
+        /* Specific styles for the main CTA button to ensure animation */
+        .main-cta-button {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .main-cta-button:hover {
+            transform: scale(1.15); /* Slightly more pronounced scale */
+            box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
+        }
+    </style>
+
+</head>
+<body>
+
+    <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg border-b border-byte-accent-cyan">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
+            <div class="flex items-center justify-start ml-0">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
+            </div>
+
+            <nav class="hidden sm:flex justify-end flex-grow">
+                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
+                    Volver al inicio
+                </a>
+            </nav>
+
+            <!-- Mobile menu button, now directly links to index.html and is circular -->
+            <a href="index.html" id="mobile-menu-link" class="sm:hidden p-2 rounded-full bg-yellow-500 text-black font-bold
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 flex items-center justify-center h-12 w-12 text-center text-xs">
+                Inicio
+            </a>
+        </div>
+    </header>
+
+    <!-- Mobile menu nav is removed as it's no longer needed -->
+
+    <main class="flex-grow flex items-center justify-center min-h-[calc(100vh-160px)]">
+        <p class="text-byte-text-light text-xl text-center px-4">Bienvenido a nuestro portafolio. Aquí puedes explorar nuestros proyectos.</p>
+    </main>
+
+    <!-- Services Modal -->
+    <div id="services-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex flex-col items-center gap-8 w-full">
+                <!-- Top of the Y -->
+                <a href="diseñoweb.html" class="service-item">
+                    <div class="icon"><i class="fa-solid fa-desktop"></i></div>
+                    <h3>Desarrollo web</h3>
+                </a>
+                <!-- Arms of the Y -->
+                <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
+                    <a href="tiendasvirtuales.html" class="service-item">
+                        <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <h3>Diseño de tiendas virtuales</h3>
+                    </a>
+                    <a href="branding-disenografico.html" class="service-item">
+                        <div class="icon"><i class="fa-solid fa-lightbulb"></i> <i class="fa-solid fa-palette"></i></div>
+                        <h3>Branding y Diseño Gráfico</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <!-- Instagram Icon -->
+                <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
+                </a>
+                <!-- WhatsApp Icon -->
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
+            </p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        // Chatbot integration
+        (function() {
+            // Dynamically load the external script which will create the chatbot element
+            var cs = document.createElement('script');
+            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
+            cs.setAttribute('data-platform-id', '218acb1c-a252-488a-8fdb-ef64cefc2b31'); // Pass platform_id via data attribute
+            cs.setAttribute('data-user-id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');     // Pass user_id via data attribute
+            cs.setAttribute('data-chatbot-id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a'); // Pass chatbot_id via data attribute
+            document.body.appendChild(cs);
+        })();
+    </script>
+
+    <script>
+        window.addEventListener('load', () => {
+            // Modal elements
+            const servicesModal = document.getElementById('services-modal');
+
+            // Function to open the modal
+            function openModal() {
+                servicesModal.classList.add('show');
+            }
+
+            // Open modal automatically on page load
+            openModal();
+
+            // Prevent modal from closing when clicking outside, as there's no 'x' button
+            // User must click on a service card to navigate away.
+            if (servicesModal) {
+                servicesModal.addEventListener('click', (event) => {
+                    // Only close if a service item (or a link within it) is clicked
+                    if (event.target.closest('.service-item')) {
+                        // The link inside the service-item will handle navigation
+                        // No need to explicitly close modal here, as page will change
+                    }
+                });
+            }
+
+            // Logic to disable links with the 'disabled-link' class (kept for general use)
+            document.querySelectorAll('a.disabled-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevents default link action
+                    event.stopPropagation(); // Prevents event propagation so parent menu doesn't close
+                });
+            });
+        });
+    </script>
+</body>
+</html>
