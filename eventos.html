@@ -694,11 +694,6 @@
                 margin-left: 1.5rem;
             }
 
-            .image-description-container:nth-child(even) img {
-                margin-right: 0; /* Remove right margin for reversed order */
-                margin-left: 1.5rem; /* Add left margin for reversed order */
-            }
-
             .image-text-content {
                 align-items: flex-start; /* Align text to the start (left) */
                 text-align: left; /* Align text to the left */
@@ -767,7 +762,7 @@
                 right: 4rem; /* Adjusted to be slightly more to the left from the right edge */
                 top: 50%;
                 transform: translateY(-50%);
-                width: 250px; /* Wider for desktop */
+                width: 350px; /* Increased width for desktop */
                 height: 75vh; /* Taller for desktop */
                 max-height: 80vh; 
             }
@@ -981,7 +976,7 @@
     <div id="fullscreen-video-modal" class="modal-overlay">
         <button class="close-button" onclick="closeFullscreenVideoModal()">&times;</button>
         <video id="fullscreen-ad-video" controls playsinline>
-            <source src="" type="video/mp4">
+            <source src="./eventos/anuncio.mp4" type="video/mp4"> <!-- Source added here -->
             Tu navegador no soporta el video.
         </video>
     </div>
@@ -1095,6 +1090,17 @@
                 fullscreenAdVideo.play(); // Start playing
                 fullscreenVideoModal.classList.add('show');
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+                // Request fullscreen for the video element
+                if (fullscreenAdVideo.requestFullscreen) {
+                    fullscreenAdVideo.requestFullscreen();
+                } else if (fullscreenAdVideo.webkitRequestFullscreen) { /* Safari, Chrome and Opera */
+                    fullscreenAdVideo.webkitRequestFullscreen();
+                } else if (fullscreenAdVideo.mozRequestFullScreen) { /* Firefox */
+                    fullscreenAdVideo.mozRequestFullScreen();
+                } else if (fullscreenAdVideo.msRequestFullscreen) { /* IE/Edge */
+                    fullscreenAdVideo.msRequestFullscreen();
+                }
             }
 
             // Function to close fullscreen video modal
@@ -1103,6 +1109,7 @@
                 fullscreenAdVideo.currentTime = 0; // Reset video to start
                 fullscreenVideoModal.classList.remove('show');
                 document.body.style.overflow = ''; // Restore scrolling
+
                 // Exit fullscreen if currently in fullscreen mode
                 if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
                     if (document.exitFullscreen) {
@@ -1122,6 +1129,7 @@
                 adVideo.addEventListener('click', () => {
                     // Check if it's a mobile device (or small screen)
                     const isMobile = window.matchMedia("(max-width: 767px)").matches;
+                    // On mobile, open fullscreen video. On desktop, do nothing (it's already playing muted).
                     if (isMobile) {
                         openFullscreenVideoModal(adVideo.querySelector('source').src);
                     }
