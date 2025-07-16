@@ -851,6 +851,54 @@
         #past-events-modal .service-item {
             margin-bottom: 1rem; /* Space between buttons */
         }
+
+        /* Fullscreen Video Modal Styles */
+        #fullscreen-video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95); /* Almost black overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10004; /* Higher than other modals */
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #fullscreen-video-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #fullscreen-video-modal video {
+            max-width: 95%; /* Max width for the video */
+            max-height: 95%; /* Max height for the video */
+            object-fit: contain; /* Ensures entire video is visible, with letterboxing if needed */
+            border-radius: 0.5rem;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); /* Stronger cyan glow */
+            pointer-events: auto; /* Ensure video is interactive */
+        }
+
+        #fullscreen-video-modal .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem; /* Larger X */
+            color: #00FFFF; /* Cyan color */
+            cursor: pointer;
+            z-index: 10005; /* Above the video */
+            transition: color 0.2s ease;
+        }
+
+        #fullscreen-video-modal .close-button:hover {
+            color: #00BFFF; /* Darker cyan on hover */
+        }
     </style>
 
 </head>
@@ -923,8 +971,17 @@
 
     <!-- Video Ad Box -->
     <div id="video-ad-box">
-        <video autoplay loop muted playsinline>
+        <video id="ad-video" autoplay loop muted playsinline>
             <source src="./eventos/anuncio.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+        </video>
+    </div>
+
+    <!-- Fullscreen Video Modal -->
+    <div id="fullscreen-video-modal" class="modal-overlay">
+        <button class="close-button" onclick="closeFullscreenVideoModal()">&times;</button>
+        <video id="fullscreen-ad-video" controls playsinline>
+            <source src="" type="video/mp4">
             Tu navegador no soporta el video.
         </video>
     </div>
@@ -961,10 +1018,13 @@
     <script>
         window.addEventListener('load', () => {
             const eventsModal = document.getElementById('events-modal');
-            const pastEventsModal = document.getElementById('past-events-modal'); // Get the new modal
+            const pastEventsModal = document.getElementById('past-events-modal');
             const fullscreenImageModal = document.getElementById('fullscreen-image-modal');
             const fullscreenImage = document.getElementById('fullscreen-image');
             const closeImageModalBtn = document.getElementById('close-image-modal');
+            const adVideo = document.getElementById('ad-video');
+            const fullscreenVideoModal = document.getElementById('fullscreen-video-modal');
+            const fullscreenAdVideo = document.getElementById('fullscreen-ad-video');
 
             // Function to open the events modal
             function openEventsModal() {
@@ -975,16 +1035,16 @@
             // Function to close the events modal
             function closeEventsModal() {
                 eventsModal.classList.remove('show');
-                eventsModal.classList.add('slide-out'); // Add slide-out class for animation
+                eventsModal.classList.add('slide-out');
             }
 
             // Function to show past events modal
             window.showPastEvents = function() {
-                closeEventsModal(); // Hide the main events modal
-                setTimeout(() => { // Delay showing the new modal for animation effect
+                closeEventsModal();
+                setTimeout(() => {
                     pastEventsModal.classList.remove('hidden');
                     pastEventsModal.classList.add('show');
-                }, 500); // Adjust delay as needed for smooth transition
+                }, 500);
             };
 
             // Function to close past events modal
@@ -992,21 +1052,17 @@
                 pastEventsModal.classList.remove('show');
                 setTimeout(() => {
                     pastEventsModal.classList.add('hidden');
-                    openEventsModal(); // Show the main events modal again
-                }, 500); // Adjust delay as needed
+                    openEventsModal();
+                }, 500);
             };
 
             window.showUpcomingEvents = function() {
-                alert('Mostrando eventos próximos...'); // Replace with actual content loading logic
-                // Here you would typically hide the eventsModal and display a new section
-                // with upcoming events.
+                alert('Mostrando eventos próximos...');
             };
 
             // Placeholder function for showing survey event details
             window.showSurveyEventDetails = function() {
                 alert('Detalles del Evento de Encuesta: ¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!');
-                // Here you would typically open another modal or navigate to a new section
-                // to display the full details of the survey event.
             };
 
             // Function to open fullscreen image (kept for potential future use)
@@ -1031,6 +1087,77 @@
                     }
                 });
             }
+
+            // Function to open fullscreen video modal
+            function openFullscreenVideoModal(videoSrc) {
+                fullscreenAdVideo.src = videoSrc;
+                fullscreenAdVideo.muted = false; // Enable sound
+                fullscreenAdVideo.play(); // Start playing
+                fullscreenVideoModal.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+
+            // Function to close fullscreen video modal
+            window.closeFullscreenVideoModal = function() {
+                fullscreenAdVideo.pause(); // Pause video
+                fullscreenAdVideo.currentTime = 0; // Reset video to start
+                fullscreenVideoModal.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+                // Exit fullscreen if currently in fullscreen mode
+                if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) { /* Safari, Chrome and Opera */
+                        document.webkitExitFullscreen();
+                    } else if (document.mozCancelFullScreen) { /* Firefox */
+                        document.mozCancelFullScreen();
+                    } else if (document.msExitFullscreen) { /* IE/Edge */
+                        document.msExitFullscreen();
+                    }
+                }
+            };
+
+            // Event listener for clicking the ad video
+            if (adVideo) {
+                adVideo.addEventListener('click', () => {
+                    // Check if it's a mobile device (or small screen)
+                    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+                    if (isMobile) {
+                        openFullscreenVideoModal(adVideo.querySelector('source').src);
+                    }
+                });
+            }
+
+            // Handle fullscreen exit via browser controls
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    // If fullscreen is exited by user, close the modal
+                    if (fullscreenVideoModal.classList.contains('show')) {
+                        closeFullscreenVideoModal();
+                    }
+                }
+            });
+            document.addEventListener('webkitfullscreenchange', () => {
+                if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+                    if (fullscreenVideoModal.classList.contains('show')) {
+                        closeFullscreenVideoModal();
+                    }
+                }
+            });
+            document.addEventListener('mozfullscreenchange', () => {
+                if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                    if (fullscreenVideoModal.classList.contains('show')) {
+                        closeFullscreenVideoModal();
+                    }
+                }
+            });
+            document.addEventListener('MSFullscreenChange', () => {
+                if (!document.fullscreenElement && !document.msFullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement) {
+                    if (fullscreenVideoModal.classList.contains('show')) {
+                        closeFullscreenVideoModal();
+                    }
+                }
+            });
 
             // Open the events modal automatically on page load
             openEventsModal();
