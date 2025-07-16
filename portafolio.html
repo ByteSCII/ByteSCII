@@ -68,6 +68,10 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+
+            /* Flexbox for overall layout */
+            display: flex;
+            flex-direction: column;
         }
 
         /* Styles for headings (h1-h6) */
@@ -257,8 +261,8 @@
         .footer {
             background-color: #1A202C; /* Secondary dark background */
             color: #F9FAFB; /* Light text */
-            padding: 2rem 0; /* Padding for footer */
-            border-top: 1px solid rgba(0, 255, 255, 0.3); /* Subtle cyan top border */
+            padding: 1rem 0; /* Reduced padding for a more compact look */
+            /* Removed border-top as it's not needed with the new background */
         }
 
         .footer a {
@@ -366,6 +370,9 @@
             left: 0;
             z-index: 9999; /* Very high z-index to guarantee it's on top */
             pointer-events: auto; /* Ensure header itself is always clickable */
+            background-color: transparent; /* Make header background transparent */
+            box-shadow: none; /* Remove shadow */
+            border-bottom: none; /* Remove border-bottom */
         }
 
         /* Specific styles for the main CTA button to ensure animation */
@@ -377,15 +384,49 @@
             transform: scale(1.15); /* Slightly more pronounced scale */
             box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
         }
+
+        /* Media query for mobile background image adjustment */
+        @media (max-width: 768px) {
+            .modal-overlay {
+                background-size: contain; /* Ensure the image fits entirely without stretching */
+                background-repeat: no-repeat; /* Prevent repetition if 'contain' leaves space */
+                background-position: center; /* Center the image */
+            }
+        }
+
+        /* Style for the animated clone element */
+        .animated-service-clone {
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            padding: 2rem;
+            opacity: 1; /* Start fully visible */
+            overflow: hidden; /* Hide overflow during scaling */
+            /* Transition properties will be set by JavaScript */
+        }
+
+        /* Styles for the image inside the animated clone */
+        .animated-service-clone img {
+            width: 100%; /* Ensure image fills its container */
+            height: 100%;
+            object-fit: contain; /* Ensure image is contained without stretching */
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8)); /* Glow for the image */
+        }
     </style>
 
 </head>
 <body>
 
-    <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg border-b border-byte-accent-cyan">
+    <header class="bg-transparent text-byte-text-light py-2">
         <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
             <div class="flex items-center justify-start ml-0">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain"> <!-- Reduced height here -->
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain">
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
@@ -405,26 +446,25 @@
 
     <!-- Mobile menu nav is removed as it's no longer needed -->
 
-    <main class="flex-grow flex items-center justify-center min-h-[calc(100vh-160px)]">
+    <main id="main-content-area" class="flex-grow flex items-center justify-center">
         <p class="text-byte-text-light text-xl text-center px-4">Bienvenido a nuestro portafolio. Aquí puedes explorar nuestros proyectos.</p>
     </main>
 
     <!-- Services Modal -->
     <div id="services-modal" class="modal-overlay">
         <div class="modal-content">
-            <div class="flex flex-col items-center gap-8 w-full">
-                <!-- Top of the Y -->
-                <a href="diseñoweb.html" class="service-item">
+            <!-- Service List Container -->
+            <div id="service-list-container" class="flex flex-col items-center gap-8 w-full">
+                <a onclick="showServiceDetails('web-dev', this)" class="service-item">
                     <div class="icon"><i class="fa-solid fa-desktop"></i></div>
                     <h3>Desarrollo web</h3>
                 </a>
-                <!-- Arms of the Y -->
                 <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
-                    <a href="tiendasvirtuales.html" class="service-item">
+                    <a onclick="showServiceDetails('virtual-stores', this)" class="service-item">
                         <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
                         <h3>Diseño de tiendas virtuales</h3>
                     </a>
-                    <a href="branding-disenografico.html" class="service-item">
+                    <a onclick="showServiceDetails('branding', this)" class="service-item">
                         <div class="icon"><i class="fa-solid fa-lightbulb"></i> <i class="fa-solid fa-palette"></i></div>
                         <h3>Branding y Diseño Gráfico</h3>
                     </a>
@@ -433,25 +473,19 @@
         </div>
     </div>
 
-    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
-        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
-                <!-- Instagram Icon -->
-                <a href="https://www.instagram.com/byteweb_design?igsh=ZTI4NDE2eWptZThu" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <i class="fab fa-instagram footer-social-icon text-byte-text-light"></i>
-                </a>
-                <!-- WhatsApp Icon -->
-                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
-                </a>
-            </div>
-        </div>
-        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
-            <p class="mb-2">
-                Al navegar en la página de Byte, aceptas nuestros
-                <a href="#" class="text-byte-accent-cyan hover:underline">Términos de Servicio</a> y
-                <a href="#" class="text-byte-accent-cyan hover:underline">Condiciones</a>.
-            </p>
+    <!-- Service Detail Page (initially hidden) -->
+    <section id="service-detail-page" class="hidden flex-grow flex flex-col items-center justify-center min-h-[calc(100vh-160px)] px-4 py-8 bg-byte-dark-bg">
+        <h2 id="page-detail-title" class="text-3xl md:text-5xl font-extrabold text-center mb-8 text-stroke-cyan"></h2>
+        <p id="page-detail-description" class="text-byte-text-light text-lg md:text-xl text-center max-w-3xl mb-12 leading-relaxed"></p>
+        <button id="back-to-portfolio-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg
+                                                 shadow-lg hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+            Volver al Portafolio
+        </button>
+    </section>
+
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-4">
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400">
             <p>© 2025 Byte. Todos los derechos reservados.</p>
         </div>
     </footer>
@@ -470,29 +504,106 @@
     </script>
 
     <script>
+        // Define service content
+        const serviceContents = {
+            'web-dev': {
+                title: 'Desarrollo Web',
+                description: 'Creamos sitios web modernos, responsivos y optimizados para ofrecer la mejor experiencia de usuario. Desde páginas informativas hasta complejas aplicaciones web, tu presencia online estará garantizada.'
+            },
+            'virtual-stores': {
+                title: 'Diseño de Tiendas Virtuales',
+                description: 'Diseñamos y desarrollamos tiendas online robustas y seguras que facilitan la venta de tus productos. Integramos pasarelas de pago, gestión de inventario y todo lo necesario para tu e-commerce.'
+            },
+            'branding': {
+                title: 'Branding y Diseño Gráfico',
+                description: 'Construimos la identidad visual de tu marca desde cero o la renovamos. Incluye diseño de logotipos, paletas de colores, tipografías, y elementos gráficos que harán que tu marca destaque.'
+            }
+        };
+
         window.addEventListener('load', () => {
-            // Modal elements
             const servicesModal = document.getElementById('services-modal');
+            const mainContentArea = document.getElementById('main-content-area');
+            const serviceDetailPage = document.getElementById('service-detail-page');
+            const pageDetailTitle = document.getElementById('page-detail-title');
+            const pageDetailDescription = document.getElementById('page-detail-description');
+            const backToPortfolioBtn = document.getElementById('back-to-portfolio-btn');
 
             // Function to open the modal
             function openModal() {
                 servicesModal.classList.add('show');
+                mainContentArea.classList.add('hidden'); // Hide main content when modal is open
+            }
+
+            // Function to show service details with animation
+            window.showServiceDetails = function(serviceName, clickedElement) {
+                const content = serviceContents[serviceName];
+                if (!content) return;
+
+                // Hide the modal immediately
+                servicesModal.classList.remove('show');
+                servicesModal.classList.add('hidden');
+                mainContentArea.classList.add('hidden'); // Ensure main content is hidden
+
+                // Get position and size of the clicked element
+                const rect = clickedElement.getBoundingClientRect();
+
+                // Create a clone for animation
+                const animatedClone = document.createElement('div');
+                animatedClone.classList.add('animated-service-clone');
+                animatedClone.style.position = 'fixed';
+                animatedClone.style.top = `${rect.top}px`;
+                animatedClone.style.left = `${rect.left}px`;
+                animatedClone.style.width = `${rect.width}px`;
+                animatedClone.style.height = `${rect.height}px`;
+                animatedClone.style.zIndex = '10000';
+                animatedClone.style.transition = 'all 3.0s cubic-bezier(0.68, -0.55, 0.27, 1.55)'; // Even slower transition
+                
+                // Set initial content to the icon and title of the clicked service
+                const initialContent = clickedElement.querySelector('.icon').outerHTML + clickedElement.querySelector('h3').outerHTML;
+                animatedClone.innerHTML = initialContent;
+                
+                document.body.appendChild(animatedClone);
+
+                // Force reflow to ensure initial styles are applied before transition
+                void animatedClone.offsetWidth;
+
+                // Animate to center, scale, rotate, and fade out original content
+                animatedClone.style.top = '50%';
+                animatedClone.style.left = '50%';
+                animatedClone.style.transform = 'translate(-50%, -50%) scale(2.5) rotate(720deg)'; // Larger scale, more rotation
+                animatedClone.style.opacity = '0'; // Fade out the initial service item content
+
+                // Change content to "Isotipo" and fade it in mid-animation
+                setTimeout(() => {
+                    animatedClone.innerHTML = `<img src="./images/isotipo.png" alt="Isotipo de Byte" class="w-full h-full object-contain" style="filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8));">`; // Replace with isotipo image
+                    animatedClone.style.opacity = '1'; // Fade in isotipo
+                    animatedClone.style.transition = 'opacity 1.5s ease-in-out'; // Slower transition for image fade
+                    animatedClone.style.transform = 'translate(-50%, -50%) scale(2.0) rotate(720deg)'; // Keep it scaled for isotipo
+                }, 1500); // Mid-point of the main animation (3.0s / 2)
+
+                // After all animations, remove clone and show detail page
+                setTimeout(() => {
+                    animatedClone.remove();
+                    pageDetailTitle.textContent = content.title;
+                    pageDetailDescription.textContent = content.description;
+                    serviceDetailPage.classList.remove('hidden'); // Show the service detail page
+                    serviceDetailPage.classList.add('flex'); // Ensure flex display
+                }, 4000); // Total duration of the animation (main animation + isotipo fade-in)
+            };
+
+
+            // Function to show the main portfolio page (from service detail)
+            if (backToPortfolioBtn) {
+                backToPortfolioBtn.addEventListener('click', () => {
+                    serviceDetailPage.classList.add('hidden');
+                    serviceDetailPage.classList.remove('flex');
+                    mainContentArea.classList.remove('hidden'); // Show main content
+                    openModal(); // Re-open the modal
+                });
             }
 
             // Open modal automatically on page load
             openModal();
-
-            // Prevent modal from closing when clicking outside, as there's no 'x' button
-            // User must click on a service card to navigate away.
-            if (servicesModal) {
-                servicesModal.addEventListener('click', (event) => {
-                    // Only close if a service item (or a link within it) is clicked
-                    if (event.target.closest('.service-item')) {
-                        // The link inside the service-item will handle navigation
-                        // No need to explicitly close modal here, as page will change
-                    }
-                });
-            }
 
             // Logic to disable links with the 'disabled-link' class (kept for general use)
             document.querySelectorAll('a.disabled-link').forEach(link => {
