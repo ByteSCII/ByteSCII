@@ -406,7 +406,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Keep the background of the service item */
             border-radius: 1rem;
             box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
             border: 1px solid rgba(0, 255, 255, 0.5);
@@ -414,14 +414,6 @@
             opacity: 1; /* Start fully visible */
             overflow: hidden; /* Hide overflow during scaling */
             /* Transition properties will be set by JavaScript */
-        }
-
-        /* Styles for the image inside the animated clone */
-        .animated-service-clone img.isotipo-animation {
-            width: 100%; /* Ensure image fills its container */
-            height: 100%;
-            object-fit: contain; /* Ensure image is contained without stretching */
-            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.8)); /* Glow for the image */
         }
 
         /* Service Detail Page as a fixed overlay */
@@ -449,7 +441,7 @@
 <body>
     <!-- Video Background -->
     <video autoplay loop muted playsinline id="video-background">
-        <source src="./fondoforo.mp4" type="video/mp4">
+        <source src="./images/fondoforo.mp4" type="video/mp4">
         Tu navegador no soporta el elemento de video.
     </video>
 
@@ -573,7 +565,7 @@
                 // Hide the modal immediately
                 servicesModal.classList.remove('show');
                 servicesModal.classList.add('hidden');
-                // mainContentArea remains visible, but will be covered by serviceDetailPage
+                mainContentArea.classList.add('hidden'); // Hide main content during transition
                 
                 // Get position and size of the clicked element
                 const rect = clickedElement.getBoundingClientRect();
@@ -587,39 +579,31 @@
                 animatedClone.style.width = `${rect.width}px`;
                 animatedClone.style.height = `${rect.height}px`;
                 animatedClone.style.zIndex = '10000';
-                animatedClone.style.transition = 'all 3.0s cubic-bezier(0.68, -0.55, 0.27, 1.55)'; // Even slower transition
-                
-                // Set initial content to the icon and title of the clicked service
-                const initialContent = clickedElement.querySelector('.icon').outerHTML + clickedElement.querySelector('h3').outerHTML;
-                animatedClone.innerHTML = initialContent;
-                
+                animatedClone.style.opacity = '1'; // Keep it visible
+                animatedClone.style.transition = 'all 2.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)'; // Slower transition for move/scale
+
+                // Copy original content (icon and title)
+                const iconHtml = clickedElement.querySelector('.icon').outerHTML;
+                const titleHtml = clickedElement.querySelector('h3').outerHTML;
+                animatedClone.innerHTML = iconHtml + titleHtml;
+
                 document.body.appendChild(animatedClone);
 
-                // Force reflow to ensure initial styles are applied before transition
-                void animatedClone.offsetWidth;
+                void animatedClone.offsetWidth; // Force reflow
 
-                // Animate to center, scale, rotate, and fade out original content
+                // Animate to center and scale up (no rotation)
                 animatedClone.style.top = '50%';
                 animatedClone.style.left = '50%';
-                animatedClone.style.transform = 'translate(-50%, -50%) scale(2.5) rotate(720deg)'; // Larger scale, more rotation
-                animatedClone.style.opacity = '0'; // Fade out the initial service item content
+                animatedClone.style.transform = 'translate(-50%, -50%) scale(2.0)'; // Scale up
 
-                // Change content to "Isotipo" and fade it in mid-animation
-                setTimeout(() => {
-                    animatedClone.innerHTML = `<img src="./images/isotipo.png" alt="Isotipo de Byte" class="isotipo-animation">`; // Replace with isotipo image and apply new class
-                    animatedClone.style.opacity = '1'; // Fade in isotipo
-                    animatedClone.style.transition = 'opacity 1.5s ease-in-out'; // Slower transition for image fade
-                    animatedClone.style.transform = 'translate(-50%, -50%) scale(2.0) rotate(720deg)'; // Keep it scaled for isotipo
-                }, 1500); // Mid-point of the main animation (3.0s / 2)
-
-                // After all animations, remove clone and show detail page
+                // After animation, remove clone and show detail page
                 setTimeout(() => {
                     animatedClone.remove();
                     pageDetailTitle.textContent = content.title;
                     pageDetailDescription.textContent = content.description;
-                    serviceDetailPage.classList.remove('hidden'); // Show the service detail page
-                    // serviceDetailPage already has 'flex' in its CSS, no need to add here
-                }, 4000); // Total duration of the animation (main animation + isotipo fade-in)
+                    serviceDetailPage.classList.remove('hidden');
+                    serviceDetailPage.classList.add('flex');
+                }, 2500); // Duration of the animation
             };
 
 
@@ -627,7 +611,6 @@
             if (backToPortfolioBtn) {
                 backToPortfolioBtn.addEventListener('click', () => {
                     serviceDetailPage.classList.add('hidden');
-                    // serviceDetailPage.classList.remove('flex'); // Not needed if hidden handles display:none
                     mainContentArea.classList.remove('hidden'); // Ensure main content is visible
                     openModal(); // Re-open the modal
                 });
