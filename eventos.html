@@ -588,11 +588,10 @@
             color: #00FFFF; /* Cyan color */
             cursor: pointer;
             z-index: 10003; /* Above the image */
-            transition: transform 0.2s ease, color 0.2s ease;
+            transition: color 0.2s ease; /* Removed transform for stability */
         }
 
         #fullscreen-image-modal .close-button:hover {
-            transform: rotate(90deg); /* Rotate on hover */
             color: #00BFFF; /* Darker cyan on hover */
         }
 
@@ -740,26 +739,36 @@
         /* Video Ad Box Styles */
         #video-ad-box {
             position: fixed;
-            right: 4rem; /* Adjusted to be slightly more to the left from the right edge */
-            top: 50%;
-            transform: translateY(-50%);
-            width: 250px; /* Made wider again */
-            height: 75vh; /* Retained taller height */
-            max-height: 80vh; 
             background-color: #1A202C; /* Using byte-secondary-dark */
             border-radius: 1rem; /* Rounded corners */
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3); /* Enhanced cyan glow */
             border: 2px solid #00FFFF; /* Cyan border */
             z-index: 50; /* Ensure it's above main content but below modals */
             overflow: hidden; /* Ensures video stays within bounds */
-            display: none; /* Hidden by default for mobile */
             transition: all 0.3s ease-in-out; /* Smooth transition for any changes */
         }
 
-        /* Show on large screens */
-        @media (min-width: 1024px) { /* lg breakpoint */
+        /* Mobile styles for video ad box */
+        @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
             #video-ad-box {
-                display: block;
+                bottom: 1rem;
+                right: 1rem;
+                width: 100px; /* Smaller width for mobile */
+                height: 150px; /* Smaller height for mobile */
+                top: auto; /* Reset top positioning */
+                transform: none; /* Reset transform */
+            }
+        }
+
+        /* Tablet and Desktop styles for video ad box */
+        @media (min-width: 768px) { /* md breakpoint and up */
+            #video-ad-box {
+                right: 4rem; /* Adjusted to be slightly more to the left from the right edge */
+                top: 50%;
+                transform: translateY(-50%);
+                width: 250px; /* Wider for desktop */
+                height: 75vh; /* Taller for desktop */
+                max-height: 80vh; 
             }
         }
 
@@ -768,6 +777,78 @@
             height: 100%;
             object-fit: cover; /* Ensures the video fills the box */
             border-radius: 1rem; /* Apply border-radius to the video as well */
+        }
+
+        /* New modal styles for Past Events */
+        #past-events-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for new modal */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Above events-modal */
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8); /* Start smaller for zoom-in effect */
+            transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        #past-events-modal.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1); /* Zoom to full size */
+            pointer-events: auto;
+        }
+
+        #past-events-modal .modal-content {
+            background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* Same background as other modals */
+            background-size: cover;
+            background-position: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6); /* Stronger cyan glow */
+            max-width: 90%; /* Responsive width */
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid #00FFFF; /* Stronger cyan border */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        #past-events-modal .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: #00FFFF;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s ease; /* Removed transform */
+        }
+
+        #past-events-modal .close-button:hover {
+            color: #00BFFF;
+        }
+
+        #past-events-modal h2 {
+            font-size: 2.5rem; /* Smaller title for sub-modal */
+            margin-bottom: 1.5rem;
+        }
+
+        /* Styles for buttons within past-events-modal, reusing .service-item */
+        #past-events-modal .service-item {
+            margin-bottom: 1rem; /* Space between buttons */
         }
     </style>
 
@@ -824,6 +905,21 @@
         </div>
     </div>
 
+    <!-- Past Events Modal -->
+    <div id="past-events-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" onclick="closePastEventsModal()">&times;</button>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos Pasados</h2>
+            <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
+                <button onclick="showSurveyEventDetails()" class="service-item">
+                    <div class="icon"><i class="fa-solid fa-poll"></i></div> <!-- Changed icon for survey -->
+                    <h3>Evento de Encuesta</h3>
+                </button>
+                <!-- Add more past event buttons here if needed -->
+            </div>
+        </div>
+    </div>
+
     <!-- Video Ad Box -->
     <div id="video-ad-box">
         <video autoplay loop muted playsinline>
@@ -864,6 +960,7 @@
     <script>
         window.addEventListener('load', () => {
             const eventsModal = document.getElementById('events-modal');
+            const pastEventsModal = document.getElementById('past-events-modal'); // Get the new modal
             const fullscreenImageModal = document.getElementById('fullscreen-image-modal');
             const fullscreenImage = document.getElementById('fullscreen-image');
             const closeImageModalBtn = document.getElementById('close-image-modal');
@@ -874,17 +971,41 @@
                 eventsModal.classList.add('show');
             }
 
-            // Placeholder functions for event categories
+            // Function to close the events modal
+            function closeEventsModal() {
+                eventsModal.classList.remove('show');
+                eventsModal.classList.add('slide-out'); // Add slide-out class for animation
+            }
+
+            // Function to show past events modal
             window.showPastEvents = function() {
-                alert('Mostrando eventos pasados...'); // Replace with actual content loading logic
-                // Here you would typically hide the eventsModal and display a new section
-                // with past events, similar to how service details were shown previously.
+                closeEventsModal(); // Hide the main events modal
+                setTimeout(() => { // Delay showing the new modal for animation effect
+                    pastEventsModal.classList.remove('hidden');
+                    pastEventsModal.classList.add('show');
+                }, 500); // Adjust delay as needed for smooth transition
+            };
+
+            // Function to close past events modal
+            window.closePastEventsModal = function() {
+                pastEventsModal.classList.remove('show');
+                setTimeout(() => {
+                    pastEventsModal.classList.add('hidden');
+                    openEventsModal(); // Show the main events modal again
+                }, 500); // Adjust delay as needed
             };
 
             window.showUpcomingEvents = function() {
                 alert('Mostrando eventos próximos...'); // Replace with actual content loading logic
                 // Here you would typically hide the eventsModal and display a new section
                 // with upcoming events.
+            };
+
+            // Placeholder function for showing survey event details
+            window.showSurveyEventDetails = function() {
+                alert('Detalles del Evento de Encuesta: ¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!');
+                // Here you would typically open another modal or navigate to a new section
+                // to display the full details of the survey event.
             };
 
             // Function to open fullscreen image (kept for potential future use)
