@@ -399,22 +399,8 @@
             /* Removed .modal-overlay background-size: contain; as video handles it */
         }
 
-        /* Style for the animated clone element */
-        .animated-service-clone {
-            position: fixed;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(145deg, #1A202C, #0A0A1A); /* Keep the background of the service item */
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
-            border: 1px solid rgba(0, 255, 255, 0.5);
-            padding: 2rem;
-            opacity: 1; /* Start fully visible */
-            overflow: hidden; /* Hide overflow during scaling */
-            /* Transition properties will be set by JavaScript */
-        }
+        /* Style for the animated clone element (Removed as per user request) */
+        /* .animated-service-clone { ... } */
 
         /* Service Detail Page as a fixed overlay */
         #service-detail-page {
@@ -423,7 +409,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1001; /* Above modal, below animated clone */
+            z-index: 1001; /* Above modal */
             background-color: #0A0A1A; /* Solid background to cover video */
             display: flex; /* Keep flex for centering content */
             flex-direction: column;
@@ -431,6 +417,13 @@
             justify-content: center;
             padding: 4rem 1rem; /* Add padding for content */
             overflow-y: auto; /* Allow scrolling if content overflows */
+            opacity: 0; /* Start hidden for a fade-in effect */
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Smooth transition */
+        }
+        #service-detail-page.show {
+            opacity: 1;
+            visibility: visible;
         }
         #service-detail-page.hidden {
             display: none !important; /* Ensure it's fully hidden when not active */
@@ -441,7 +434,7 @@
 <body>
     <!-- Video Background -->
     <video autoplay loop muted playsinline id="video-background">
-        <source src="./images/fondoforo.mp4" type="video/mp4">
+        <source src="./images/fondoreseñas.mp4" type="video/mp4">
         Tu navegador no soporta el elemento de video.
     </video>
 
@@ -469,7 +462,7 @@
     <!-- Mobile menu nav is removed as it's no longer needed -->
 
     <main id="main-content-area" class="flex-grow flex items-center justify-center">
-        <p class="text-byte-text-light text-xl text-center px-4">Bienvenido a nuestro portafolio. Aquí puedes explorar nuestros proyectos.</p>
+        <!-- Removed the welcome text here -->
     </main>
 
     <!-- Services Modal -->
@@ -477,16 +470,16 @@
         <div class="modal-content">
             <!-- Service List Container -->
             <div id="service-list-container" class="flex flex-col items-center gap-8 w-full">
-                <a onclick="showServiceDetails('web-dev', this)" class="service-item">
+                <a onclick="showServiceDetails('web-dev')" class="service-item">
                     <div class="icon"><i class="fa-solid fa-desktop"></i></div>
                     <h3>Desarrollo web</h3>
                 </a>
                 <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
-                    <a onclick="showServiceDetails('virtual-stores', this)" class="service-item">
+                    <a onclick="showServiceDetails('virtual-stores')" class="service-item">
                         <div class="icon"><i class="fa-solid fa-cart-shopping"></i></div>
                         <h3>Diseño de tiendas virtuales</h3>
                     </a>
-                    <a onclick="showServiceDetails('branding', this)" class="service-item">
+                    <a onclick="showServiceDetails('branding')" class="service-item">
                         <div class="icon"><i class="fa-solid fa-lightbulb"></i> <i class="fa-solid fa-palette"></i></div>
                         <h3>Branding y Diseño Gráfico</h3>
                     </a>
@@ -557,60 +550,31 @@
                 mainContentArea.classList.remove('hidden'); 
             }
 
-            // Function to show service details with animation
-            window.showServiceDetails = function(serviceName, clickedElement) {
+            // Function to show service details (no animation)
+            window.showServiceDetails = function(serviceName) {
                 const content = serviceContents[serviceName];
                 if (!content) return;
 
                 // Hide the modal immediately
                 servicesModal.classList.remove('show');
                 servicesModal.classList.add('hidden');
-                mainContentArea.classList.add('hidden'); // Hide main content during transition
+                mainContentArea.classList.add('hidden'); // Hide main content when service detail is shown
                 
-                // Get position and size of the clicked element
-                const rect = clickedElement.getBoundingClientRect();
-
-                // Create a clone for animation
-                const animatedClone = document.createElement('div');
-                animatedClone.classList.add('animated-service-clone');
-                animatedClone.style.position = 'fixed';
-                animatedClone.style.top = `${rect.top}px`;
-                animatedClone.style.left = `${rect.left}px`;
-                animatedClone.style.width = `${rect.width}px`;
-                animatedClone.style.height = `${rect.height}px`;
-                animatedClone.style.zIndex = '10000';
-                animatedClone.style.opacity = '1'; // Keep it visible
-                animatedClone.style.transition = 'all 2.5s cubic-bezier(0.68, -0.55, 0.27, 1.55)'; // Slower transition for move/scale
-
-                // Copy original content (icon and title)
-                const iconHtml = clickedElement.querySelector('.icon').outerHTML;
-                const titleHtml = clickedElement.querySelector('h3').outerHTML;
-                animatedClone.innerHTML = iconHtml + titleHtml;
-
-                document.body.appendChild(animatedClone);
-
-                void animatedClone.offsetWidth; // Force reflow
-
-                // Animate to center and scale up (no rotation)
-                animatedClone.style.top = '50%';
-                animatedClone.style.left = '50%';
-                animatedClone.style.transform = 'translate(-50%, -50%) scale(2.0)'; // Scale up
-
-                // After animation, remove clone and show detail page
-                setTimeout(() => {
-                    animatedClone.remove();
-                    pageDetailTitle.textContent = content.title;
-                    pageDetailDescription.textContent = content.description;
-                    serviceDetailPage.classList.remove('hidden');
-                    serviceDetailPage.classList.add('flex');
-                }, 2500); // Duration of the animation
+                // Set content for the detail page
+                pageDetailTitle.textContent = content.title;
+                pageDetailDescription.textContent = content.description;
+                
+                // Show the service detail page
+                serviceDetailPage.classList.remove('hidden');
+                serviceDetailPage.classList.add('show'); // Use 'show' for opacity transition
             };
 
 
             // Function to show the main portfolio page (from service detail)
             if (backToPortfolioBtn) {
                 backToPortfolioBtn.addEventListener('click', () => {
-                    serviceDetailPage.classList.add('hidden');
+                    serviceDetailPage.classList.remove('show'); // Fade out
+                    serviceDetailPage.classList.add('hidden'); // Then hide completely
                     mainContentArea.classList.remove('hidden'); // Ensure main content is visible
                     openModal(); // Re-open the modal
                 });
