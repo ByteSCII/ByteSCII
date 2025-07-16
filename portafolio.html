@@ -482,6 +482,12 @@
             opacity: 1;
             transform: translate(-50%, -50%) scale(1.5); /* Reduced scale to 1.5 */
         }
+        /* Ensure text in animated clone is visible */
+        .animated-service-clone h3 {
+            color: #F9FAFB !important; /* Explicitly set text color to light */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Add a subtle glow for visibility */
+        }
+
 
         /* Typing animation for text */
         .typing-text {
@@ -679,7 +685,7 @@
             }
         }
 
-        /* Mobile adjustments for the container */
+        /* Mobile adjustments for the container and titles */
         @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
             .image-description-container {
                 max-width: 95%; /* Allow it to take more width on small screens */
@@ -691,6 +697,15 @@
             }
             .image-description {
                 font-size: 0.9rem;
+            }
+
+            /* Shrink main portfolio title on mobile */
+            #main-portfolio-title {
+                font-size: 2.5rem; /* Smaller font size for mobile */
+            }
+            /* Shrink welcome text title on mobile */
+            #page-detail-title {
+                font-size: 2rem; /* Smaller font size for mobile */
             }
         }
     </style>
