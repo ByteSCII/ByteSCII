@@ -313,6 +313,7 @@
             background-image: url('./images/fondomodal1.jpg'); /* Set background image */
             background-size: cover; /* Cover the entire overlay */
             background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Ensure image does not repeat */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -384,19 +385,19 @@
     <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg border-b border-byte-accent-cyan">
         <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
             <div class="flex items-center justify-start ml-0">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 w-auto object-contain"> <!-- Reduced height here -->
             </div>
 
             <nav class="hidden sm:flex justify-end flex-grow">
-                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg
                                          shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm main-cta-button">
                     Volver al inicio
                 </a>
             </nav>
 
-            <!-- Mobile menu button, now directly links to index.html and is circular -->
-            <a href="index.html" id="mobile-menu-link" class="sm:hidden p-2 rounded-full bg-yellow-500 text-black font-bold
-                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 flex items-center justify-center h-12 w-12 text-center text-xs">
+            <!-- Mobile menu button, now directly links to index.html and is rectangular with rounded corners -->
+            <a href="index.html" id="mobile-menu-link" class="sm:hidden p-2 rounded-lg bg-yellow-500 text-black font-bold
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 flex items-center justify-center h-12 w-auto text-center text-xs px-4">
                 Inicio
             </a>
         </div>
