@@ -359,35 +359,48 @@
 
 
         /* Modal styles */
+        /* Base hidden state for all modals */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent; /* Changed to transparent to show background image */
+            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for new modal, consistent */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000; /* Below header, but still above main content */
+            z-index: 1000; /* Base Z-index, will be overridden by specific modals */
             opacity: 0;
             visibility: hidden;
-            transform: translateY(0); /* Initial position for slide-down */
-            transition: opacity 1.5s ease, visibility 1.5s ease, transform 1.5s ease; /* Slower transition */
             pointer-events: none;
+            transform: translateY(100%); /* Start off-screen at the bottom */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s; /* Smooth transition */
         }
 
+        /* State when modal is shown (slides in) */
         .modal-overlay.show {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0); /* Ensure it's at the top */
-            pointer-events: auto; /* Re-enable pointer events for the overlay when shown */
+            pointer-events: auto;
+            transform: translateY(0); /* Slide to center */
         }
 
+        /* State when modal is sliding out (animates before becoming fully hidden) */
         .modal-overlay.slide-out {
-            transform: translateY(100%); /* Slide down */
-            opacity: 0; /* Fade out */
-            visibility: hidden; /* Hide completely after animation */
+            opacity: 0;
+            transform: translateY(100%); /* Slide out to bottom */
+            /* No visibility: hidden here, let the transition handle it */
+        }
+
+        /* State when modal is completely hidden and off-layout */
+        .modal-overlay.hidden {
+            display: none !important; /* Ensure it's completely removed from flow */
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            /* Reset transform to initial hidden state for next show */
+            transform: translateY(100%);
         }
 
         .modal-content {
@@ -401,8 +414,8 @@
             max-height: 90%;
             overflow-y: auto; /* Enable scrolling for content if it overflows */
             position: relative;
-            transform: translateY(20px); /* Start slightly below center */
-            transition: transform 0.3s ease;
+            /* Removed initial transform from here, handled by .modal-overlay */
+            transition: transform 0.3s ease; /* Keep content transition if needed */
             border: 1px solid rgba(0, 255, 255, 0.5);
             padding-top: 2rem; /* Standard padding */
             padding-bottom: 2rem; /* Standard padding */
@@ -411,10 +424,6 @@
             align-items: center; /* Center items horizontally */
             justify-content: center; /* Center items vertically */
             pointer-events: auto;
-        }
-
-        .modal-overlay.show .modal-content {
-            transform: translateY(0); /* Slide into place */
         }
 
         /* Ensure header is always on top and clickable */
@@ -787,15 +796,15 @@
             z-index: 1001; /* Above events-modal */
             opacity: 0;
             visibility: hidden;
-            transform: scale(0.8); /* Start smaller for zoom-in effect */
-            transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+            transform: translateY(100%); /* Start off-screen at the bottom */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
             pointer-events: none;
         }
 
         #past-events-modal.show {
             opacity: 1;
             visibility: visible;
-            transform: scale(1); /* Zoom to full size */
+            transform: translateY(0); /* Slide to full size */
             pointer-events: auto;
         }
 
@@ -859,12 +868,14 @@
             z-index: 10004; /* Higher than other modals */
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
+            transform: translateY(100%); /* Start off-screen at the bottom */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
         }
 
         #fullscreen-video-modal.show {
             opacity: 1;
             visibility: visible;
+            transform: translateY(0); /* Slide to center */
         }
 
         #fullscreen-video-modal video {
@@ -907,15 +918,15 @@
             z-index: 1002; /* Above past-events-modal */
             opacity: 0;
             visibility: hidden;
-            transform: scale(0.8); /* Start smaller for zoom-in effect */
-            transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+            transform: translateY(100%); /* Start off-screen at the bottom */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
             pointer-events: none;
         }
 
         #survey-event-details-modal.show {
             opacity: 1;
             visibility: visible;
-            transform: scale(1); /* Zoom to full size */
+            transform: translateY(0); /* Slide to full size */
             pointer-events: auto;
         }
 
@@ -1157,24 +1168,26 @@
             function closeEventsModal() {
                 eventsModal.classList.remove('show');
                 eventsModal.classList.add('slide-out');
+                setTimeout(() => { eventsModal.classList.add('hidden'); }, 500); // Delay matches CSS transition
             }
 
             // Function to show past events modal
             window.showPastEvents = function() {
-                closeEventsModal();
+                closeEventsModal(); // This will trigger slide-out for eventsModal
                 setTimeout(() => {
-                    pastEventsModal.classList.remove('hidden');
+                    pastEventsModal.classList.remove('hidden', 'slide-out');
                     pastEventsModal.classList.add('show');
-                }, 500);
+                }, 500); // Delay for eventsModal to slide out
             };
 
             // Function to close past events modal
             window.closePastEventsModal = function() {
                 pastEventsModal.classList.remove('show');
+                pastEventsModal.classList.add('slide-out');
                 setTimeout(() => {
                     pastEventsModal.classList.add('hidden');
                     openEventsModal();
-                }, 500);
+                }, 500); // Delay matches CSS transition
             };
 
             window.showUpcomingEvents = function() {
@@ -1183,20 +1196,21 @@
 
             // Function to show survey event details modal
             window.showSurveyEventDetails = function() {
-                closePastEventsModal(); // Close past events modal if open
+                closePastEventsModal(); // This will trigger slide-out for pastEventsModal
                 setTimeout(() => {
-                    surveyEventDetailsModal.classList.remove('hidden');
+                    surveyEventDetailsModal.classList.remove('hidden', 'slide-out');
                     surveyEventDetailsModal.classList.add('show');
-                }, 500);
+                }, 500); // Delay for pastEventsModal to slide out
             };
 
             // Function to close survey event details modal
             window.closeSurveyEventDetailsModal = function() {
                 surveyEventDetailsModal.classList.remove('show');
+                surveyEventDetailsModal.classList.add('slide-out');
                 setTimeout(() => {
                     surveyEventDetailsModal.classList.add('hidden');
                     showPastEvents(); // Go back to past events list
-                }, 500);
+                }, 500); // Delay matches CSS transition
             };
 
             // Function to open fullscreen image (kept for potential future use)
