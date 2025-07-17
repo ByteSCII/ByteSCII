@@ -951,15 +951,7 @@
             <div class="modal-content">
                 <button class="close-button" onclick="closeSurveyEventDetailsModal()">&times;</button>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Detalles del Evento de Encuesta</h2>
-                <p class="text-lg text-center text-byte-text-light mb-4">¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!</p>
-                <p class="text-md text-center text-gray-300">
-                    Esta encuesta fue diseñada para recopilar información valiosa sobre las últimas innovaciones y preferencias en el mundo de la tecnología.
-                    Tus respuestas nos ayudan a entender mejor el mercado y a desarrollar soluciones que realmente necesitas.
-                </p>
-                <p class="text-md text-center text-gray-300 mt-4">
-                    Mantente atento a nuestros próximos eventos y resultados de encuestas.
-                </p>
-                <img src="https://placehold.co/300x200/00FFFF/000000?text=Resultados+Encuesta" alt="Imagen de resultados de encuesta" class="mt-6 rounded-lg shadow-lg">
+                <!-- Contenido eliminado para dejar la subpágina limpia -->
             </div>
         </div>
 
@@ -1017,7 +1009,7 @@
             const fullscreenImageModal = document.getElementById('fullscreen-image-modal');
             const fullscreenImage = document.getElementById('fullscreen-image');
             const closeImageModalBtn = document.getElementById('close-image-modal');
-            const adVideo = document.getElementById('ad-video');
+            const adVideoBox = document.getElementById('video-ad-box'); // Renamed for clarity
             const fullscreenVideoModal = document.getElementById('fullscreen-video-modal');
             const fullscreenAdVideo = document.getElementById('fullscreen-ad-video');
             const surveyEventDetailsModal = document.getElementById('survey-event-details-modal');
@@ -1028,6 +1020,11 @@
                 // Force reflow to ensure transition starts from the 'hidden' state
                 void modalElement.offsetWidth; // Trigger reflow
                 modalElement.classList.add('show');
+
+                // Hide video ad box if survey event details modal is opened
+                if (modalElement.id === 'survey-event-details-modal') {
+                    adVideoBox.style.display = 'none';
+                }
             }
 
             // Function to close a specific modal (now all are overlays)
@@ -1039,6 +1036,21 @@
                     modalElement.classList.add('hidden'); // Set display: none after transition
                     modalElement.removeEventListener('transitionend', onTransitionEnd);
                     if (callback) callback();
+
+                    // Show video ad box if survey event details modal is closed
+                    // And no other modal is open (to avoid showing it if another modal is still active)
+                    if (modalElement.id === 'survey-event-details-modal') {
+                        const anyModalOpen = eventsModal.classList.contains('show') ||
+                                             pastEventsModal.classList.contains('show') ||
+                                             fullscreenVideoModal.classList.contains('show') ||
+                                             fullscreenImageModal.classList.contains('show');
+                        if (!anyModalOpen) {
+                            // Only show if it's desktop view (as it's hidden on mobile by CSS)
+                            if (window.innerWidth >= 768) { // Assuming 768px is the md breakpoint
+                                adVideoBox.style.display = 'block';
+                            }
+                        }
+                    }
                 };
                 modalElement.addEventListener('transitionend', onTransitionEnd);
             }
