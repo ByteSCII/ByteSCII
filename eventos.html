@@ -749,7 +749,6 @@
 
         /* Video Ad Box Styles */
         #video-ad-box {
-            position: fixed;
             background-color: #1A202C; /* Using byte-secondary-dark */
             border-radius: 1rem; /* Rounded corners */
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3); /* Enhanced cyan glow */
@@ -759,21 +758,25 @@
             z-index: 1005; /* Higher than event modals to be visible */
         }
 
-        /* Mobile styles for video ad box - now visible and positioned at bottom */
+        /* Mobile styles for video ad box - now visible and positioned as a section */
         @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
             #video-ad-box {
+                position: relative; /* Changed to relative for flow */
                 display: block; /* Ensure it's visible on mobile */
                 width: 90%; /* Take up most of the width */
                 height: 20vh; /* Shorter height for mobile */
-                bottom: 1rem; /* Position at the bottom */
-                left: 50%; /* Center horizontally */
-                transform: translateX(-50%); /* Adjust for centering */
+                margin-top: 2rem; /* Space below the modal */
+                margin-bottom: 2rem; /* Space above footer */
+                left: auto; /* Reset left */
+                bottom: auto; /* Reset bottom */
+                transform: none; /* Reset transform */
             }
         }
 
         /* Tablet and Desktop styles for video ad box */
         @media (min-width: 768px) { /* md breakpoint and up */
             #video-ad-box {
+                position: fixed; /* Fixed position for desktop */
                 display: block; /* Visible on desktop */
                 right: 4rem; /* Adjusted to be slightly more to the left from the right edge */
                 top: 50%;
@@ -781,6 +784,7 @@
                 width: 350px; /* Increased width for desktop */
                 height: 75vh; /* Taller for desktop */
                 max-height: 80vh; 
+                margin: 0; /* Remove margins when fixed */
             }
         }
 
@@ -961,15 +965,15 @@
                 <img src="https://placehold.co/300x200/00FFFF/000000?text=Resultados+Encuesta" alt="Imagen de resultados de encuesta" class="mt-6 rounded-lg shadow-lg">
             </div>
         </div>
-    </main>
 
-    <!-- Video Ad Box (remains fixed overlay) -->
-    <div id="video-ad-box">
-        <video id="ad-video" autoplay loop muted playsinline>
-            <source src="./eventos/anuncio.mp4" type="video/mp4">
-            Tu navegador no soporta el video.
-        </video>
-    </div>
+        <!-- Video Ad Box (now a section on mobile, fixed on desktop) -->
+        <div id="video-ad-box">
+            <video id="ad-video" autoplay loop muted playsinline>
+                <source src="./eventos/anuncio.mp4" type="video/mp4">
+                Tu navegador no soporta el video.
+            </video>
+        </div>
+    </main>
 
     <!-- Fullscreen Video Modal (remains fixed overlay) -->
     <div id="fullscreen-video-modal" class="modal-overlay">
