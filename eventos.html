@@ -358,71 +358,78 @@
         }
 
 
-        /* Modal styles */
-        /* Base hidden state for all modals */
+        /* Modal styles for fullscreen overlays (Video and Image) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for new modal, consistent */
+            background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1000; /* Base Z-index, will be overridden by specific modals */
+            z-index: 10002; /* Above everything else */
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
-            transform: translateY(100%); /* Start off-screen at the bottom */
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s; /* Smooth transition */
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none; /* Not interactive when hidden */
         }
 
-        /* State when modal is shown (slides in) */
         .modal-overlay.show {
             opacity: 1;
             visibility: visible;
-            pointer-events: auto;
-            transform: translateY(0); /* Slide to center */
+            pointer-events: auto; /* Interactive when shown */
         }
 
-        /* State when modal is sliding out (animates before becoming fully hidden) */
-        .modal-overlay.slide-out {
+        /* New styles for embedded modals (Events, Past Events, Survey Details) */
+        .embedded-modal-wrapper {
+            display: none; /* Hidden by default */
+            width: 100%; /* Take full width of its parent (main) */
+            max-width: 90%; /* Limit overall width for better presentation */
+            margin: 2rem auto; /* Center with margin */
             opacity: 0;
-            transform: translateY(100%); /* Slide out to bottom */
-            /* No visibility: hidden here, let the transition handle it */
+            transform: translateY(20px); /* Start slightly off for animation */
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            flex-direction: column; /* Content inside is columnar */
+            align-items: center; /* Center content horizontally */
+            justify-content: center; /* Center content vertically */
+            pointer-events: none; /* Not interactive when hidden */
         }
 
-        /* State when modal is completely hidden and off-layout */
-        .modal-overlay.hidden {
-            display: none !important; /* Ensure it's completely removed from flow */
-            visibility: hidden;
+        .embedded-modal-wrapper.show {
+            display: flex; /* Show as flex container */
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Interactive when shown */
+        }
+
+        .embedded-modal-wrapper.slide-out {
             opacity: 0;
-            pointer-events: none;
-            /* Reset transform to initial hidden state for next show */
-            transform: translateY(100%);
+            transform: translateY(20px);
         }
 
+        .embedded-modal-wrapper.hidden {
+            display: none !important; /* Fully hide after animation */
+        }
+
+        /* Common content styling for both overlay and embedded modals */
         .modal-content {
             background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* New background image with correct path and extension */
             background-size: cover; /* Cover the entire area */
             background-position: center; /* Center the background image */
             padding: 2rem;
             border-radius: 1rem; /* Rounded corners for square modal */
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4); /* Cyan glow */
-            max-width: 90%;
-            max-height: 90%;
-            overflow-y: auto; /* Enable scrolling for content if it overflows */
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6); /* Stronger cyan glow */
+            max-width: 100%; /* Ensure content fills wrapper */
+            max-height: 80vh; /* Adjust max height for content */
+            overflow-y: auto;
             position: relative;
-            /* Removed initial transform from here, handled by .modal-overlay */
-            transition: transform 0.3s ease; /* Keep content transition if needed */
-            border: 1px solid rgba(0, 255, 255, 0.5);
-            padding-top: 2rem; /* Standard padding */
-            padding-bottom: 2rem; /* Standard padding */
-            display: flex; /* Use flexbox for internal layout */
-            flex-direction: column; /* Stack items vertically */
-            align-items: center; /* Center items horizontally */
-            justify-content: center; /* Center items vertically */
+            border: 2px solid #00FFFF; /* Stronger cyan border */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             pointer-events: auto;
         }
 
@@ -449,7 +456,7 @@
             box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
         }
 
-        /* Service Detail Page as a fixed overlay */
+        /* Service Detail Page as a fixed overlay (kept as is, not part of embedded modals) */
         #service-detail-page {
             position: fixed;
             top: 0;
@@ -553,24 +560,7 @@
 
         /* Fullscreen Image Modal Styles */
         #fullscreen-image-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
             z-index: 10002; /* Above everything else */
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        }
-
-        #fullscreen-image-modal.show {
-            opacity: 1;
-            visibility: visible;
         }
 
         #fullscreen-image-modal img {
@@ -782,100 +772,9 @@
             cursor: pointer; /* Indicate it's interactive */
         }
 
-        /* New modal styles for Past Events */
-        #past-events-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for new modal */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001; /* Above events-modal */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(100%); /* Start off-screen at the bottom */
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
-            pointer-events: none;
-        }
-
-        #past-events-modal.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0); /* Slide to full size */
-            pointer-events: auto;
-        }
-
-        #past-events-modal .modal-content {
-            background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* Same background as other modals */
-            background-size: cover;
-            background-position: center;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6); /* Stronger cyan glow */
-            max-width: 90%; /* Responsive width */
-            max-height: 90%;
-            overflow-y: auto;
-            position: relative;
-            border: 2px solid #00FFFF; /* Stronger cyan border */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            pointer-events: auto;
-        }
-
-        #past-events-modal .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 2.5rem;
-            color: #00FFFF;
-            cursor: pointer;
-            z-index: 10;
-            transition: color 0.2s ease; /* Removed transform */
-        }
-
-        #past-events-modal .close-button:hover {
-            color: #00BFFF;
-        }
-
-        #past-events-modal h2 {
-            font-size: 2.5rem; /* Smaller title for sub-modal */
-            margin-bottom: 1.5rem;
-        }
-
-        /* Styles for buttons within past-events-modal, reusing .service-item */
-        #past-events-modal .service-item {
-            margin-bottom: 1rem; /* Space between buttons */
-        }
-
         /* Fullscreen Video Modal Styles */
         #fullscreen-video-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95); /* Almost black overlay */
-            display: flex;
-            justify-content: center;
-            align-items: center;
             z-index: 10004; /* Higher than other modals */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(100%); /* Start off-screen at the bottom */
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
-        }
-
-        #fullscreen-video-modal.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0); /* Slide to center */
         }
 
         #fullscreen-video-modal video {
@@ -902,73 +801,6 @@
 
         #fullscreen-video-modal .close-button:hover {
             color: #00BFFF; /* Darker cyan on hover */
-        }
-
-        /* Survey Event Details Modal Styles */
-        #survey-event-details-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1002; /* Above past-events-modal */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(100%); /* Start off-screen at the bottom */
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, visibility 0.5s;
-            pointer-events: none;
-        }
-
-        #survey-event-details-modal.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0); /* Slide to full size */
-            pointer-events: auto;
-        }
-
-        #survey-event-details-modal .modal-content {
-            background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* Same background as other modals */
-            background-size: cover;
-            background-position: center;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6); /* Stronger cyan glow */
-            max-width: 90%; /* Responsive width */
-            max-height: 90%;
-            overflow-y: auto;
-            position: relative;
-            border: 2px solid #00FFFF; /* Stronger cyan border */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            pointer-events: auto;
-        }
-
-        #survey-event-details-modal .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 2.5rem;
-            color: #00FFFF;
-            cursor: pointer;
-            z-index: 10;
-            transition: color 0.2s ease;
-        }
-
-        #survey-event-details-modal .close-button:hover {
-            color: #00BFFF;
-        }
-
-        #survey-event-details-modal h2 {
-            font-size: 2.5rem; /* Smaller title for sub-modal */
-            margin-bottom: 1.5rem;
         }
 
         /* Mobile News Banner Styles */
@@ -1005,6 +837,18 @@
         @keyframes marquee {
             0% { transform: translateX(100%); } /* Start from right */
             100% { transform: translateX(-100%); } /* End at left */
+        }
+
+        /* Adjust main content area to allow for embedded modals */
+        main {
+            padding-top: 8rem; /* Space for header and news banner */
+            padding-bottom: 4rem; /* Space for footer */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column; /* Allow modals to stack vertically */
+            align-items: center; /* Center modals horizontally */
+            justify-content: flex-start; /* Align modals to the top of main */
+            position: relative; /* For z-index if needed for children, though less critical now */
         }
     </style>
 
@@ -1047,51 +891,66 @@
         </div>
     </div>
 
-    <main id="main-content-area" class="flex-grow flex items-center justify-center">
-        <!-- Main content area will be empty, modal will appear on top -->
+    <main id="main-content-area" class="flex-grow flex items-center justify-center flex-col">
+        <!-- Events Modal - Now embedded -->
+        <div id="events-modal" class="embedded-modal-wrapper">
+            <div class="modal-content">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos</h2>
+                <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
+                    <button onclick="showPastEvents()" class="service-item">
+                        <div class="icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <h3>Pasados</h3>
+                    </button>
+                    <button onclick="showUpcomingEvents()" class="service-item">
+                        <div class="icon"><i class="fa-solid fa-calendar-alt"></i></div>
+                        <h3>Próximos</h3>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Past Events Modal - Now embedded -->
+        <div id="past-events-modal" class="embedded-modal-wrapper hidden">
+            <div class="modal-content">
+                <button class="close-button" onclick="closePastEventsModal()">&times;</button>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos Pasados</h2>
+                <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
+                    <button onclick="showSurveyEventDetails()" class="service-item">
+                        <div class="icon"><i class="fa-solid fa-poll"></i></div> <!-- Changed icon for survey -->
+                        <h3>Evento de Encuesta</h3>
+                    </button>
+                    <!-- Add more past event buttons here if needed -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Survey Event Details Modal - Now embedded -->
+        <div id="survey-event-details-modal" class="embedded-modal-wrapper hidden">
+            <div class="modal-content">
+                <button class="close-button" onclick="closeSurveyEventDetailsModal()">&times;</button>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Detalles del Evento de Encuesta</h2>
+                <p class="text-lg text-center text-byte-text-light mb-4">¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!</p>
+                <p class="text-md text-center text-gray-300">
+                    Esta encuesta fue diseñada para recopilar información valiosa sobre las últimas innovaciones y preferencias en el mundo de la tecnología.
+                    Tus respuestas nos ayudan a entender mejor el mercado y a desarrollar soluciones que realmente necesitas.
+                </p>
+                <p class="text-md text-center text-gray-300 mt-4">
+                    Mantente atento a nuestros próximos eventos y resultados de encuestas.
+                </p>
+                <img src="https://placehold.co/300x200/00FFFF/000000?text=Resultados+Encuesta" alt="Imagen de resultados de encuesta" class="mt-6 rounded-lg shadow-lg">
+            </div>
+        </div>
     </main>
 
-    <!-- Events Modal -->
-    <div id="events-modal" class="modal-overlay">
-        <div class="modal-content">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos</h2>
-            <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
-                <button onclick="showPastEvents()" class="service-item">
-                    <div class="icon"><i class="fa-solid fa-calendar-check"></i></div>
-                    <h3>Pasados</h3>
-                </button>
-                <button onclick="showUpcomingEvents()" class="service-item">
-                    <div class="icon"><i class="fa-solid fa-calendar-alt"></i></div>
-                    <h3>Próximos</h3>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Past Events Modal -->
-    <div id="past-events-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-button" onclick="closePastEventsModal()">&times;</button>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos Pasados</h2>
-            <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
-                <button onclick="showSurveyEventDetails()" class="service-item">
-                    <div class="icon"><i class="fa-solid fa-poll"></i></div> <!-- Changed icon for survey -->
-                    <h3>Evento de Encuesta</h3>
-                </button>
-                <!-- Add more past event buttons here if needed -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Ad Box -->
-    <div id="video-ad-box">
+    <!-- Video Ad Box (remains fixed overlay) -->
+    <div id="video-ad-box" class="modal-overlay">
         <video id="ad-video" autoplay loop muted playsinline>
             <source src="./eventos/anuncio.mp4" type="video/mp4">
             Tu navegador no soporta el video.
         </video>
     </div>
 
-    <!-- Fullscreen Video Modal (kept as a general utility, but not directly triggered by ad-video anymore) -->
+    <!-- Fullscreen Video Modal (remains fixed overlay) -->
     <div id="fullscreen-video-modal" class="modal-overlay">
         <button class="close-button" onclick="closeFullscreenVideoModal()">&times;</button>
         <video id="fullscreen-ad-video" controls playsinline>
@@ -1100,25 +959,8 @@
         </video>
     </div>
 
-    <!-- Survey Event Details Modal -->
-    <div id="survey-event-details-modal" class="modal-overlay">
-        <div class="modal-content">
-            <button class="close-button" onclick="closeSurveyEventDetailsModal()">&times;</button>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Detalles del Evento de Encuesta</h2>
-            <p class="text-lg text-center text-byte-text-light mb-4">¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!</p>
-            <p class="text-md text-center text-gray-300">
-                Esta encuesta fue diseñada para recopilar información valiosa sobre las últimas innovaciones y preferencias en el mundo de la tecnología.
-                Tus respuestas nos ayudan a entender mejor el mercado y a desarrollar soluciones que realmente necesitas.
-            </p>
-            <p class="text-md text-center text-gray-300 mt-4">
-                Mantente atento a nuestros próximos eventos y resultados de encuestas.
-            </p>
-            <img src="https://placehold.co/300x200/00FFFF/000000?text=Resultados+Encuesta" alt="Imagen de resultados de encuesta" class="mt-6 rounded-lg shadow-lg">
-        </div>
-    </div>
-
-    <!-- Fullscreen Image Modal (kept for potential future use or if user wants to add images later) -->
-    <div id="fullscreen-image-modal">
+    <!-- Fullscreen Image Modal (remains fixed overlay) -->
+    <div id="fullscreen-image-modal" class="modal-overlay">
         <button class="close-button" id="close-image-modal">&times;</button>
         <img id="fullscreen-image" src="" alt="Imagen en pantalla completa" oncontextmenu="return false;" draggable="false">
     </div>
@@ -1156,74 +998,77 @@
             const adVideo = document.getElementById('ad-video');
             const fullscreenVideoModal = document.getElementById('fullscreen-video-modal');
             const fullscreenAdVideo = document.getElementById('fullscreen-ad-video');
-            const surveyEventDetailsModal = document.getElementById('survey-event-details-modal'); // New modal element
+            const surveyEventDetailsModal = document.getElementById('survey-event-details-modal');
 
-            // Function to open the events modal
-            function openEventsModal() {
-                eventsModal.classList.remove('hidden', 'slide-out');
-                eventsModal.classList.add('show');
+            // Function to open a specific embedded modal
+            function openEmbeddedModal(modalElement) {
+                modalElement.classList.remove('hidden', 'slide-out');
+                modalElement.classList.add('show');
             }
 
-            // Function to close the events modal
-            function closeEventsModal() {
-                eventsModal.classList.remove('show');
-                eventsModal.classList.add('slide-out');
-                setTimeout(() => { eventsModal.classList.add('hidden'); }, 500); // Delay matches CSS transition
-            }
-
-            // Function to show past events modal
-            window.showPastEvents = function() {
-                closeEventsModal(); // This will trigger slide-out for eventsModal
+            // Function to close a specific embedded modal
+            function closeEmbeddedModal(modalElement, callback) {
+                modalElement.classList.remove('show');
+                modalElement.classList.add('slide-out');
                 setTimeout(() => {
-                    pastEventsModal.classList.remove('hidden', 'slide-out');
-                    pastEventsModal.classList.add('show');
-                }, 500); // Delay for eventsModal to slide out
+                    modalElement.classList.add('hidden');
+                    if (callback) callback(); // Execute callback after animation
+                }, 500); // Matches CSS transition duration
+            }
+
+            // Function to open a specific fullscreen overlay modal
+            function openOverlayModal(modalElement) {
+                modalElement.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling for overlays
+            }
+
+            // Function to close a specific fullscreen overlay modal
+            function closeOverlayModal(modalElement) {
+                modalElement.classList.remove('show');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+
+            // Updated showPastEvents
+            window.showPastEvents = function() {
+                closeEmbeddedModal(eventsModal, () => {
+                    openEmbeddedModal(pastEventsModal);
+                });
             };
 
-            // Function to close past events modal
+            // Updated closePastEventsModal
             window.closePastEventsModal = function() {
-                pastEventsModal.classList.remove('show');
-                pastEventsModal.classList.add('slide-out');
-                setTimeout(() => {
-                    pastEventsModal.classList.add('hidden');
-                    openEventsModal();
-                }, 500); // Delay matches CSS transition
+                closeEmbeddedModal(pastEventsModal, () => {
+                    openEmbeddedModal(eventsModal);
+                });
             };
 
             window.showUpcomingEvents = function() {
                 alert('Mostrando eventos próximos...');
             };
 
-            // Function to show survey event details modal
+            // Updated showSurveyEventDetails
             window.showSurveyEventDetails = function() {
-                closePastEventsModal(); // This will trigger slide-out for pastEventsModal
-                setTimeout(() => {
-                    surveyEventDetailsModal.classList.remove('hidden', 'slide-out');
-                    surveyEventDetailsModal.classList.add('show');
-                }, 500); // Delay for pastEventsModal to slide out
+                closeEmbeddedModal(pastEventsModal, () => {
+                    openEmbeddedModal(surveyEventDetailsModal);
+                });
             };
 
-            // Function to close survey event details modal
+            // Updated closeSurveyEventDetailsModal
             window.closeSurveyEventDetailsModal = function() {
-                surveyEventDetailsModal.classList.remove('show');
-                surveyEventDetailsModal.classList.add('slide-out');
-                setTimeout(() => {
-                    surveyEventDetailsModal.classList.add('hidden');
-                    showPastEvents(); // Go back to past events list
-                }, 500); // Delay matches CSS transition
+                closeEmbeddedModal(surveyEventDetailsModal, () => {
+                    openEmbeddedModal(pastEventsModal);
+                });
             };
 
             // Function to open fullscreen image (kept for potential future use)
             window.openFullscreenImage = function(src) {
                 fullscreenImage.src = src;
-                fullscreenImageModal.classList.add('show');
-                document.body.style.overflow = 'hidden';
+                openOverlayModal(fullscreenImageModal);
             };
 
             // Function to close fullscreen image (kept for potential future use)
             window.closeFullscreenImage = function() {
-                fullscreenImageModal.classList.remove('show');
-                document.body.style.overflow = '';
+                closeOverlayModal(fullscreenImageModal);
             };
 
             // Event listener for closing fullscreen image
@@ -1241,8 +1086,7 @@
                 fullscreenAdVideo.src = videoSrc;
                 fullscreenAdVideo.muted = false; // Enable sound
                 fullscreenAdVideo.play(); // Start playing
-                fullscreenVideoModal.classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                openOverlayModal(fullscreenVideoModal);
 
                 // Request fullscreen for the video element
                 if (fullscreenAdVideo.requestFullscreen) {
@@ -1260,8 +1104,7 @@
             window.closeFullscreenVideoModal = function() {
                 fullscreenAdVideo.pause(); // Pause video
                 fullscreenAdVideo.currentTime = 0; // Reset video to start
-                fullscreenVideoModal.classList.remove('show');
-                document.body.style.overflow = ''; // Restore scrolling
+                closeOverlayModal(fullscreenVideoModal);
 
                 // Exit fullscreen if currently in fullscreen mode
                 if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
@@ -1276,9 +1119,6 @@
                     }
                 }
             };
-
-            // Removed mobile-specific click/touchstart listeners for adVideo as it's now desktop-only.
-            // If you want a click action on the desktop video, you'll need to add a new listener here.
 
             // Handle fullscreen exit via browser controls
             document.addEventListener('fullscreenchange', () => {
@@ -1311,8 +1151,8 @@
                 }
             });
 
-            // Open the events modal automatically on page load
-            openEventsModal();
+            // Open the initial events modal automatically on page load
+            openEmbeddedModal(eventsModal);
         });
     </script>
 </body>
