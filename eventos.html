@@ -755,7 +755,7 @@
             border: 2px solid #00FFFF; /* Cyan border */
             overflow: hidden; /* Ensures video stays within bounds */
             transition: all 0.3s ease-in-out; /* Smooth transition for any changes */
-            z-index: 1005; /* Higher than event modals to be visible */
+            z-index: 1; /* Lower z-index for mobile to be behind modals */
         }
 
         /* Mobile styles for video ad box - now visible and positioned as a section */
@@ -785,6 +785,7 @@
                 height: 75vh; /* Taller for desktop */
                 max-height: 80vh; 
                 margin: 0; /* Remove margins when fixed */
+                z-index: 1005; /* Higher than event modals for desktop to be visible */
             }
         }
 
@@ -874,6 +875,13 @@
             align-items: center; /* Center modals horizontally */
             justify-content: flex-start; /* Align modals to the top of main */
             position: relative; /* For z-index if needed for children, though less critical now */
+        }
+        /* Desktop modal positioning */
+        @media (min-width: 768px) {
+            .modal-overlay.show .modal-content {
+                transform: translateX(-15%); /* Move modal to the left */
+                max-width: 65%; /* Adjust max-width to leave space for video */
+            }
         }
     </style>
 
@@ -1031,8 +1039,6 @@
                 // Force reflow to ensure transition starts from the 'hidden' state
                 void modalElement.offsetWidth; // Trigger reflow
                 modalElement.classList.add('show');
-                // No longer prevent scrolling here, as the modals are transparent
-                // document.body.style.overflow = 'hidden'; 
             }
 
             // Function to close a specific modal (now all are overlays)
@@ -1044,14 +1050,6 @@
                     modalElement.classList.add('hidden'); // Set display: none after transition
                     modalElement.removeEventListener('transitionend', onTransitionEnd);
                     if (callback) callback();
-                    // No longer restore scrolling here
-                    // if (!eventsModal.classList.contains('show') &&
-                    //     !pastEventsModal.classList.contains('show') &&
-                    //     !surveyEventDetailsModal.classList.contains('show') &&
-                    //     !fullscreenVideoModal.classList.contains('show') &&
-                    //     !fullscreenImageModal.classList.contains('show')) {
-                    //     document.body.style.overflow = '';
-                    // }
                 };
                 modalElement.addEventListener('transitionend', onTransitionEnd);
             }
