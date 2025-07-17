@@ -755,21 +755,12 @@
             border: 2px solid #00FFFF; /* Cyan border */
             overflow: hidden; /* Ensures video stays within bounds */
             transition: all 0.3s ease-in-out; /* Smooth transition for any changes */
-            z-index: 1; /* Lower z-index for mobile to be behind modals */
         }
 
-        /* Mobile styles for video ad box - now visible and positioned as a section */
+        /* Mobile styles for video ad box - now hidden */
         @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
             #video-ad-box {
-                position: relative; /* Changed to relative for flow */
-                display: block; /* Ensure it's visible on mobile */
-                width: 90%; /* Take up most of the width */
-                height: 20vh; /* Shorter height for mobile */
-                margin-top: 2rem; /* Space below the modal */
-                margin-bottom: 2rem; /* Space above footer */
-                left: auto; /* Reset left */
-                bottom: auto; /* Reset bottom */
-                transform: none; /* Reset transform */
+                display: none; /* Hide on mobile */
             }
         }
 
