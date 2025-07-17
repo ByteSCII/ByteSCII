@@ -741,24 +741,20 @@
             z-index: 50; /* Ensure it's above main content but below modals */
             overflow: hidden; /* Ensures video stays within bounds */
             transition: all 0.3s ease-in-out; /* Smooth transition for any changes */
-            display: block; /* Make sure it's always visible by default */
+            display: none; /* Hidden by default (mobile-first) */
         }
 
-        /* Mobile styles for video ad box */
+        /* Mobile styles for video ad box - now hidden */
         @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
             #video-ad-box {
-                bottom: 1rem;
-                right: 1rem;
-                width: 100px; /* Smaller width for mobile */
-                height: 150px; /* Smaller height for mobile */
-                top: auto; /* Reset top positioning */
-                transform: none; /* Reset transform */
+                display: none; /* Ensure it's hidden on mobile */
             }
         }
 
         /* Tablet and Desktop styles for video ad box */
         @media (min-width: 768px) { /* md breakpoint and up */
             #video-ad-box {
+                display: block; /* Visible on desktop */
                 right: 4rem; /* Adjusted to be slightly more to the left from the right edge */
                 top: 50%;
                 transform: translateY(-50%);
@@ -896,6 +892,109 @@
         #fullscreen-video-modal .close-button:hover {
             color: #00BFFF; /* Darker cyan on hover */
         }
+
+        /* Survey Event Details Modal Styles */
+        #survey-event-details-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1002; /* Above past-events-modal */
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8); /* Start smaller for zoom-in effect */
+            transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+
+        #survey-event-details-modal.show {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1); /* Zoom to full size */
+            pointer-events: auto;
+        }
+
+        #survey-event-details-modal .modal-content {
+            background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* Same background as other modals */
+            background-size: cover;
+            background-position: center;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6); /* Stronger cyan glow */
+            max-width: 90%; /* Responsive width */
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid #00FFFF; /* Stronger cyan border */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+        }
+
+        #survey-event-details-modal .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem;
+            color: #00FFFF;
+            cursor: pointer;
+            z-index: 10;
+            transition: color 0.2s ease;
+        }
+
+        #survey-event-details-modal .close-button:hover {
+            color: #00BFFF;
+        }
+
+        #survey-event-details-modal h2 {
+            font-size: 2.5rem; /* Smaller title for sub-modal */
+            margin-bottom: 1.5rem;
+        }
+
+        /* Mobile News Banner Styles */
+        #news-banner-mobile {
+            display: none; /* Hidden by default */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Cyan glow */
+            border-radius: 0.5rem; /* Rounded corners */
+        }
+
+        @media (max-width: 767px) { /* Only visible on mobile */
+            #news-banner-mobile {
+                display: block; /* Show on mobile */
+                position: fixed; /* Fixed position */
+                top: 4rem; /* Position below the header (assuming header height is around 4rem) */
+                left: 0;
+                width: 100%;
+                background-color: #1A202C; /* Secondary dark background */
+                color: #F9FAFB; /* Light text */
+                text-align: center;
+                padding: 0.5rem 0; /* Thin padding */
+                border-top: 2px solid #00FFFF; /* Cyan borders */
+                border-bottom: 2px solid #00FFFF;
+                overflow: hidden; /* Hide overflowing text */
+                z-index: 40; /* Below modals, above main content */
+            }
+            #news-banner-mobile .news-content {
+                white-space: nowrap; /* Keep text on a single line */
+                font-size: 0.875rem; /* Small text size */
+                font-weight: bold;
+                animation: marquee 15s linear infinite; /* Scrolling animation */
+            }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); } /* Start from right */
+            100% { transform: translateX(-100%); } /* End at left */
+        }
     </style>
 
 </head>
@@ -929,6 +1028,13 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile News Banner -->
+    <div id="news-banner-mobile">
+        <div class="news-content">
+            NO TE PIERDAS NUESTRO PROXIMO EVENTO EL 16/07/25 CONTAMOS CONTIGO
+        </div>
+    </div>
 
     <main id="main-content-area" class="flex-grow flex items-center justify-center">
         <!-- Main content area will be empty, modal will appear on top -->
@@ -974,13 +1080,30 @@
         </video>
     </div>
 
-    <!-- Fullscreen Video Modal -->
+    <!-- Fullscreen Video Modal (kept as a general utility, but not directly triggered by ad-video anymore) -->
     <div id="fullscreen-video-modal" class="modal-overlay">
         <button class="close-button" onclick="closeFullscreenVideoModal()">&times;</button>
         <video id="fullscreen-ad-video" controls playsinline>
-            <source src="./eventos/anuncio.mp4" type="video/mp4"> <!-- Source added here -->
+            <source src="./eventos/anuncio.mp4" type="video/mp4">
             Tu navegador no soporta el video.
         </video>
+    </div>
+
+    <!-- Survey Event Details Modal -->
+    <div id="survey-event-details-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeSurveyEventDetailsModal()">&times;</button>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Detalles del Evento de Encuesta</h2>
+            <p class="text-lg text-center text-byte-text-light mb-4">¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!</p>
+            <p class="text-md text-center text-gray-300">
+                Esta encuesta fue diseñada para recopilar información valiosa sobre las últimas innovaciones y preferencias en el mundo de la tecnología.
+                Tus respuestas nos ayudan a entender mejor el mercado y a desarrollar soluciones que realmente necesitas.
+            </p>
+            <p class="text-md text-center text-gray-300 mt-4">
+                Mantente atento a nuestros próximos eventos y resultados de encuestas.
+            </p>
+            <img src="https://placehold.co/300x200/00FFFF/000000?text=Resultados+Encuesta" alt="Imagen de resultados de encuesta" class="mt-6 rounded-lg shadow-lg">
+        </div>
     </div>
 
     <!-- Fullscreen Image Modal (kept for potential future use or if user wants to add images later) -->
@@ -1022,6 +1145,7 @@
             const adVideo = document.getElementById('ad-video');
             const fullscreenVideoModal = document.getElementById('fullscreen-video-modal');
             const fullscreenAdVideo = document.getElementById('fullscreen-ad-video');
+            const surveyEventDetailsModal = document.getElementById('survey-event-details-modal'); // New modal element
 
             // Function to open the events modal
             function openEventsModal() {
@@ -1057,9 +1181,22 @@
                 alert('Mostrando eventos próximos...');
             };
 
-            // Placeholder function for showing survey event details
+            // Function to show survey event details modal
             window.showSurveyEventDetails = function() {
-                alert('Detalles del Evento de Encuesta: ¡Gracias por tu participación en nuestra encuesta sobre tendencias tecnológicas!');
+                closePastEventsModal(); // Close past events modal if open
+                setTimeout(() => {
+                    surveyEventDetailsModal.classList.remove('hidden');
+                    surveyEventDetailsModal.classList.add('show');
+                }, 500);
+            };
+
+            // Function to close survey event details modal
+            window.closeSurveyEventDetailsModal = function() {
+                surveyEventDetailsModal.classList.remove('show');
+                setTimeout(() => {
+                    surveyEventDetailsModal.classList.add('hidden');
+                    showPastEvents(); // Go back to past events list
+                }, 500);
             };
 
             // Function to open fullscreen image (kept for potential future use)
@@ -1085,7 +1222,7 @@
                 });
             }
 
-            // Function to open fullscreen video modal
+            // Function to open fullscreen video modal (can be called by other elements if needed)
             function openFullscreenVideoModal(videoSrc) {
                 fullscreenAdVideo.src = videoSrc;
                 fullscreenAdVideo.muted = false; // Enable sound
@@ -1126,23 +1263,8 @@
                 }
             };
 
-            // Event listener for clicking the ad video
-            if (adVideo) {
-                // Add both 'click' and 'touchstart' for better mobile compatibility
-                adVideo.addEventListener('click', (event) => {
-                    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-                    if (isMobile) {
-                        openFullscreenVideoModal(adVideo.querySelector('source').src);
-                    }
-                });
-                adVideo.addEventListener('touchstart', (event) => {
-                    event.preventDefault(); // Prevent potential double-tap issues
-                    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-                    if (isMobile) {
-                        openFullscreenVideoModal(adVideo.querySelector('source').src);
-                    }
-                });
-            }
+            // Removed mobile-specific click/touchstart listeners for adVideo as it's now desktop-only.
+            // If you want a click action on the desktop video, you'll need to add a new listener here.
 
             // Handle fullscreen exit via browser controls
             document.addEventListener('fullscreenchange', () => {
