@@ -384,14 +384,15 @@
 
         /* New styles for embedded modals (Events, Past Events, Survey Details) */
         .embedded-modal-wrapper {
-            display: none; /* Hidden by default */
+            display: flex; /* Always keep display flex, but control visibility/opacity */
             width: 100%; /* Take full width of its parent (main) */
             max-width: 90%; /* Limit overall width for better presentation */
             margin: 2rem auto; /* Center with margin */
             opacity: 0;
+            visibility: hidden; /* Start hidden */
             /* Initial state for animation: slightly off-screen bottom, slightly scaled down */
             transform: translateY(50px) scale(0.95);
-            transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* More dynamic transition */
+            transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), visibility 0.5s; /* More dynamic transition */
             flex-direction: column; /* Content inside is columnar */
             align-items: center; /* Center content horizontally */
             justify-content: center; /* Center content vertically */
@@ -399,8 +400,8 @@
         }
 
         .embedded-modal-wrapper.show {
-            display: flex; /* Show as flex container */
             opacity: 1;
+            visibility: visible;
             transform: translateY(0) scale(1); /* Final state: fully visible, normal size */
             pointer-events: auto;
         }
@@ -409,10 +410,14 @@
             opacity: 0;
             /* Slide out upwards and shrink slightly */
             transform: translateY(-50px) scale(0.95);
+            pointer-events: none; /* Disable interaction during slide-out */
         }
 
         .embedded-modal-wrapper.hidden {
             display: none !important; /* Fully hide after animation */
+            visibility: hidden; /* Ensure visibility is hidden */
+            opacity: 0; /* Ensure opacity is 0 */
+            transform: translateY(50px) scale(0.95); /* Reset transform for next show */
         }
 
         /* Common content styling for both overlay and embedded modals */
@@ -1005,6 +1010,8 @@
             // Function to open a specific embedded modal
             function openEmbeddedModal(modalElement) {
                 modalElement.classList.remove('hidden', 'slide-out');
+                // Force reflow to ensure transition starts from the 'hidden' state
+                void modalElement.offsetWidth; // Trigger reflow
                 modalElement.classList.add('show');
             }
 
@@ -1012,10 +1019,13 @@
             function closeEmbeddedModal(modalElement, callback) {
                 modalElement.classList.remove('show');
                 modalElement.classList.add('slide-out');
-                setTimeout(() => {
-                    modalElement.classList.add('hidden');
-                    if (callback) callback(); // Execute callback after animation
-                }, 500); // Matches CSS transition duration
+                // Listen for the 'transitionend' event to set 'hidden'
+                const onTransitionEnd = () => {
+                    modalElement.classList.add('hidden'); // Set display: none after transition
+                    modalElement.removeEventListener('transitionend', onTransitionEnd);
+                    if (callback) callback();
+                };
+                modalElement.addEventListener('transitionend', onTransitionEnd);
             }
 
             // Function to open a specific fullscreen overlay modal
