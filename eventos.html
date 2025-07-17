@@ -826,6 +826,7 @@
             display: none; /* Hidden by default */
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Cyan glow */
             border-radius: 0.5rem; /* Rounded corners */
+            z-index: 1003; /* Changed from 40 to 1003 to be above event modals */
         }
 
         @media (max-width: 767px) { /* Only visible on mobile */
@@ -842,7 +843,6 @@
                 border-top: 2px solid #00FFFF; /* Cyan borders */
                 border-bottom: 2px solid #00FFFF;
                 overflow: hidden; /* Hide overflowing text */
-                z-index: 40; /* Below modals, above main content */
             }
             #news-banner-mobile .news-content {
                 white-space: nowrap; /* Keep text on a single line */
