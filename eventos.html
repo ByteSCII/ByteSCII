@@ -358,69 +358,60 @@
         }
 
 
-        /* Modal styles for fullscreen overlays (Video and Image) */
+        /* Base styles for all modals (including event modals now) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9); /* Dark semi-transparent background */
+            background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background for all overlays */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10002; /* Above everything else */
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
             pointer-events: none; /* Not interactive when hidden */
+            transition: opacity 0.5s ease, visibility 0.5s; /* Fade in/out for overlay background */
+            /* Initial state for slide-in/out */
+            transform: translateY(100%); 
         }
 
+        /* Specific show state for all modals (slide up and fade in) */
         .modal-overlay.show {
             opacity: 1;
             visibility: visible;
             pointer-events: auto; /* Interactive when shown */
+            transform: translateY(0); /* Slide up to center */
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), visibility 0.5s;
         }
 
-        /* New styles for embedded modals (Events, Past Events, Survey Details) */
-        .embedded-modal-wrapper {
-            display: flex; /* Always keep display flex, but control visibility/opacity */
-            width: 100%; /* Take full width of its parent (main) */
-            max-width: 90%; /* Limit overall width for better presentation */
-            margin: 2rem auto; /* Center with margin */
+        /* Specific slide-out state for all modals (slide down and fade out) */
+        .modal-overlay.slide-out {
             opacity: 0;
-            visibility: hidden; /* Start hidden */
-            /* Initial state for animation: slightly off-screen bottom, slightly scaled down */
-            transform: translateY(50px) scale(0.95);
-            transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), visibility 0.5s; /* More dynamic transition */
-            flex-direction: column; /* Content inside is columnar */
-            align-items: center; /* Center content horizontally */
-            justify-content: center; /* Center content vertically */
-            pointer-events: none; /* Not interactive when hidden */
-        }
-
-        .embedded-modal-wrapper.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1); /* Final state: fully visible, normal size */
-            pointer-events: auto;
-        }
-
-        .embedded-modal-wrapper.slide-out {
-            opacity: 0;
-            /* Slide out downwards and shrink slightly */
-            transform: translateY(50px) scale(0.95); /* Changed from -50px to 50px */
+            transform: translateY(100%); /* Slide down off-screen */
             pointer-events: none; /* Disable interaction during slide-out */
+            transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), visibility 0.5s;
         }
 
-        .embedded-modal-wrapper.hidden {
+        /* Hidden state after slide-out animation */
+        .modal-overlay.hidden {
             display: none !important; /* Fully hide after animation */
             visibility: hidden; /* Ensure visibility is hidden */
             opacity: 0; /* Ensure opacity is 0 */
-            transform: translateY(50px) scale(0.95); /* Reset transform for next show */
+            transform: translateY(100%); /* Reset transform for next show */
         }
 
-        /* Common content styling for both overlay and embedded modals */
+        /* Z-index for stacking overlays */
+        #events-modal { z-index: 1000; }
+        #past-events-modal { z-index: 1001; }
+        #survey-event-details-modal { z-index: 1002; }
+        #video-ad-box { z-index: 50; } /* This is a fixed box, not a modal overlay in the same sense */
+        #fullscreen-video-modal { z-index: 10004; }
+        #fullscreen-image-modal { z-index: 10002; }
+
+
+        /* Common content styling for all modals */
         .modal-content {
             background-image: url('./desarrolloweb/fondomodalservicios.jpg'); /* New background image with correct path and extension */
             background-size: cover; /* Cover the entire area */
@@ -428,8 +419,8 @@
             padding: 2rem;
             border-radius: 1rem; /* Rounded corners for square modal */
             box-shadow: 0 10px 30px rgba(0, 255, 255, 0.6); /* Stronger cyan glow */
-            max-width: 100%; /* Ensure content fills wrapper */
-            max-height: 80vh; /* Adjust max height for content */
+            max-width: 90%; /* Responsive width */
+            max-height: 90vh; /* Max height for content */
             overflow-y: auto;
             position: relative; /* Crucial for absolute positioning of close button */
             border: 2px solid #00FFFF; /* Stronger cyan border */
@@ -439,6 +430,26 @@
             justify-content: center;
             pointer-events: auto;
         }
+
+        /* Close button for all modals */
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2.5rem; /* Larger X */
+            color: #00FFFF; /* Cyan color */
+            cursor: pointer;
+            z-index: 10; /* Ensure it's above modal content */
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .close-button:hover {
+            color: #00BFFF; /* Darker cyan on hover */
+            transform: scale(1.2); /* Slight scale on hover */
+        }
+
 
         /* Ensure header is always on top and clickable */
         header {
@@ -463,7 +474,7 @@
             box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow glow */
         }
 
-        /* Service Detail Page as a fixed overlay (kept as is, not part of embedded modals) */
+        /* Service Detail Page as a fixed overlay (kept as is, not part of event modals) */
         #service-detail-page {
             position: fixed;
             top: 0;
@@ -899,8 +910,8 @@
     </div>
 
     <main id="main-content-area" class="flex-grow flex items-center justify-center flex-col">
-        <!-- Events Modal - Now embedded -->
-        <div id="events-modal" class="embedded-modal-wrapper">
+        <!-- Events Modal - Now an overlay -->
+        <div id="events-modal" class="modal-overlay">
             <div class="modal-content">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos</h2>
                 <div class="flex flex-col md:flex-row gap-8 lg:gap-6 justify-center w-full">
@@ -916,8 +927,8 @@
             </div>
         </div>
 
-        <!-- Past Events Modal - Now embedded -->
-        <div id="past-events-modal" class="embedded-modal-wrapper hidden">
+        <!-- Past Events Modal - Now an overlay -->
+        <div id="past-events-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <button class="close-button" onclick="closePastEventsModal()">&times;</button>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Eventos Pasados</h2>
@@ -931,8 +942,8 @@
             </div>
         </div>
 
-        <!-- Survey Event Details Modal - Now embedded -->
-        <div id="survey-event-details-modal" class="embedded-modal-wrapper hidden">
+        <!-- Survey Event Details Modal - Now an overlay -->
+        <div id="survey-event-details-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <button class="close-button" onclick="closeSurveyEventDetailsModal()">&times;</button>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Detalles del Evento de Encuesta</h2>
@@ -1007,16 +1018,17 @@
             const fullscreenAdVideo = document.getElementById('fullscreen-ad-video');
             const surveyEventDetailsModal = document.getElementById('survey-event-details-modal');
 
-            // Function to open a specific embedded modal
-            function openEmbeddedModal(modalElement) {
+            // Function to open a specific modal (now all are overlays)
+            function openModal(modalElement) {
                 modalElement.classList.remove('hidden', 'slide-out');
                 // Force reflow to ensure transition starts from the 'hidden' state
                 void modalElement.offsetWidth; // Trigger reflow
                 modalElement.classList.add('show');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when any modal is open
             }
 
-            // Function to close a specific embedded modal
-            function closeEmbeddedModal(modalElement, callback) {
+            // Function to close a specific modal (now all are overlays)
+            function closeModal(modalElement, callback) {
                 modalElement.classList.remove('show');
                 modalElement.classList.add('slide-out');
                 // Listen for the 'transitionend' event to set 'hidden'
@@ -1024,33 +1036,29 @@
                     modalElement.classList.add('hidden'); // Set display: none after transition
                     modalElement.removeEventListener('transitionend', onTransitionEnd);
                     if (callback) callback();
+                    // Only restore scrolling if no other modals are open
+                    if (!eventsModal.classList.contains('show') &&
+                        !pastEventsModal.classList.contains('show') &&
+                        !surveyEventDetailsModal.classList.contains('show') &&
+                        !fullscreenVideoModal.classList.contains('show') &&
+                        !fullscreenImageModal.classList.contains('show')) {
+                        document.body.style.overflow = '';
+                    }
                 };
                 modalElement.addEventListener('transitionend', onTransitionEnd);
             }
 
-            // Function to open a specific fullscreen overlay modal
-            function openOverlayModal(modalElement) {
-                modalElement.classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling for overlays
-            }
-
-            // Function to close a specific fullscreen overlay modal
-            function closeOverlayModal(modalElement) {
-                modalElement.classList.remove('show');
-                document.body.style.overflow = ''; // Restore scrolling
-            }
-
             // Updated showPastEvents
             window.showPastEvents = function() {
-                closeEmbeddedModal(eventsModal, () => {
-                    openEmbeddedModal(pastEventsModal);
+                closeModal(eventsModal, () => {
+                    openModal(pastEventsModal);
                 });
             };
 
             // Updated closePastEventsModal
             window.closePastEventsModal = function() {
-                closeEmbeddedModal(pastEventsModal, () => {
-                    openEmbeddedModal(eventsModal);
+                closeModal(pastEventsModal, () => {
+                    openModal(eventsModal);
                 });
             };
 
@@ -1060,27 +1068,27 @@
 
             // Updated showSurveyEventDetails
             window.showSurveyEventDetails = function() {
-                closeEmbeddedModal(pastEventsModal, () => {
-                    openEmbeddedModal(surveyEventDetailsModal);
+                closeModal(pastEventsModal, () => {
+                    openModal(surveyEventDetailsModal);
                 });
             };
 
             // Updated closeSurveyEventDetailsModal
             window.closeSurveyEventDetailsModal = function() {
-                closeEmbeddedModal(surveyEventDetailsModal, () => {
-                    openEmbeddedModal(pastEventsModal);
+                closeModal(surveyEventDetailsModal, () => {
+                    openModal(pastEventsModal);
                 });
             };
 
             // Function to open fullscreen image (kept for potential future use)
             window.openFullscreenImage = function(src) {
                 fullscreenImage.src = src;
-                openOverlayModal(fullscreenImageModal);
+                openModal(fullscreenImageModal);
             };
 
             // Function to close fullscreen image (kept for potential future use)
             window.closeFullscreenImage = function() {
-                closeOverlayModal(fullscreenImageModal);
+                closeModal(fullscreenImageModal);
             };
 
             // Event listener for closing fullscreen image
@@ -1098,7 +1106,7 @@
                 fullscreenAdVideo.src = videoSrc;
                 fullscreenAdVideo.muted = false; // Enable sound
                 fullscreenAdVideo.play(); // Start playing
-                openOverlayModal(fullscreenVideoModal);
+                openModal(fullscreenVideoModal);
 
                 // Request fullscreen for the video element
                 if (fullscreenAdVideo.requestFullscreen) {
@@ -1116,7 +1124,7 @@
             window.closeFullscreenVideoModal = function() {
                 fullscreenAdVideo.pause(); // Pause video
                 fullscreenAdVideo.currentTime = 0; // Reset video to start
-                closeOverlayModal(fullscreenVideoModal);
+                closeModal(fullscreenVideoModal);
 
                 // Exit fullscreen if currently in fullscreen mode
                 if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
@@ -1164,7 +1172,7 @@
             });
 
             // Open the initial events modal automatically on page load
-            openEmbeddedModal(eventsModal);
+            openModal(eventsModal);
         });
     </script>
 </body>
