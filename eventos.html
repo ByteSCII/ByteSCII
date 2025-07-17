@@ -748,7 +748,7 @@
         /* Video Ad Box Styles */
         #video-ad-box {
             background-color: #1A202C; /* Using byte-secondary-dark */
-            border-radius: 1rem; /* Rounded corners */
+            border-radius: 1.5rem; /* Rounded corners */
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3); /* Enhanced cyan glow */
             border: 2px solid #00FFFF; /* Cyan border */
             overflow: hidden; /* Ensures video stays within bounds */
@@ -782,7 +782,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover; /* Ensures the video fills the box */
-            border-radius: 1rem; /* Apply border-radius to the video as well */
+            border-radius: 1.5rem; /* Apply border-radius to the video as well */
             pointer-events: auto; /* Ensure video is clickable/tappable */
             cursor: pointer; /* Indicate it's interactive */
         }
@@ -872,6 +872,103 @@
                 max-width: 65%; /* Adjust max-width to leave space for video */
             }
         }
+
+        /* Styles for the newspaper-style content */
+        .newspaper-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .newspaper-title {
+            font-family: 'Montserrat', serif; /* Use a strong serif font for the title */
+            font-size: 3rem; /* Large title */
+            font-weight: 900; /* Extra bold */
+            color: #00FFFF; /* Cyan color */
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8); /* Stronger glow */
+            margin-bottom: 0.5rem;
+            line-height: 1;
+            -webkit-text-stroke: 1px #00BFFF; /* Subtle stroke */
+        }
+
+        .newspaper-date {
+            font-family: 'Inter', sans-serif; /* Simpler font for date */
+            font-size: 0.9rem;
+            color: #F9FAFB;
+            margin-bottom: 1rem;
+        }
+
+        .newspaper-divider {
+            border: none;
+            border-top: 2px solid #00FFFF; /* Cyan line */
+            width: 80%;
+            margin: 1rem auto;
+        }
+
+        .newspaper-article {
+            width: 100%;
+            font-family: 'Georgia', serif; /* Classic serif font for body text */
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #E0E0E0; /* Slightly lighter text for readability */
+            text-align: justify; /* Justify text for newspaper look */
+            column-count: 1; /* Default to single column for mobile */
+            column-gap: 2rem; /* Space between columns */
+        }
+
+        .newspaper-article p {
+            margin-bottom: 1rem;
+        }
+
+        .newspaper-article .lead-paragraph {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #00FFFF; /* Highlight lead paragraph */
+            margin-bottom: 1.5rem;
+        }
+
+        .image-with-caption {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .newspaper-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            pointer-events: auto; /* Ensure image is clickable */
+            cursor: pointer;
+        }
+
+        .image-caption {
+            font-size: 0.85rem;
+            color: #B0B0B0;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Two-column layout for desktop */
+        @media (min-width: 768px) {
+            .newspaper-title {
+                font-size: 4.5rem; /* Larger title for desktop */
+            }
+            .newspaper-article {
+                column-count: 2; /* Two columns on desktop */
+            }
+            .newspaper-article .lead-paragraph {
+                column-span: all; /* Make lead paragraph span all columns */
+            }
+            .image-with-caption {
+                column-span: all; /* Make image span all columns if needed, or adjust positioning */
+            }
+        }
+
+        /* Adjust modal content padding for newspaper style */
+        .modal-content {
+            padding: 3rem; /* More padding for newspaper style */
+        }
     </style>
 
 </head>
@@ -950,7 +1047,9 @@
         <div id="survey-event-details-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <button class="close-button" onclick="closeSurveyEventDetailsModal()">&times;</button>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-8 text-stroke-cyan">Detalles del Evento de Encuesta</h2>
+                <div class="newspaper-header">
+                    <h1 class="newspaper-title">El evento encuesta de Byte</h1>
+                </div>
                 <!-- Contenido eliminado para dejar la subpágina limpia -->
             </div>
         </div>
