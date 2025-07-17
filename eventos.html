@@ -1128,10 +1128,16 @@
 
             // Event listener for clicking the ad video
             if (adVideo) {
-                adVideo.addEventListener('click', () => {
-                    // Check if it's a mobile device (or small screen)
+                // Add both 'click' and 'touchstart' for better mobile compatibility
+                adVideo.addEventListener('click', (event) => {
                     const isMobile = window.matchMedia("(max-width: 767px)").matches;
-                    // On mobile, open fullscreen video. On desktop, do nothing (it's already playing muted).
+                    if (isMobile) {
+                        openFullscreenVideoModal(adVideo.querySelector('source').src);
+                    }
+                });
+                adVideo.addEventListener('touchstart', (event) => {
+                    event.preventDefault(); // Prevent potential double-tap issues
+                    const isMobile = window.matchMedia("(max-width: 767px)").matches;
                     if (isMobile) {
                         openFullscreenVideoModal(adVideo.querySelector('source').src);
                     }
