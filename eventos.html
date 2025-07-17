@@ -365,7 +365,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background for all overlays */
+            background-color: transparent; /* Changed to transparent */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -756,14 +756,18 @@
             border: 2px solid #00FFFF; /* Cyan border */
             overflow: hidden; /* Ensures video stays within bounds */
             transition: all 0.3s ease-in-out; /* Smooth transition for any changes */
-            display: none; /* Hidden by default (mobile-first) */
             z-index: 1005; /* Higher than event modals to be visible */
         }
 
-        /* Mobile styles for video ad box - now hidden */
+        /* Mobile styles for video ad box - now visible and positioned at bottom */
         @media (max-width: 767px) { /* For screens up to 767px (before md breakpoint) */
             #video-ad-box {
-                display: none; /* Ensure it's hidden on mobile */
+                display: block; /* Ensure it's visible on mobile */
+                width: 90%; /* Take up most of the width */
+                height: 20vh; /* Shorter height for mobile */
+                bottom: 1rem; /* Position at the bottom */
+                left: 50%; /* Center horizontally */
+                transform: translateX(-50%); /* Adjust for centering */
             }
         }
 
@@ -1023,7 +1027,8 @@
                 // Force reflow to ensure transition starts from the 'hidden' state
                 void modalElement.offsetWidth; // Trigger reflow
                 modalElement.classList.add('show');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling when any modal is open
+                // No longer prevent scrolling here, as the modals are transparent
+                // document.body.style.overflow = 'hidden'; 
             }
 
             // Function to close a specific modal (now all are overlays)
@@ -1035,14 +1040,14 @@
                     modalElement.classList.add('hidden'); // Set display: none after transition
                     modalElement.removeEventListener('transitionend', onTransitionEnd);
                     if (callback) callback();
-                    // Only restore scrolling if no other modals are open
-                    if (!eventsModal.classList.contains('show') &&
-                        !pastEventsModal.classList.contains('show') &&
-                        !surveyEventDetailsModal.classList.contains('show') &&
-                        !fullscreenVideoModal.classList.contains('show') &&
-                        !fullscreenImageModal.classList.contains('show')) {
-                        document.body.style.overflow = '';
-                    }
+                    // No longer restore scrolling here
+                    // if (!eventsModal.classList.contains('show') &&
+                    //     !pastEventsModal.classList.contains('show') &&
+                    //     !surveyEventDetailsModal.classList.contains('show') &&
+                    //     !fullscreenVideoModal.classList.contains('show') &&
+                    //     !fullscreenImageModal.classList.contains('show')) {
+                    //     document.body.style.overflow = '';
+                    // }
                 };
                 modalElement.addEventListener('transitionend', onTransitionEnd);
             }
