@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte - Servicio de Branding Integral</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <meta name="description" content="Byte - Servicios de branding integral: creación de identidad de marca, diseño de logos, estrategia de marca y más para tu negocio.">
+    <meta name="keywords" content="Byte, branding, servicio de branding, identidad de marca, diseño de logo, estrategia de marca, posicionamiento de marca, manual de marca, diseño gráfico">
+    <meta property="og:title" content="Byte - Servicio de Branding Integral">
+    <meta property="og:description" content="Byte - Servicios de branding integral: creación de identidad de marca, diseño de logos, estrategia de marca y más para tu negocio.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Carga temprana del script del chatbot para asegurar que el elemento personalizado 'chat-bot' esté definido -->
+    <script type="text/javascript" src="https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js"></script>
+
+    <style>
+        /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A',
+                        'byte-accent-cyan': '#00FFFF',
+                        'byte-light-bg': '#F8FAFC',
+                        'byte-text-dark': '#374151',
+                        'byte-text-light': '#F9FAFB',
+                        'byte-secondary-dark': '#1A202C',
+                        'whatsapp-green': '#25D366',
+                        'whatsapp-dark-green': '#128C7E',
+                    }
+                }
+            }
+        };
+
+        /* Box-Sizing universal para un modelo de caja consistente */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Estilos base para HTML y Body */
+        html {
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #0A0A1A; /* Color de fondo base, sin animación */
+            font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
+            color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Estilos para encabezados (h1-h6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
+            color: '#00FFFF'; /* Color cian */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra de texto cian */
+        }
+
+        /* Estilo de contorno de texto */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF;
+            text-stroke: 1.5px #00FFFF;
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+
+        /* Estilo de enlace deshabilitado */
+        .disabled-link {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        img {
+            pointer-events: none;
+        }
+        p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Estilos para el botón de "Volver arriba" */
+        #scroll-to-top-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00FFFF; /* Cian */
+            color: #0A0A1A; /* Texto oscuro de Byte */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.2s ease;
+            z-index: 9999;
+        }
+
+        #scroll-to-top-button.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scroll-to-top-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Estilos para el encabezado que se oculta/muestra */
+        .main-header {
+            background-color: #0A0A1A; /* Fondo oscuro */
+            color: #F9FAFB; /* Texto claro */
+            padding: 0.5rem 0; /* Relleno */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+            position: fixed; /* Fijo en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50; /* Asegura que esté por encima del contenido */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
+        }
+
+        .main-header.header-hide {
+            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
+            opacity: 0; /* Desvanece */
+        }
+
+        /* Estilos para la sección de servicio */
+        .service-detail-section {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transición para el efecto de salto */
+        }
+
+        .service-detail-section:hover {
+            transform: translateY(-10px); /* Efecto de salto al pasar el cursor */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+        }
+
+        .service-detail-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00FFFF;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        .service-detail-section p {
+            color: #CBD5E0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail-section ul {
+            list-style: none; /* Elimina los puntos de la lista */
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+
+        .service-detail-section ul li {
+            position: relative;
+            padding-left: 1.5rem; /* Espacio para el icono personalizado */
+            margin-bottom: 0.75rem;
+            color: #F9FAFB;
+            font-size: 1rem;
+        }
+
+        .service-detail-section ul li::before {
+            content: '✓'; /* Icono de check mark */
+            color: '#25D366'; /* Verde de WhatsApp */
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Estilos para los iconos SVG en el footer */
+        .footer-social-icon {
+            width: 1.75rem; /* Tamaño de los iconos sociales */
+            height: 1.75rem;
+            /* fill: currentColor; */ /* Usa el color del texto del padre */
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            fill: #00FFFF; /* Cian al pasar el ratón */
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Nuevos estilos para las tarjetas de programadores */
+        .programmer-card {
+            background: linear-gradient(145deg, #1A202C, #0A0A1A);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .programmer-card:hover {
+            transform: translateY(-5px) scale(1.02); /* Efecto de salto sutil al pasar el cursor */
+            box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
+            border-color: #00FFFF;
+        }
+
+        .programmer-card img {
+            width: 96px; /* h-24 */
+            height: 96px; /* h-24 */
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid #00FFFF; /* Borde cian para las imágenes de perfil */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .programmer-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #F9FAFB;
+            margin-bottom: 0.5rem;
+        }
+
+        .programmer-card p {
+            font-family: 'Inter', sans-serif;
+            color: #CBD5E0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Animación para la aparición de la sección al hacer scroll */
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0; /* Oculto por defecto */
+            animation: fade-in-up 0.8s ease-out forwards;
+            animation-timeline: view(); /* Animar cuando esté en la vista */
+            animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header id="main-header" class="main-header">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center">
+            <div class="flex items-center justify-start">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
+            </div>
+
+            <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm md:text-base">
+                Volver al inicio
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
+        <section class="p-4 md:p-8">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Servicio de Branding Integral</h1>
+
+            <div class="service-detail-section p-6 md:p-8 lg:p-10">
+                <h2 class="text-xl sm:text-2xl md:text-3xl text-center mb-4 md:mb-6">Construye una Marca Inolvidable</h2>
+                <p class="text-base sm:text-lg text-center leading-relaxed">
+                    En Byte, sabemos que una marca fuerte es la base del éxito de cualquier negocio. Nuestro servicio de branding está diseñado para ayudarte a construir una identidad única y memorable que resuene con tu audiencia y te diferencie de la competencia. Desde la concepción de tu visión hasta la implementación visual, te acompañamos en cada paso para crear una marca que no solo se vea bien, sino que también cuente tu historia y conecte emocionalmente.
+                </p>
+                <p class="text-base sm:text-lg text-center mt-4 leading-relaxed">
+                    Desarrollamos estrategias de marca sólidas y elementos visuales impactantes que reflejan tus valores, misión y personalidad. Con Byte, tu marca no solo será reconocida, sino también recordada y valorada.
+                </p>
+            </div>
+
+            <div class="service-detail-section p-6 md:p-8 lg:p-10">
+                <h2 class="text-xl sm:text-2xl md:text-3xl text-center mb-6 md:mb-8">Nuestro Proceso de Branding</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-6">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">1</div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-2">Investigación y Análisis</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Profundizamos en tu mercado, competencia y audiencia para identificar oportunidades y definir la propuesta de valor única de tu marca.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">2</div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-2">Estrategia de Marca</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Desarrollamos la personalidad, el tono de voz, la misión, la visión y los valores de tu marca, sentando las bases para su identidad.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">3</div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-2">Diseño de Identidad Visual</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Creamos elementos visuales clave como el logo, la paleta de colores, la tipografía y los gráficos, asegurando coherencia y atractivo.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+                        <div class="flex-shrink-0 w-12 h-12 flex items-center justify-center rounded-full bg-byte-accent-cyan text-byte-dark-bg font-bold text-xl shadow-lg">4</div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-byte-text-light mb-2">Implementación y Guías</h3>
+                            <p class="text-sm sm:text-base text-byte-text-light">Aplicamos la nueva identidad en diversos puntos de contacto y te proporcionamos un manual de marca para garantizar su uso consistente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-detail-section p-6 md:p-8 lg:p-10">
+                <h2 class="text-xl sm:text-2xl md:text-3xl text-center mb-6 md:mb-8">¿Qué Incluye Nuestro Servicio de Branding?</h2>
+                <ul class="text-left mx-auto max-w-sm sm:max-w-md lg:max-w-2xl">
+                    <li class="text-base sm:text-lg">Diseño de Logo profesional y versátil.</li>
+                    <li class="text-base sm:text-lg">Definición de Paleta de Colores y Tipografía.</li>
+                    <li class="text-base sm:text-lg">Creación de Guías de Estilo y Manual de Marca.</li>
+                    <li class="text-base sm:text-lg">Estrategia de Posicionamiento y Mensajes Clave.</li>
+                    <li class="text-base sm:text-lg">Diseño de Elementos Gráficos (iconografía, patrones).</li>
+                    <li class="text-base sm:text-lg">Asesoramiento continuo y soporte post-entrega.</li>
+                </ul>
+            </div>
+
+            <div class="service-detail-section p-6 md:p-8 lg:p-10">
+                <h2 class="text-xl sm:text-2xl md:text-3xl text-center mb-6 md:mb-8">Beneficios del Branding para tu Negocio</h2>
+                <ul class="text-left mx-auto max-w-sm sm:max-w-md lg:max-w-2xl">
+                    <li class="text-base sm:text-lg"><strong>Reconocimiento Instantáneo:</strong> Destaca y sé recordado por tu audiencia.</li>
+                    <li class="text-base sm:text-lg"><strong>Credibilidad y Confianza:</strong> Proyecta profesionalismo y solidez.</li>
+                    <li class="text-base sm:text-lg"><strong>Diferenciación Competitiva:</strong> Sobresale en un mercado saturado.</li>
+                    <li class="text-base sm:text-lg"><strong>Conexión Emocional:</strong> Genera lealtad y afinidad con tus clientes.</li>
+                    <li class="text-base sm:text-lg"><strong>Valor Percibido Aumentado:</strong> Tu marca será vista como más valiosa.</li>
+                    <li class="text-base sm:text-lg"><strong>Facilita el Marketing:</strong> Mensajes y visuales coherentes para tus campañas.</li>
+                </ul>
+            </div>
+
+            <section class="p-4 md:p-8 fade-in-on-scroll">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Contamos con Programadores Experimentados</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="programmer-card">
+                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de programador">
+                        <!-- Eliminado: <p class="text-sm sm:text-base">Programador General</p> -->
+                        <!-- Eliminado: <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p> -->
+                    </div>
+                    <div class="programmer-card">
+                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de programador">
+                        <!-- Eliminado: <p class="text-sm sm:text-base">Programador General</p> -->
+                        <!-- Eliminado: <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p> -->
+                    </div>
+                    <div class="programmer-card">
+                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de programador">
+                        <!-- Eliminado: <p class="text-sm sm:text-base">Programador General</p> -->
+                        <!-- Eliminado: <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p> -->
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <button id="scroll-to-top-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-6 sm:py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-center">
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/byteweb_design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg class="footer-social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <radialGradient id="yOrnnhliCrdS2gy~4tD8ma-footer" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fd5"/><stop offset=".328" stop-color="#ff543f"/><stop offset=".348" stop-color="#fc5245"/><stop offset=".504" stop-color="#e64771"/><stop offset=".643" stop-color="#d53e91"/><stop offset=".761" stop-color="#cc39a4"/><stop offset=".841" stop-color="#c837ab"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8ma-footer)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><radialGradient id="yOrnnhliCrdS2gy~4tD8mb-footer" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4168c9"/><stop offset=".999" stop-color="#4168c9" stop-opacity="0"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8mb-footer)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"/><circle cx="31.5" cy="16.5" r="1.5" fill="#fff"/><path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-6 sm:mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Condiciones</a>.
+            </p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollToTopButton = document.getElementById('scroll-to-top-button');
+            const mainHeader = document.getElementById('main-header'); // Obtener el encabezado
+            let lastScrollY = 0; // Para rastrear la dirección del scroll
+
+            // Lógica para el botón "Volver arriba" y el encabezado
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                // Lógica para el botón "Volver arriba"
+                if (currentScrollY > 0) { // Muestra el botón apenas el usuario comience a desplazarse
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+
+                // Lógica para ocultar/mostrar el encabezado
+                if (currentScrollY > lastScrollY && currentScrollY > 0) { // Scrolling down and past the top
+                    mainHeader.classList.add('header-hide');
+                } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
+                    // Scrolling up or at the very top
+                    mainHeader.classList.remove('header-hide');
+                }
+
+                lastScrollY = currentScrollY; // Actualizar la última posición de scroll
+            });
+
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Desplazamiento suave
+                });
+            });
+
+            // Inicialización del chatbot movida aquí para asegurar que el DOM esté listo y el script de definición cargado
+            // Se verifica si el elemento personalizado 'chat-bot' está definido para evitar errores si el script de carga aún no ha terminado.
+            if (customElements.get('chat-bot')) {
+                var chatBotEl = document.createElement('chat-bot');
+                // ACTUALIZADO: Nuevos IDs para el chatbot
+                chatBotEl.setAttribute('platform_id', '218acb1c-a252-488a-8fdb-ef64cefc2b31');
+                chatBotEl.setAttribute('user_id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');
+                chatBotEl.setAttribute('chatbot_id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a');
+
+                var chatbotLink = document.createElement('a');
+                chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+                chatbotLink.innerHTML = 'chatsimple';
+                chatBotEl.appendChild(chatbotLink);
+
+                document.body.appendChild(chatBotEl);
+            } else {
+                console.warn("El elemento personalizado 'chat-bot' aún no está definido. El chatbot podría no cargarse correctamente.");
+                // Se podría añadir lógica de fallback o reintento aquí si fuera necesario
+            }
+        });
+    </script>
+</body>
+</html>
