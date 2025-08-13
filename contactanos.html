@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Byte - Contacto</title>
+    <link rel="icon" type="image/x-icon" href="./images/logo.ico">
+    <meta name="description" content="Ponte en contacto con Byte para solicitar nuestros servicios.">
+    <meta name="keywords" content="Byte, contacto, formulario, servicios, email, teléfono">
+    <meta property="og:title" content="Byte - Contacto">
+    <meta property="og:description" content="Ponte en contacto con Byte para solicitar nuestros servicios.">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js"></script>
+
+    <style>
+        /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                        navigation: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        'byte-dark-bg': '#0A0A1A',
+                        'byte-accent-cyan': '#00FFFF',
+                        'byte-light-bg': '#F8FAFC',
+                        'byte-text-dark': '#374151',
+                        'byte-text-light': '#F9FAFB',
+                        'byte-secondary-dark': '#1A202C',
+                        'whatsapp-green': '#25D366',
+                        'whatsapp-dark-green': '#128C7E',
+                    }
+                }
+            }
+        };
+
+        /* Box-Sizing universal para un modelo de caja consistente */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Estilos base para HTML y Body */
+        html {
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #0A0A1A; /* Color de fondo base, sin animación */
+            font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
+            color: #F9FAFB;
+            margin: 0;
+            padding: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Estilos para encabezados (h1-h6) */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
+            color: #00FFFF;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Estilo de contorno de texto */
+        .text-stroke-cyan {
+            -webkit-text-stroke: 1.5px #00FFFF;
+            text-stroke: 1.5px #00FFFF;
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+
+        /* Estilo de enlace deshabilitado */
+        .disabled-link {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        img {
+            pointer-events: none;
+        }
+        p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Estilos para el botón de "Volver arriba" */
+        #scroll-to-top-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #00FFFF; /* Cian */
+            color: #0A0A1A; /* Texto oscuro de Byte */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.2s ease;
+            z-index: 9999;
+        }
+
+        #scroll-to-top-button.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scroll-to-top-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Estilos para el encabezado que se oculta/muestra */
+        .main-header {
+            background-color: #0A0A1A; /* Fondo oscuro */
+            color: #F9FAFB; /* Texto claro */
+            padding: 0.5rem 0; /* Relleno */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+            position: fixed; /* Fijo en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50; /* Asegura que esté por encima del contenido */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
+        }
+
+        .main-header.header-hide {
+            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
+            opacity: 0; /* Desvanece */
+        }
+
+        /* Estilos para los iconos SVG en el footer */
+        .footer-social-icon {
+            width: 1.75rem; /* Tamaño de los iconos sociales */
+            height: 1.75rem;
+            transition: transform 0.3s ease, fill 0.3s ease;
+        }
+
+        .footer-social-icon:hover {
+            fill: #00FFFF; /* Cian al pasar el ratón */
+            transform: translateY(-3px) scale(1.1);
+        }
+
+        /* Estilos para las validaciones del formulario */
+        .validation-icon {
+            margin-left: 0.5rem;
+            color: #25D366; /* Un verde de éxito */
+        }
+        .validation-icon.hidden {
+            display: none;
+        }
+
+        /* Forzamos el color de fondo y de texto en el autocompletado del navegador */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px #1A202C inset !important;
+            -webkit-text-fill-color: #F9FAFB !important;
+        }
+
+        /* Estilos personalizados para la sombra del formulario */
+        .form-shadow-glow {
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .form-shadow-glow:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.5);
+        }
+        
+        /* Estilos para la animación de "salto" en los campos de entrada */
+        .input-animated-focus {
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); /* Animación más suave y natural */
+            border-radius: 9999px; /* Borde completamente redondeado */
+        }
+        .input-animated-focus:focus {
+            transform: translateY(-2px) scale(1.005); /* Desplazamiento sutil hacia arriba y escalado */
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7); /* Sombra de brillo cian al enfocar */
+        }
+
+        /* Estilos para el nuevo selector de país con Font Awesome */
+        .custom-select-container {
+            position: relative;
+        }
+        .custom-select-display {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 42px; /* Coincide con la altura de los inputs */
+            padding: 0 1rem;
+            background-color: #1A202C; /* Gray-800 */
+            color: #F9FAFB;
+            border-radius: 0.5rem;
+            border: 1px solid #00FFFF;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .custom-select-display:hover {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+        .custom-select-display .fi {
+            font-size: 1.5rem;
+            line-height: 1;
+            margin-right: 0.5rem;
+        }
+        .custom-select-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #1A202C;
+            border: 1px solid #00FFFF;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+            margin-top: 4px;
+        }
+        .custom-select-options.show {
+            display: block;
+        }
+        .custom-select-options div {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .custom-select-options div:hover {
+            background-color: #2D3748; /* Un gris más claro al pasar el ratón */
+        }
+        .custom-select-options div .fi {
+            font-size: 1.5rem;
+            line-height: 1;
+            margin-right: 0.5rem;
+        }
+
+        /* Estilos para el botón de enviar */
+        .submit-button-glow {
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .submit-button-glow:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Estilos para el input de tipo 'file' para ocultar el nombre del archivo */
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            cursor: pointer;
+        }
+        .file-input-container input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .file-input-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            background-color: #00FFFF;
+            color: #1A202C;
+            font-weight: 600;
+            font-size: 0.875rem; /* text-sm */
+            border: 0;
+            transition: background-color 0.3s ease;
+        }
+        .file-input-button:hover {
+            background-color: rgba(0, 255, 255, 0.8);
+        }
+
+        /* Estilos para el contenedor de la vista previa de la imagen */
+        .image-preview-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .image-preview-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.2s ease;
+        }
+        .image-preview-close:hover {
+            background-color: rgba(255, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header id="main-header" class="main-header">
+        <div class="w-full px-4 md:px-8 flex justify-between items-center">
+            <div class="flex items-center justify-start">
+                <img src="./images/logo.ico" alt="Logo de Byte" class="h-16 w-auto object-contain">
+            </div>
+
+            <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
+                                         shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-110 text-sm">
+                Volver al inicio
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 mt-20">
+        <!-- Formulario de Contacto -->
+        <div class="max-w-3xl mx-auto p-8 md:p-12 bg-byte-secondary-dark rounded-xl form-shadow-glow">
+            <h2 class="text-3xl md:text-4xl font-heading text-center mb-6 text-byte-accent-cyan">Formulario de Contacto</h2>
+            <p class="text-center text-byte-text-light mb-8">
+                ¡Envíanos un mensaje y te responderemos lo antes posible!
+            </p>
+
+            <!-- El action del formulario debe ser la URL de tu aplicación en PythonAnywhere -->
+            <form action="https://tucorreo.pythonanywhere.com/send-email" method="POST" enctype="multipart/form-data" class="space-y-6">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-byte-accent-cyan mb-1">
+                            Nombre
+                            <i id="name-check" class="fas fa-check-circle validation-icon hidden"></i>
+                        </label>
+                        <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light input-animated-focus border border-byte-accent-cyan focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan transition placeholder-gray-400">
+                    </div>
+                    <div>
+                        <label for="apellido" class="block text-sm font-medium text-byte-accent-cyan mb-1">
+                            Apellido
+                            <i id="apellido-check" class="fas fa-check-circle validation-icon hidden"></i>
+                        </label>
+                        <input type="text" id="apellido" name="apellido" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light input-animated-focus border border-byte-accent-cyan focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan transition placeholder-gray-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-byte-accent-cyan mb-1">
+                        Correo Electrónico
+                        <i id="email-check" class="fas fa-check-circle validation-icon hidden"></i>
+                    </label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light input-animated-focus border border-byte-accent-cyan focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan transition placeholder-gray-400">
+                </div>
+                
+                <div>
+                    <label for="fecha_nacimiento" class="block text-sm font-medium text-byte-accent-cyan mb-1">Fecha de Nacimiento</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light input-animated-focus border border-byte-accent-cyan focus:outline-none focus:ring-ring-2 focus:ring-byte-accent-cyan transition placeholder-gray-400">
+                </div>
+
+                <!-- Custom dropdown for country code with Font Awesome flags -->
+                <div class="grid grid-cols-3 gap-2 md:gap-4">
+                    <div class="col-span-1">
+                        <label for="countryCode" class="block text-sm font-medium text-byte-accent-cyan mb-1">Código de Área</label>
+                        <div id="custom-select" class="custom-select-container">
+                            <div class="custom-select-display">
+                                <span id="selected-flag" class="fi fi-ve"></span>
+                                <span id="selected-code">+58</span>
+                                <i class="fas fa-chevron-down text-byte-accent-cyan ml-auto"></i>
+                            </div>
+                            <div id="custom-select-options" class="custom-select-options">
+                                <!-- Las opciones se insertarán dinámicamente aquí con los nuevos iconos -->
+                            </div>
+                        </div>
+                        <input type="hidden" name="codigo_pais" id="codigo_pais_hidden" value="+58">
+                    </div>
+                    <div class="col-span-2">
+                        <label for="telefono" class="block text-sm font-medium text-byte-accent-cyan mb-1">Número de Teléfono</label>
+                        <input type="tel" id="telefono" name="telefono" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light input-animated-focus border border-byte-accent-cyan focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan transition placeholder-gray-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="servicio" class="block text-sm font-medium text-byte-accent-cyan mb-1">Servicio a Solicitar</label>
+                    <select id="servicio" name="servicio" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light rounded-lg border border-byte-accent-cyan focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan transition">
+                        <option value="" disabled selected>Selecciona un servicio</option>
+                        <option value="desarrollo_web">Desarrollo Web</option>
+                        <option value="diseno_grafico">Diseño Gráfico</option>
+                        <option value="branding">Branding</option>
+                        <option value="e-commerce">E-commerce</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-byte-accent-cyan mb-1">Adjuntar Imagen</label>
+                    <!-- Contenedor personalizado para el input de tipo 'file' -->
+                    <div class="file-input-container">
+                        <input type="file" id="adjunto" name="adjunto" accept="image/*">
+                        <div class="file-input-button">
+                           <i class="fas fa-paperclip mr-2"></i> Seleccionar archivo
+                        </div>
+                    </div>
+                    <!-- Contenedor para la vista previa de la imagen con botón de eliminar -->
+                    <div id="image-preview-container" class="mt-4 hidden">
+                        <div class="image-preview-wrapper">
+                            <img id="image-preview" src="#" alt="Vista previa de la imagen seleccionada" class="max-w-xs h-auto rounded-lg shadow-lg border border-gray-700">
+                            <span id="remove-image-btn" class="image-preview-close">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="mensaje" class="block text-sm font-medium text-byte-accent-cyan mb-1">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" required class="w-full px-4 py-2 bg-gray-800 text-byte-text-light input-animated-focus border border-byte-accent-cyan focus:outline-none focus:ring-2 focus:ring-byte-accent-cyan transition placeholder-gray-400"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-byte-accent-cyan text-byte-secondary-dark font-bold rounded-md shadow-lg hover:bg-opacity-80 transition transform hover:scale-105 submit-button-glow">
+                    Enviar Mensaje
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <button id="scroll-to-top-button">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer class="footer bg-byte-secondary-dark text-byte-text-light py-8">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            <div class="md:col-span-3 flex justify-center space-x-4 mt-3">
+                <a href="https://www.instagram.com/byteweb_design?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg class="footer-social-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <radialGradient id="yOrnnhliCrdS2gy~4tD8ma" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fd5"/><stop offset=".328" stop-color="#ff543f"/><stop offset=".348" stop-color="#fc5245"/><stop offset=".504" stop-color="#e64771"/><stop offset=".643" stop-color="#d53e91"/><stop offset=".761" stop-color="#cc39a4"/><stop offset=".841" stop-color="#c837ab"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8ma)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><radialGradient id="yOrnnhliCrdS2gy~4tD8mb" cx="11.786" cy="5.54" r="29.813" gradientTransform="matrix(1 0 0 .6663 0 1.849)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#4168c9"/><stop offset=".999" stop-color="#4168c9" stop-opacity="0"/></radialGradient><path fill="url(#yOrnnhliCrdS2gy~4tD8mb)" d="M34.017,41.99l-20,0.019c-4.4,0.004-8.003-3.592-8.008-7.992l-0.019-20	c-0.004-4.4,3.592-8.003,7.992-8.008l20-0.019c4.4-0.004,8.003,3.592,8.008,7.992l0.019,20	C42.014,38.383,38.417,41.986,34.017,41.99z"/><path fill="#fff" d="M24,31c-3.859,0-7-3.14-7-7s3.141-7,7-7s7,3.14,7,7S27.859,31,24,31z M24,19c-2.757,0-5,2.243-5,5	s2.243,5,5,5s5-2.243,5-5S26.757,19,24,19z"/><circle cx="31.5" cy="16.5" r="1.5" fill="#fff"/><path fill="#fff" d="M30,37H18c-3.859,0-7-3.14-7-7V18c0-3.86,3.141-7,7-7h12c3.859,0,7,3.14,7,7v12	C37,33.86,33.859,37,30,37z M18,13c-2.757,0-5,2.243-5,5v12c0,2.757,2.243,5,5,5h12c2.757,0,5-2.243,5-5V18c0-2.757-2.243-5-5-5H18z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/584125646508" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp footer-social-icon text-byte-text-light"></i>
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 text-center text-xs text-gray-400 mt-8 border-t border-gray-700 pt-4">
+            <p class="mb-2">
+                Al navegar en la página de Byte, aceptas nuestros
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Términos de Servicio</a> y
+                <a href="#" class="text-byte-accent-cyan hover:underline disabled-link">Condiciones</a>.
+            </p>
+            <p>© 2025 Byte. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            // Script for the chatbot
+            if (customElements.get('chat-bot')) {
+                var chatBotEl = document.createElement('chat-bot');
+                chatBotEl.setAttribute('platform_id', '218acb1c-a252-488a-8fdb-ef64cefc2b31');
+                chatBotEl.setAttribute('user_id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');
+                chatBotEl.setAttribute('chatbot_id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a');
+                var chatbotLink = document.createElement('a');
+                chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
+                chatbotLink.innerHTML = 'chatsimple';
+                chatBotEl.appendChild(chatbotLink);
+                document.body.appendChild(chatBotEl);
+            } else {
+                console.warn("El elemento personalizado 'chat-bot' aún no está definido. El chatbot podría no cargarse correctamente.");
+            }
+
+            const scrollToTopButton = document.getElementById('scroll-to-top-button');
+            const mainHeader = document.getElementById('main-header');
+            let lastScrollY = 0;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > 0) {
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+
+                if (currentScrollY > lastScrollY && currentScrollY > 0) {
+                    mainHeader.classList.add('header-hide');
+                } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
+                    mainHeader.classList.remove('header-hide');
+                }
+
+                lastScrollY = currentScrollY;
+            });
+
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Lógica de JavaScript para la validación y el teléfono
+            const nameInput = document.getElementById('name');
+            const apellidoInput = document.getElementById('apellido');
+            const emailInput = document.getElementById('email');
+            const telefonoInput = document.getElementById('telefono');
+            const adjuntoInput = document.getElementById('adjunto');
+            const imagePreviewContainer = document.getElementById('image-preview-container');
+            const imagePreview = document.getElementById('image-preview');
+            const removeImageBtn = document.getElementById('remove-image-btn');
+            
+            // Expresiones regulares para validación simple
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+            // Array de objetos para las opciones del selector de país con Font Awesome
+            const countryOptions = [
+                { code: '+58', flag: 've', name: 'Venezuela' },
+                { code: '+51', flag: 'pe', name: 'Perú' },
+                { code: '+57', flag: 'co', name: 'Colombia' },
+                { code: '+52', flag: 'mx', name: 'México' },
+                { code: '+54', flag: 'ar', name: 'Argentina' },
+                { code: '+1', flag: 'us', name: 'Estados Unidos' },
+                { code: '+34', flag: 'es', name: 'España' },
+                { code: '+56', flag: 'cl', name: 'Chile' },
+                { code: '+507', flag: 'pa', name: 'Panamá' },
+                { code: '+55', flag: 'br', name: 'Brasil' },
+                { code: '+1', flag: 'ca', name: 'Canadá' },
+                // Agrega más países aquí
+            ];
+
+            // Elementos del custom dropdown
+            const customSelect = document.getElementById('custom-select');
+            const customSelectDisplay = document.querySelector('.custom-select-display');
+            const customSelectOptions = document.getElementById('custom-select-options');
+            const selectedFlag = document.getElementById('selected-flag');
+            const selectedCode = document.getElementById('selected-code');
+            const codigoPaisHidden = document.getElementById('codigo_pais_hidden');
+
+            // Llenar el dropdown con las opciones del array usando Font Awesome
+            countryOptions.forEach(country => {
+                const optionDiv = document.createElement('div');
+                optionDiv.innerHTML = `<span class="fi fi-${country.flag}"></span><span>${country.code}</span>`;
+                optionDiv.addEventListener('click', () => {
+                    // Actualizar el valor del display y el campo oculto
+                    selectedFlag.className = `fi fi-${country.flag}`; // Actualizamos la clase del span
+                    selectedCode.textContent = country.code;
+                    codigoPaisHidden.value = country.code;
+                    // Ocultar el menú
+                    customSelectOptions.classList.remove('show');
+                });
+                customSelectOptions.appendChild(optionDiv);
+            });
+
+            // Toggle del menú desplegable
+            customSelectDisplay.addEventListener('click', (event) => {
+                event.stopPropagation(); // Evita que se cierre inmediatamente
+                customSelectOptions.classList.toggle('show');
+            });
+
+            // Cerrar el menú si se hace clic fuera de él
+            window.addEventListener('click', (event) => {
+                if (!customSelect.contains(event.target)) {
+                    customSelectOptions.classList.remove('show');
+                }
+            });
+
+            // Función para validar un campo y mostrar/ocultar el ícono de verificación
+            function validateField(inputElement, regex, iconId) {
+                const icon = document.getElementById(iconId);
+                if (regex.test(inputElement.value) && inputElement.value.length > 0) {
+                    icon.classList.remove('hidden');
+                } else {
+                    icon.classList.add('hidden');
+                }
+            }
+
+            // Event Listeners para la validación en tiempo real
+            nameInput.addEventListener('input', () => {
+                validateField(nameInput, nameRegex, 'name-check');
+            });
+
+            apellidoInput.addEventListener('input', () => {
+                validateField(apellidoInput, nameRegex, 'apellido-check');
+            });
+
+            emailInput.addEventListener('input', () => {
+                validateField(emailInput, emailRegex, 'email-check');
+            });
+
+            // Lógica para mostrar la vista previa de la imagen
+            adjuntoInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreviewContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.src = '#';
+                    imagePreviewContainer.classList.add('hidden');
+                }
+            });
+
+            // Lógica para eliminar la imagen subida
+            removeImageBtn.addEventListener('click', () => {
+                // Resetear el input de tipo file
+                adjuntoInput.value = '';
+                // Ocultar el contenedor de la vista previa
+                imagePreviewContainer.classList.add('hidden');
+            });
+
+
+            // Lógica corregida para auto-detectar el código de país de forma estable
+            telefonoInput.addEventListener('input', () => {
+                let currentNumber = telefonoInput.value.trim();
+                let matchedCountry = null;
+                
+                if (currentNumber.startsWith('+')) {
+                    // Buscar el prefijo de país más largo que coincida
+                    let longestMatch = '';
+                    countryOptions.forEach(country => {
+                        if (currentNumber.startsWith(country.code) && country.code.length > longestMatch.length) {
+                            longestMatch = country.code;
+                            matchedCountry = country;
+                        }
+                    });
+                }
+                
+                if (matchedCountry) {
+                    selectedFlag.className = `fi fi-${matchedCountry.flag}`;
+                    selectedCode.textContent = matchedCountry.code;
+                    codigoPaisHidden.value = matchedCountry.code;
+                } else {
+                    // Si no hay coincidencia, no hacer nada para evitar parpadeos
+                    // El valor por defecto se mantiene
+                }
+            });
+        });
+    </script>
+</body>
+</html>
