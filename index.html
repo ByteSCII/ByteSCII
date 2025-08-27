@@ -13,7 +13,6 @@
     <meta property="og:description" content="Nuestra prioridad es la satisfacción del cliente. Conoce nuestros métodos de pago seguros y accesibles.">
     <meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- OPTIMIZACIÓN: Se difiere la carga de este script para que no bloquee el renderizado de la página -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js" defer></script>
     <script>
         // Custom Tailwind CSS Configuration
@@ -39,11 +38,9 @@
             }
         }
     </script>
-    <!-- MANTENIDO: Se conserva el enlace a Font Awesome según lo solicitado -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- OPTIMIZACIÓN: Se añade &display=swap para evitar el bloqueo de renderizado de las fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
     <style>
@@ -72,6 +69,27 @@
             -ms-user-select: none;
             user-select: none;
         }
+
+        /* --- Custom Scrollbar Styles --- */
+        /* For Webkit browsers (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 8px; /* Ancho de la barra de desplazamiento (delgada) */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0A0A1A; /* Color del fondo de la barra (track) */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #00FFFF; /* Color cian para la barra (thumb) */
+            border-radius: 20px; /* Bordes redondeados */
+            border: 1px solid #0A0A1A; /* Borde sutil para separarla del contenido */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #00BFFF; /* Color cian más oscuro al pasar el ratón */
+        }
+        /* --- End of Custom Scrollbar Styles --- */
 
         /* Styles for headings (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
@@ -822,7 +840,6 @@
     <header class="bg-byte-dark-bg text-byte-text-light py-2 shadow-lg sticky top-0 z-50 border-b border-byte-accent-cyan">
         <div class="w-full px-4 md:px-8 flex justify-between items-center gap-8">
             <div class="flex items-center justify-start ml-0">
-                <!-- MODIFICACIÓN: Se cambia el formato de la imagen a .webp -->
                 <img src="./images/logo.webp" alt="Logo de Byte" class="h-16 w-auto object-contain">
             </div>
 
@@ -943,15 +960,6 @@
         <section id="inicio" class="relative bg-byte-dark-bg text-white py-24 md:py-48 overflow-hidden flex items-center justify-center hero-section-padding">
             <video autoplay loop muted playsinline preload="auto"
                            class="absolute inset-0 w-full h-full object-cover z-0 opacity-60 brightness-75">
-                <!--
-                    Important attributes for background video autoplay:
-                    - autoplay: Starts video playback automatically.
-                    - loop: Loops the video continuously.
-                    - muted: Mutes the video. Crucial for autoplay to work in most browsers, as many block auto-play with sound.
-                    - playsinline: Allows video to play inline on iOS, instead of going full-screen automatically.
-                    - preload="auto": Suggests to the browser to load the entire video as soon as possible.
-                -->
-                <!-- MODIFICACIÓN: Se cambia el formato del video a .webm para mejor compresión -->
                 <source src="./images/fondo.webm" type="video/webm">
                 Your browser does not support the video tag.
             </video>
@@ -973,7 +981,6 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold text-center mb-10 section-heading text-stroke-cyan">Nuestros Servicios Innovadores</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-4 w-full">
-                    <!-- MANTENIDO: Se conservan los iconos de Font Awesome -->
                     <a href="diseñoweb.html" class="service-card">
                         <div class="icon text-3xl lg:text-2xl"><i class="fa-solid fa-desktop"></i></div>
                         <h3 class="text-lg lg:text-base font-bold mb-2">Desarrollo web</h3>
@@ -1003,7 +1010,6 @@
                 <h2 class="text-2xl md:text-4xl lg:text-3xl font-extrabold mb-8 section-heading text-stroke-cyan">Tenemos los Mejores Precios del Mercado</h2>
                 <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
                     <div class="lg:w-1/2 flex justify-center items-center">
-                        <!-- MODIFICACIÓN: Se cambia el formato de la imagen a .webp y se añade carga diferida -->
                         <img src="./images/precios.webp" alt="Icono de Mejores Precios" class="w-48 h-48 object-contain rounded-lg shadow-lg bg-byte-secondary-dark price-icon-animated" loading="lazy">
                     </div>
                     <div class="lg:w-1/2 text-center lg:text-left">
@@ -1031,8 +1037,6 @@
                     </button>
 
                     <div id="carousel" class="flex whitespace-nowrap animate-scroll-carousel gap-6" style="width: max-content;">
-                        <!-- MANTENIDO: Se conservan los logos externos de métodos de pago -->
-                        <!-- OPTIMIZACIÓN: Se añade carga diferida (lazy loading) a las imágenes del carrusel -->
                         <div class="payment-card">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" class="w-14 h-14 object-contain" loading="lazy">
                             <span>Visa</span>
@@ -1122,7 +1126,6 @@
                         <div class="mt-8">
                             <h3 class="text-xl lg:text-lg font-bold text-center mb-4 text-stroke-cyan">Nuestra Ubicación</h3>
                             <div class="map-container relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-lg border border-byte-accent-cyan/30">
-                                <!-- OPTIMIZACIÓN: Se añade carga diferida (lazy loading) al mapa -->
                                 <iframe
                                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6183086.239168103!2d-73.56833749999998!3d40.82609490000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a5fe7c3070e99%3A0x67a622cd70e4ef2e!2sInstituto%20Gerencial%20de%20Talentos%20-%20Catia(IGT)!5e0!3m2!1ses!2sus!4v1748801811392!5m2!1ses!2sus"
                                     width="100%"
@@ -1207,7 +1210,7 @@
             // Dynamically load the external script
             var cs = document.createElement('script');
             cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-            cs.defer = true; // OPTIMIZACIÓN: Se difiere la carga del script del chatbot
+            cs.defer = true; 
             document.body.appendChild(cs);
         })();
     </script>
