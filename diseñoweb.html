@@ -17,8 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Carga temprana del script del chatbot para asegurar que el elemento personalizado 'chat-bot' esté definido -->
-    <script type="text/javascript" src="https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js"></script>
+    <!-- Se eliminó el script del chatbot según la solicitud del usuario -->
 
     <style>
         /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
@@ -44,12 +43,12 @@
             }
         };
 
-        /* Box-Sizing universal para un modelo de caja consistente */
+        /* Universal Box-Sizing for consistent box model */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        /* Estilos base para HTML y Body */
+        /* Base styles for HTML and Body */
         html {
             height: 100%;
             width: 100%;
@@ -58,8 +57,8 @@
             min-height: 100vh;
             width: 100%;
             overflow-x: hidden;
-            background-color: #0A0A1A; /* Color de fondo base, sin animación */
-            font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
+            background-color: #0A0A1A; /* Base background color, no animation */
+            font-family: 'Inter', sans-serif; /* Applying Inter as main font */
             color: #F9FAFB;
             margin: 0;
             padding: 0;
@@ -69,14 +68,14 @@
             user-select: none;
         }
 
-        /* Estilos para encabezados (h1-h6) */
+        /* Styles for headings (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
-            color: '#00FFFF'; /* Color cian */
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Sombra de texto cian */
+            font-family: 'Montserrat', sans-serif; /* Applying Montserrat for headings */
+            color: '#00FFFF'; /* Cyan color */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); /* Cyan text shadow */
         }
 
-        /* Estilo de contorno de texto */
+        /* Text outline style */
         .text-stroke-cyan {
             -webkit-text-stroke: 1.5px #00FFFF;
             text-stroke: 1.5px #00FFFF;
@@ -84,13 +83,13 @@
             text-shadow: none;
         }
 
-        /* Estilo de enlace deshabilitado */
+        /* Disabled link style */
         .disabled-link {
             opacity: 0.6;
             cursor: not-allowed;
         }
 
-        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
+        /* Styles to disable text selection and pointer events on images */
         img {
             pointer-events: none;
         }
@@ -100,13 +99,13 @@
             -webkit-touch-callout: none;
         }
 
-        /* Estilos para el botón de "Volver arriba" */
+        /* Styles for "Back to top" button */
         #scroll-to-top-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #00FFFF; /* Cian */
-            color: #0A0A1A; /* Texto oscuro de Byte */
+            background-color: #00FFFF; /* Cyan */
+            color: #0A0A1A; /* Byte dark text */
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -132,26 +131,26 @@
             box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
         }
 
-        /* Estilos para el encabezado que se oculta/muestra */
+        /* Styles for the header that hides/shows */
         .main-header {
-            background-color: #0A0A1A; /* Fondo oscuro */
-            color: #F9FAFB; /* Texto claro */
-            padding: 0.5rem 0; /* Relleno */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-            position: fixed; /* Fijo en la parte superior */
+            background-color: #0A0A1A; /* Dark background */
+            color: #F9FAFB; /* Light text */
+            padding: 0.5rem 0; /* Padding */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow */
+            position: fixed; /* Fixed at the top */
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 50; /* Asegura que esté por encima del contenido */
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
+            z-index: 50; /* Ensures it's on top of content */
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Smooth transition */
         }
 
         .main-header.header-hide {
-            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
-            opacity: 0; /* Desvanece */
+            transform: translateY(-100%); /* Slides up to hide */
+            opacity: 0; /* Fades out */
         }
 
-        /* Estilos para la sección de servicio */
+        /* Styles for the service section */
         .service-detail-section {
             background: linear-gradient(145deg, #1A202C, #0A0A1A);
             border-radius: 1rem;
@@ -159,12 +158,12 @@
             box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
             border: 1px solid rgba(0, 255, 255, 0.3);
             margin-bottom: 2rem;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transición para el efecto de salto */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transition for the hover effect */
         }
 
         .service-detail-section:hover {
-            transform: translateY(-10px); /* Efecto de salto al pasar el cursor */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+            transform: translateY(-10px); /* "Jump" effect on hover */
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* More pronounced shadow on hover */
         }
 
         .service-detail-section h2 {
@@ -183,42 +182,42 @@
         }
 
         .service-detail-section ul {
-            list-style: none; /* Elimina los puntos de la lista */
+            list-style: none; /* Removes list points */
             padding: 0;
             margin-bottom: 1rem;
         }
 
         .service-detail-section ul li {
             position: relative;
-            padding-left: 1.5rem; /* Espacio para el icono personalizado */
+            padding-left: 1.5rem; /* Space for the custom icon */
             margin-bottom: 0.75rem;
             color: #F9FAFB;
             font-size: 1rem;
         }
 
         .service-detail-section ul li::before {
-            content: '✓'; /* Icono de check mark */
-            color: #25D366; /* Verde de WhatsApp */
+            content: '✓'; /* Check mark icon */
+            color: #25D366; /* WhatsApp green */
             font-weight: bold;
             position: absolute;
             left: 0;
             top: 0;
         }
 
-        /* Estilos para los iconos SVG en el footer */
+        /* Styles for the SVG icons in the footer */
         .footer-social-icon {
-            width: 1.75rem; /* Tamaño de los iconos sociales */
+            width: 1.75rem; /* Social icon size */
             height: 1.75rem;
-            /* fill: currentColor; */ /* Usa el color del texto del padre */
+            /* fill: currentColor; */ /* Uses the parent text color */
             transition: transform 0.3s ease, fill 0.3s ease;
         }
 
         .footer-social-icon:hover {
-            fill: #00FFFF; /* Cian al pasar el ratón */
+            fill: #00FFFF; /* Cyan on hover */
             transform: translateY(-3px) scale(1.1);
         }
 
-        /* Nuevos estilos para las tarjetas de programadores */
+        /* New styles for programmer cards */
         .programmer-card {
             background: linear-gradient(145deg, #1A202C, #0A0A1A);
             border-radius: 1rem;
@@ -233,7 +232,7 @@
         }
 
         .programmer-card:hover {
-            transform: translateY(-5px) scale(1.02); /* Efecto de salto sutil al pasar el cursor */
+            transform: translateY(-5px) scale(1.02); /* Subtle jump effect on hover */
             box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
             border-color: #00FFFF;
         }
@@ -244,7 +243,7 @@
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1rem;
-            border: 3px solid #00FFFF; /* Borde cian para las imágenes de perfil */
+            border: 3px solid #00FFFF; /* Cyan border for profile images */
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
@@ -263,7 +262,7 @@
             line-height: 1.5;
         }
 
-        /* Animación para la aparición de la sección al hacer scroll */
+        /* Animation for section appearance on scroll */
         @keyframes fade-in-up {
             0% {
                 opacity: 0;
@@ -276,10 +275,10 @@
         }
 
         .fade-in-on-scroll {
-            opacity: 0; /* Oculto por defecto */
+            opacity: 0; /* Hidden by default */
             animation: fade-in-up 0.8s ease-out forwards;
-            animation-timeline: view(); /* Animar cuando esté en la vista */
-            animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
+            animation-timeline: view(); /* Animate when in view */
+            animation-range: entry 0% cover 30%; /* Starts when 0% of element enters, ends when 30% is covered */
         }
     </style>
 </head>
@@ -288,7 +287,7 @@
     <header id="main-header" class="main-header">
         <div class="w-full px-4 md:px-8 flex justify-between items-center">
             <div class="flex items-center justify-start">
-                <img src="./images/logo.ico" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain">
+                <img src="https://placehold.co/48x48/000000/FFFFFF?text=Logo" alt="Logo de Byte" class="h-12 sm:h-16 w-auto object-contain rounded-full">
             </div>
 
             <a href="index.html" class="inline-block bg-yellow-500 text-black font-bold py-2 px-4 rounded-full
@@ -373,23 +372,12 @@
             <section class="p-4 md:p-8 fade-in-on-scroll">
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 md:mb-10 text-stroke-cyan">Contamos con Programadores Experimentados</h2>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="grid grid-cols-1 place-items-center">
                     <div class="programmer-card">
-                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de Yeiver Rojas">
-                        <h3 class="text-lg sm:text-xl">Yeiver Rojas</h3>
-                        <p class="text-sm sm:text-base">Programador General</p>
-                        <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p>
-                    </div>
-                    <div class="programmer-card">
-                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de Luis Goncalves">
-                        <h3 class="text-lg sm:text-xl">Luis Goncalves</h3>
-                        <p class="text-sm sm:text-base">Programador General</p>
-                        <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p>
-                    </div>
-                    <div class="programmer-card">
-                        <img src="https://placehold.co/96x96/00FFFF/0A0A1A?text=FOTO" alt="Foto de Jean Fuentes">
+                        <!-- Reemplaza el 'src' con la ruta de tu imagen o un enlace web -->
+                        <img src="./images/jean.webp" alt="Foto de Jean Fuentes">
                         <h3 class="text-lg sm:text-xl">Jean Fuentes</h3>
-                        <p class="text-sm sm:text-base">Programador General</p>
+                        <p class="text-sm sm:text-base">Programador Backend</p>
                         <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p>
                     </div>
                 </div>
@@ -427,21 +415,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const scrollToTopButton = document.getElementById('scroll-to-top-button');
-            const mainHeader = document.getElementById('main-header'); // Obtener el encabezado
-            let lastScrollY = 0; // Para rastrear la dirección del scroll
+            const mainHeader = document.getElementById('main-header'); // Get the header
+            let lastScrollY = 0; // To track scroll direction
 
-            // Lógica para el botón "Volver arriba" y el encabezado
+            // Logic for the "Back to top" button and the header
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
 
-                // Lógica para el botón "Volver arriba"
-                if (currentScrollY > 0) { // Muestra el botón apenas el usuario comience a desplazarse
+                // Logic for "Back to top" button
+                if (currentScrollY > 0) { // Show the button as soon as the user starts scrolling
                     scrollToTopButton.classList.add('show');
                 } else {
                     scrollToTopButton.classList.remove('show');
                 }
 
-                // Lógica para ocultar/mostrar el encabezado
+                // Logic to hide/show the header
                 if (currentScrollY > lastScrollY && currentScrollY > 0) { // Scrolling down and past the top
                     mainHeader.classList.add('header-hide');
                 } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
@@ -449,35 +437,17 @@
                     mainHeader.classList.remove('header-hide');
                 }
 
-                lastScrollY = currentScrollY; // Actualizar la última posición de scroll
+                lastScrollY = currentScrollY; // Update the last scroll position
             });
 
             scrollToTopButton.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
-                    behavior: 'smooth' // Desplazamiento suave
+                    behavior: 'smooth' // Smooth scroll
                 });
             });
 
-            // Inicialización del chatbot movida aquí para asegurar que el DOM esté listo y el script de definición cargado
-            // Se verifica si el elemento personalizado 'chat-bot' está definido para evitar errores si el script de carga aún no ha terminado.
-            if (customElements.get('chat-bot')) {
-                var chatBotEl = document.createElement('chat-bot');
-                // ACTUALIZADO: Nuevos IDs para el chatbot
-                chatBotEl.setAttribute('platform_id', '218acb1c-a252-488a-8fdb-ef64cefc2b31');
-                chatBotEl.setAttribute('user_id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');
-                chatBotEl.setAttribute('chatbot_id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a');
-
-                var chatbotLink = document.createElement('a');
-                chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
-                chatbotLink.innerHTML = 'chatsimple';
-                chatBotEl.appendChild(chatbotLink);
-
-                document.body.appendChild(chatBotEl);
-            } else {
-                console.warn("El elemento personalizado 'chat-bot' aún no está definido. El chatbot podría no cargarse correctamente.");
-                // Se podría añadir lógica de fallback o reintento aquí si fuera necesario
-            }
+            // Se eliminó la lógica de inicialización del chatbot según la solicitud
         });
     </script>
 </body>
