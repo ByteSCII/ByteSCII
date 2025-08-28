@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Diseño Personalizado de Páginas Web</title>
-    <!-- Ruta del logo corregida a su valor original -->
     <link rel="icon" type="image/x-icon" href="./images/logo.ico">
     <meta name="description" content="Byte- Diseño Web">
     <meta name="keywords" content="Byte, diseño web, páginas web personalizadas, desarrollo web, sitios web únicos, presencia digital, diseño responsivo, SEO">
@@ -238,26 +237,15 @@
             border-color: #00FFFF;
         }
 
-        /* New styles for the image wrapper that creates the cyan background circle */
-        .profile-image-wrapper {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            background-color: #00FFFF; /* The cyan background */
-            border-radius: 50%;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        /* Styles for the image - Revertido para aplicar el borde directamente a la imagen */
         .programmer-card img {
             width: 96px; /* h-24 */
             height: 96px; /* h-24 */
             border-radius: 50%;
             object-fit: cover;
-            /* Dark border to separate the image from the cyan background */
-            border: 3px solid #0A0A1A;
+            margin-bottom: 1rem;
+            border: 3px solid #00FFFF; /* Borde cian para imágenes de perfil */
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); /* Sombra cian */
         }
 
         .programmer-card h3 {
@@ -387,10 +375,8 @@
 
                 <div class="grid grid-cols-1 place-items-center">
                     <div class="programmer-card">
-                        <!-- Nuevo contenedor para la imagen que actúa como fondo cian -->
-                        <div class="profile-image-wrapper">
-                            <img src="./images/jean.webp" alt="Foto de Jean Fuentes">
-                        </div>
+                        <!-- Revertido a la estructura original: la imagen con su borde cian -->
+                        <img src="./images/jean.webp" alt="Foto de Jean Fuentes">
                         <h3 class="text-lg sm:text-xl">Jean Fuentes</h3>
                         <p class="text-sm sm:text-base">Programador Backend</p>
                         <p class="text-xs text-gray-400 mt-2">Capaz de trabajar en diversas áreas del desarrollo de software.</p>
