@@ -2,9 +2,6 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- REVERTIDO: Se vuelve al meta viewport estándar para diseño responsivo.
-          Esto es crucial para que la página se adapte al ancho del dispositivo y
-          los estilos responsivos (media queries, clases de Tailwind) funcionen correctamente. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Byte - Servicio de Diseño Gráfico</title>
     <link rel="icon" type="image/x-icon" href="./images/logo.ico">
@@ -21,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom Tailwind CSS Configuration - Must be loaded before other styles */
+        /* Custom Tailwind CSS Configuration */
         tailwind.config = {
             theme: {
                 extend: {
@@ -44,12 +41,10 @@
             }
         };
 
-        /* Box-Sizing universal para un modelo de caja consistente */
         *, *::before, *::after {
             box-sizing: border-box;
         }
 
-        /* Estilos base para HTML y Body */
         html {
             height: 100%;
             width: 100%;
@@ -57,9 +52,9 @@
         body {
             min-height: 100vh;
             width: 100%;
-            overflow-x: hidden; /* Asegura que no haya scroll horizontal no deseado */
-            background-color: #0A0A1A; /* Color de fondo base, sin animación */
-            font-family: 'Inter', sans-serif; /* Aplicando Inter como fuente principal */
+            overflow-x: hidden;
+            background-color: #0A0A1A;
+            font-family: 'Inter', sans-serif;
             color: #F9FAFB;
             margin: 0;
             padding: 0;
@@ -69,14 +64,12 @@
             user-select: none;
         }
 
-        /* Estilos para encabezados (h1-h6) */
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif; /* Aplicando Montserrat para encabezados */
+            font-family: 'Montserrat', sans-serif;
             color: #00FFFF;
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
         }
 
-        /* Estilo de contorno de texto */
         .text-stroke-cyan {
             -webkit-text-stroke: 1.5px #00FFFF;
             text-stroke: 1.5px #00FFFF;
@@ -84,18 +77,16 @@
             text-shadow: none;
         }
 
-        /* Estilo de enlace deshabilitado */
         .disabled-link {
             opacity: 0.6;
             cursor: not-allowed;
         }
 
-        /* Estilos para deshabilitar la selección de texto y eventos de puntero en imágenes */
         img {
             pointer-events: none;
-            max-width: 100%; /* Asegura que las imágenes no desborden su contenedor */
-            height: auto;    /* Mantiene la proporción de la imagen */
-            display: block;  /* Evita espacio extra debajo de las imágenes */
+            max-width: 100%;
+            height: auto;
+            display: block;
         }
         p, h1, h2, h3, h4, h5, h6, span, div:not(.map-container):not(.payment-card) {
             user-select: none;
@@ -103,13 +94,12 @@
             -webkit-touch-callout: none;
         }
 
-        /* Estilos para el botón de "Volver arriba" */
         #scroll-to-top-button {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background-color: #00FFFF; /* Cian */
-            color: #0A0A1A; /* Texto oscuro de Byte */
+            background-color: #00FFFF;
+            color: #0A0A1A;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -135,26 +125,24 @@
             box-shadow: 0 6px 15px rgba(0, 255, 255, 0.5);
         }
 
-        /* Estilos para el encabezado que se oculta/muestra */
         .main-header {
-            background-color: #0A0A1A; /* Fondo oscuro */
-            color: #F9FAFB; /* Texto claro */
-            padding: 0.5rem 0; /* Relleno */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-            position: fixed; /* Fijo en la parte superior */
+            background-color: #0A0A1A;
+            color: #F9FAFB;
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 50; /* Asegura que esté por encima del contenido */
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Transición suave */
+            z-index: 50;
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
 
         .main-header.header-hide {
-            transform: translateY(-100%); /* Desliza hacia arriba para ocultar */
-            opacity: 0; /* Desvanece */
+            transform: translateY(-100%);
+            opacity: 0;
         }
 
-        /* Estilos para la sección de servicio */
         .service-detail-section {
             background: linear-gradient(145deg, #1A202C, #0A0A1A);
             border-radius: 1rem;
@@ -162,12 +150,12 @@
             box-shadow: 0 10px 25px rgba(0, 255, 255, 0.2);
             border: 1px solid rgba(0, 255, 255, 0.3);
             margin-bottom: 2rem;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transición para el efecto de salto */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .service-detail-section:hover {
-            transform: translateY(-10px); /* Efecto de salto al pasar el cursor */
-            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4); /* Sombra más pronunciada al pasar el ratón */
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.4);
         }
 
         .service-detail-section h2 {
@@ -186,42 +174,39 @@
         }
 
         .service-detail-section ul {
-            list-style: none; /* Elimina los puntos de la lista */
+            list-style: none;
             padding: 0;
             margin-bottom: 1rem;
         }
 
         .service-detail-section ul li {
             position: relative;
-            padding-left: 1.5rem; /* Espacio para el icono personalizado */
+            padding-left: 1.5rem;
             margin-bottom: 0.75rem;
             color: #F9FAFB;
             font-size: 1rem;
         }
 
         .service-detail-section ul li::before {
-            content: '✓'; /* Icono de check mark */
-            color: #25D366; /* Verde de WhatsApp */
+            content: '✓';
+            color: #25D366;
             font-weight: bold;
             position: absolute;
             left: 0;
             top: 0;
         }
 
-        /* Estilos para los iconos SVG en el footer */
         .footer-social-icon {
-            width: 1.75rem; /* Tamaño de los iconos sociales */
+            width: 1.75rem;
             height: 1.75rem;
-            /* fill: currentColor; */ /* Usa el color del texto del padre */
             transition: transform 0.3s ease, fill 0.3s ease;
         }
 
         .footer-social-icon:hover {
-            fill: #00FFFF; /* Cian al pasar el ratón */
+            fill: #00FFFF;
             transform: translateY(-3px) scale(1.1);
         }
 
-        /* Nuevos estilos para las tarjetas de fotos (similar a programadores) */
         .photo-card {
             background: linear-gradient(145deg, #1A202C, #0A0A1A);
             border-radius: 1rem;
@@ -236,22 +221,21 @@
         }
 
         .photo-card:hover {
-            transform: translateY(-5px) scale(1.02); /* Efecto de salto sutil al pasar el cursor */
+            transform: translateY(-5px) scale(1.02);
             box-shadow: 0 12px 30px rgba(0, 255, 255, 0.3);
             border-color: #00FFFF;
         }
 
         .photo-card img {
-            width: 128px; /* h-32 */
-            height: 128px; /* h-32 */
+            width: 128px;
+            height: 128px;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: cover; /* Asegura que la imagen cubra el círculo sin deformarse */
             margin-bottom: 1rem;
-            border: 3px solid #00FFFF; /* Borde cian para las imágenes de perfil */
+            border: 3px solid #00FFFF;
             box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
-        /* Animación para la aparición de la sección al hacer scroll */
         @keyframes fade-in-up {
             0% {
                 opacity: 0;
@@ -264,134 +248,44 @@
         }
 
         .fade-in-on-scroll {
-            opacity: 0; /* Oculto por defecto */
+            opacity: 0;
             animation: fade-in-up 0.8s ease-out forwards;
-            animation-timeline: view(); /* Animar cuando esté en la vista */
-            animation-range: entry 0% cover 30%; /* Inicia cuando el 0% del elemento entra, termina cuando el 30% está cubierto */
+            animation-timeline: view();
+            animation-range: entry 0% cover 30%;
         }
 
-        /* --- Estilos para dispositivos móviles (max-width: 768px) --- */
-        /* Estos estilos se aplicarán en pantallas con un ancho máximo de 768px (tablets en vertical, la mayoría de los móviles) */
         @media (max-width: 768px) {
-            /* Ajustes generales de texto para mejor legibilidad en pantallas pequeñas */
-            body {
-                font-size: 14px; /* Un tamaño de fuente base más adecuado para móviles */
-            }
-            h1 {
-                font-size: 2.2rem; /* Reduce el tamaño del título principal */
-            }
-            h2 {
-                font-size: 1.6rem; /* Reduce el tamaño de los subtítulos de sección */
-            }
-            h3 {
-                font-size: 1.1rem; /* Reduce el tamaño de los títulos de tarjeta/paso */
-            }
-            p, ul li {
-                font-size: 0.9rem; /* Ajusta el tamaño de los párrafos y listas para mejor lectura */
-            }
-
-            /* Ajuste del padding del contenedor principal y margen superior del contenido */
-            /* Las clases de Tailwind 'px-4' ya manejan esto, pero se puede refinar si es necesario */
-            .container.mx-auto.px-4 {
-                padding-left: 1rem !important; /* Asegura un padding adecuado en los lados */
-                padding-right: 1rem !important;
-            }
-            /* Ajusta el margen superior del main para que no se superponga con el header fijo */
-            main.mobile-main-mt-adjustment {
-                margin-top: 4.5rem !important; /* Reduce el margen superior para móviles */
-                padding-top: 1rem !important; /* Ajusta el padding superior para móviles */
-                padding-bottom: 1rem !important; /* Ajusta el padding inferior para móviles */
-            }
-
-            /* Secciones de detalle de servicio */
-            .service-detail-section {
-                padding: 1.5rem; /* Padding adecuado para las secciones de detalle en móvil */
-                margin-bottom: 1.5rem; /* Espaciado entre secciones */
-            }
-            .service-detail-section p {
-                line-height: 1.5; /* Altura de línea para mejor legibilidad */
-            }
-            .service-detail-section ul li {
-                padding-left: 1.2rem; /* Espacio para el checkmark */
-                margin-bottom: 0.5rem;
-            }
-            .service-detail-section ul li::before {
-                top: 2px; /* Alinea mejor el checkmark */
-            }
-
-            /* Tarjetas de fotos */
-            .photo-card {
-                padding: 1rem; /* Padding de las tarjetas de fotos */
-            }
-            .photo-card img {
-                width: 96px; /* Ajusta el tamaño de la imagen (equivalente a h-24 de Tailwind) */
-                height: 96px;
-                margin-bottom: 0.75rem; /* Margen inferior */
-            }
-            .photo-card h3 {
-                font-size: 1rem; /* Tamaño del título de la tarjeta de foto */
-            }
-            .photo-card p {
-                font-size: 0.8rem; /* Tamaño del texto de la tarjeta de foto */
-            }
-
-            /* Pasos del proceso (dentro de service-detail-section) */
-            /* Asegura que los pasos se apilen verticalmente en lugar de lado a lado */
-            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div {
-                flex-direction: column; /* Cambia a columna para apilar */
-                align-items: center; /* Centra el contenido horizontalmente */
-                text-align: center; /* Centra el texto */
-                padding: 1rem; /* Padding para cada paso individual */
-                margin-bottom: 1rem;
-            }
-            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div:last-child {
-                margin-bottom: 0; /* Eliminar margen inferior del último paso para evitar doble espacio */
-            }
-            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 {
-                width: 40px; /* Tamaño del número de paso */
-                height: 40px;
-                font-size: 1.4rem;
-                margin-bottom: 0.75rem; /* Espacio entre el número y el texto */
-            }
-            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div h3 {
-                font-size: 0.95rem; /* Tamaño del título del paso */
-            }
-            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div p {
-                font-size: 0.75rem; /* Tamaño del texto del paso */
-            }
+            body { font-size: 14px; }
+            h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.6rem; }
+            h3 { font-size: 1.1rem; }
+            p, ul li { font-size: 0.9rem; }
+            .container.mx-auto.px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+            main.mobile-main-mt-adjustment { margin-top: 4.5rem !important; padding-top: 1rem !important; padding-bottom: 1rem !important; }
+            .service-detail-section { padding: 1.5rem; margin-bottom: 1.5rem; }
+            .service-detail-section p { line-height: 1.5; }
+            .service-detail-section ul li { padding-left: 1.2rem; margin-bottom: 0.5rem; }
+            .service-detail-section ul li::before { top: 2px; }
+            .photo-card { padding: 1rem; }
+            .photo-card img { width: 96px; height: 96px; margin-bottom: 0.75rem; }
+            .photo-card h3 { font-size: 1rem; }
+            .photo-card p { font-size: 0.8rem; }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div { flex-direction: column; align-items: center; text-align: center; padding: 1rem; margin-bottom: 1rem; }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div:last-child { margin-bottom: 0; }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 { width: 40px; height: 40px; font-size: 1.4rem; margin-bottom: 0.75rem; }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div h3 { font-size: 0.95rem; }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div p { font-size: 0.75rem; }
         }
 
-        /* --- Media Query Adicional para Celulares Pequeños (max-width: 480px) --- */
-        /* Estos estilos se aplicarán en pantallas con un ancho máximo de 480px (móviles más pequeños) */
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem; /* Títulos aún más pequeños para pantallas muy compactas */
-            }
-            h2 {
-                font-size: 1.3rem;
-            }
-            p, ul li {
-                font-size: 0.85rem;
-            }
-            .service-detail-section {
-                padding: 1rem; /* Padding más compacto en celulares muy pequeños */
-                margin-bottom: 1rem;
-            }
-            .photo-card img {
-                width: 80px; /* Imágenes de diseñador más pequeñas */
-                height: 80px;
-            }
-            .photo-card h3 {
-                font-size: 0.9rem;
-            }
-            .photo-card p {
-                font-size: 0.7rem;
-            }
-            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 {
-                width: 36px; /* Números de paso más pequeños */
-                height: 36px;
-                font-size: 1.2rem;
-            }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.3rem; }
+            p, ul li { font-size: 0.85rem; }
+            .service-detail-section { padding: 1rem; margin-bottom: 1rem; }
+            .photo-card img { width: 80px; height: 80px; }
+            .photo-card h3 { font-size: 0.9rem; }
+            .photo-card p { font-size: 0.7rem; }
+            .service-detail-section .grid.grid-cols-1.md\:grid-cols-2 > div .flex-shrink-0 { width: 36px; height: 36px; font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -484,17 +378,14 @@
             </div>
 
             <section class="p-6 md:p-8 fade-in-on-scroll">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-stroke-cyan">Nuestros Especialistas en Diseño Gráfico</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-stroke-cyan">Nuestro Especialista en Tiendas Virtuales</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="photo-card">
-                        <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=Diseñador+1" alt="Foto de especialista en diseño gráfico 1">
-                    </div>
-                    <div class="photo-card">
-                        <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=Diseñador+2" alt="Foto de especialista en diseño gráfico 2">
-                    </div>
-                    <div class="photo-card">
-                        <img src="https://placehold.co/128x128/00FFFF/0A0A1A?text=Diseñador+3" alt="Foto de especialista en diseño gráfico 3">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
+                    <!-- Tarjeta única centrada -->
+                    <div class="photo-card md:col-start-2">
+                        <img src="./images/luis.webp" alt="Foto de Luis Goncalves">
+                        <h3 class="text-xl font-bold mt-4 text-byte-text-light">Luis Goncalves</h3>
+                        <p class="text-md text-byte-accent-cyan">Coordinador de Diseño Grafico</p>
                     </div>
                 </div>
             </section>
@@ -528,60 +419,34 @@
         </div>
     </footer>
 
-    <script type="text/javascript">
-        (function() {
-            // Create and append the chat-bot element
-            var chatBotEl = document.createElement('chat-bot');
-            chatBotEl.setAttribute('platform_id', '218acb1c-a252-488a-8fdb-ef64cefc2b31');
-            chatBotEl.setAttribute('user_id', 'adb83f2d-c425-41cd-83d8-2429c0d8d757');
-            chatBotEl.setAttribute('chatbot_id', '4fe04c04-bf4e-4d2f-8cbf-852439e9b05a');
-
-            var chatbotLink = document.createElement('a');
-            chatbotLink.href = 'https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral';
-            chatbotLink.innerHTML = 'chatsimple';
-            chatBotEl.appendChild(chatbotLink);
-
-            document.body.appendChild(chatBotEl);
-
-            // Dynamically load the external script
-            var cs = document.createElement('script');
-            cs.src = 'https://chatsimple-widget.s3.us-east-2.amazonaws.com/chat-bot-loader.js';
-            document.body.appendChild(cs);
-        })();
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const scrollToTopButton = document.getElementById('scroll-to-top-button');
-            const mainHeader = document.getElementById('main-header'); // Obtener el encabezado
-            let lastScrollY = 0; // Para rastrear la dirección del scroll
+            const mainHeader = document.getElementById('main-header');
+            let lastScrollY = 0;
 
-            // Lógica para el botón "Volver arriba" y el encabezado
             window.addEventListener('scroll', () => {
                 const currentScrollY = window.scrollY;
 
-                // Lógica para el botón "Volver arriba"
-                if (currentScrollY > 0) { // Muestra el botón apenas el usuario comience a desplazarse
+                if (currentScrollY > 0) {
                     scrollToTopButton.classList.add('show');
                 } else {
                     scrollToTopButton.classList.remove('show');
                 }
 
-                // Lógica para ocultar/mostrar el encabezado
-                if (currentScrollY > lastScrollY && currentScrollY > 0) { // Scrolling down and past the top
+                if (currentScrollY > lastScrollY && currentScrollY > 0) {
                     mainHeader.classList.add('header-hide');
                 } else if (currentScrollY < lastScrollY || currentScrollY === 0) {
-                    // Scrolling up or at the very top
                     mainHeader.classList.remove('header-hide');
                 }
 
-                lastScrollY = currentScrollY; // Actualizar la última posición de scroll
+                lastScrollY = currentScrollY;
             });
 
             scrollToTopButton.addEventListener('click', () => {
                 window.scrollTo({
                     top: 0,
-                    behavior: 'smooth' // Desplazamiento suave
+                    behavior: 'smooth'
                 });
             });
         });
