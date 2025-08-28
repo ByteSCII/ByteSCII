@@ -846,6 +846,18 @@
             <nav class="hidden sm:flex justify-end flex-grow">
                 <ul class="flex space-x-6 items-center">
                     <li class="relative group">
+                        <a href="#proceso" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
+                            <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
+                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
+                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </a>
+                        <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
+                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                            <a href="valoresyobjetivos.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
+                        </div>
+                    </li>
+                    <li class="relative group">
                         <a href="#servicios" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-servicios">
                             <span class="nav-menu-text-stroke-cyan">Servicios</span>
                             <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
@@ -864,27 +876,15 @@
                             <span class="nav-menu-text-stroke-cyan">Portafolio</span>
                         </a>
                     </li>
-                    <li class="relative group">
-                        <a href="#proceso" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect js-dropdown-toggle" data-dropdown-id="dropdown-quienes-somos">
-                            <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
-                            <span class="ml-1 transform transition-transform duration-300 js-arrow-icon">
-                                <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </span>
+                    <li>
+                        <a href="foro.html" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect">
+                            <span class="nav-menu-text-stroke-cyan">Escribe tu reseña</span>
                         </a>
-                        <div id="dropdown-quienes-somos" class="js-dropdown-menu hidden absolute left-1/2 -translate-x-1/2 mt-2 w-40 bg-byte-secondary-dark rounded-md shadow-lg py-1 z-20">
-                            <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                            <a href="valoresyobjetivos.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
-                        </div>
                     </li>
                     <!-- Botón de Eventos oculto para PC -->
                     <li class="hidden">
                         <a href="eventos.html" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect">
                             <span class="nav-menu-text-stroke-cyan">Eventos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="foro.html" class="header-nav-item text-base font-semibold transition duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-1 menu-link-hover-effect">
-                            <span class="nav-menu-text-stroke-cyan">Escribe tu reseña</span>
                         </a>
                     </li>
                 </ul>
@@ -906,6 +906,18 @@
     <nav id="mobile-menu" class="sm:hidden bg-byte-dark-bg py-4 px-4 hidden fixed top-20 w-full z-40 max-h-[calc(100vh-5rem)] overflow-y-auto">
         <ul class="flex flex-col space-y-4 text-center">
             <li>
+                <a href="#proceso" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
+                    <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
+                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
+                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </span>
+                </a>
+                <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
+                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
+                    <a href="valoresyobjetivos.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
+                </div>
+            </li>
+            <li>
                 <a href="#servicios" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-servicios-mobile">
                     <span class="nav-menu-text-stroke-cyan">Servicios</span>
                     <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
@@ -925,26 +937,14 @@
                 </a>
             </li>
             <li>
-                <a href="#proceso" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect js-dropdown-toggle-mobile" data-dropdown-id-mobile="dropdown-quienes-somos-mobile">
-                    <span class="nav-menu-text-stroke-cyan">Quiénes Somos</span>
-                    <span class="ml-1 transform transition-transform duration-300 js-arrow-icon-mobile">
-                        <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </span>
+                <a href="foro.html" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect">
+                    <span class="nav-menu-text-stroke-cyan">Escribe tu reseña</span>
                 </a>
-                <div id="dropdown-quienes-somos-mobile" class="js-dropdown-menu-mobile hidden bg-byte-secondary-dark rounded-md shadow-lg mt-2 py-1">
-                    <a href="misionyvision.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestra Misión y Visión</a>
-                    <a href="valoresyobjetivos.html" class="block px-4 py-2 text-sm text-byte-text-light hover:bg-byte-accent-cyan hover:text-byte-dark-bg rounded-md transition duration-300 transform hover:scale-105">Nuestros Valores y Objetivos</a>
-                </div>
             </li>
             <!-- Botón de Eventos oculto para móvil -->
             <li class="hidden">
                 <a href="eventos.html" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect">
                     <span class="nav-menu-text-stroke-cyan">Eventos</span>
-                </a>
-            </li>
-            <li>
-                <a href="foro.html" class="block text-lg font-semibold transition duration-300 ease-in-out py-2 cursor-pointer menu-link-hover-effect">
-                    <span class="nav-menu-text-stroke-cyan">Escribe tu reseña</span>
                 </a>
             </li>
             <li>
